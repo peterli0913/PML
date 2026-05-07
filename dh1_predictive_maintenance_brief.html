@@ -1163,18 +1163,22 @@
       <tr><td>1</td><td>303-VP007</td><td>真空机组</td><td>防爆</td><td class="num">1</td><td>初/二/三级 11/3/4 kW</td><td class="num">6</td><td class="num">18</td></tr>
       <tr><td>2</td><td>303-VP006</td><td>真空机组</td><td>防爆</td><td class="num">1</td><td>同上</td><td class="num">6</td><td class="num">—</td></tr>
       <tr><td>3</td><td>303-VP004</td><td>真空机组</td><td>防爆</td><td class="num">1</td><td>同上</td><td class="num">6</td><td class="num">—</td></tr>
-      <tr><td>4</td><td>3 号楼动力站</td><td>冰机</td><td>非防爆</td><td class="num">6</td><td>250 kW</td><td class="num">4</td><td class="num">24</td></tr>
-      <tr><td>5</td><td>3 号楼动力站</td><td>空压机</td><td>非防爆</td><td class="num">5</td><td>15/37/45 kW</td><td class="num">3</td><td class="num">15</td></tr>
-      <tr><td>6</td><td>3 号楼动力站</td><td>循环泵</td><td>非防爆</td><td class="num">36</td><td>7.5–45 kW</td><td class="num">2</td><td class="num">72</td></tr>
-      <tr><td>7</td><td>3 号楼动力站</td><td>凉水塔</td><td>非防爆</td><td class="num">6</td><td>5.5/7.5 kW</td><td class="num">3</td><td class="num">18</td></tr>
+      <tr><td>4</td><td>3 号楼动力站 × 5 站</td><td>冰机</td><td>非防爆</td><td class="num">6 / 站</td><td>250 kW</td><td class="num">4</td><td class="num">24 / 站</td></tr>
+      <tr><td>5</td><td>3 号楼动力站 × 5 站</td><td>空压机</td><td>非防爆</td><td class="num">5 / 站</td><td>15/37/45 kW</td><td class="num">3</td><td class="num">15 / 站</td></tr>
+      <tr><td>6</td><td>3 号楼动力站 × 5 站</td><td>循环泵</td><td>非防爆</td><td class="num">36 / 站</td><td>7.5–45 kW</td><td class="num">2</td><td class="num">72 / 站</td></tr>
+      <tr><td>7</td><td>3 号楼动力站 × 5 站</td><td>凉水塔</td><td>非防爆</td><td class="num">6 / 站</td><td>5.5/7.5 kW</td><td class="num">3</td><td class="num">18 / 站</td></tr>
       <tr><td>8</td><td>1–7 号楼纯水间</td><td>纯水系统纯水泵</td><td>非防爆</td><td class="num">13</td><td>4–15 kW</td><td class="num">2</td><td class="num">26</td></tr>
       <tr><td>9</td><td>2/4/5/6 号楼空调间</td><td>空调风机</td><td>非防爆</td><td class="num">14</td><td>7.5–37 kW</td><td class="num">2</td><td class="num">28</td></tr>
       <tr><td>10</td><td>2–7 号楼</td><td>离心机</td><td>防爆</td><td class="num">53</td><td>15–22 kW</td><td class="num">3</td><td class="num">159</td></tr>
       <tr style="background:#0f1f3d; color:#fff; font-weight:700;">
-        <td colspan="4">合计</td><td class="num">348</td><td>—</td><td class="num">—</td><td class="num">776</td>
+        <td colspan="4">合计（含动力站 × 5 站点扩展）</td><td class="num">348</td><td>—</td><td class="num">—</td><td class="num">776</td>
       </tr>
     </tbody>
   </table>
+  <div class="footnote">
+    注：序号 4-7 项位号为 "3号楼动力站*5"，意指 5 个站点位号合并统计；本表"台数 / 站"为单站数，
+    全场合计已按 5 站扩展。776 支传感器为方案配置清单分类合计（18 防爆无线 + 90 无线 4G + 509 有线振动 + 159 防爆有线振动）。
+  </div>
 
   <div class="grid-2" style="margin-top:24px;">
     <div>
@@ -1229,14 +1233,17 @@
 /* =========================================================================
    1. 设备饼图
    ========================================================================= */
+// 注：和利时方案中"3号楼动力站*5"的 *5 含义为"5 个站点位号"，
+// 故循环泵/冰机/空压机/凉水塔的实际台数为单站数 × 5。
+// 总台数 348 与方案 2.2 节合计一致。
 const equipData = [
+  { name: '循环泵',     count: 180, sensors: 360, color:'#3ec6ff' },
   { name: '离心机',     count: 53,  sensors: 159, color:'#ff7e3d' },
-  { name: '循环泵',     count: 36,  sensors: 72,  color:'#3ec6ff' },
+  { name: '冰机',       count: 30,  sensors: 120, color:'#1e40af' },
+  { name: '凉水塔',     count: 30,  sensors: 90,  color:'#7c3aed' },
+  { name: '空压机',     count: 25,  sensors: 75,  color:'#a855f7' },
   { name: '空调风机',   count: 14,  sensors: 28,  color:'#22d3ee' },
   { name: '纯水泵',     count: 13,  sensors: 26,  color:'#0ea5e9' },
-  { name: '冰机',       count: 6,   sensors: 24,  color:'#1e40af' },
-  { name: '凉水塔',     count: 6,   sensors: 18,  color:'#7c3aed' },
-  { name: '空压机',     count: 5,   sensors: 15,  color:'#a855f7' },
   { name: '真空机组',   count: 3,   sensors: 18,  color:'#dc2626' },
 ];
 
@@ -1533,6 +1540,14 @@ function updateAll(){
   updateGauges(curDay);
   updateLog(curDay);
 }
+// 支持 URL ?day=NN 用于自动化截图演示
+(function(){
+  const m = (location.search||'').match(/[?&]day=(\d+)/);
+  if (m) {
+    const v = Math.min(DAYS-1, Math.max(0, parseInt(m[1],10)));
+    curDay = v;
+  }
+})();
 
 (function bindDemo(){
   const slider = document.getElementById('timeSlider');
