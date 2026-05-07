@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>凯莱英 DH1 关键动设备预测性维护 — 副总裁汇报</title>
+<title>凯莱英 DH1 关键动设备预测性维护 — 推进汇报</title>
 <style>
   * { box-sizing: border-box; }
   html, body { margin:0; padding:0; }
@@ -306,7 +306,7 @@
 <header class="topbar">
   <div class="brand">
     凯莱英 · 数智化推进
-    <span class="badge">DH1 PdM 副总裁汇报</span>
+    <span class="badge">DH1 PdM 推进汇报</span>
   </div>
   <nav>
     <a href="#s-cover">封面</a>
@@ -335,7 +335,6 @@
     部署 7×24 小时温振监测 + AI 自动诊断 + EAM 工单闭环，实现"故障前 30 天预警、避免计划外停机、减少备件库存与过度维修"。
   </div>
   <div class="meta">
-    <div>汇报对象：集团副总裁</div>
     <div>覆盖范围（试点）：DH1 动力站、纯水间、空调间、车间防爆离心机 — 共 348 台动设备 / 776 支传感器</div>
     <div>核心问题：方案、供应商、节奏、预算 — 请决策</div>
   </div>
@@ -377,48 +376,84 @@
   </div>
 
   <div style="margin-top:26px;">
-    <h3 style="font-size:18px; margin-bottom:8px;">把损失算成账（按 DH1 动力站初步测算）</h3>
+    <h3 style="font-size:18px; margin-bottom:8px;">把损失算成账 — 一个待 EAM 数据回填的"估算框架"</h3>
+    <p style="font-size:13.5px; color:#3a4d72; margin: 0 0 12px; max-width: 1000px;">
+      下表中的数字<strong>不是来自 DH1 真实工单数据</strong>，而是按"行业公开基线 × 设备数量 × 单价/工时假设"搭起来的<strong>测算模板</strong>，
+      目的是让损失维度"看得见"。立项后第 1 个月的工作之一，就是用敦化分厂 EAM 工单 + 生产损失记录把每一项的真实值替换进来。
+    </p>
     <table class="kly">
       <thead>
-        <tr><th>损失类型</th><th>触发条件</th><th>单次量级（保守）</th><th>年发生次数（经验值）</th><th class="num">年损失估算</th></tr>
+        <tr>
+          <th style="width:14%;">损失类型</th>
+          <th style="width:22%;">触发条件</th>
+          <th style="width:16%;">单次量级</th>
+          <th style="width:11%;">年发次数</th>
+          <th style="width:24%;">测算依据（公式 / 假设来源）</th>
+          <th class="num">年损失估算</th>
+        </tr>
       </thead>
       <tbody>
         <tr>
           <td>冰机突发停机</td>
-          <td>螺杆压缩机轴承/油路异常</td>
-          <td>停机 4–8 h，影响 1–2 条生产线</td>
+          <td>螺杆压缩机轴承 / 油路异常 → 跳机</td>
+          <td>停机 4–8 h，影响 1–2 条 GMP 生产线</td>
           <td>1–2 次</td>
+          <td style="font-size:12.5px;">
+            <code>损失 = 停机时长 × 影响线数 × 线小时机会成本</code><br/>
+            假设 GMP 线小时机会成本 10–20 万/h（CDMO 行业基线）<br/>
+            次数：30 台冰机按 MTBF 3–5 年估
+          </td>
           <td class="num">≈ 80–150 万元</td>
         </tr>
         <tr>
-          <td>循环泵跳停</td>
-          <td>叶轮汽蚀 / 机械密封失效</td>
+          <td>循环泵 / 关键机泵跳停</td>
+          <td>叶轮汽蚀 / 机械密封失效 / 轴承抱死</td>
           <td>停机 2–4 h，需现场抢修</td>
           <td>3–5 次</td>
+          <td style="font-size:12.5px;">
+            <code>损失 = 抢修时长 × 影响范围 × 单价</code><br/>
+            180 台循环泵，按 ISO 关键机泵年故障率 2–3% 估<br/>
+            其中导致工艺停机的占 1/3
+          </td>
           <td class="num">≈ 40–90 万元</td>
         </tr>
         <tr>
           <td>过度维修 / 备件浪费</td>
-          <td>定期更换轴承、密封</td>
-          <td>到期更换但实际状态良好</td>
+          <td>到期更换轴承 / 密封 / 油料，实际状态完好</td>
           <td>—</td>
+          <td>持续发生</td>
+          <td style="font-size:12.5px;">
+            <code>节省额 = 动力站年维护费 × 行业 PdM 节省率</code><br/>
+            动力站年维护费按 200–300 万估<br/>
+            行业基线 −10% ~ −20%（参考 GE Vernova / Dataiku 案例）
+          </td>
           <td class="num">≈ 30–60 万元</td>
         </tr>
         <tr>
-          <td>巡检漏检导致小故障演变</td>
-          <td>初期异响 → 整机报废</td>
-          <td>整机更换或大修</td>
-          <td>1 次/2–3 年</td>
-          <td class="num">≈ 50–120 万元（折年化）</td>
+          <td>巡检漏检 → 小故障演变</td>
+          <td>初期异响未识别 → 整机报废 / 大修</td>
+          <td>单次大修 100–300 万</td>
+          <td>1 次 / 2–3 年</td>
+          <td style="font-size:12.5px;">
+            <code>年化 = 单次大修费用 ÷ 发生周期</code><br/>
+            按敦化分厂同类工厂经验：3 年内发生过<br/>
+            至少 1 起整机更换级故障
+          </td>
+          <td class="num">≈ 50–120 万元 / 年</td>
         </tr>
         <tr style="background:#fff7f1; font-weight:700;">
-          <td colspan="4">合计：动力站每年的"看不见但真实存在"的损失</td>
+          <td colspan="5">合计：动力站每年的"看不见但真实存在"的损失（估算框架值）</td>
           <td class="num" style="color:#ff7e3d;">200–420 万元 / 年</td>
         </tr>
       </tbody>
     </table>
     <div class="footnote">
-      数值为基于行业基线 + DH1 实际维护历史的保守估算，不计 GMP 偏差调查、客户交付延迟、安全事故等隐性成本；准确数据需结合敦化分厂 EAM 工单与生产损失记录核算。
+      <strong>数据来源说明（请评审时一并核对）：</strong>
+      ① "行业基线"全部来自封面 PART 06 / PART 07 引用的公开案例（辉瑞 GE Vernova、英国 Biopharma CIP、AstraZeneca、GSK、BMS Devens）；
+      ② 设备数量（30 台冰机、180 台循环泵）来自和利时方案 2.2 节的 *5 站点扩展；
+      ③ "GMP 线小时机会成本""动力站年维护费"为<strong>需向敦化分厂运营 / 财务核实的待替换占位</strong>；
+      ④ 不计 GMP 偏差调查、客户 NPI 延迟、安全事故等隐性成本（这部分通常远大于上表）。
+      <span style="color:#c2410c;">立项第 1 个月的硬动作：用 EAM 工单 + 财务系统拉取真实数据替换上表，作为后续 ROI 验证基线。</span>
     </div>
   </div>
 </section>
@@ -426,9 +461,9 @@
 <!-- ============ 2. 凯莱英现状 ============ -->
 <section class="slide" id="s-status" data-page="3">
   <h2 class="kicker">PART 02 · 凯莱英现状盘点</h2>
-  <h1>不是"从零起步"——蓝图早已画好，缺的是把这一段真正走完</h1>
+  <h1>不是"从零起步"——蓝图早已画好</h1>
   <p class="lead">
-    《凯莱英数智化立项规划设想初稿》（艾默生协作）已经把"设备预测性维护 Pilot"明确写在 <strong>Step2（2-3 年）</strong>路线里，DH1 动力站的空压机、离心泵、冰机已被选为试点设备。但现场调研之后，下一阶段工作搁置至今。
+    《凯莱英数智化立项规划设想初稿》（艾默生协作）已经把"设备预测性维护 Pilot"明确写在 <strong>Step2（2-3 年）</strong>路线里，DH1 动力站的空压机、离心泵、冰机已被选为试点设备。
   </p>
 
   <div class="grid-2">
@@ -505,8 +540,8 @@
 
   <div style="margin-top:24px; background:#f7f9fc; border-left: 4px solid #ff7e3d; padding: 14px 18px; border-radius: 6px;">
     <strong>结论一句话：</strong>
-    凯莱英在数智化战略层和数据底座层已经投入了相当资源，预测性维护的 Pilot 已经"差临门一脚"。
-    现在的关键决策不是"做不做"，而是"用谁的方案、覆盖到什么范围、用什么节奏推进"。
+    凯莱英在数智化战略层和数据底座层已经投入了相当资源，
+    后续关键决策是<strong>"用谁的方案、覆盖到什么范围、用什么节奏推进"</strong>。
   </div>
 </section>
 
@@ -687,7 +722,7 @@
       </div>
     </div>
     <div class="card">
-      <strong>可解释性 — 为什么副总裁要重点关注这一条</strong>
+      <strong>可解释性</strong>
       <p style="font-size:13.5px; margin: 6px 0 0;">
         每一次报警都能给出"故障类型 + 部位 + 严重程度 + 频谱证据 + 处置建议"。
         这意味着报警可以在 GMP 框架下作为<strong>偏差证据</strong>使用，而不是黑箱推荐。
@@ -1037,7 +1072,7 @@
 <!-- ============ 9. 风险与控制 ============ -->
 <section class="slide" id="s-risk" data-page="10">
   <h2 class="kicker">PART 09 · 风险与控制</h2>
-  <h1>务实地把潜在坑点摆出来，并给出缓解动作</h1>
+  <h1>主要风险与对应控制措施</h1>
 
   <table class="kly">
     <thead>
@@ -1105,7 +1140,7 @@
 <!-- ============ 10. 决策建议 ============ -->
 <section class="slide" id="s-decision" data-page="11">
   <h2 class="kicker">PART 10 · 决策建议</h2>
-  <h1>请副总裁定的 4 件事</h1>
+  <h1>重点决策 4 件事</h1>
 
   <div class="grid-2">
     <div class="card accent">
@@ -1141,11 +1176,11 @@
   </div>
 
   <div style="margin-top:24px; background: linear-gradient(135deg, #0f1f3d, #1f3870); color:#fff; border-radius:14px; padding:24px 28px;">
-    <h3 style="margin-top:0; color:#fbbf24;">总结：一句话给副总裁的判断</h3>
+    <h3 style="margin-top:0; color:#fbbf24;">总结</h3>
     <p style="font-size:16px; line-height: 1.7; max-width:1000px;">
-      <strong>预测性维护对凯莱英不是"要不要做"，而是"现在已经卡在 Step2 的关键节点"。</strong>
+      <strong>预测性维护对凯莱英现在是处在 Step2 的关键节点。</strong>
       底座（IP.21、传感器规划、试点设备）都已经具备，外部成熟方案（和利时、信力共擎）能直接接上来。
-      建议本季度内启动 DH1 试点，把这一段路走完，<strong>12 个月内见到第一份实证 ROI 报告</strong>，
+      建议尽快启动 DH1 试点，把这一段路走完，<strong>12 个月内见到第一份实证 ROI 报告</strong>，
       为 Step3 的集团级 OT 大数据 + AI 应用奠定可复制的基础。
     </p>
   </div>
