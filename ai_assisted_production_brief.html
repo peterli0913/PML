@@ -523,7 +523,7 @@
 
   <div class="footnote">
     图例：★ = 本汇报后续详细展开的方向；蓝框 = 与 CDMO 业务高度相关的环节。
-    "凯莱英已做"项基于公开报道（每经 2024-04 智能制造技术中心、CIO 发展中心 2024-11 实验室数智化建设访谈）。
+    "凯莱英基础"项基于公开报道（每经 2024-04 智能制造技术中心、CIO 发展中心 2024-11 实验室数智化建设访谈）。
   </div>
 </section>
 
@@ -2166,14 +2166,12 @@ function getCaseSources(key) {
   });
 
   // 点击 → 展开下方详情面板（含来源链接）
-  tbody.addEventListener('click', e => {
-    const td = e.target.closest('td');
-    if (!td || td.classList.contains('row')) return;
-    const key = `${td.dataset.row}|${td.dataset.col}`;
+  function showHeatDetail(rowName, colName) {
+    const key = `${rowName}|${colName}`;
     const summary = getCaseSummary(key);
     const sources = getCaseSources(key);
 
-    document.getElementById('heatDetailTitle').innerHTML = `${td.dataset.row} <span style="color:#9aabd6; font-weight:400;">×</span> ${td.dataset.col}`;
+    document.getElementById('heatDetailTitle').innerHTML = `${rowName} <span style="color:#9aabd6; font-weight:400;">×</span> ${colName}`;
     document.getElementById('heatDetailBody').innerHTML = summary;
 
     const linksEl = document.getElementById('heatDetailLinks');
@@ -2184,8 +2182,22 @@ function getCaseSources(key) {
       linksEl.innerHTML = '<span style="color:#9aabd6; font-size:12px;">本格暂无可公开链接的案例资料。</span>';
     }
     document.getElementById('heatDetail').style.display = 'block';
+  }
+  tbody.addEventListener('click', e => {
+    const td = e.target.closest('td');
+    if (!td || td.classList.contains('row')) return;
+    showHeatDetail(td.dataset.row, td.dataset.col);
     document.getElementById('heatDetail').scrollIntoView({behavior: 'smooth', block: 'nearest'});
   });
+  // URL 参数 ?heat=Sanofi|供应链 自动展示某格的详情（用于截图演示）
+  const m = (location.search||'').match(/[?&]heat=([^&]+)/);
+  if (m) {
+    try {
+      const v = decodeURIComponent(m[1]);
+      const [r, c] = v.split('|');
+      if (r && c) showHeatDetail(r, c);
+    } catch(e) {}
+  }
 })();
 
 /* =========================================================================
