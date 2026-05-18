@@ -294,15 +294,13 @@
     <a href="#s-cover">封面</a>
     <a href="#s-product">产品</a>
     <a href="#s-gap">关键问题</a>
-    <a href="#s-xlate">术语对照</a>
-    <a href="#s-scenarios">7 场景</a>
+    <a href="#s-scenarios">5 场景</a>
     <a href="#s-fdc-demo">FDC Demo</a>
     <a href="#s-infra">基础设施</a>
     <a href="#s-iso">数据隔离</a>
     <a href="#s-diff">原理异同</a>
-    <a href="#s-compare">同行对比</a>
-    <a href="#s-roadmap">推进思路</a>
-    <a href="#s-decision">决策建议</a>
+    <a href="#s-compare">行业对比</a>
+    <a href="#s-appendix">附录</a>
   </nav>
   <button class="modeswitch" id="btnDeck">▶ 演示模式</button>
 </header>
@@ -321,7 +319,7 @@
     <div><strong>会后观察</strong>：智现未来对自家产品讲得清楚，但未能给出"如何平移到 CDMO"和"凯莱英需准备什么基础设施"的具体路径</div>
     <div><strong>本汇报立意</strong>：评估责任在凯莱英自己 — 不等供应商方案，主动设计平移逻辑、基础设施清单、数据隔离架构</div>
     <div><strong>核心结论</strong>：业务逻辑可平移（Foundry ↔ CDMO 同构）、技术算法可平移、合规和领域知识需重做；建议双方向小规模 PoC + 同步多供应商对照</div>
-    <div><strong>包含</strong>：5 个交互可视化 / 18 章节 / 跟华为云盘古制药 / Aizon / AVEVA / 中控等 6 家供应商横向对比</div>
+    <div><strong>包含</strong>：4 个交互 demo（FDC / 技术转移 / Q&A LLM / PdM）+ 1 个互动雷达图 + 跟华为云盘古制药 / Aizon / AVEVA / 中控 等行业标杆横向对比</div>
   </div>
 </section>
 
@@ -340,18 +338,6 @@
       <div style="font-size:11.5px; color:#5b6a8a; letter-spacing:.5px; margin-bottom:6px;">Fault Detection & Classification</div>
       <div style="font-size:12.5px;">多变量实时异常检测 + 自动分类。秒级捕捉"每个参数都正常但组合反常"的早期偏差</div>
       <div style="margin-top:8px;"><span class="tag">★★★ 成熟度高</span></div>
-    </div>
-    <div class="card purple">
-      <div style="font-weight:700; color:#7c3aed; font-size:14px;">② RMS</div>
-      <div style="font-size:11.5px; color:#5b6a8a; letter-spacing:.5px; margin-bottom:6px;">Recipe Management System</div>
-      <div style="font-size:12.5px;">工艺配方版本化管理 + 权限 + 变更控制。半导体几十到上千参数的配方治理</div>
-      <div style="margin-top:8px;"><span class="tag">★★★</span></div>
-    </div>
-    <div class="card purple">
-      <div style="font-weight:700; color:#7c3aed; font-size:14px;">③ APC</div>
-      <div style="font-size:11.5px; color:#5b6a8a; letter-spacing:.5px; margin-bottom:6px;">Advanced Process Control</div>
-      <div style="font-size:12.5px;">先进过程控制：模型预测控制（MPC）+ R2R 批间反馈 + 闭环自适应</div>
-      <div style="margin-top:8px;"><span class="tag">★★★</span></div>
     </div>
     <div class="card purple">
       <div style="font-weight:700; color:#7c3aed; font-size:14px;">④ 技术转移</div>
@@ -457,21 +443,1336 @@
       然后用这套"<strong>需求规格书</strong>"反过来考核智现未来能不能配合实现。
     </p>
     <p style="font-size:14px; color:#cdd6e8; margin-top: 12px; max-width:1100px;">
-      下面 PART 03-09 就是这套需求规格书。读完后，副本可以发给智现未来，让他们针对每一项给"能 / 部分能 / 不能"的明确表态。
+      下面 PART 03-08 就是这套需求规格书。读完后，副本可以发给智现未来，让他们针对每一项给"能 / 部分能 / 不能"的明确表态。
     </p>
   </div>
 </section>
 
-<!-- ============ S4 翻译表 ============ -->
-<section class="slide" id="s-xlate" data-page="4">
-  <h2 class="kicker">PART 03 · 半导体 ↔ CDMO 制药 术语对照</h2>
-  <h1>把智现未来的"行话"翻译成凯莱英能听懂的话 — 这是平移可行性的基础</h1>
+<!-- ============ S5-S11 七大场景 — 详细输入输出 ============ -->
+<section class="slide" id="s-scenarios" data-page="4">
+  <h2 class="kicker">PART 03 · 智现未来产品在凯莱英的应用场景</h2>
+  <h1>每个场景:输入 → AI 处理 → 输出 → 解决什么 → 工作流程 → demo</h1>
   <p class="lead">
-    业界很少有人把这两个行业放在一起讲，但<strong>"软"的逻辑层（数据建模、批次追溯、根因分析、AI 算法）出奇地相似</strong>，
-    "硬"的物理层（设备、工艺、合规）完全不同。下表把核心术语逐项对应起来，理解这张表是后续所有方案的前提。
+    覆盖 <strong>5 个产品</strong>的应用场景（FDC、技术转移、问答模型、预测性维护、Intelligence Hub）；
+    每个按"工艺工程师能验收的颗粒度"写，后续配 4 个交互 demo（FDC 实时检测、技术转移设备等效性、Q&A 对话流、PdM 健康分数）。<br/>
+    <span style="color:#7a89a8;">注：RMS / APC 因合规边界 + GMP 验证负担暂不纳入本次评估范围。</span>
   </p>
 
-  <table class="xlate">
+  <!-- 场景 1: FDC -->
+  <div class="card" style="margin-bottom: 16px; border-left: 5px solid #7c3aed; padding: 18px 22px;">
+    <div style="display:flex; justify-content: space-between; align-items: baseline;">
+      <h3 style="margin: 0; color:#7c3aed;">① FDC → 反应/结晶过程的多变量偏差实时监控</h3>
+      <span class="pill purple">优先级 ★★★ 强烈推荐第一个 PoC</span>
+    </div>
+    <p style="font-size:14px; margin: 8px 0;">
+      在反应过程中实时融合温度、压力、流量、pH、UV、IR 等 20-50 个传感器数据，
+      用<strong>多变量异常检测</strong>（PCA / Autoencoder / Hotelling T²）发现"每个参数单看都正常、但组合起来反常"的早期偏差，
+      并自动分类成已知偏差模式，秒级推送给工艺工程师。
+    </p>
+
+    <div class="grid-3" style="margin-top: 12px;">
+      <div class="card info" style="margin:0;">
+        <strong style="font-size:13px;">输入</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • DCS 实时数据（20-50 tag × 秒级）<br/>
+          • 在线 PAT（IR / 拉曼 / HPLC）<br/>
+          • 历史批次偏差标注库<br/>
+          • 当前批次工艺配方
+        </div>
+      </div>
+      <div class="card purple" style="margin:0;">
+        <strong style="font-size:13px;">AI 处理</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • 多变量统计模型（PCA / T² / SPE）<br/>
+          • 异常检测（Autoencoder / LSTM）<br/>
+          • 已知偏差分类器（已训练）<br/>
+          • RCA 关联检索
+        </div>
+      </div>
+      <div class="card accent" style="margin:0;">
+        <strong style="font-size:13px;">输出</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • 异常事件 + 严重等级 + 时间戳<br/>
+          • 自动分类的偏差类型<br/>
+          • 推荐响应动作（推 SCADA + 移动 APP）<br/>
+          • 偏差调查初稿（推 QA Copilot）
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top: 12px;">
+      <div>
+        <strong style="font-size:13px;">解决什么问题</strong>
+        <ul class="bul tight" style="margin-top:4px;">
+          <li>传统 SCADA 单点阈值报警漏报误报多（典型漏报率 30%+）</li>
+          <li>偏差发现时机晚（人工注意到时往往已不可逆）</li>
+          <li>QA 偏差调查从手工 30-90 天压到草稿 5-15 天</li>
+          <li>重复偏差自动识别避免漏看</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="font-size:13px;">边界 / 凯莱英要做的事</strong>
+        <ul class="bul tight" style="margin-top:4px;">
+          <li>历史偏差标注库（6-12 月由资深 QA 配合做）</li>
+          <li>反应釜 DCS 数据齐整（缺 tag 要补传感器）</li>
+          <li>第一阶段定位"决策辅助"，不进 GMP 控制回路</li>
+          <li>模型对从未见过的"新偏差"召回率有限</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 场景 4: 技术转移 -->
+  <div class="card" style="margin-bottom: 16px; border-left: 5px solid #7c3aed; padding: 18px 22px;">
+    <div style="display:flex; justify-content: space-between; align-items: baseline;">
+      <h3 style="margin: 0; color:#7c3aed;">② 技术转移 / Golden Path → R&D 到生产的工艺移植加速</h3>
+      <span class="pill purple">优先级 ★★★ CDMO 业务核心</span>
+    </div>
+    <p style="font-size:14px; margin: 8px 0;">
+      半导体里 WRA + Golden Path 推荐：根据历史成功 wafer 的工艺路径，给新产品推荐最佳生产路径。
+      CDMO 对应：研发到中试到商业化的工艺包移植 + 设备等效性比对 + 黄金批次推荐。
+      <strong>这一项对 CDMO 业务的杠杆最大</strong> — 缩短 NPI 时间 = 提前确认收入 + 客户复购。
+    </p>
+
+    <div class="grid-3" style="margin-top: 12px;">
+      <div class="card info" style="margin:0;">
+        <strong style="font-size:13px;">输入</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • 研发实验数据（小试/中试）<br/>
+          • 设备能力库（不同反应釜的搅拌/传热）<br/>
+          • 商业化车间设备清单<br/>
+          • 历史相似项目放大数据
+        </div>
+      </div>
+      <div class="card purple" style="margin:0;">
+        <strong style="font-size:13px;">AI 处理</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • 设备等效性比对（雷诺数、传热系数）<br/>
+          • 历史项目相似度检索<br/>
+          • 工艺参数自动外推<br/>
+          • 放大风险识别
+        </div>
+      </div>
+      <div class="card accent" style="margin:0;">
+        <strong style="font-size:13px;">输出</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • 商业化车间工艺包草案<br/>
+          • 放大风险清单<br/>
+          • 设备改造建议<br/>
+          • 同类历史项目偏差档案链接
+        </div>
+      </div>
+    </div>
+
+    <!-- Tech Transfer Demo: 设备等效性 + Golden Path 推荐 -->
+    <div style="margin-top: 16px; background: linear-gradient(180deg,#1a0a3d 0%,#2a1a55 100%); color:#fff; border-radius: 12px; padding: 20px;">
+      <div style="font-size:12.5px; color:#cdd6e8; margin-bottom: 12px;">
+        <strong style="color:#c4b5fd;">📊 Demo · 设备等效性比对 + Golden Path 推荐</strong>　|　
+        把一个研发项目从 50L 玻璃反应釜（R&D）放大到 5000L 不锈钢反应釜（商业化），AI 自动比对差异 + 推荐参数调整。
+      </div>
+      <svg viewBox="0 0 1200 380" style="width:100%; height:auto;">
+        <!-- 左侧研发设备 -->
+        <rect x="40" y="20" width="280" height="340" rx="10" fill="rgba(34,211,238,0.08)" stroke="#22d3ee" stroke-width="2"/>
+        <text x="180" y="46" text-anchor="middle" font-size="14" font-weight="700" fill="#22d3ee">🧪 研发反应器 (R&amp;D)</text>
+        <text x="180" y="64" text-anchor="middle" font-size="11" fill="#9aabd6">50 L 玻璃夹套搅拌釜</text>
+        <g font-size="12" fill="#fff">
+          <text x="60" y="100">搅拌器: 锚式</text>
+          <text x="60" y="124">转速: 200 rpm</text>
+          <text x="60" y="148">搅拌雷诺数 Re: <tspan fill="#22d3ee" font-weight="700">12,500</tspan></text>
+          <text x="60" y="172">传热面积/体积: <tspan fill="#22d3ee" font-weight="700">3.2 m²/m³</tspan></text>
+          <text x="60" y="196">传热系数 U: <tspan fill="#22d3ee" font-weight="700">450 W/m²·K</tspan></text>
+          <text x="60" y="220">夹套介质: 油浴 80℃</text>
+          <text x="60" y="244">停留时间: 4 h</text>
+          <text x="60" y="268">材质: 玻璃</text>
+        </g>
+        <rect x="60" y="290" width="240" height="55" rx="6" fill="rgba(34,211,238,0.15)"/>
+        <text x="180" y="312" text-anchor="middle" font-size="11" fill="#22d3ee" font-weight="700">实测最佳批次（10 批均值）</text>
+        <text x="180" y="330" text-anchor="middle" font-size="12" fill="#fff">收率 92.5% · 杂质 A 0.18%</text>
+
+        <!-- 中间 AI 处理 -->
+        <g transform="translate(360, 70)">
+          <rect width="280" height="260" rx="10" fill="rgba(168,85,247,0.15)" stroke="#a855f7" stroke-width="2"/>
+          <text x="140" y="32" text-anchor="middle" font-size="14" font-weight="700" fill="#c4b5fd">🤖 智现未来 WRA + Golden Path</text>
+          <g font-size="11.5" fill="#fff">
+            <text x="20" y="62">① 设备能力比对</text>
+            <text x="32" y="80" fill="#cbd5e1" font-size="11">→ Re 比研发低 30% (8,700)</text>
+            <text x="32" y="96" fill="#cbd5e1" font-size="11">→ 传热面积/体积 差 50%</text>
+            <text x="32" y="112" fill="#cbd5e1" font-size="11">→ 传热系数差 12%</text>
+
+            <text x="20" y="138">② 历史相似项目检索</text>
+            <text x="32" y="156" fill="#cbd5e1" font-size="11">→ 17 个历史相似项目</text>
+            <text x="32" y="172" fill="#cbd5e1" font-size="11">→ Top 3 项目作为 Golden Batch</text>
+
+            <text x="20" y="198">③ 参数自动外推 + 风险识别</text>
+            <text x="32" y="216" fill="#cbd5e1" font-size="11">→ 反应时间延长系数 ×1.2</text>
+            <text x="32" y="232" fill="#cbd5e1" font-size="11">→ 风险点：放热不均匀</text>
+          </g>
+        </g>
+        <!-- 箭头 R&D → AI -->
+        <path d="M325,180 L355,180" stroke="#94a3b8" stroke-width="2" marker-end="url(#tt-arr)"/>
+        <!-- 箭头 AI → 商业化 -->
+        <path d="M645,180 L675,180" stroke="#94a3b8" stroke-width="2" marker-end="url(#tt-arr)"/>
+        <defs>
+          <marker id="tt-arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="#94a3b8"/>
+          </marker>
+        </defs>
+
+        <!-- 右侧商业化设备推荐 -->
+        <rect x="680" y="20" width="480" height="340" rx="10" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="2"/>
+        <text x="920" y="46" text-anchor="middle" font-size="14" font-weight="700" fill="#fbbf24">🏭 商业化反应器 (推荐方案)</text>
+        <text x="920" y="64" text-anchor="middle" font-size="11" fill="#9aabd6">5000 L 不锈钢夹套搅拌釜 + AI 推荐工艺参数</text>
+
+        <g font-size="12" fill="#fff">
+          <text x="700" y="100">搅拌器: 推进式</text>
+          <text x="700" y="124">转速: <tspan fill="#fbbf24" font-weight="700">120 rpm</tspan> <tspan fill="#cbd5e1" font-size="11">（AI 建议；原 80 rpm 不够）</tspan></text>
+          <text x="700" y="148">搅拌雷诺数 Re: <tspan fill="#fbbf24" font-weight="700">8,700</tspan> <tspan fill="#cbd5e1" font-size="11">（仍 &gt; 4000 湍流 ✓）</tspan></text>
+          <text x="700" y="172">传热面积/体积: <tspan fill="#fbbf24" font-weight="700">1.6 m²/m³</tspan> <tspan fill="#cbd5e1" font-size="11">（差 50%）</tspan></text>
+          <text x="700" y="196">传热系数 U: <tspan fill="#fbbf24" font-weight="700">395 W/m²·K</tspan></text>
+          <text x="700" y="220">夹套介质: <tspan fill="#fbbf24" font-weight="700">油浴 75℃</tspan> <tspan fill="#cbd5e1" font-size="11">（AI 建议下调 5℃ 补偿）</tspan></text>
+          <text x="700" y="244">停留时间: <tspan fill="#fbbf24" font-weight="700">4.8 h</tspan> <tspan fill="#cbd5e1" font-size="11">（AI 建议 ×1.2）</tspan></text>
+          <text x="700" y="268">材质: 不锈钢</text>
+        </g>
+
+        <rect x="700" y="290" width="440" height="55" rx="6" fill="rgba(251,191,36,0.15)"/>
+        <text x="920" y="310" text-anchor="middle" font-size="11" fill="#fbbf24" font-weight="700">⚠ AI 识别风险点</text>
+        <text x="920" y="328" text-anchor="middle" font-size="11.5" fill="#fff">放热不均（建议增加釜内 3 个温度测点）+ 物料粘度变化（建议中段补加溶剂）</text>
+      </svg>
+      <div style="margin-top: 10px; padding: 8px 14px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: #cdd6e8;">
+        <strong style="color:#22d3ee;">工作流程</strong>：研发把工艺包提交 → AI 自动比对设备等效性（搅拌 / 传热 / 物料）→ 检索历史相似项目找 Golden Batch → 自动外推参数 + 风险点 → 工程师审核签发商业化工艺包。
+        典型项目 NPI 时间从 6-9 个月压到 3-4 个月（参考 BMS Devens NPI −42%）。
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top: 12px;">
+      <div>
+        <strong style="font-size:13px;">解决什么</strong>
+        <ul class="bul tight" style="margin-top:4px;">
+          <li>NPI 时间长（参考 BMS NPI −42%）</li>
+          <li>首批成功率低、客户交付延期</li>
+          <li>工艺包不完整、隐性知识丢失</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="font-size:13px;">边界 / 凯莱英要做的事</strong>
+        <ul class="bul tight" style="margin-top:4px;">
+          <li>需要凯莱英历史项目数据沉淀（数百个项目）</li>
+          <li>设备能力库要标准化（搅拌雷诺数等参数）</li>
+          <li>需 R&D 部门 + 生产部门 KPI 对齐配合</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 场景 5: Q&A LLM -->
+  <div class="card" style="margin-bottom: 16px; border-left: 5px solid #7c3aed; padding: 18px 22px;">
+    <div style="display:flex; justify-content: space-between; align-items: baseline;">
+      <h3 style="margin: 0; color:#7c3aed;">③ "灵犀" 问答模型 → QA 偏差 Copilot + SOP 助手 + 监管文档生成</h3>
+      <span class="pill purple">监管时间窗已打开</span>
+    </div>
+    <p style="font-size:14px; margin: 8px 0;">
+      智现未来"灵犀"是半导体专属 LLM。在凯莱英应用为<strong>制药专属 LLM</strong> — 基于凯莱英历史偏差库 + SOP + MBR + 工艺包向量化，
+      用 <strong>RAG（检索增强生成）</strong>给 QA 工程师做偏差调查 / CAPA 拟稿 / 历史相似偏差检索。
+      AI 不替代签字，但把"找历史、写草稿、填模板"80% 的体力活省下来。
+    </p>
+
+    <div class="card info" style="margin: 10px 0;">
+      <strong style="font-size:13px;">📋 关于"监管时间窗已打开"——什么是 FDA CSA 和 EU Annex 22</strong>
+      <p style="font-size:13px; margin: 6px 0 0; line-height: 1.7;">
+        过去 GxP（药品 GMP）领域对 AI/ML 应用的合规要求一直模糊，监管不确定性是各家药企不敢落地 AI 的最大顾虑。
+        2025 年起两份关键文件正式生效，<strong>第一次明确告诉行业"AI 在 GxP 用什么条件下合规"</strong>——
+      </p>
+      <ul class="bul tight" style="margin-top:8px;">
+        <li>
+          <strong>FDA CSA（Computer Software Assurance）</strong>
+          <span style="color:#5b6a8a;">— 2025-09 终稿发布</span>
+          <a href="https://www.fda.gov/regulatory-information/search-fda-guidance-documents/computer-software-assurance-production-and-quality-system-software" target="_blank" rel="noopener" style="color:#3b82f6; font-size:12px;">[FDA 官方原文 ↗]</a><br/>
+          <span style="font-size:12.5px; color:#3a4d72;">
+            美国 FDA 关于"计算机化系统验证"的新指南。
+            把传统 GAMP 5 "证明一切系统都对"的笨重模式，改成"基于风险的、聚焦核心功能"的轻量模式。
+            <strong>明确支持 AI/ML 在 GxP 活动中的使用</strong>，鼓励"先用、迭代、有审计追踪即可"。
+          </span>
+        </li>
+        <li>
+          <strong>EU GMP Annex 22</strong>
+          <span style="color:#5b6a8a;">— 2025 起施行</span>
+          <a href="https://health.ec.europa.eu/medicinal-products/eudralex/eudralex-volume-4_en" target="_blank" rel="noopener" style="color:#3b82f6; font-size:12px;">[EU EudraLex Volume 4 ↗]</a><br/>
+          <span style="font-size:12.5px; color:#3a4d72;">
+            欧盟 GMP 指南<strong>第一次正式承认 AI 系统</strong>可作为药品放行决策的辅助工具。
+            要求"风险分级 + 透明可解释 + 人工最终签字 + 持续监控漂移"四个原则。
+          </span>
+        </li>
+      </ul>
+      <p style="font-size:13px; margin: 10px 0 0; color:#1e3a8a;">
+        <strong>对凯莱英的意义</strong>：现在做 AI QA Copilot <strong>有了明确合规路径</strong>——
+        早做的人吃到"合规先发优势"红利，晚做要在监管检查时面对越来越严的"为什么你们没做"的反向问询。
+      </p>
+    </div>
+
+    <div class="grid-3" style="margin-top: 12px;">
+      <div class="card info" style="margin:0;">
+        <strong style="font-size:13px;">输入</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • 当前偏差描述<br/>
+          • 该批次 DCS 实时数据<br/>
+          • 历史偏差库（向量化）<br/>
+          • SOP / MBR / 工艺包知识库
+        </div>
+      </div>
+      <div class="card purple" style="margin:0;">
+        <strong style="font-size:13px;">AI 处理</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • RAG 检索 Top-K 相似偏差<br/>
+          • LLM 综合生成根因建议<br/>
+          • 根据 SOP / CAPA 模板拟稿<br/>
+          • 标出所有引用源
+        </div>
+      </div>
+      <div class="card accent" style="margin:0;">
+        <strong style="font-size:13px;">输出</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • 偏差调查初稿<br/>
+          • CAPA 模板（已填关键字段）<br/>
+          • 同类历史偏差关联链接<br/>
+          • 引用源文档 + 条款
+        </div>
+      </div>
+    </div>
+
+    <!-- Q&A LLM Demo: 偏差调查对话流 -->
+    <div style="margin-top: 16px; background: linear-gradient(180deg,#1a0a3d 0%,#2a1a55 100%); color:#fff; border-radius: 12px; padding: 20px;">
+      <div style="font-size:12.5px; color:#cdd6e8; margin-bottom: 12px;">
+        <strong style="color:#c4b5fd;">💬 Demo · QA 偏差 Copilot 对话流（3 步）</strong>　|　
+        QA 工程师把偏差描述输给 AI，AI 检索历史相似偏差 + 生成 CAPA 草稿。<strong>所有 AI 输出都引用源文档可追溯</strong>。
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+        <!-- 用户输入 -->
+        <div style="background: rgba(34,211,238,0.08); border: 1px solid #22d3ee; border-radius: 8px; padding: 14px;">
+          <div style="font-size:11px; color:#22d3ee; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom:6px;">👤 QA 工程师输入</div>
+          <div style="background: rgba(0,0,0,0.2); border-radius:6px; padding: 10px; font-family: monospace; font-size: 12.5px; line-height: 1.6;">
+            <span style="color:#94a3b8;">[2026-05-15 14:32]</span><br/>
+            "今天上午 11:17，反应器 R-201 跑批次 <strong style="color:#fbbf24;">B240515-03</strong> 时，搅拌器扭矩在反应 3 小时左右<strong style="color:#fbbf24;">突然降到正常值的 60%</strong>，持续约 45 秒后恢复。事件期间温度、压力、流量都在 SOP 规定范围内。<strong style="color:#fbbf24;">这是偏差吗？根因可能是什么？需要写 CAPA 吗？</strong>"
+          </div>
+        </div>
+
+        <!-- AI 处理过程 -->
+        <div style="background: rgba(168,85,247,0.10); border: 1px solid #a855f7; border-radius: 8px; padding: 14px;">
+          <div style="font-size:11px; color:#c4b5fd; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom:6px;">🤖 灵犀 RAG 处理（2.3 秒内）</div>
+          <div style="font-size:12px; line-height: 1.7;">
+            <div>✓ <strong>步骤 1</strong>：向量检索历史偏差库 → 找到 <strong style="color:#22d3ee;">8 条相似事件</strong>（搅拌扭矩瞬时下降）</div>
+            <div>✓ <strong>步骤 2</strong>：检索 SOP-R201-V3 + MBR + 工艺机理库</div>
+            <div>✓ <strong>步骤 3</strong>：分析 DCS 实时数据（扭矩 / 温度 / 流量 / 物料指标）</div>
+            <div>✓ <strong>步骤 4</strong>：根因假设排序 + CAPA 草稿生成</div>
+            <div style="margin-top: 8px; padding: 6px 10px; background: rgba(0,0,0,0.2); border-radius:6px; font-size: 11.5px; color:#cbd5e1;">
+              <span style="color:#22d3ee;">引用源</span>：D-202401-17、D-202309-22、D-202203-08、SOP-R201-V3 §4.2、MBR B240515-03、ICH Q9 风险评估
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- AI 输出 -->
+      <div style="margin-top: 12px; background: rgba(16,185,129,0.10); border: 1px solid #10b981; border-radius: 8px; padding: 14px;">
+        <div style="font-size:11px; color:#10b981; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom:8px;">📄 AI 输出 · 偏差调查初稿（QA 工程师审核签字前）</div>
+        <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; font-size:12px;">
+          <div>
+            <strong style="color:#a7f3d0;">事件分类</strong><br/>
+            <span style="color:#fff;">⚠ Minor Deviation</span><br/>
+            <span style="color:#cbd5e1; font-size:11px;">偏差等级评估：低风险（参考 ICH Q9 + 历史 8/8 例均未影响产品质量）</span>
+          </div>
+          <div>
+            <strong style="color:#a7f3d0;">根因假设（按概率排序）</strong>
+            <ol style="margin: 4px 0 0 16px; padding: 0; font-size:11.5px; line-height:1.6;">
+              <li><span style="color:#fbbf24;">75%</span> 机械密封短暂卡涩（D-202401-17 同型号设备 6 例）</li>
+              <li><span style="color:#fbbf24;">15%</span> 物料粘度瞬时变化（CPP 表 §3.1 临界值附近）</li>
+              <li><span style="color:#fbbf24;">10%</span> 传感器漂移（建议校准对比）</li>
+            </ol>
+          </div>
+          <div>
+            <strong style="color:#a7f3d0;">CAPA 建议（草稿）</strong>
+            <ol style="margin: 4px 0 0 16px; padding: 0; font-size:11.5px; line-height:1.6;">
+              <li>✓ 取样 GC-MS 验证本批含量与杂质（确认产品质量）</li>
+              <li>✓ 下批前对 R-201 搅拌器做机械密封点检</li>
+              <li>✓ 调取 R-201 近 30 天扭矩趋势看是否有缓慢漂移</li>
+              <li>✓ 若产品 OK，归档为 Minor Deviation 不影响放行</li>
+            </ol>
+          </div>
+        </div>
+        <div style="margin-top: 10px; padding: 8px 12px; background: rgba(0,0,0,0.2); border-radius: 6px; font-size: 11.5px; color: #94a3b8;">
+          ⚠ <strong style="color:#fbbf24;">注</strong>：以上为 AI 草稿，<strong>需 QA 工程师审核签字</strong>。所有结论可追溯到引用源文档。审计追踪记录到 GxP 合规系统。
+        </div>
+      </div>
+      <div style="margin-top: 10px; padding: 8px 14px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: #cdd6e8;">
+        <strong style="color:#22d3ee;">工作流程</strong>：QA 描述事件 → AI 2-3 秒检索 + 生成草稿 → 工程师审核（约 15-30 分钟）→ 签发偏差报告 + CAPA 工单。
+        相比手工调查（30-90 天），AI 把"找历史 + 写草稿 + 填模板"的体力活省掉，工程师只做判断和签字。
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top: 12px;">
+      <div>
+        <strong style="font-size:13px;">解决什么</strong>
+        <ul class="bul tight" style="margin-top:4px;">
+          <li>偏差关闭周期从 30-90 天压到 5-15 天</li>
+          <li>批审核工时 −50%（行业基线）</li>
+          <li>PQR / 年度报告自动化（Sanofi 案例 −70%）</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="font-size:13px;">凯莱英要做的事</strong>
+        <ul class="bul tight" style="margin-top:4px;">
+          <li>"灵犀"在制药语料上继续训练（凯莱英语料 + 公开制药文献）</li>
+          <li>历史偏差库电子化 + 结构化标注</li>
+          <li>合规：AI 输出必须可追溯到原始数据</li>
+          <li>客户级数据隔离（见 PART 05）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 场景 6: PdM -->
+  <div class="card" style="margin-bottom: 16px; border-left: 5px solid #7c3aed; padding: 18px 22px;">
+    <div style="display:flex; justify-content: space-between; align-items: baseline;">
+      <h3 style="margin: 0; color:#7c3aed;">④ 预测性维护 (PdM) → 关键设备健康监测 + 剩余寿命预测</h3>
+      <span class="pill purple">智现未来核心算法 — 可移植性强</span>
+    </div>
+    <p style="font-size:14px; margin: 8px 0;">
+      智现未来在半导体里给光刻机、刻蚀机、真空泵、CMP 等高价设备做 PdM——
+      数千个 tag × 多变量 + 时序模型预测<strong>剩余寿命 (RUL, Remaining Useful Life)</strong>。
+      用的算法（LSTM 时序模型 + 多变量异常检测 + 故障模式分类器）与 CDMO 关键设备<strong>完全通用</strong>。
+    </p>
+
+    <div class="grid-2" style="margin-top: 12px;">
+      <div class="card purple" style="margin:0;">
+        <strong style="font-size:13px;">智现未来已有算法的核心优势</strong>
+        <ul class="bul tight" style="margin-top:6px;">
+          <li>12 吋晶圆厂关键设备 PdM 经验积累 20+ 年（含 BISTel 时期）</li>
+          <li>多变量时序模型（LSTM / TCN）+ 故障模式聚类</li>
+          <li>剩余寿命 RUL 预测带<strong>不确定性置信区间</strong>（不是单点预测）</li>
+          <li>设备健康得分（0-100）与运维工单系统联动</li>
+          <li>跨设备类型的<strong>迁移学习</strong>能力（光刻机 → 刻蚀机）</li>
+        </ul>
+      </div>
+      <div class="card info" style="margin:0;">
+        <strong style="font-size:13px;">CDMO 上对应的高价值设备</strong>
+        <ul class="bul tight" style="margin-top:6px;">
+          <li><strong>反应釜搅拌器</strong>（机械密封 / 减速机 / 电机）— 单次失效 = 整批料报废</li>
+          <li><strong>离心机</strong>（高速旋转部件 / 振动）— 故障可能引发安全事故</li>
+          <li><strong>冰机 / 螺杆压缩机</strong>— 公辅核心，失效 = 全厂停产</li>
+          <li><strong>真空泵</strong>— 多用途，故障导致工艺中断</li>
+          <li><strong>纯水系统泵 / 膜组件</strong>— 微生物风险高</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="background:#f5f3ff; margin-top:14px;">
+      <strong style="font-size:13px; color:#6b21a8;">可移植性论证：</strong>
+      <span style="font-size:13px;">
+        半导体光刻机 → CDMO 反应釜的迁移在<strong>算法层是零成本</strong>，只需要把振动 / 温度 / 电流 / 声纹等传感器数据接入，
+        模型参数会自动重训。智现未来的"<strong>跨设备类型迁移学习</strong>"框架可以复用——
+        这是他们的成熟算法资产，相对其他通用 PdM 供应商有明显的方法论优势。
+      </span>
+    </div>
+
+    <!-- PdM Demo: 设备健康分数曲线 + RUL 预测 -->
+    <div style="margin-top: 16px; background: linear-gradient(180deg,#1a0a3d 0%,#2a1a55 100%); color:#fff; border-radius: 12px; padding: 20px;">
+      <div style="font-size:12.5px; color:#cdd6e8; margin-bottom: 12px;">
+        <strong style="color:#c4b5fd;">📈 Demo · 关键设备健康分数 + 剩余寿命 (RUL) 预测</strong>　|　
+        智现未来在半导体 ASML 光刻机上做的事，同样的算法搬到 CDMO 离心泵 / 反应釜搅拌器 / 冰机上。
+      </div>
+
+      <!-- 4 台关键设备状态卡片 -->
+      <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 14px;">
+        <div style="background: rgba(34,211,238,0.10); border: 1px solid #22d3ee; border-radius: 8px; padding: 12px;">
+          <div style="font-size:11px; color:#9aabd6; text-transform: uppercase;">反应釜 R-201 搅拌器</div>
+          <div style="font-size:30px; font-weight:800; color:#22d3ee; line-height:1.2; margin-top:4px;">94</div>
+          <div style="font-size:11.5px; color:#cdd6e8;">健康分 · <strong style="color:#22d3ee;">正常</strong></div>
+          <div style="margin-top:6px; padding-top:6px; border-top: 1px dashed rgba(255,255,255,0.1); font-size:11px; color:#94a3b8;">
+            RUL: <strong style="color:#fff;">&gt; 180 天</strong>
+          </div>
+        </div>
+        <div style="background: rgba(251,191,36,0.10); border: 1px solid #fbbf24; border-radius: 8px; padding: 12px;">
+          <div style="font-size:11px; color:#9aabd6; text-transform: uppercase;">离心机 C-303</div>
+          <div style="font-size:30px; font-weight:800; color:#fbbf24; line-height:1.2; margin-top:4px;">71</div>
+          <div style="font-size:11.5px; color:#cdd6e8;">健康分 · <strong style="color:#fbbf24;">⚠ 关注</strong></div>
+          <div style="margin-top:6px; padding-top:6px; border-top: 1px dashed rgba(255,255,255,0.1); font-size:11px; color:#94a3b8;">
+            RUL: <strong style="color:#fbbf24;">42 ± 8 天</strong>
+          </div>
+        </div>
+        <div style="background: rgba(239,68,68,0.10); border: 1px solid #ef4444; border-radius: 8px; padding: 12px;">
+          <div style="font-size:11px; color:#9aabd6; text-transform: uppercase;">冰机 CH-101</div>
+          <div style="font-size:30px; font-weight:800; color:#ef4444; line-height:1.2; margin-top:4px;">38</div>
+          <div style="font-size:11.5px; color:#cdd6e8;">健康分 · <strong style="color:#ef4444;">✗ 警告</strong></div>
+          <div style="margin-top:6px; padding-top:6px; border-top: 1px dashed rgba(255,255,255,0.1); font-size:11px; color:#94a3b8;">
+            RUL: <strong style="color:#ef4444;">11 ± 3 天</strong>
+          </div>
+        </div>
+        <div style="background: rgba(34,211,238,0.10); border: 1px solid #22d3ee; border-radius: 8px; padding: 12px;">
+          <div style="font-size:11px; color:#9aabd6; text-transform: uppercase;">真空泵 VP-401</div>
+          <div style="font-size:30px; font-weight:800; color:#22d3ee; line-height:1.2; margin-top:4px;">88</div>
+          <div style="font-size:11.5px; color:#cdd6e8;">健康分 · <strong style="color:#22d3ee;">正常</strong></div>
+          <div style="margin-top:6px; padding-top:6px; border-top: 1px dashed rgba(255,255,255,0.1); font-size:11px; color:#94a3b8;">
+            RUL: <strong style="color:#fff;">120 ± 20 天</strong>
+          </div>
+        </div>
+      </div>
+
+      <!-- 健康分数趋势 SVG (冰机 CH-101 故事) -->
+      <svg viewBox="0 0 1100 280" style="width:100%; height:auto;">
+        <text x="20" y="20" fill="#fff" font-size="13" font-weight="700">📉 冰机 CH-101 · 健康分数 90 天历史 + 30 天 AI 预测（含置信区间）</text>
+
+        <!-- 网格 -->
+        <g stroke="#374b76" stroke-dasharray="2 3" opacity="0.5">
+          <line x1="60" y1="60" x2="1080" y2="60"/>
+          <line x1="60" y1="110" x2="1080" y2="110"/>
+          <line x1="60" y1="160" x2="1080" y2="160"/>
+          <line x1="60" y1="210" x2="1080" y2="210"/>
+        </g>
+
+        <!-- 健康阈值 30 -->
+        <line x1="60" y1="195" x2="1080" y2="195" stroke="#ef4444" stroke-dasharray="4 4" stroke-width="1.5"/>
+        <text x="1075" y="190" text-anchor="end" fill="#ef4444" font-size="10.5">健康阈值 30</text>
+
+        <!-- 维护窗口 -->
+        <line x1="60" y1="135" x2="1080" y2="135" stroke="#fbbf24" stroke-dasharray="4 4" stroke-width="1.5"/>
+        <text x="1075" y="130" text-anchor="end" fill="#fbbf24" font-size="10.5">维护建议 60</text>
+
+        <!-- Y 轴标签 -->
+        <text x="50" y="65" text-anchor="end" fill="#9aabd6" font-size="11">100</text>
+        <text x="50" y="115" text-anchor="end" fill="#9aabd6" font-size="11">75</text>
+        <text x="50" y="165" text-anchor="end" fill="#9aabd6" font-size="11">50</text>
+        <text x="50" y="215" text-anchor="end" fill="#9aabd6" font-size="11">25</text>
+
+        <!-- X 轴标签 -->
+        <text x="60" y="245" fill="#9aabd6" font-size="11">D−90</text>
+        <text x="285" y="245" fill="#9aabd6" font-size="11">D−60</text>
+        <text x="510" y="245" fill="#9aabd6" font-size="11">D−30</text>
+        <text x="765" y="245" fill="#fff" font-size="11" font-weight="700">当前 D0</text>
+        <text x="985" y="245" fill="#fbbf24" font-size="11" font-weight="700">D+30 (预测)</text>
+
+        <!-- 当前时间分隔线 -->
+        <line x1="765" y1="60" x2="765" y2="220" stroke="#fff" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>
+
+        <!-- 历史轨迹 (蓝实线 D-90 → D0)，健康从 92 缓慢下降到 38 -->
+        <path d="M60,72 L120,75 L180,80 L240,82 L300,86 L360,90 L420,96 L480,105 L540,114 L600,125 L660,138 L720,150 L765,170"
+              stroke="#22d3ee" stroke-width="2.5" fill="none"/>
+
+        <!-- 预测路径 (黄虚线 D0 → D+30) 中央线 -->
+        <path d="M765,170 L825,185 L885,200 L945,212 L1010,221 L1075,228"
+              stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="5 4" fill="none"/>
+
+        <!-- 预测置信区间 (灰带) -->
+        <path d="M765,170 L825,178 L885,190 L945,200 L1010,206 L1075,212
+                 L1075,243 L1010,235 L945,225 L885,212 L825,196 L765,170 Z"
+              fill="#fbbf24" opacity="0.15"/>
+
+        <!-- 标注 -->
+        <circle cx="765" cy="170" r="6" fill="#fbbf24" stroke="#fff" stroke-width="2"/>
+        <text x="775" y="158" fill="#fbbf24" font-size="11" font-weight="700">当前 健康分 38</text>
+
+        <!-- 预计低于阈值时间 -->
+        <line x1="970" y1="60" x2="970" y2="220" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.7"/>
+        <text x="960" y="80" text-anchor="end" fill="#ef4444" font-size="11" font-weight="700">预计 D+11±3 天</text>
+        <text x="960" y="95" text-anchor="end" fill="#ef4444" font-size="11" font-weight="700">健康分跌破 30</text>
+      </svg>
+
+      <div style="margin-top: 10px; padding: 8px 14px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: #cdd6e8;">
+        <strong style="color:#22d3ee;">智现未来算法的两个特点</strong>：
+        ① <strong>带置信区间的 RUL 预测</strong>（不是单点预测，给出 "11 ± 3 天" 这种带不确定性的判断）；
+        ② 跨设备类型的<strong>迁移学习</strong>——半导体光刻机上学到的"渐进失效模式识别"能力，可直接迁移到冰机、搅拌器、真空泵。这是相对通用 PdM 供应商（单一振动维度）的核心方法论优势。
+      </div>
+    </div>
+  </div>
+
+  <!-- 场景 7: Intelligence Hub -->
+  <div class="card danger" style="margin-bottom: 16px; padding: 18px 22px;">
+    <div style="display:flex; justify-content: space-between; align-items: baseline;">
+      <h3 style="margin: 0; color:#dc2626;">⑤ Intelligence Hub → ⚠️ 平台底座 — 慎重</h3>
+      <span class="pill warn">优先级 0 — 不建议</span>
+    </div>
+    <p style="font-size:14px; margin: 8px 0;">
+      智现未来想推 Intelligence Hub 作为"数据底座 + AI 平台"。
+      <strong>这是这次合作里最大的"陷阱"</strong>。凯莱英在《数智化立项规划》Step 3 已经明确平台路线是
+      <strong>艾默生 IP.21 + Inmation</strong>。Intelligence Hub 跟这个平台<strong>直接冲突</strong>。
+    </p>
+    <p style="font-size:14px; margin: 8px 0;">
+      <strong>正确姿态</strong>：让智现未来的产品（FDC/RMS/APC/Q&A 等）<strong>作为应用层跑在艾默生平台上</strong>，
+      Intelligence Hub <strong>不进入凯莱英技术栈</strong>。这是平台层选型的红线。
+    </p>
+  </div>
+</section>
+
+<!-- ============ S6 FDC Demo ============ -->
+<section class="slide" id="s-fdc-demo" data-page="5">
+  <h2 class="kicker">PART 04 · 实时 Demo</h2>
+  <h1>FDC 跑在凯莱英连续流氢化反应上是什么样的</h1>
+  <p class="lead">
+    下面是一个模拟的连续流氢化反应（基于公开工艺特征）。AI 在 8 个传感器数据流上做多变量异常检测。
+    <strong>请点击"开始播放"或拖动时间轴</strong> — 重点观察 90 分钟前后：每个参数单看都在范围内、
+    但参数之间的<strong>相关性</strong>已经变了，AI 在 90 分钟检出异常，传统单点阈值要到 130+ 分钟才能触发。
+  </p>
+
+  <div class="fdc-box">
+    <div style="font-size:12.5px; opacity:.7; margin-bottom:12px;">
+      模拟对象：DH 连续流氢化反应器 R-201（Buchwald 加氢，250kW）；监测 8 个关键传感器；
+      AI 模型：PCA Hotelling T² 多变量异常检测 + 已学习的偏差分类器（"催化剂活性衰减"等 12 类）
+    </div>
+
+    <div class="fdc-grid">
+      <!-- 左侧：状态板 -->
+      <div>
+        <div class="fdc-side">
+          <div class="fdc-status">综合健康状态 / 时间 <span id="fdcTime" style="color:#fff; font-weight:600;">T+0 min</span></div>
+          <div class="fdc-bigstat ok" id="fdcOverall">正常</div>
+          <div style="font-size:12px; color:#cdd6e8; margin-bottom:8px;" id="fdcDesc">
+            8 个传感器全部在正常范围。多变量 T² 统计量 = 1.23（阈值 9.0）
+          </div>
+          <div style="font-size:11px; color:#9aabd6; padding-top:6px; border-top:1px dashed rgba(255,255,255,.1);">
+            T² 统计量 <span id="fdcT2" style="color:#22d3ee; font-weight:700;">1.23</span> / 阈值 9.00
+          </div>
+        </div>
+
+        <div class="fdc-side" style="margin-top: 12px;">
+          <div class="fdc-status">8 个传感器实时</div>
+          <div class="fdc-sensor-list" id="fdcSensors"></div>
+        </div>
+
+        <div class="fdc-side" style="margin-top: 12px;">
+          <div class="fdc-status">传统单点阈值 vs AI 多变量</div>
+          <div style="font-size:11.5px; color:#cdd6e8; line-height: 1.6;">
+            ❌ 单点阈值 T1 &gt; 82 ℃：<span id="fdcThresh" style="color:#fbbf24;">未触发</span><br/>
+            ✓ AI 多变量异常：<span id="fdcAi" style="color:#22d3ee;">监测中</span><br/>
+            <span style="color:#9aabd6; font-size:11px;">AI 比单点阈值 <strong style="color:#22d3ee;" id="fdcLead">— 提前</strong> 检出偏差</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧：图表 + 事件 -->
+      <div>
+        <svg class="chart" id="fdcChart" viewBox="0 0 720 380" style="width:100%; height:auto;"></svg>
+        <div class="fdc-events" id="fdcLog"></div>
+      </div>
+    </div>
+
+    <div class="fdc-controls">
+      <label>时间：<span id="fdcLabel" style="color:#fff; font-weight:600;">T+0 min</span></label>
+      <input type="range" id="fdcSlider" min="0" max="180" value="0" step="1"/>
+      <button class="btn" id="fdcPlay">▶ 自动播放</button>
+      <button class="btn ghost" id="fdcReset">重置</button>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top:20px;">
+    <div class="card accent">
+      <strong>关键观察 1 · 多变量异常的本质</strong>
+      <p style="font-size:13px; margin-top:6px;">
+        T+60 起催化剂开始失活。T1 / P / H2 流量都<strong>仍在正常范围</strong>。
+        但 PCA Hotelling T² 已经超阈值 — 因为参数之间的"协方差结构"变了。
+      </p>
+    </div>
+    <div class="card warn">
+      <strong>关键观察 2 · 单点阈值的局限</strong>
+      <p style="font-size:13px; margin-top:6px;">
+        传统 SCADA 只会在 T+135 才触发"T1 &gt; 82 ℃"告警 — 因为系统在自补偿。
+        到那时杂质已经形成，整批已经报废。
+      </p>
+    </div>
+    <div class="card purple">
+      <strong>关键观察 3 · 提前 45 分钟的业务价值</strong>
+      <p style="font-size:13px; margin-top:6px;">
+        提前 45 分钟检出 = <strong>降温补料挽救整批</strong>，按一批氢化产品 50-200 kg、市场价 2-10 万/kg 算，
+        一次成功捕捉 = <strong>挽回 100-2000 万元损失</strong>。这是 FDC 的核心价值。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S7 基础设施 ============ -->
+<section class="slide" id="s-infra" data-page="6">
+  <h2 class="kicker">PART 05 · 凯莱英需要投入的软硬件基础设施</h2>
+  <h1>4 大类基础设施清单 — 单价 + 来源链接 + 支撑哪些功能</h1>
+  <p class="lead">
+    无论选哪家供应商，这 4 类基础设施都是 AI 落地的前置条件。<strong>每项给出"主流供应商参考单价 + 公开来源链接 + 支撑哪些功能"</strong>。
+    每项单价仅供参考，立项时需详细询价。<br/>
+    <strong style="color:#7c3aed;">读这张表时要看三件事</strong>：① 单价区间 ② 这一项的钱花了能支撑哪些 AI 应用（避免重复投资）③ 网络/服务器有"基础 / 进阶"两套方案选。
+  </p>
+
+  <div class="infra-tree">
+
+    <!-- ============ A. 自动化改造 ============ -->
+    <div class="infra-cat A open" data-cat="A">
+      <div class="h" onclick="this.parentElement.classList.toggle('open')">
+        <div>
+          <div class="ttl">🔧 A. 自动化改造（OT 现场层）</div>
+          <div class="sum">把"哑设备"变成"会说话的设备"。AI 模型要从 DCS 取实时数据，老车间往往缺 tag。点击展开。</div>
+        </div>
+        <div style="color:#f59e0b; font-size: 13px; font-weight: 700;">单价表 · 详见展开</div>
+      </div>
+      <div class="items">
+        <div class="item-full" style="padding: 12px 14px; border-bottom:1px solid #e3e8f2;">
+          <div style="display:grid; grid-template-columns: 1fr 110px 200px 120px; gap:10px; font-size:11px; color:#7a89a8; text-transform:uppercase; letter-spacing:1px;">
+            <span>项目</span><span style="text-align:right;">参考单价</span><span>主流供应商 / 来源</span><span>支撑哪些功能</span>
+          </div>
+        </div>
+        <div class="item-full" style="padding: 12px 14px; border-bottom:1px solid #e3e8f2; display:grid; grid-template-columns: 1fr 110px 200px 120px; gap:10px; align-items: start;">
+          <div>
+            <div style="font-weight:600; color:#0f1f3d;">反应釜传感器补齐</div>
+            <div style="font-size:11.5px; color:#5b6a8a; margin-top:3px;">补 20-50 tag/釜：温度多点 / 压力 / 流量 / pH / 电导率 / 扭矩 → 上传 IP.21</div>
+          </div>
+          <div style="text-align:right; font-variant-numeric:tabular-nums;">
+            <span style="color:#7c3aed; font-weight:600; font-size:13px;">5-20 万/釜</span><br/>
+            <span style="font-size:10.5px; color:#7a89a8;">含安装调试</span>
+          </div>
+          <div style="font-size:11.5px;">
+            <a href="https://www.endress.com" target="_blank" rel="noopener" style="color:#3b82f6;">Endress+Hauser ↗</a> /
+            <a href="https://www.yokogawa.com/cn/" target="_blank" rel="noopener" style="color:#3b82f6;">横河 ↗</a><br/>
+            <a href="https://www.siemens.com/cn/zh/products/automation/process-instrumentation.html" target="_blank" rel="noopener" style="color:#3b82f6;">西门子 SIPROCESS ↗</a> /
+            <a href="https://www.emerson.com/zh-cn/automation/measurement-instrumentation" target="_blank" rel="noopener" style="color:#3b82f6;">Emerson ↗</a>
+          </div>
+          <div style="font-size:11px;">
+            <span class="tag" style="padding:1px 6px;">FDC</span>
+            <span class="tag" style="padding:1px 6px;">Q&A RAG</span>
+            <span class="tag" style="padding:1px 6px;">技术转移</span>
+          </div>
+        </div>
+        <div class="item-full" style="padding: 12px 14px; border-bottom:1px solid #e3e8f2; display:grid; grid-template-columns: 1fr 110px 200px 120px; gap:10px; align-items: start;">
+          <div>
+            <div style="font-weight:600; color:#0f1f3d;">在线 PAT 部署（IR / 拉曼 / NIR）</div>
+            <div style="font-size:11.5px; color:#5b6a8a; margin-top:3px;">连续流车间部分有；批次车间需补。实时算收率 / 杂质 / 含量，是 FDC + RTRT 的关键数据源</div>
+          </div>
+          <div style="text-align:right; font-variant-numeric:tabular-nums;">
+            <span style="color:#7c3aed; font-weight:600; font-size:13px;">50-300 万/套</span><br/>
+            <span style="font-size:10.5px; color:#7a89a8;">单台反应器</span>
+          </div>
+          <div style="font-size:11.5px;">
+            <a href="https://www.mt.com/cn/zh/home/products/L1_AutochemProducts/ReactIR.html" target="_blank" rel="noopener" style="color:#3b82f6;">Mettler ReactIR ↗</a> (IR)<br/>
+            <a href="https://www.sartorius.com.cn/zh-cn/products/process-analytical-technology" target="_blank" rel="noopener" style="color:#3b82f6;">Sartorius BioPAT ↗</a> (Raman)<br/>
+            <a href="https://www.bruker.com/en/products-and-solutions/infrared-and-raman.html" target="_blank" rel="noopener" style="color:#3b82f6;">Bruker NIR/IR ↗</a>
+          </div>
+          <div style="font-size:11px;">
+            <span class="tag" style="padding:1px 6px;">FDC</span>
+            <span class="tag" style="padding:1px 6px;">技术转移</span>
+          </div>
+        </div>
+        <div class="item-full" style="padding: 12px 14px; border-bottom:1px solid #e3e8f2; display:grid; grid-template-columns: 1fr 110px 200px 120px; gap:10px; align-items: start;">
+          <div>
+            <div style="font-weight:600; color:#0f1f3d;">关键设备 PdM 传感器</div>
+            <div style="font-size:11.5px; color:#5b6a8a; margin-top:3px;">振动 / 电流 / 温度 / 声纹。每台关键设备 4-12 个测点</div>
+          </div>
+          <div style="text-align:right; font-variant-numeric:tabular-nums;">
+            <span style="color:#7c3aed; font-weight:600; font-size:13px;">5-15 万/台</span><br/>
+            <span style="font-size:10.5px; color:#7a89a8;">含网关</span>
+          </div>
+          <div style="font-size:11.5px;">
+            <a href="https://www.skf.com/cn/products/condition-monitoring-systems" target="_blank" rel="noopener" style="color:#3b82f6;">SKF Multilog ↗</a><br/>
+            <a href="https://www.honeywell.com.cn/" target="_blank" rel="noopener" style="color:#3b82f6;">Honeywell Sentience ↗</a><br/>
+            <a href="https://new.abb.com/condition-monitoring" target="_blank" rel="noopener" style="color:#3b82f6;">ABB AbilityTM ↗</a>
+          </div>
+          <div style="font-size:11px;">
+            <span class="tag" style="padding:1px 6px;">PdM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ B. 数据基础设施 ============ -->
+    <div class="infra-cat B" data-cat="B">
+      <div class="h" onclick="this.parentElement.classList.toggle('open')">
+        <div>
+          <div class="ttl">🗄 B. 数据基础设施（IT 数据层）</div>
+          <div class="sum">把"数据有了"变成"数据能用"。每项明确告诉凯莱英要交付哪些数据、格式要求、数据量级</div>
+        </div>
+        <div style="color:#3b82f6; font-size: 13px; font-weight: 700;">单价表 + 数据交付清单 · 详见展开</div>
+      </div>
+      <div class="items">
+
+        <div class="item-full" style="padding: 14px 16px; border-bottom:1px solid #e3e8f2;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px;">
+            <div style="flex:1;">
+              <div style="font-weight:700; color:#0f1f3d; font-size:14px;">B1 · IP.21 实时数据库完整化</div>
+              <div style="font-size:12px; color:#5b6a8a; margin-top:3px;">已规划 Step 1，需加速。是所有方向的"地基"</div>
+            </div>
+            <div style="text-align:right; font-variant-numeric:tabular-nums;">
+              <span style="color:#7c3aed; font-weight:700; font-size:14px;">2-4 万元/万 tag</span><br/>
+              <span style="font-size:11px; color:#7a89a8;">软件 License + 实施</span>
+            </div>
+          </div>
+          <div style="margin-top:8px; font-size:12px;">
+            <strong>主流来源</strong>：
+            <a href="https://www.aspentech.com/zh-cn/products/msc/aspen-infoplus21" target="_blank" rel="noopener" style="color:#3b82f6;">AspenTech IP.21 ↗</a>（已选定）；
+            可对比 <a href="https://www.aveva.com/zh-cn/products/pi-system/" target="_blank" rel="noopener" style="color:#3b82f6;">AVEVA PI System ↗</a>
+            <span class="tag" style="margin-left:8px; padding:1px 6px;">所有 AI 应用基础</span>
+          </div>
+          <div style="margin-top:8px; padding:8px 10px; background:#eff6ff; border-radius:6px; font-size:12px; color:#1e3a8a;">
+            <strong>凯莱英要交付的数据</strong>：①各 DCS / PLC / SCADA / BMS 的 tag 清单（点名 + 单位 + 量程 + 工程量纲）
+            ②历史数据导出格式：CSV 或 OPC HDA 接口，时间戳 ISO 8601（如 <code>2026-05-18T01:23:45Z</code>），秒级或分钟级采样
+            ③标准协议：OPC UA（首选）/ OPC DA / Modbus / Profibus
+          </div>
+        </div>
+
+        <div class="item-full" style="padding: 14px 16px; border-bottom:1px solid #e3e8f2;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px;">
+            <div style="flex:1;">
+              <div style="font-weight:700; color:#0f1f3d; font-size:14px;">B2 · 数据湖 + 向量库</div>
+              <div style="font-size:12px; color:#5b6a8a; margin-top:3px;">存非结构化文档（批记录 PDF、SOP、专利、工艺文献）+ LLM RAG 的向量索引</div>
+            </div>
+            <div style="text-align:right; font-variant-numeric:tabular-nums;">
+              <span style="color:#7c3aed; font-weight:700; font-size:14px;">80-150 万元</span><br/>
+              <span style="font-size:11px; color:#7a89a8;">软件 + 50TB 起步存储</span>
+            </div>
+          </div>
+          <div style="margin-top:8px; font-size:12px;">
+            <strong>主流来源</strong>：
+            <a href="https://www.databricks.com/cn" target="_blank" rel="noopener" style="color:#3b82f6;">Databricks Lakehouse ↗</a> /
+            <a href="https://hadoop.apache.org/" target="_blank" rel="noopener" style="color:#3b82f6;">Apache Hadoop ↗</a> /
+            <a href="https://www.aliyun.com/product/dla" target="_blank" rel="noopener" style="color:#3b82f6;">阿里云 DLA ↗</a>；
+            向量库：<a href="https://milvus.io/" target="_blank" rel="noopener" style="color:#3b82f6;">Milvus（开源）↗</a> /
+            <a href="https://www.pinecone.io/" target="_blank" rel="noopener" style="color:#3b82f6;">Pinecone ↗</a>
+            <span class="tag" style="margin-left:8px; padding:1px 6px;">Q&A RAG</span>
+            <span class="tag" style="margin-left:4px; padding:1px 6px;">技术转移检索</span>
+          </div>
+          <div style="margin-top:8px; padding:8px 10px; background:#eff6ff; border-radius:6px; font-size:12px; color:#1e3a8a;">
+            <strong>凯莱英要交付的数据</strong>：①历史批记录 PDF（建议每份带"项目号 + 客户 ID + 批号"元数据）
+            ②SOP / 工艺文件 Word / PDF（统一目录结构）
+            ③客户工艺包（结构化 Excel 模板或 PDF + 元数据）
+            ④凯莱英内部文献库（如 STAR 项目论文 / 连续氢化技术文档）<br/>
+            <strong>格式要求</strong>：PDF 需可文字提取（非纯扫描）；如为扫描件需 OCR（见 B4）；图片质量 ≥ 300 DPI；元数据写入文件名或 JSON 索引
+          </div>
+        </div>
+
+        <div class="item-full" style="padding: 14px 16px; border-bottom:1px solid #e3e8f2;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px;">
+            <div style="flex:1;">
+              <div style="font-weight:700; color:#0f1f3d; font-size:14px;">B3 · 主数据 / 批次结构治理</div>
+              <div style="font-size:12px; color:#5b6a8a; margin-top:3px;">把分散的数据"打标签"，让 AI 知道哪批料是哪个客户、哪个项目、哪步反应。是 AI 学习的"骨架"</div>
+            </div>
+            <div style="text-align:right; font-variant-numeric:tabular-nums;">
+              <span style="color:#7c3aed; font-weight:700; font-size:14px;">100-200 万元</span><br/>
+              <span style="font-size:11px; color:#7a89a8;">咨询+实施服务</span>
+            </div>
+          </div>
+          <div style="margin-top:8px; font-size:12px;">
+            <strong>主流方法 / 来源</strong>：
+            <a href="https://www.isa.org/standards-and-publications/isa-standards/isa-standards-committees/isa88" target="_blank" rel="noopener" style="color:#3b82f6;">ISA-88 批次模型 ↗</a> (国际标准) +
+            <a href="https://database.ich.org/sites/default/files/Q3D-R1EWG_Document_Step4_Guideline_2019_0322.pdf" target="_blank" rel="noopener" style="color:#3b82f6;">ICH Q11/Q12 CPP/CQA 框架 ↗</a>
+            <span class="tag" style="margin-left:8px; padding:1px 6px;">FDC</span>
+            <span class="tag" style="margin-left:4px; padding:1px 6px;">技术转移</span>
+            <span class="tag" style="margin-left:4px; padding:1px 6px;">Q&A</span>
+          </div>
+          <div style="margin-top:8px; padding:8px 10px; background:#eff6ff; border-radius:6px; font-size:12px; color:#1e3a8a;">
+            <strong>凯莱英要交付的数据</strong>：①设备主数据清单（反应釜型号 / 容积 / 搅拌器类型 / 材质）— Excel
+            ②工艺步骤主数据（每个项目的反应 / 结晶 / 干燥 / 离心步骤标准化命名）— Excel
+            ③CPP / CQA 字典（哪些参数关键、哪些质量属性关键）— 项目级 Excel
+            ④客户 / 项目编号体系（客户脱敏 ID + 项目分类）<br/>
+            <strong>格式要求</strong>：Excel 表头标准化，每行一个对象（设备 / 步骤 / 参数）；编号唯一不重复；客户 ID 用脱敏代码（如 C001 / C002，不直接写客户名）
+          </div>
+        </div>
+
+        <div class="item-full" style="padding: 14px 16px;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px;">
+            <div style="flex:1;">
+              <div style="font-weight:700; color:#0f1f3d; font-size:14px;">B4 · 历史批记录数字化（OCR + NLP）</div>
+              <div style="font-size:12px; color:#5b6a8a; margin-top:3px;">凯莱英 5-10 年历史预计百万级 PDF 页。是 LLM RAG 的关键语料</div>
+            </div>
+            <div style="text-align:right; font-variant-numeric:tabular-nums;">
+              <span style="color:#7c3aed; font-weight:700; font-size:14px;">0.5-1.5 元/页</span><br/>
+              <span style="font-size:11px; color:#7a89a8;">含人工校对</span>
+            </div>
+          </div>
+          <div style="margin-top:8px; font-size:12px;">
+            <strong>主流方案</strong>：
+            <a href="https://cloud.baidu.com/product/ocr_general" target="_blank" rel="noopener" style="color:#3b82f6;">百度 OCR ↗</a> /
+            <a href="https://www.aliyun.com/product/cdi" target="_blank" rel="noopener" style="color:#3b82f6;">阿里云 OCR ↗</a> /
+            <a href="https://www.iflyrec.com/" target="_blank" rel="noopener" style="color:#3b82f6;">讯飞智文 ↗</a>；
+            医药专属 OCR 可考虑
+            <a href="https://mareana.com/" target="_blank" rel="noopener" style="color:#3b82f6;">Mareana ↗</a>
+            <span class="tag" style="margin-left:8px; padding:1px 6px;">Q&A RAG</span>
+            <span class="tag" style="margin-left:4px; padding:1px 6px;">技术转移</span>
+          </div>
+          <div style="margin-top:8px; padding:8px 10px; background:#eff6ff; border-radius:6px; font-size:12px; color:#1e3a8a;">
+            <strong>凯莱英要交付的数据</strong>：①历史批记录纸质或扫描件清单（按车间分类）
+            ②每份带元数据：项目 / 批号 / 日期 / 设备<br/>
+            <strong>评估范围量化</strong>：先做样本（如 1000 页）OCR 准确率评估，确认 ≥ 95% 后再启动全量
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ C. 网络基础设施 ============ -->
+    <div class="infra-cat C" data-cat="C">
+      <div class="h" onclick="this.parentElement.classList.toggle('open')">
+        <div>
+          <div class="ttl">🌐 C. 网络基础设施 — 基础方案 + 进阶方案</div>
+          <div class="sum">FDC 实时检测要低延迟，多厂区数据汇聚要专线，OT/IT 隔离要做合规。两套方案二选一</div>
+        </div>
+        <div style="color:#10b981; font-size: 13px; font-weight: 700;">详见展开</div>
+      </div>
+      <div class="items">
+        <div class="grid-2" style="padding: 12px 14px; gap:14px;">
+          <!-- 基础方案 -->
+          <div class="card accent" style="margin:0;">
+            <div style="font-weight:700; color:#10b981; font-size:14px;">🟢 基础方案 — 单厂区试点（推荐 PoC 阶段）</div>
+            <div style="font-size:12px; color:#5b6a8a; margin-top:4px;">
+              覆盖 1 个 PoC 车间。投入轻、上线快、风险低。
+            </div>
+            <ul class="bul tight" style="margin-top:10px;">
+              <li>OT 网络环网（工业以太 1G）<span style="float:right; color:#7c3aed; font-weight:600;">30-60 万</span></li>
+              <li>OT/IT 隔离（一台 DMZ 防火墙）<span style="float:right; color:#7c3aed; font-weight:600;">10-20 万</span></li>
+              <li>车间到数据机房光纤 1G<span style="float:right; color:#7c3aed; font-weight:600;">5-10 万</span></li>
+            </ul>
+            <div style="margin-top:10px; padding-top:8px; border-top:1px dashed #bbf7d0; font-size:12px;">
+              <strong>合计：~45-90 万元</strong><br/>
+              <strong>主流供应商</strong>：
+              <a href="https://www.moxa.com/cn" target="_blank" rel="noopener" style="color:#3b82f6;">Moxa 工业交换机 ↗</a> /
+              <a href="https://www.hirschmann.com/en/" target="_blank" rel="noopener" style="color:#3b82f6;">Hirschmann ↗</a> /
+              <a href="https://www.fortinet.com/cn" target="_blank" rel="noopener" style="color:#3b82f6;">FortiGate 防火墙 ↗</a>
+              <br/>
+              <span class="tag" style="padding:1px 6px;">单厂 PoC 足够</span>
+            </div>
+          </div>
+          <!-- 进阶方案 -->
+          <div class="card warn" style="margin:0;">
+            <div style="font-weight:700; color:#f59e0b; font-size:14px;">🟡 进阶方案 — 多厂区规模化</div>
+            <div style="font-size:12px; color:#5b6a8a; margin-top:4px;">
+              覆盖天津 / 敦化 / 吉林 / 江苏多厂区 + 集团数据中心汇聚。一旦 PoC 通过、规模化推广时需要。
+            </div>
+            <ul class="bul tight" style="margin-top:10px;">
+              <li>OT 网络冗余环网（工业以太 10G）<span style="float:right; color:#7c3aed; font-weight:600;">80-150 万/厂</span></li>
+              <li>OT/IT 隔离（HA 双机 DMZ + IDS）<span style="float:right; color:#7c3aed; font-weight:600;">40-80 万</span></li>
+              <li>多厂区 SD-WAN（3 年专线费）<span style="float:right; color:#7c3aed; font-weight:600;">80-200 万</span></li>
+              <li>数据加密 + 审计 + DLP<span style="float:right; color:#7c3aed; font-weight:600;">30-60 万</span></li>
+            </ul>
+            <div style="margin-top:10px; padding-top:8px; border-top:1px dashed #ffd8be; font-size:12px;">
+              <strong>合计：~250-500 万元 + 多厂区 80-150 万/厂</strong><br/>
+              <strong>主流供应商</strong>：
+              <a href="https://www.huawei.com/cn/products/sd-wan" target="_blank" rel="noopener" style="color:#3b82f6;">华为 SD-WAN ↗</a> /
+              <a href="https://www.cisco.com/c/zh_cn/index.html" target="_blank" rel="noopener" style="color:#3b82f6;">Cisco Catalyst ↗</a> /
+              <a href="https://www.h3c.com/cn/" target="_blank" rel="noopener" style="color:#3b82f6;">华三 H3C ↗</a>
+              <br/>
+              <span class="tag warn" style="padding:1px 6px;">规模化阶段</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="padding: 8px 16px 14px; font-size:12px; color:#5b6a8a; font-style: italic;">
+          <strong>建议</strong>：第一阶段（M0-M9 PoC）做基础方案即可；进阶方案在第二阶段（M9 后规模化时）启动。
+          <span class="tag" style="padding:1px 6px; margin-left:8px;">FDC 实时性</span>
+          <span class="tag" style="padding:1px 6px;">PdM</span>
+          <span class="tag" style="padding:1px 6px;">数据安全</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ D. 服务器 + 算力 ============ -->
+    <div class="infra-cat D" data-cat="D">
+      <div class="h" onclick="this.parentElement.classList.toggle('open')">
+        <div>
+          <div class="ttl">⚡ D. 服务器 + 算力（通俗解释版）</div>
+          <div class="sum">通俗解释：AI 也是一种"软件"，跑在普通服务器上；但 LLM 大模型（如"灵犀"）需要专门的 GPU 服务器</div>
+        </div>
+        <div style="color:#ef4444; font-size: 13px; font-weight: 700;">详见展开</div>
+      </div>
+      <div class="items">
+        <div class="item-full" style="padding: 14px 16px; border-bottom:1px solid #e3e8f2;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px;">
+            <div style="flex:1;">
+              <div style="font-weight:700; color:#0f1f3d; font-size:14px;">D1 · 应用服务器集群（普通服务器）</div>
+              <div style="font-size:12px; color:#5b6a8a; margin-top:3px; line-height:1.6;">
+                <strong>通俗解释</strong>：跟我们办公常见的服务器一样，只是更强一些。FDC 监控、Q&A 检索、技术转移工具这类"做计算 + 给页面"的应用都跑在这里。一台普通服务器约能服务 1 个车间。
+              </div>
+            </div>
+            <div style="text-align:right; font-variant-numeric:tabular-nums;">
+              <span style="color:#7c3aed; font-weight:700; font-size:14px;">12-25 万元/台</span><br/>
+              <span style="font-size:11px; color:#7a89a8;">通常买 3-5 台</span>
+            </div>
+          </div>
+          <div style="margin-top:8px; font-size:12px;">
+            <strong>主流型号</strong>：
+            <a href="https://www.dell.com/zh-cn/work/shop/povw/poweredge-r760" target="_blank" rel="noopener" style="color:#3b82f6;">Dell PowerEdge R760 ↗</a> /
+            <a href="https://www.hpe.com/cn/zh/servers/proliant-dl380-gen11.html" target="_blank" rel="noopener" style="color:#3b82f6;">HPE ProLiant DL380 Gen11 ↗</a> /
+            <a href="https://www.inspur.com/" target="_blank" rel="noopener" style="color:#3b82f6;">浪潮 NF5280M7 ↗</a>
+            <span class="tag" style="margin-left:8px; padding:1px 6px;">所有应用</span>
+          </div>
+        </div>
+
+        <div class="item-full" style="padding: 14px 16px; border-bottom:1px solid #e3e8f2;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px;">
+            <div style="flex:1;">
+              <div style="font-weight:700; color:#0f1f3d; font-size:14px;">D2 · GPU 服务器（专门跑"灵犀"大模型用）</div>
+              <div style="font-size:12px; color:#5b6a8a; margin-top:3px; line-height:1.6;">
+                <strong>通俗解释</strong>：GPU 原本是给游戏显卡用的芯片，但因为擅长"同时算很多简单数学"，恰好适合大模型运行。
+                "灵犀"这种几十亿到几千亿参数的大模型必须用 GPU，否则一个问题要等几分钟。
+                一台 8 卡 GPU 服务器 ≈ 几百台普通服务器的并行算力。<br/>
+                <strong>为什么这么贵</strong>：一张 H100 GPU 卡 = 20-30 万元，单台服务器 8 卡。
+                如果不想这么贵，可以用国产替代（昇腾 / 寒武纪），单台 50-100 万元。
+              </div>
+            </div>
+            <div style="text-align:right; font-variant-numeric:tabular-nums;">
+              <span style="color:#7c3aed; font-weight:700; font-size:14px;">100-300 万元/台</span><br/>
+              <span style="font-size:11px; color:#7a89a8;">PoC 1 台 / 规模化 2-3 台</span>
+            </div>
+          </div>
+          <div style="margin-top:8px; font-size:12px;">
+            <strong>主流型号</strong>：
+            <a href="https://www.nvidia.cn/data-center/h100/" target="_blank" rel="noopener" style="color:#3b82f6;">NVIDIA H100 ↗</a> (8 卡服务器 ~ 250-300 万) /
+            <a href="https://www.nvidia.cn/data-center/a100/" target="_blank" rel="noopener" style="color:#3b82f6;">NVIDIA A100 ↗</a> (8 卡 ~ 150-200 万) /
+            <a href="https://www.hiascend.com/" target="_blank" rel="noopener" style="color:#3b82f6;">华为昇腾 910B ↗</a> (国产替代，~ 80-120 万)
+            <span class="tag" style="margin-left:8px; padding:1px 6px;">Q&A LLM</span>
+          </div>
+        </div>
+
+        <div class="item-full" style="padding: 14px 16px; border-bottom:1px solid #e3e8f2;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px;">
+            <div style="flex:1;">
+              <div style="font-weight:700; color:#0f1f3d; font-size:14px;">D3 · 边缘计算节点（车间本地小服务器）</div>
+              <div style="font-size:12px; color:#5b6a8a; margin-top:3px; line-height:1.6;">
+                <strong>通俗解释</strong>：放在车间本地的小型服务器，专门跑"必须秒级响应"的应用。
+                就像便利店——总部太远，每个社区开一家近的，反应快。
+                FDC 实时报警如果走集团数据中心，单程网络可能 50-200 毫秒；放车间本地 &lt; 5 毫秒。
+              </div>
+            </div>
+            <div style="text-align:right; font-variant-numeric:tabular-nums;">
+              <span style="color:#7c3aed; font-weight:700; font-size:14px;">3-8 万元/台</span><br/>
+              <span style="font-size:11px; color:#7a89a8;">车间数量决定</span>
+            </div>
+          </div>
+          <div style="margin-top:8px; font-size:12px;">
+            <strong>主流型号</strong>：
+            <a href="https://www.advantech.com/cn" target="_blank" rel="noopener" style="color:#3b82f6;">研华 UNO 工业 PC ↗</a> /
+            <a href="https://www.dell.com/zh-cn/work/shop/povw/poweredge-xr12" target="_blank" rel="noopener" style="color:#3b82f6;">Dell PowerEdge XR ↗</a> /
+            <a href="https://www.lenovo.com/cn/zh/p/servers-storage/edge-servers" target="_blank" rel="noopener" style="color:#3b82f6;">联想 ThinkEdge ↗</a>
+            <span class="tag" style="margin-left:8px; padding:1px 6px;">FDC</span>
+            <span class="tag" style="margin-left:4px; padding:1px 6px;">PdM</span>
+          </div>
+        </div>
+
+        <div class="item-full" style="padding: 14px 16px;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px;">
+            <div style="flex:1;">
+              <div style="font-weight:700; color:#0f1f3d; font-size:14px;">D4 · 备份 / 灾备（GMP 必需）</div>
+              <div style="font-size:12px; color:#5b6a8a; margin-top:3px; line-height:1.6;">
+                <strong>通俗解释</strong>：所有 AI 数据 + 模型 + 配置都要每天备份、异地存一份。<strong>GMP 法规要求</strong>，万一 IT 故障数据丢失，监管要追究。
+                做"两地三中心"：天津主中心 + 同城备份 + 异地（如敦化）灾备。
+              </div>
+            </div>
+            <div style="text-align:right; font-variant-numeric:tabular-nums;">
+              <span style="color:#7c3aed; font-weight:700; font-size:14px;">80-200 万元</span><br/>
+              <span style="font-size:11px; color:#7a89a8;">含存储 + 软件</span>
+            </div>
+          </div>
+          <div style="margin-top:8px; font-size:12px;">
+            <strong>主流方案</strong>：
+            <a href="https://www.dell.com/zh-cn/work/shop/data-protection/sf/data-protection-solutions" target="_blank" rel="noopener" style="color:#3b82f6;">Dell 数据保护 ↗</a> /
+            <a href="https://www.commvault.com/cn" target="_blank" rel="noopener" style="color:#3b82f6;">Commvault ↗</a>
+            <span class="tag" style="margin-left:8px; padding:1px 6px;">合规必投</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    <strong>读这张表的方式</strong>：
+    ① 看每项<strong>单价</strong>；总投入 = 单价 × 数量，立项时按 PoC 范围核算 ；
+    ② 看<strong>支撑哪些功能</strong>（紫色标签），同一笔投入支撑多个 AI 应用、避免重复花钱 ；
+    ③ 看<strong>来源链接</strong>，每项都给了 2-3 个主流供应商可对比询价。
+    <br/><br/>
+    <strong>关键判断</strong>：A 类是"必投"（无 OT 数据 = 无 AI）；B 类是"投了万年用"（数据治理收益最长，<strong>且与任何 AI 供应商无关，必投</strong>）；
+    C 类基础方案 PoC 用足够；D2 GPU 服务器是 LLM 应用的核心瓶颈，但 PoC 阶段可<strong>租用云 GPU 替代</strong>。
+  </div>
+</section>
+
+<!-- ============ S8 数据隔离 ============ -->
+<section class="slide" id="s-iso" data-page="7">
+  <h2 class="kicker">PART 06 · 数据安全 & 客户版权隔离</h2>
+  <h1>CDMO 业务命脉 — 不同客户的经验不能互通，AI 也不能</h1>
+  <p class="lead">
+    凯莱英给客户 A 做了一个反应工艺，从中积累了"催化剂 X 在 80℃ 这种条件下副产物 Y 高"的经验。
+    这条经验<strong>能不能用在客户 B 的项目上</strong>？— 法律和商业道德都不允许直接用。
+    但 AI 模型天然喜欢"跨客户学经验"，<strong>这是 CDMO 用 AI 最大的伦理 + 法律风险</strong>。本部分给出三层隔离方案。
+  </p>
+
+  <svg id="isoArch" viewBox="0 0 1240 540" style="width:100%; height:auto; background:#f7f9fc; border-radius:12px; border:1px solid #e3e8f2;"></svg>
+
+  <h3 style="margin-top:24px; font-size:16px;">三层隔离的具体实现</h3>
+
+  <table class="kly">
+    <thead>
+      <tr>
+        <th style="width:18%;">隔离层</th>
+        <th style="width:32%;">实现方式</th>
+        <th style="width:25%;">解决的风险</th>
+        <th>合同 / 流程支持</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>L1 · 物理 / 逻辑数据隔离</strong></td>
+        <td>
+          • 每个客户独立数据库 schema 或独立集群<br/>
+          • 客户访问严格按"项目权限"过滤<br/>
+          • 审计日志追到"用户 × 客户 × 操作"
+        </td>
+        <td>"原始数据不出客户域"</td>
+        <td>客户合同明确数据归属；ISO 27001 + Part 11 审计</td>
+      </tr>
+      <tr>
+        <td><strong>L2 · 模型 / 参数隔离</strong></td>
+        <td>
+          • 客户专属微调模型不混用<br/>
+          • 联邦学习 / 差分隐私训练<br/>
+          • 共享层仅是<strong>通用底层算法</strong>（如 PCA / Transformer 架构本身）
+        </td>
+        <td>"模型参数不暴露客户数据细节"</td>
+        <td>合同写入"AI 模型训练许可" + "不得对外提供训练后模型"</td>
+      </tr>
+      <tr>
+        <td><strong>L3 · 经验 / 知识沉淀脱敏</strong></td>
+        <td>
+          • 设"知识沉淀脱敏委员会"评议每条经验是否可外传<br/>
+          • <strong>可跨客户共享</strong>：方法论 / SOP 模板 / 设备参数库（不含工艺细节）<br/>
+          • <strong>不能共享</strong>：CPP 数值 / 杂质谱 / 催化剂体系 / 产物结构
+        </td>
+        <td>"经验抽象可共享、具体细节不可"</td>
+        <td>客户合同"脱敏经验沉淀许可"；IP 影响评估流程</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-3" style="margin-top: 20px;">
+    <div class="card warn">
+      <strong>关键风险 1 · 联邦学习不是万能</strong>
+      <p style="font-size:13px; margin-top:6px;">
+        联邦学习理论可让"数据不出客户域、模型参数互通"。但模型参数本身可能<strong>反推出训练数据特征</strong>（model inversion attack）。
+        必须叠加差分隐私 + 严格审计。
+      </p>
+    </div>
+    <div class="card warn">
+      <strong>关键风险 2 · 智现未来现场没回答这个</strong>
+      <p style="font-size:13px; margin-top:6px;">
+        现场我们提出客户数据隔离问题，对方未给出明确方案。
+        这是 <strong>PoC 启动前必须落实的硬指标</strong>，应作为合同附件。
+      </p>
+    </div>
+    <div class="card purple">
+      <strong>关键参考 · 半导体 Foundry 已有成熟方案</strong>
+      <p style="font-size:13px; margin-top:6px;">
+        台积电 / 三星给数百家 IC 设计公司代工，半导体 Foundry 客户数据隔离方案是行业最严的之一。
+        <strong>智现未来在这一块的经验可以直接迁移</strong> — 但需要他们主动给方案。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S9 原理异同 ============ -->
+<section class="slide" id="s-diff" data-page="8">
+  <h2 class="kicker">PART 07 · 半导体 → CDMO 原理异同</h2>
+  <h1>哪些可以直接迁移、哪些要重做、谁来做、做多久</h1>
+
+  <table class="kly">
+    <thead>
+      <tr>
+        <th style="width:20%;">维度</th>
+        <th style="width:24%;">半导体（智现未来主场）</th>
+        <th style="width:24%;">CDMO 制药</th>
+        <th style="width:8%;">异同</th>
+        <th>跨域工作要点（谁做，多久）</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#f0fdf4;">
+        <td><strong>AI 算法层</strong></td>
+        <td>PCA / Autoencoder / LSTM / RL / MPC / LLM</td>
+        <td>同类算法完全适用</td>
+        <td><span class="pill ok">同</span></td>
+        <td><strong>智现未来侧</strong>：无需改算法核心；只需<strong>用 CDMO 数据重新训练参数</strong>。耗时 1-3 月/方向</td>
+      </tr>
+      <tr style="background:#f0fdf4;">
+        <td><strong>业务模型</strong></td>
+        <td>Foundry 代工模式（产线复用 + 客户隔离）</td>
+        <td>CDMO 代工模式（同上）</td>
+        <td><span class="pill ok">同</span></td>
+        <td><strong>智现未来侧</strong>：Foundry 经验直接迁移；客户隔离 SOP 可借鉴；耗时 1-2 月</td>
+      </tr>
+      <tr style="background:#f0fdf4;">
+        <td><strong>批次 / 履历</strong></td>
+        <td>Lot Genealogy + WRA</td>
+        <td>Batch Record + 物料谱系</td>
+        <td><span class="pill ok">同</span></td>
+        <td><strong>双方协作</strong>：数据 schema 重新设计；耗时 2-3 月</td>
+      </tr>
+      <tr style="background:#fff7ed;">
+        <td><strong>"灵犀" LLM 语料</strong></td>
+        <td>20+ 年半导体语料</td>
+        <td>制药语料完全不同</td>
+        <td><span class="pill mid">需重训</span></td>
+        <td><strong>双方协作</strong>：凯莱英提供制药语料（历史批记录 / SOP / 专利 / 工艺文献），智现未来做继续训练；耗时 4-6 月</td>
+      </tr>
+      <tr style="background:#fff7ed;">
+        <td><strong>偏差 / OOS 分类体系</strong></td>
+        <td>半导体缺陷分类（电性能 / 几何 / 形貌）</td>
+        <td>制药偏差分类（工艺 / 杂质 / 设备 / 人员）</td>
+        <td><span class="pill mid">需重做</span></td>
+        <td><strong>双方协作</strong>：凯莱英 QA 配合标注历史偏差库；耗时 6-12 月</td>
+      </tr>
+      <tr style="background:#fef2f2;">
+        <td><strong>合规体系</strong></td>
+        <td>IATF / ISO 9001 / 客户审计</td>
+        <td>21 CFR Part 11 / GAMP 5 / GMP / NMPA</td>
+        <td><span class="pill warn">完全不同</span></td>
+        <td><strong>智现未来主做</strong>：必须重新做 GAMP 5 类别 4 验证；需第三方审计机构；耗时 12-18 月 + 高成本</td>
+      </tr>
+      <tr style="background:#fef2f2;">
+        <td><strong>设备 / 物理过程</strong></td>
+        <td>光刻 / 刻蚀 / 镀膜 / CMP</td>
+        <td>化学反应 / 结晶 / 干燥 / 离心</td>
+        <td><span class="pill warn">完全不同</span></td>
+        <td><strong>智现未来主做</strong>：工程师需培训化工反应基础；耗时 3-6 月</td>
+      </tr>
+      <tr style="background:#fef2f2;">
+        <td><strong>DCS / OT 协议</strong></td>
+        <td>SEMI E10/E30/E40/E87 （半导体专属）</td>
+        <td>OPC UA + DCS 厂商专属（Honeywell / 横河 / Emerson / 西门子）</td>
+        <td><span class="pill warn">完全不同</span></td>
+        <td><strong>智现未来主做</strong>：开发制药 DCS 接口适配器；耗时 3-6 月（每种 DCS 1-2 月）</td>
+      </tr>
+      <tr style="background:#fef2f2;">
+        <td><strong>应用工程师</strong></td>
+        <td>半导体工艺工程师 + 设备工程师</td>
+        <td>化学工程师 + QA + 监管事务</td>
+        <td><span class="pill warn">完全不同</span></td>
+        <td><strong>智现未来主做</strong>：招聘 / 培养制药行业应用工程师；或<strong>跟第三方制药顾问合作</strong>；耗时 6-12 月</td>
+      </tr>
+      <tr style="background:#fef2f2;">
+        <td><strong>客户 / 项目隔离细则</strong></td>
+        <td>半导体客户 mask 设计完全保密；Foundry 已有方案</td>
+        <td>制药客户工艺 / IP 完全保密；CDMO 一致需求</td>
+        <td><span class="pill warn">需对接</span></td>
+        <td><strong>双方协作</strong>：方案借鉴 + 凯莱英合同 / 流程定制；耗时 3-6 月</td>
+      </tr>
+    </tbody>
+  </table>
+
+</section>
+
+<!-- ============ S10 同行对比 ============ -->
+<section class="slide" id="s-compare" data-page="9">
+  <h2 class="kicker">PART 08 · 智现未来 vs 行业标杆能力对比</h2>
+  <h1>跟华为云盘古制药 / Aizon-Mareana / AVEVA-Aspen / 中控 横向比 — 能力差异在哪</h1>
+  <p class="lead">
+    把"工业大模型 + 工艺工程 AI"赛道的主要供应商放一起比，看每家能力的边界。
+    <strong>勾选下面 candidate 决定显示哪些</strong>，雷达图会即时重绘。
+  </p>
+
+  <!-- 勾选 candidate -->
+  <div class="card" style="background:#f5f3ff; margin: 14px 0; padding: 14px 18px;">
+    <strong style="font-size:13px; color:#6b21a8;">对比对象 · 选择想看的供应商（默认全选）</strong>
+    <div id="radarCandidates" style="margin-top:10px; display:flex; flex-wrap:wrap; gap:18px;"></div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <h3 style="font-size:16px;">8 维度雷达图</h3>
+      <svg class="radar" id="radarCompare" viewBox="0 0 540 480" style="width:100%; max-width:540px;"></svg>
+      <div class="footnote">维度评分 1-10，基于公开案例 + 公开技术资料。仅作辅助判断，立项时需详细测算。</div>
+    </div>
+    <div>
+      <h3 style="font-size:16px;">关键差异速览</h3>
+      <table class="kly">
+        <thead><tr><th>对比维度</th><th>智现未来</th><th>建议替代/对照</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>制药行业案例</td>
+            <td><span class="pill warn">0 公开</span></td>
+            <td>华为云盘古制药（翰宇 +45%）、Aizon、Mareana（医药原生）</td>
+          </tr>
+          <tr>
+            <td>工艺工程算法深度</td>
+            <td><span class="pill ok">★★★ 12 吋晶圆经验</span></td>
+            <td>无人能完全对标</td>
+          </tr>
+          <tr>
+            <td>大模型 / LLM</td>
+            <td><span class="pill ok">"灵犀" 行业首创</span></td>
+            <td>华为云盘古、阿里通义私有化</td>
+          </tr>
+          <tr>
+            <td>GMP / Part 11 合规</td>
+            <td><span class="pill warn">需补</span></td>
+            <td>Aizon / Mareana 原生合规</td>
+          </tr>
+          <tr>
+            <td>国内本地化</td>
+            <td><span class="pill ok">★★★</span></td>
+            <td>华为云 / 中控 / 创新奇智都强</td>
+          </tr>
+          <tr>
+            <td>开放生态</td>
+            <td><span class="pill mid">中等</span></td>
+            <td>AVEVA PI / Aspen 开放性强</td>
+          </tr>
+          <tr>
+            <td>价格档次</td>
+            <td><span class="pill mid">中等</span></td>
+            <td>Aizon / Mareana 较贵；中控相近</td>
+          </tr>
+          <tr>
+            <td>跨行业迁移风险</td>
+            <td><span class="pill warn">高</span></td>
+            <td>华为云中等；Aizon / Mareana 无</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 26px; font-size:16px;">能力对比矩阵 — 按 AI 应用方向看哪家强</h3>
+  <table class="kly">
+    <thead>
+      <tr><th>AI 应用方向</th><th>能力领先方</th><th>能力次之 / 对照</th><th>能力差异说明</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>① FDC 过程偏差监控</td>
+        <td><strong style="color:#7c3aed;">智现未来</strong></td>
+        <td>中控石化大模型 / 自研</td>
+        <td>智现未来 FDC 算法最深；需评估制药适配</td>
+      </tr>
+
+
+      <tr>
+        <td>④ 技术转移 / Golden Path</td>
+        <td><strong style="color:#7c3aed;">智现未来</strong></td>
+        <td>Aizon Tech Transfer / Mareana</td>
+        <td>智现未来 WRA + Golden Path 方法论可直接迁移</td>
+      </tr>
+      <tr>
+        <td>⑤ QA Copilot / LLM</td>
+        <td><strong style="color:#3b82f6;">华为云盘古制药</strong> 或 <strong style="color:#10b981;">Mareana</strong></td>
+        <td>智现未来 "灵犀"（需重训）</td>
+        <td>华为 / Mareana 在医药 LLM 上已有案例</td>
+      </tr>
+      <tr>
+        <td>⑥ PdM 预测性维护</td>
+        <td><strong style="color:#7c3aed;">智现未来</strong>（多变量时序 + 迁移学习强）</td>
+        <td>SKF / Honeywell Sentience / ABB Ability</td>
+        <td>智现未来在半导体高价设备（光刻机 / 刻蚀机）已有 20+ 年 RUL 预测经验，多变量时序模型 + 迁移学习方法论可直接迁移；通用 PdM 厂商偏振动单一维度</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+</section>
+
+<!-- ============ S-appendix 附录: 半导体 ↔ CDMO 制药 术语对照 ============ -->
+<section class="slide" id="s-appendix" data-page="10">
+  <h2 class="kicker">附录 · 半导体 ↔ CDMO 制药 术语对照</h2>
+  <h1>智现未来"行话" → 凯莱英能听懂的话 — 平移可行性的基础</h1>
+  <p class="lead">
+    业界很少有人把这两个行业放在一起讲，但<strong>"软"的逻辑层（数据建模、批次追溯、根因分析、AI 算法）出奇地相似</strong>，
+    "硬"的物理层（设备、工艺、合规）完全不同。读懂这张表是理解前面所有方案的前提。
+  </p>
+
+<table class="xlate">
     <thead>
       <tr>
         <th style="width:20%;">概念域</th>
@@ -571,1066 +1872,6 @@
   <div class="footnote">
     一句话总结：业务逻辑层和算法层 <strong>可平移</strong>；物理设备层、合规层、协议层 <strong>需重做</strong>。
     平移工作的 <strong>70% 难度</strong>在"重做"那 3 层。
-  </div>
-</section>
-
-<!-- ============ S5-S11 七大场景 — 详细输入输出 ============ -->
-<section class="slide" id="s-scenarios" data-page="5">
-  <h2 class="kicker">PART 04 · 7 个产品在凯莱英的具体应用场景</h2>
-  <h1>每个场景:输入 → AI 处理 → 输出 → 解决什么问题 → 边界 → 优先级</h1>
-  <p class="lead">
-    这是这份汇报的"工程深度部分"。每个场景都按工艺工程师能验收的颗粒度写。
-    场景 1 之后还有专门一个交互 demo 展示 FDC 怎么在反应釜上跑。
-  </p>
-
-  <!-- 场景 1: FDC -->
-  <div class="card" style="margin-bottom: 16px; border-left: 5px solid #7c3aed; padding: 18px 22px;">
-    <div style="display:flex; justify-content: space-between; align-items: baseline;">
-      <h3 style="margin: 0; color:#7c3aed;">① FDC → 反应/结晶过程的多变量偏差实时监控</h3>
-      <span class="pill purple">优先级 ★★★ 强烈推荐第一个 PoC</span>
-    </div>
-    <p style="font-size:14px; margin: 8px 0;">
-      在反应过程中实时融合温度、压力、流量、pH、UV、IR 等 20-50 个传感器数据，
-      用<strong>多变量异常检测</strong>（PCA / Autoencoder / Hotelling T²）发现"每个参数单看都正常、但组合起来反常"的早期偏差，
-      并自动分类成已知偏差模式，秒级推送给工艺工程师。
-    </p>
-
-    <div class="grid-3" style="margin-top: 12px;">
-      <div class="card info" style="margin:0;">
-        <strong style="font-size:13px;">输入</strong>
-        <div style="font-size:12.5px; margin-top:6px;">
-          • DCS 实时数据（20-50 tag × 秒级）<br/>
-          • 在线 PAT（IR / 拉曼 / HPLC）<br/>
-          • 历史批次偏差标注库<br/>
-          • 当前批次工艺配方
-        </div>
-      </div>
-      <div class="card purple" style="margin:0;">
-        <strong style="font-size:13px;">AI 处理</strong>
-        <div style="font-size:12.5px; margin-top:6px;">
-          • 多变量统计模型（PCA / T² / SPE）<br/>
-          • 异常检测（Autoencoder / LSTM）<br/>
-          • 已知偏差分类器（已训练）<br/>
-          • RCA 关联检索
-        </div>
-      </div>
-      <div class="card accent" style="margin:0;">
-        <strong style="font-size:13px;">输出</strong>
-        <div style="font-size:12.5px; margin-top:6px;">
-          • 异常事件 + 严重等级 + 时间戳<br/>
-          • 自动分类的偏差类型<br/>
-          • 推荐响应动作（推 SCADA + 移动 APP）<br/>
-          • 偏差调查初稿（推 QA Copilot）
-        </div>
-      </div>
-    </div>
-
-    <div class="grid-2" style="margin-top: 12px;">
-      <div>
-        <strong style="font-size:13px;">解决什么问题</strong>
-        <ul class="bul tight" style="margin-top:4px;">
-          <li>传统 SCADA 单点阈值报警漏报误报多（典型漏报率 30%+）</li>
-          <li>偏差发现时机晚（人工注意到时往往已不可逆）</li>
-          <li>QA 偏差调查从手工 30-90 天压到草稿 5-15 天</li>
-          <li>重复偏差自动识别避免漏看</li>
-        </ul>
-      </div>
-      <div>
-        <strong style="font-size:13px;">边界 / 凯莱英要做的事</strong>
-        <ul class="bul tight" style="margin-top:4px;">
-          <li>历史偏差标注库（6-12 月由资深 QA 配合做）</li>
-          <li>反应釜 DCS 数据齐整（缺 tag 要补传感器）</li>
-          <li>第一阶段定位"决策辅助"，不进 GMP 控制回路</li>
-          <li>模型对从未见过的"新偏差"召回率有限</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- 场景 2: RMS -->
-  <div class="card" style="margin-bottom: 16px; border-left: 5px solid #7c3aed; padding: 18px 22px;">
-    <div style="display:flex; justify-content: space-between; align-items: baseline;">
-      <h3 style="margin: 0; color:#7c3aed;">② RMS → 工艺配方 / MBR 版本管理与变更控制</h3>
-      <span class="pill mid">优先级 ★★ 与 QMS 联动后做</span>
-    </div>
-    <p style="font-size:14px; margin: 8px 0;">
-      半导体配方有几十到上千个参数，每个变更都要审批、留痕。智现未来 RMS 是这套治理的成熟系统。
-      CDMO 对应的是 MBR（Master Batch Record） + SOP + CPP/CQA 表。
-    </p>
-
-    <div class="grid-3" style="margin-top: 12px;">
-      <div class="card info" style="margin:0;">
-        <strong style="font-size:13px;">输入</strong>
-        <div style="font-size:12.5px; margin-top:6px;">
-          • 研发工艺包（CPP/CQA、SOP、设备清单）<br/>
-          • Change Control 申请<br/>
-          • 客户工艺变更指令<br/>
-          • 历史配方版本库
-        </div>
-      </div>
-      <div class="card purple" style="margin:0;">
-        <strong style="font-size:13px;">AI 处理</strong>
-        <div style="font-size:12.5px; margin-top:6px;">
-          • 版本树管理 + diff 对比<br/>
-          • 变更影响分析（"改这个参数会影响哪些 CQA"）<br/>
-          • 与历史成功批次相似度评估<br/>
-          • 自动审批路由建议
-        </div>
-      </div>
-      <div class="card accent" style="margin:0;">
-        <strong style="font-size:13px;">输出</strong>
-        <div style="font-size:12.5px; margin-top:6px;">
-          • 电子化的工艺配方（与 MES 对接执行）<br/>
-          • 变更审批工单<br/>
-          • 跨厂区配方一致性检查<br/>
-          • 监管核查应答材料
-        </div>
-      </div>
-    </div>
-
-    <div class="grid-2" style="margin-top: 12px;">
-      <div>
-        <strong style="font-size:13px;">解决什么</strong>
-        <ul class="bul tight" style="margin-top:4px;">
-          <li>工艺包仍以 Excel/Word 流转、版本混乱</li>
-          <li>客户工艺变更追溯困难（监管核查痛点）</li>
-          <li>跨厂区（天津/敦化/吉林）配方不一致</li>
-        </ul>
-      </div>
-      <div>
-        <strong style="font-size:13px;">边界</strong>
-        <ul class="bul tight" style="margin-top:4px;">
-          <li>必须过 GAMP 5 类别 4 验证 + 21 CFR Part 11</li>
-          <li>凯莱英已有 QMS 系统，要避免重复</li>
-          <li>建议作为 QMS 的"工艺配方子模块"集成而非独立部署</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- 场景 3: APC -->
-  <div class="card" style="margin-bottom: 16px; border-left: 5px solid #7c3aed; padding: 18px 22px;">
-    <div style="display:flex; justify-content: space-between; align-items: baseline;">
-      <h3 style="margin: 0; color:#7c3aed;">③ APC → 连续流反应 / 结晶过程的先进控制</h3>
-      <span class="pill warn">优先级 ★★ 价值高但难度最大</span>
-    </div>
-    <p style="font-size:14px; margin: 8px 0;">
-      在半导体里 APC 是闭环：AI 模型根据实时传感器读数<strong>自动调整工艺参数</strong>（如等离子功率），保持产品质量在目标范围。
-      在 CDMO 里对应"模型预测控制 (MPC) + 在线 PAT 软测量" — Quality by Design (QbD) 的最高形态。
-    </p>
-
-    <div class="grid-3" style="margin-top: 12px;">
-      <div class="card info" style="margin:0;">
-        <strong style="font-size:13px;">输入</strong>
-        <div style="font-size:12.5px; margin-top:6px;">
-          • DCS 实时数据<br/>
-          • 在线 PAT 光谱（IR/拉曼/UV）<br/>
-          • 工艺机理模型（动力学/传热）<br/>
-          • 当前 CQA 目标
-        </div>
-      </div>
-      <div class="card purple" style="margin:0;">
-        <strong style="font-size:13px;">AI 处理</strong>
-        <div style="font-size:12.5px; margin-top:6px;">
-          • 软测量：从光谱实时算 CQA（不等离线 HPLC 24h）<br/>
-          • MPC：滚动预测 + 优化未来 30 min 参数轨迹<br/>
-          • 自适应：每批数据反馈优化模型
-        </div>
-      </div>
-      <div class="card accent" style="margin:0;">
-        <strong style="font-size:13px;">输出</strong>
-        <div style="font-size:12.5px; margin-top:6px;">
-          • 软测量值实时显示<br/>
-          • 控制建议（人工确认后执行）<br/>
-          • 第二阶段：直接闭环控制（如自动调加料速度）
-        </div>
-      </div>
-    </div>
-
-    <div class="grid-2" style="margin-top: 12px;">
-      <div>
-        <strong style="font-size:13px;">解决什么</strong>
-        <ul class="bul tight" style="margin-top:4px;">
-          <li>不同批次原料质量差异导致结果不一致</li>
-          <li>收率波动大、杂质控制不稳定</li>
-          <li>放行从天 / 周压到小时（叠加 RTRT）</li>
-        </ul>
-      </div>
-      <div>
-        <strong style="font-size:13px;">边界 / 关键风险</strong>
-        <ul class="bul tight" style="margin-top:4px;">
-          <li>直接闭环控制涉及 GMP / CSV 验证最严</li>
-          <li><strong>第一阶段必须先用"建议模式"</strong>（人工确认后执行）</li>
-          <li>需 12-18 月铺垫</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- 场景 4: 技术转移 -->
-  <div class="card" style="margin-bottom: 16px; border-left: 5px solid #7c3aed; padding: 18px 22px;">
-    <div style="display:flex; justify-content: space-between; align-items: baseline;">
-      <h3 style="margin: 0; color:#7c3aed;">④ 技术转移 / Golden Path → R&D 到生产的工艺移植加速</h3>
-      <span class="pill purple">优先级 ★★★ CDMO 业务核心</span>
-    </div>
-    <p style="font-size:14px; margin: 8px 0;">
-      半导体里 WRA + Golden Path 推荐：根据历史成功 wafer 的工艺路径，给新产品推荐最佳生产路径。
-      CDMO 对应：研发到中试到商业化的工艺包移植 + 设备等效性比对 + 黄金批次推荐。
-      <strong>这一项对 CDMO 业务的杠杆最大</strong> — 缩短 NPI 时间 = 提前确认收入 + 客户复购。
-    </p>
-
-    <div class="grid-3" style="margin-top: 12px;">
-      <div class="card info" style="margin:0;">
-        <strong style="font-size:13px;">输入</strong>
-        <div style="font-size:12.5px; margin-top:6px;">
-          • 研发实验数据（小试/中试）<br/>
-          • 设备能力库（不同反应釜的搅拌/传热）<br/>
-          • 商业化车间设备清单<br/>
-          • 历史相似项目放大数据
-        </div>
-      </div>
-      <div class="card purple" style="margin:0;">
-        <strong style="font-size:13px;">AI 处理</strong>
-        <div style="font-size:12.5px; margin-top:6px;">
-          • 设备等效性比对（雷诺数、传热系数）<br/>
-          • 历史项目相似度检索<br/>
-          • 工艺参数自动外推<br/>
-          • 放大风险识别
-        </div>
-      </div>
-      <div class="card accent" style="margin:0;">
-        <strong style="font-size:13px;">输出</strong>
-        <div style="font-size:12.5px; margin-top:6px;">
-          • 商业化车间工艺包草案<br/>
-          • 放大风险清单<br/>
-          • 设备改造建议<br/>
-          • 同类历史项目偏差档案链接
-        </div>
-      </div>
-    </div>
-
-    <div class="grid-2" style="margin-top: 12px;">
-      <div>
-        <strong style="font-size:13px;">解决什么</strong>
-        <ul class="bul tight" style="margin-top:4px;">
-          <li>NPI 时间长（参考 BMS NPI −42%）</li>
-          <li>首批成功率低、客户交付延期</li>
-          <li>工艺包不完整、隐性知识丢失</li>
-        </ul>
-      </div>
-      <div>
-        <strong style="font-size:13px;">边界 / 凯莱英要做的事</strong>
-        <ul class="bul tight" style="margin-top:4px;">
-          <li>需要凯莱英历史项目数据沉淀（数百个项目）</li>
-          <li>设备能力库要标准化（搅拌雷诺数等参数）</li>
-          <li>需 R&D 部门 + 生产部门 KPI 对齐配合</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- 场景 5: Q&A LLM -->
-  <div class="card" style="margin-bottom: 16px; border-left: 5px solid #7c3aed; padding: 18px 22px;">
-    <div style="display:flex; justify-content: space-between; align-items: baseline;">
-      <h3 style="margin: 0; color:#7c3aed;">⑤ "灵犀" 问答模型 → QA 偏差 Copilot + SOP 助手 + 监管文档生成</h3>
-      <span class="pill purple">优先级 ★★★ FDA CSA / EU Annex 22 已通</span>
-    </div>
-    <p style="font-size:14px; margin: 8px 0;">
-      智现未来"灵犀"是半导体专属 LLM。在凯莱英要做的是<strong>制药专属 LLM</strong> — 基于凯莱英历史偏差库 + SOP + MBR + 工艺包向量化，
-      用 RAG 给 QA 工程师做偏差调查 / CAPA 拟稿 / 历史相似偏差检索。
-      AI 不替代签字，但把"找历史、写草稿、填模板"80% 的体力活省下来。
-    </p>
-
-    <div class="grid-3" style="margin-top: 12px;">
-      <div class="card info" style="margin:0;">
-        <strong style="font-size:13px;">输入</strong>
-        <div style="font-size:12.5px; margin-top:6px;">
-          • 当前偏差描述<br/>
-          • 该批次 DCS 实时数据<br/>
-          • 历史偏差库（向量化）<br/>
-          • SOP / MBR / 工艺包知识库
-        </div>
-      </div>
-      <div class="card purple" style="margin:0;">
-        <strong style="font-size:13px;">AI 处理</strong>
-        <div style="font-size:12.5px; margin-top:6px;">
-          • RAG 检索 Top-K 相似偏差<br/>
-          • LLM 综合生成根因建议<br/>
-          • 根据 SOP / CAPA 模板拟稿<br/>
-          • 标出所有引用源
-        </div>
-      </div>
-      <div class="card accent" style="margin:0;">
-        <strong style="font-size:13px;">输出</strong>
-        <div style="font-size:12.5px; margin-top:6px;">
-          • 偏差调查初稿<br/>
-          • CAPA 模板（已填关键字段）<br/>
-          • 同类历史偏差关联链接<br/>
-          • 引用源文档 + 条款
-        </div>
-      </div>
-    </div>
-
-    <div class="grid-2" style="margin-top: 12px;">
-      <div>
-        <strong style="font-size:13px;">解决什么</strong>
-        <ul class="bul tight" style="margin-top:4px;">
-          <li>偏差关闭周期从 30-90 天压到 5-15 天</li>
-          <li>批审核工时 −50%（行业基线）</li>
-          <li>PQR / 年度报告自动化（Sanofi 案例 −70%）</li>
-        </ul>
-      </div>
-      <div>
-        <strong style="font-size:13px;">凯莱英要做的事</strong>
-        <ul class="bul tight" style="margin-top:4px;">
-          <li>"灵犀"在制药语料上继续训练（凯莱英语料 + 公开制药文献）</li>
-          <li>历史偏差库电子化 + 结构化标注</li>
-          <li>合规：AI 输出必须可追溯到原始数据</li>
-          <li>客户级数据隔离（见 PART 06）</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- 场景 6: PdM -->
-  <div class="card" style="margin-bottom: 16px; border-left: 5px solid #7c3aed; padding: 18px 22px;">
-    <div style="display:flex; justify-content: space-between; align-items: baseline;">
-      <h3 style="margin: 0; color:#7c3aed;">⑥ 预测性维护 → 关键设备健康监测</h3>
-      <span class="pill gray">优先级 ★ 凯莱英已有 DH1 项目推进</span>
-    </div>
-    <p style="font-size:14px; margin: 8px 0;">
-      智现未来的 PdM 跟凯莱英 DH1 项目场景一致（冰机 / 空压机 / 离心泵）。
-      这一项<strong>不建议作为独立 PoC</strong>，而是看智现未来在 DH1 项目里的算法 / 经验能不能复用，
-      或者作为现有 PdM 供应商的备选。
-    </p>
-    <div class="card" style="background:#f7f9fc; margin-top:10px;">
-      <strong style="font-size:13px;">凯莱英应对：</strong>
-      <span style="font-size:13px;">让智现未来与现有 PdM 供应商在同一台测试设备上跑对比，但<strong>不在本次 PoC 范围内开新项目</strong>。</span>
-    </div>
-  </div>
-
-  <!-- 场景 7: Intelligence Hub -->
-  <div class="card danger" style="margin-bottom: 16px; padding: 18px 22px;">
-    <div style="display:flex; justify-content: space-between; align-items: baseline;">
-      <h3 style="margin: 0; color:#dc2626;">⑦ Intelligence Hub → ⚠️ 平台底座 — 慎重</h3>
-      <span class="pill warn">优先级 0 — 不建议</span>
-    </div>
-    <p style="font-size:14px; margin: 8px 0;">
-      智现未来想推 Intelligence Hub 作为"数据底座 + AI 平台"。
-      <strong>这是这次合作里最大的"陷阱"</strong>。凯莱英在《数智化立项规划》Step 3 已经明确平台路线是
-      <strong>艾默生 IP.21 + Inmation</strong>。Intelligence Hub 跟这个平台<strong>直接冲突</strong>。
-    </p>
-    <p style="font-size:14px; margin: 8px 0;">
-      <strong>正确姿态</strong>：让智现未来的产品（FDC/RMS/APC/Q&A 等）<strong>作为应用层跑在艾默生平台上</strong>，
-      Intelligence Hub <strong>不进入凯莱英技术栈</strong>。这是平台层选型的红线。
-    </p>
-  </div>
-</section>
-
-<!-- ============ S6 FDC Demo ============ -->
-<section class="slide" id="s-fdc-demo" data-page="6">
-  <h2 class="kicker">PART 05 · 实时 Demo</h2>
-  <h1>FDC 跑在凯莱英连续流氢化反应上是什么样的</h1>
-  <p class="lead">
-    下面是一个模拟的连续流氢化反应（基于公开工艺特征）。AI 在 8 个传感器数据流上做多变量异常检测。
-    <strong>请点击"开始播放"或拖动时间轴</strong> — 重点观察 90 分钟前后：每个参数单看都在范围内、
-    但参数之间的<strong>相关性</strong>已经变了，AI 在 90 分钟检出异常，传统单点阈值要到 130+ 分钟才能触发。
-  </p>
-
-  <div class="fdc-box">
-    <div style="font-size:12.5px; opacity:.7; margin-bottom:12px;">
-      模拟对象：DH 连续流氢化反应器 R-201（Buchwald 加氢，250kW）；监测 8 个关键传感器；
-      AI 模型：PCA Hotelling T² 多变量异常检测 + 已学习的偏差分类器（"催化剂活性衰减"等 12 类）
-    </div>
-
-    <div class="fdc-grid">
-      <!-- 左侧：状态板 -->
-      <div>
-        <div class="fdc-side">
-          <div class="fdc-status">综合健康状态 / 时间 <span id="fdcTime" style="color:#fff; font-weight:600;">T+0 min</span></div>
-          <div class="fdc-bigstat ok" id="fdcOverall">正常</div>
-          <div style="font-size:12px; color:#cdd6e8; margin-bottom:8px;" id="fdcDesc">
-            8 个传感器全部在正常范围。多变量 T² 统计量 = 1.23（阈值 9.0）
-          </div>
-          <div style="font-size:11px; color:#9aabd6; padding-top:6px; border-top:1px dashed rgba(255,255,255,.1);">
-            T² 统计量 <span id="fdcT2" style="color:#22d3ee; font-weight:700;">1.23</span> / 阈值 9.00
-          </div>
-        </div>
-
-        <div class="fdc-side" style="margin-top: 12px;">
-          <div class="fdc-status">8 个传感器实时</div>
-          <div class="fdc-sensor-list" id="fdcSensors"></div>
-        </div>
-
-        <div class="fdc-side" style="margin-top: 12px;">
-          <div class="fdc-status">传统单点阈值 vs AI 多变量</div>
-          <div style="font-size:11.5px; color:#cdd6e8; line-height: 1.6;">
-            ❌ 单点阈值 T1 &gt; 82 ℃：<span id="fdcThresh" style="color:#fbbf24;">未触发</span><br/>
-            ✓ AI 多变量异常：<span id="fdcAi" style="color:#22d3ee;">监测中</span><br/>
-            <span style="color:#9aabd6; font-size:11px;">AI 比单点阈值 <strong style="color:#22d3ee;" id="fdcLead">— 提前</strong> 检出偏差</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 右侧：图表 + 事件 -->
-      <div>
-        <svg class="chart" id="fdcChart" viewBox="0 0 720 380" style="width:100%; height:auto;"></svg>
-        <div class="fdc-events" id="fdcLog"></div>
-      </div>
-    </div>
-
-    <div class="fdc-controls">
-      <label>时间：<span id="fdcLabel" style="color:#fff; font-weight:600;">T+0 min</span></label>
-      <input type="range" id="fdcSlider" min="0" max="180" value="0" step="1"/>
-      <button class="btn" id="fdcPlay">▶ 自动播放</button>
-      <button class="btn ghost" id="fdcReset">重置</button>
-    </div>
-  </div>
-
-  <div class="grid-3" style="margin-top:20px;">
-    <div class="card accent">
-      <strong>关键观察 1 · 多变量异常的本质</strong>
-      <p style="font-size:13px; margin-top:6px;">
-        T+60 起催化剂开始失活。T1 / P / H2 流量都<strong>仍在正常范围</strong>。
-        但 PCA Hotelling T² 已经超阈值 — 因为参数之间的"协方差结构"变了。
-      </p>
-    </div>
-    <div class="card warn">
-      <strong>关键观察 2 · 单点阈值的局限</strong>
-      <p style="font-size:13px; margin-top:6px;">
-        传统 SCADA 只会在 T+135 才触发"T1 &gt; 82 ℃"告警 — 因为系统在自补偿。
-        到那时杂质已经形成，整批已经报废。
-      </p>
-    </div>
-    <div class="card purple">
-      <strong>关键观察 3 · 提前 45 分钟的业务价值</strong>
-      <p style="font-size:13px; margin-top:6px;">
-        提前 45 分钟检出 = <strong>降温补料挽救整批</strong>，按一批氢化产品 50-200 kg、市场价 2-10 万/kg 算，
-        一次成功捕捉 = <strong>挽回 100-2000 万元损失</strong>。这是 FDC 的核心价值。
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ S7 基础设施 ============ -->
-<section class="slide" id="s-infra" data-page="7">
-  <h2 class="kicker">PART 06 · 凯莱英需要投入的软硬件基础设施</h2>
-  <h1>4 大类基础设施清单 — 这是智现未来"需要凯莱英告知"的部分，我们自己先列清楚</h1>
-  <p class="lead">
-    无论选哪家供应商，这 4 类基础设施都是 AI 落地的前置条件。<strong>点击每一类展开看具体清单</strong>。
-    总投入量级在 <strong>2600-5000 万元（3 年分摊）</strong>；其中很多项即使不上智现未来也要做（数据治理、IP.21 完整化等）。
-  </p>
-
-  <div class="infra-tree">
-
-    <div class="infra-cat A open" data-cat="A">
-      <div class="h" onclick="this.parentElement.classList.toggle('open')">
-        <div>
-          <div class="ttl">🔧 A. 自动化改造（OT 现场层）</div>
-          <div class="sum">把"哑设备"变成"会说话的设备"。AI 模型要从 DCS 取实时数据，老车间往往缺 tag</div>
-        </div>
-        <div style="color:#f59e0b; font-size: 14px; font-weight: 700;">~ 1000-2000 万</div>
-      </div>
-      <div class="items">
-        <div class="item">
-          <div>
-            <div class="nm">反应釜传感器补齐</div>
-            <div class="why">每个反应釜补 20-50 个关键 tag（温度多点 / 压力 / 流量 / pH / 电导率 / 扭矩）→ 上传 IP.21</div>
-          </div>
-          <div class="pri">5-20 万/釜</div>
-          <div class="when">M0-M9</div>
-        </div>
-        <div class="item">
-          <div>
-            <div class="nm">在线 PAT 部署 (IR / 拉曼 / NIR / HPLC)</div>
-            <div class="why">连续流车间已部分部署。批次车间需补，APC / RTRT 的前置条件</div>
-          </div>
-          <div class="pri">50-300 万/套</div>
-          <div class="when">M3-M18</div>
-        </div>
-        <div class="item">
-          <div>
-            <div class="nm">关键设备 PdM 传感器</div>
-            <div class="why">振动 / 电流 / 温度 / 声纹（DH1 项目已规划，可复用）</div>
-          </div>
-          <div class="pri">200-400 万（含 DH1 项目）</div>
-          <div class="when">M0-M12</div>
-        </div>
-        <div class="item">
-          <div>
-            <div class="nm">自动化阀门 / 控制器升级</div>
-            <div class="why">APC 闭环控制需要可远程控制的电动阀 + 变频泵</div>
-          </div>
-          <div class="pri">150-500 万</div>
-          <div class="when">M9-M24（APC 启动前）</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="infra-cat B" data-cat="B">
-      <div class="h" onclick="this.parentElement.classList.toggle('open')">
-        <div>
-          <div class="ttl">🗄 B. 数据基础设施（IT 数据层）</div>
-          <div class="sum">把"数据有了"变成"数据能用"。AI 模型训练需要历史数据，但凯莱英很多数据还在纸质 / 非结构化 PDF</div>
-        </div>
-        <div style="color:#3b82f6; font-size: 14px; font-weight: 700;">~ 500-1000 万</div>
-      </div>
-      <div class="items">
-        <div class="item">
-          <div>
-            <div class="nm">IP.21 实时数据库完整化</div>
-            <div class="why">已规划 Step 1，需加速：覆盖所有反应车间 + 公辅区 + PAT 接入</div>
-          </div>
-          <div class="pri">200-400 万</div>
-          <div class="when">M0-M12</div>
-        </div>
-        <div class="item">
-          <div>
-            <div class="nm">数据湖搭建（含向量库）</div>
-            <div class="why">存非结构化文档（批记录 PDF、SOP、专利）+ LLM RAG 用向量库</div>
-          </div>
-          <div class="pri">80-150 万</div>
-          <div class="when">M3-M12</div>
-        </div>
-        <div class="item">
-          <div>
-            <div class="nm">主数据 / 批次结构治理</div>
-            <div class="why">ISA-88 批次模型 + CPP/CQA 标签化 + 客户 / 项目分类体系</div>
-          </div>
-          <div class="pri">100-200 万</div>
-          <div class="when">M0-M18</div>
-        </div>
-        <div class="item">
-          <div>
-            <div class="nm">历史批记录数字化（OCR + NLP）</div>
-            <div class="why">凯莱英 5-10 年历史预计百万级 PDF 页。是 LLM RAG 的关键语料</div>
-          </div>
-          <div class="pri">150-300 万</div>
-          <div class="when">M3-M24</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="infra-cat C" data-cat="C">
-      <div class="h" onclick="this.parentElement.classList.toggle('open')">
-        <div>
-          <div class="ttl">🌐 C. 网络基础设施</div>
-          <div class="sum">FDC / APC 实时控制要低延迟，多厂区数据汇聚要专线，OT/IT 隔离要做合规</div>
-        </div>
-        <div style="color:#10b981; font-size: 14px; font-weight: 700;">~ 300-500 万</div>
-      </div>
-      <div class="items">
-        <div class="item">
-          <div>
-            <div class="nm">OT 网络升级（车间内）</div>
-            <div class="why">DCS-SCADA 网络冗余 / 工业以太环网；车间到数据机房 10G+ 光纤</div>
-          </div>
-          <div class="pri">100-200 万</div>
-          <div class="when">M0-M12</div>
-        </div>
-        <div class="item">
-          <div>
-            <div class="nm">OT / IT 隔离 (DMZ + 防火墙)</div>
-            <div class="why">合规要求：OT 网络不直接出 Internet；通过 DMZ 与 IT 网络受控通信</div>
-          </div>
-          <div class="pri">50-100 万</div>
-          <div class="when">M0-M6</div>
-        </div>
-        <div class="item">
-          <div>
-            <div class="nm">多厂区 SD-WAN</div>
-            <div class="why">天津 / 敦化 / 吉林 / 江苏与集团数据中心专线，带宽 + 加密 + 审计</div>
-          </div>
-          <div class="pri">100-200 万（含 3 年专线费）</div>
-          <div class="when">M6-M18</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="infra-cat D" data-cat="D">
-      <div class="h" onclick="this.parentElement.classList.toggle('open')">
-        <div>
-          <div class="ttl">⚡ D. 服务器 + 算力</div>
-          <div class="sum">智现未来产品需要本地部署。"灵犀"LLM 推理需要 GPU。多工厂需要分布式</div>
-        </div>
-        <div style="color:#ef4444; font-size: 14px; font-weight: 700;">~ 800-1500 万</div>
-      </div>
-      <div class="items">
-        <div class="item">
-          <div>
-            <div class="nm">应用服务器集群</div>
-            <div class="why">FDC / RMS / APC / Q&A 应用部署。x86 集群 + 虚拟化 / 容器编排</div>
-          </div>
-          <div class="pri">200-400 万</div>
-          <div class="when">M0-M12</div>
-        </div>
-        <div class="item">
-          <div>
-            <div class="nm">GPU 服务器（LLM 推理）</div>
-            <div class="why">"灵犀"LLM 私有部署。A100 / H100 / 国产 (昇腾 / 寒武纪) 替代</div>
-          </div>
-          <div class="pri">300-600 万</div>
-          <div class="when">M6-M18</div>
-        </div>
-        <div class="item">
-          <div>
-            <div class="nm">边缘计算节点</div>
-            <div class="why">车间本地推理（APC 闭环 / FDC 实时报警）。低延迟必需</div>
-          </div>
-          <div class="pri">100-200 万</div>
-          <div class="when">M9-M24</div>
-        </div>
-        <div class="item">
-          <div>
-            <div class="nm">备份 / 灾备</div>
-            <div class="why">数据 + 模型 + 配置双活 / 异地备份。GMP 要求</div>
-          </div>
-          <div class="pri">100-200 万</div>
-          <div class="when">M6-M18</div>
-        </div>
-        <div class="item">
-          <div>
-            <div class="nm">私有云基础设施 (可选)</div>
-            <div class="why">如选私有云架构。也可用现有 VMware / OpenStack</div>
-          </div>
-          <div class="pri">100-200 万</div>
-          <div class="when">M0-M12</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="footnote">
-    <strong>读这张表的方式</strong>：A 类是"必投"（无 OT 数据 = 无 AI）；B 类是"投了万年用"（数据治理收益最长）；
-    C 类金额最小但最容易忽视；D 类可以按需扩。
-    <strong>即使最终不选智现未来</strong>，A/B/C 三类的 70%+ 是任何 AI 战略都要做的<strong>必做基建</strong>。
-  </div>
-</section>
-
-<!-- ============ S8 数据隔离 ============ -->
-<section class="slide" id="s-iso" data-page="8">
-  <h2 class="kicker">PART 07 · 数据安全 & 客户版权隔离</h2>
-  <h1>CDMO 业务命脉 — 不同客户的经验不能互通，AI 也不能</h1>
-  <p class="lead">
-    凯莱英给客户 A 做了一个反应工艺，从中积累了"催化剂 X 在 80℃ 这种条件下副产物 Y 高"的经验。
-    这条经验<strong>能不能用在客户 B 的项目上</strong>？— 法律和商业道德都不允许直接用。
-    但 AI 模型天然喜欢"跨客户学经验"，<strong>这是 CDMO 用 AI 最大的伦理 + 法律风险</strong>。本部分给出三层隔离方案。
-  </p>
-
-  <svg id="isoArch" viewBox="0 0 1240 540" style="width:100%; height:auto; background:#f7f9fc; border-radius:12px; border:1px solid #e3e8f2;"></svg>
-
-  <h3 style="margin-top:24px; font-size:16px;">三层隔离的具体实现</h3>
-
-  <table class="kly">
-    <thead>
-      <tr>
-        <th style="width:18%;">隔离层</th>
-        <th style="width:32%;">实现方式</th>
-        <th style="width:25%;">解决的风险</th>
-        <th>合同 / 流程支持</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>L1 · 物理 / 逻辑数据隔离</strong></td>
-        <td>
-          • 每个客户独立数据库 schema 或独立集群<br/>
-          • 客户访问严格按"项目权限"过滤<br/>
-          • 审计日志追到"用户 × 客户 × 操作"
-        </td>
-        <td>"原始数据不出客户域"</td>
-        <td>客户合同明确数据归属；ISO 27001 + Part 11 审计</td>
-      </tr>
-      <tr>
-        <td><strong>L2 · 模型 / 参数隔离</strong></td>
-        <td>
-          • 客户专属微调模型不混用<br/>
-          • 联邦学习 / 差分隐私训练<br/>
-          • 共享层仅是<strong>通用底层算法</strong>（如 PCA / Transformer 架构本身）
-        </td>
-        <td>"模型参数不暴露客户数据细节"</td>
-        <td>合同写入"AI 模型训练许可" + "不得对外提供训练后模型"</td>
-      </tr>
-      <tr>
-        <td><strong>L3 · 经验 / 知识沉淀脱敏</strong></td>
-        <td>
-          • 设"知识沉淀脱敏委员会"评议每条经验是否可外传<br/>
-          • <strong>可跨客户共享</strong>：方法论 / SOP 模板 / 设备参数库（不含工艺细节）<br/>
-          • <strong>不能共享</strong>：CPP 数值 / 杂质谱 / 催化剂体系 / 产物结构
-        </td>
-        <td>"经验抽象可共享、具体细节不可"</td>
-        <td>客户合同"脱敏经验沉淀许可"；IP 影响评估流程</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="grid-3" style="margin-top: 20px;">
-    <div class="card warn">
-      <strong>关键风险 1 · 联邦学习不是万能</strong>
-      <p style="font-size:13px; margin-top:6px;">
-        联邦学习理论可让"数据不出客户域、模型参数互通"。但模型参数本身可能<strong>反推出训练数据特征</strong>（model inversion attack）。
-        必须叠加差分隐私 + 严格审计。
-      </p>
-    </div>
-    <div class="card warn">
-      <strong>关键风险 2 · 智现未来现场没回答这个</strong>
-      <p style="font-size:13px; margin-top:6px;">
-        现场我们提出客户数据隔离问题，对方未给出明确方案。
-        这是 <strong>PoC 启动前必须落实的硬指标</strong>，应作为合同附件。
-      </p>
-    </div>
-    <div class="card purple">
-      <strong>关键参考 · 半导体 Foundry 已有成熟方案</strong>
-      <p style="font-size:13px; margin-top:6px;">
-        台积电 / 三星给数百家 IC 设计公司代工，半导体 Foundry 客户数据隔离方案是行业最严的之一。
-        <strong>智现未来在这一块的经验可以直接迁移</strong> — 但需要他们主动给方案。
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ S9 原理异同 ============ -->
-<section class="slide" id="s-diff" data-page="9">
-  <h2 class="kicker">PART 08 · 半导体 → CDMO 原理异同</h2>
-  <h1>哪些可以直接迁移、哪些要重做、谁来做、做多久</h1>
-
-  <table class="kly">
-    <thead>
-      <tr>
-        <th style="width:20%;">维度</th>
-        <th style="width:24%;">半导体（智现未来主场）</th>
-        <th style="width:24%;">CDMO 制药</th>
-        <th style="width:8%;">异同</th>
-        <th>跨域工作要点（谁做，多久）</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr style="background:#f0fdf4;">
-        <td><strong>AI 算法层</strong></td>
-        <td>PCA / Autoencoder / LSTM / RL / MPC / LLM</td>
-        <td>同类算法完全适用</td>
-        <td><span class="pill ok">同</span></td>
-        <td><strong>智现未来侧</strong>：无需改算法核心；只需<strong>用 CDMO 数据重新训练参数</strong>。耗时 1-3 月/方向</td>
-      </tr>
-      <tr style="background:#f0fdf4;">
-        <td><strong>业务模型</strong></td>
-        <td>Foundry 代工模式（产线复用 + 客户隔离）</td>
-        <td>CDMO 代工模式（同上）</td>
-        <td><span class="pill ok">同</span></td>
-        <td><strong>智现未来侧</strong>：Foundry 经验直接迁移；客户隔离 SOP 可借鉴；耗时 1-2 月</td>
-      </tr>
-      <tr style="background:#f0fdf4;">
-        <td><strong>批次 / 履历</strong></td>
-        <td>Lot Genealogy + WRA</td>
-        <td>Batch Record + 物料谱系</td>
-        <td><span class="pill ok">同</span></td>
-        <td><strong>双方协作</strong>：数据 schema 重新设计；耗时 2-3 月</td>
-      </tr>
-      <tr style="background:#fff7ed;">
-        <td><strong>"灵犀" LLM 语料</strong></td>
-        <td>20+ 年半导体语料</td>
-        <td>制药语料完全不同</td>
-        <td><span class="pill mid">需重训</span></td>
-        <td><strong>双方协作</strong>：凯莱英提供制药语料（历史批记录 / SOP / 专利 / 工艺文献），智现未来做继续训练；耗时 4-6 月</td>
-      </tr>
-      <tr style="background:#fff7ed;">
-        <td><strong>偏差 / OOS 分类体系</strong></td>
-        <td>半导体缺陷分类（电性能 / 几何 / 形貌）</td>
-        <td>制药偏差分类（工艺 / 杂质 / 设备 / 人员）</td>
-        <td><span class="pill mid">需重做</span></td>
-        <td><strong>双方协作</strong>：凯莱英 QA 配合标注历史偏差库；耗时 6-12 月</td>
-      </tr>
-      <tr style="background:#fef2f2;">
-        <td><strong>合规体系</strong></td>
-        <td>IATF / ISO 9001 / 客户审计</td>
-        <td>21 CFR Part 11 / GAMP 5 / GMP / NMPA</td>
-        <td><span class="pill warn">完全不同</span></td>
-        <td><strong>智现未来主做</strong>：必须重新做 GAMP 5 类别 4 验证；需第三方审计机构；耗时 12-18 月 + 高成本</td>
-      </tr>
-      <tr style="background:#fef2f2;">
-        <td><strong>设备 / 物理过程</strong></td>
-        <td>光刻 / 刻蚀 / 镀膜 / CMP</td>
-        <td>化学反应 / 结晶 / 干燥 / 离心</td>
-        <td><span class="pill warn">完全不同</span></td>
-        <td><strong>智现未来主做</strong>：工程师需培训化工反应基础；耗时 3-6 月</td>
-      </tr>
-      <tr style="background:#fef2f2;">
-        <td><strong>DCS / OT 协议</strong></td>
-        <td>SEMI E10/E30/E40/E87 （半导体专属）</td>
-        <td>OPC UA + DCS 厂商专属（Honeywell / 横河 / Emerson / 西门子）</td>
-        <td><span class="pill warn">完全不同</span></td>
-        <td><strong>智现未来主做</strong>：开发制药 DCS 接口适配器；耗时 3-6 月（每种 DCS 1-2 月）</td>
-      </tr>
-      <tr style="background:#fef2f2;">
-        <td><strong>应用工程师</strong></td>
-        <td>半导体工艺工程师 + 设备工程师</td>
-        <td>化学工程师 + QA + 监管事务</td>
-        <td><span class="pill warn">完全不同</span></td>
-        <td><strong>智现未来主做</strong>：招聘 / 培养制药行业应用工程师；或<strong>跟第三方制药顾问合作</strong>；耗时 6-12 月</td>
-      </tr>
-      <tr style="background:#fef2f2;">
-        <td><strong>客户 / 项目隔离细则</strong></td>
-        <td>半导体客户 mask 设计完全保密；Foundry 已有方案</td>
-        <td>制药客户工艺 / IP 完全保密；CDMO 一致需求</td>
-        <td><span class="pill warn">需对接</span></td>
-        <td><strong>双方协作</strong>：方案借鉴 + 凯莱英合同 / 流程定制；耗时 3-6 月</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="grid-2" style="margin-top:22px;">
-    <div class="card accent">
-      <strong>总工期估算（智现未来侧投入）</strong>
-      <p style="font-size:13.5px; margin-top:6px;">
-        把上表汇总：智现未来要把产品准备到"可用 GMP 验证"水平大约需要 <strong>12-18 个月</strong>。
-        如果只做"非 GMP 区试点"（如方向 A 偏差 Copilot 草稿模式、方向 G 反应 BO），<strong>6-9 个月</strong>即可。
-      </p>
-    </div>
-    <div class="card warn">
-      <strong>核心建议</strong>
-      <p style="font-size:13.5px; margin-top:6px;">
-        让凯莱英成为智现未来制药领域"<strong>首席客户</strong>"。
-        他们急于打破"只有半导体"的标签 → 可以争取：① 免费 PoC ② 跨域适配成本他们承担 ③ CDMO Top 5 内行业排他性 ④ 产品定义参与权。
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ S10 同行对比 ============ -->
-<section class="slide" id="s-compare" data-page="10">
-  <h2 class="kicker">PART 09 · 智现未来 vs 其他供应商对比</h2>
-  <h1>跟华为云 / Aizon / AVEVA / Aspen / 中控 / 创新奇智 横向比 — 选谁、不选谁、为什么</h1>
-  <p class="lead">
-    把"工业大模型 + 工艺工程 AI"赛道的主要供应商放一起比，得出选型逻辑。</br>
-    <strong>注：远景智能不在这里 —— 远景是新能源/能耗 IoT 平台，跟智现未来不是同一赛道</strong>。
-  </p>
-
-  <div class="grid-2" style="margin-top: 14px;">
-    <div>
-      <h3 style="font-size:16px;">8 维度雷达图</h3>
-      <svg class="radar" id="radarCompare" viewBox="0 0 540 480" style="width:100%; max-width:540px;"></svg>
-      <div class="footnote">维度评分 1-10，基于公开案例 + 公开技术资料。仅作辅助判断，立项时需详细测算。</div>
-    </div>
-    <div>
-      <h3 style="font-size:16px;">关键差异速览</h3>
-      <table class="kly">
-        <thead><tr><th>对比维度</th><th>智现未来</th><th>建议替代/对照</th></tr></thead>
-        <tbody>
-          <tr>
-            <td>制药行业案例</td>
-            <td><span class="pill warn">0 公开</span></td>
-            <td>华为云盘古制药（翰宇 +45%）、Aizon、Mareana（医药原生）</td>
-          </tr>
-          <tr>
-            <td>工艺工程算法深度</td>
-            <td><span class="pill ok">★★★ 12 吋晶圆经验</span></td>
-            <td>无人能完全对标</td>
-          </tr>
-          <tr>
-            <td>大模型 / LLM</td>
-            <td><span class="pill ok">"灵犀" 行业首创</span></td>
-            <td>华为云盘古、阿里通义私有化</td>
-          </tr>
-          <tr>
-            <td>GMP / Part 11 合规</td>
-            <td><span class="pill warn">需补</span></td>
-            <td>Aizon / Mareana 原生合规</td>
-          </tr>
-          <tr>
-            <td>国内本地化</td>
-            <td><span class="pill ok">★★★</span></td>
-            <td>华为云 / 中控 / 创新奇智都强</td>
-          </tr>
-          <tr>
-            <td>开放生态</td>
-            <td><span class="pill mid">中等</span></td>
-            <td>AVEVA PI / Aspen 开放性强</td>
-          </tr>
-          <tr>
-            <td>价格档次</td>
-            <td><span class="pill mid">中等</span></td>
-            <td>Aizon / Mareana 较贵；中控相近</td>
-          </tr>
-          <tr>
-            <td>跨行业迁移风险</td>
-            <td><span class="pill warn">高</span></td>
-            <td>华为云中等；Aizon / Mareana 无</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <h3 style="margin-top: 26px; font-size:16px;">选型建议矩阵</h3>
-  <table class="kly">
-    <thead>
-      <tr><th>方向</th><th>首选供应商</th><th>次选 / 对照</th><th>选型理由</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>① FDC 过程偏差监控</td>
-        <td><strong style="color:#7c3aed;">智现未来</strong></td>
-        <td>中控石化大模型 / 自研</td>
-        <td>智现未来 FDC 算法最深；需评估制药适配</td>
-      </tr>
-      <tr>
-        <td>② RMS 配方治理</td>
-        <td><strong style="color:#10b981;">Aizon / Mareana</strong></td>
-        <td>智现未来作为应用层</td>
-        <td>需 GMP 原生平台支撑；智现未来需补合规</td>
-      </tr>
-      <tr>
-        <td>③ APC 先进控制</td>
-        <td><strong style="color:#7c3aed;">智现未来 / Aspen DMC3</strong></td>
-        <td>Honeywell Profit / 自研</td>
-        <td>智现未来 R2R + MPC 算法强；Aspen 是化工传统强者</td>
-      </tr>
-      <tr>
-        <td>④ 技术转移 / Golden Path</td>
-        <td><strong style="color:#7c3aed;">智现未来</strong></td>
-        <td>Aizon Tech Transfer / Mareana</td>
-        <td>智现未来 WRA + Golden Path 方法论可直接迁移</td>
-      </tr>
-      <tr>
-        <td>⑤ QA Copilot / LLM</td>
-        <td><strong style="color:#3b82f6;">华为云盘古制药</strong> 或 <strong style="color:#10b981;">Mareana</strong></td>
-        <td>智现未来 "灵犀"（需重训）</td>
-        <td>华为 / Mareana 在医药 LLM 上已有案例</td>
-      </tr>
-      <tr>
-        <td>⑥ PdM</td>
-        <td><strong>沿用 DH1 项目</strong></td>
-        <td>智现未来作为对照</td>
-        <td>已有项目不更换</td>
-      </tr>
-      <tr>
-        <td>⑦ 平台底座</td>
-        <td><strong style="color:#3b82f6;">艾默生 IP.21 + Inmation</strong></td>
-        <td>无</td>
-        <td>已在《数智化立项规划》Step 3 选定；<span style="color:#dc2626;">坚决不让智现未来 Intelligence Hub 替代</span></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <div class="card purple" style="margin-top: 22px;">
-    <strong>结论：智现未来在凯莱英的位置是"<span style="color:#7c3aed;">应用层供应商</span>"，不是"平台供应商"</strong>
-    <p style="font-size:14px; margin-top: 8px;">
-      把智现未来定位为 FDC + 技术转移 + APC 这三个应用方向的供应商；
-      平台底座由艾默生承担；GMP/QA 类应用由 Aizon / Mareana / 华为云承担；
-      <strong>多供应商组合 + 应用层互补</strong>是最稳健的策略。
-    </p>
-  </div>
-</section>
-
-<!-- ============ S11 推进思路 ============ -->
-<section class="slide" id="s-roadmap" data-page="11">
-  <h2 class="kicker">PART 10 · 推进思路</h2>
-  <h1>3 步走 + 多供应商并行评估</h1>
-
-  <svg id="roadmapSvg" viewBox="0 0 1240 360" style="width:100%; height:auto; margin-top: 14px;"></svg>
-
-  <table class="kly" style="margin-top: 22px;">
-    <thead>
-      <tr><th style="width:14%;">步骤</th><th style="width:14%;">时间</th><th>关键动作</th><th>必达里程碑</th></tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><strong>Step 1 · 底盘梳理</strong></td>
-        <td>M0-M3</td>
-        <td>
-          • 内部对齐姿态："智现未来 = 应用层供应商，不是平台供应商"<br/>
-          • 完成 PART 06 基础设施清单详细测算 + 立项<br/>
-          • 完成 PART 07 数据隔离方案设计 + 法务评审
-        </td>
-        <td>基础设施 3 年预算盘子定；数据隔离 SOP 出第 1 版</td>
-      </tr>
-      <tr>
-        <td><strong>Step 2 · 双方向 PoC</strong></td>
-        <td>M3-M12</td>
-        <td>
-          • <strong>方向 A · FDC</strong>：选 1 个连续流氢化项目（DCS 数据已就绪），PoC 6 月<br/>
-          • <strong>方向 B · 技术转移</strong>：选 1 个客户的工艺移植项目，WRA + Golden Path PoC 9 月<br/>
-          • 配合：GMP 验证路径设计、客户隔离方案落地、"灵犀"制药继续训练
-        </td>
-        <td>
-          FDC：连续流偏差检测早于传统单点告警 ≥30 分钟<br/>
-          技术转移：1 个项目首批成功率 ≥ 历史均值
-        </td>
-      </tr>
-      <tr>
-        <td><strong>Step 3 · 评议 + 规模化</strong></td>
-        <td>M12-M18</td>
-        <td>
-          • 智现未来双方向 PoC 结果评估<br/>
-          • 跟华为云 / Aizon / Mareana 同期对照 PoC 结果对比<br/>
-          • 决定：是否规模化推广智现未来 + 在哪些方向 / 不选哪些方向
-        </td>
-        <td>选定 1-3 个方向规模化；其他方向决定备选供应商</td>
-      </tr>
-      <tr style="background:#fff7ed;">
-        <td><strong>并行 · 多供应商对照</strong></td>
-        <td>M3-M18</td>
-        <td>
-          • 同步评估：华为云盘古制药、Aizon / Mareana<br/>
-          • 至少 1 家做小规模对照 PoC<br/>
-          • 形成"凯莱英 AI 供应商矩阵"
-        </td>
-        <td>每个 AI 方向至少 2 家可选供应商；避免单点绑定</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
-
-<!-- ============ S12 决策建议 ============ -->
-<section class="slide" id="s-decision" data-page="12">
-  <h2 class="kicker">PART 11 · 重点决策 4 件事</h2>
-  <h1>需要管理层定的事</h1>
-
-  <div class="grid-2">
-    <div class="card purple">
-      <h3 style="margin-top:0; color:#7c3aed;">① 智现未来 PoC 范围与姿态</h3>
-      <p style="font-size:14px;">
-        在 7 个产品中，<strong>仅启动方向 A（FDC）+ 方向 B（技术转移）双方向 PoC</strong>；
-        Intelligence Hub <strong>明确不进入凯莱英技术栈</strong>；
-        合同写明"应用层供应商角色"。
-        PoC 周期 6-9 月，投入封顶，KPI 写入合同。
-      </p>
-    </div>
-    <div class="card purple">
-      <h3 style="margin-top:0; color:#7c3aed;">② 基础设施立项</h3>
-      <p style="font-size:14px;">
-        启动 PART 06 列出的 A/B/C 三类基础设施建设。
-        即使最终不选智现未来，这些也是<strong>所有 AI 战略的共同前置</strong>。
-        D 类（GPU 算力）按供应商需求分阶段投。
-        基础设施立项由 CIMT 牵头，工程 + IT + 财务联合评审。
-      </p>
-    </div>
-    <div class="card purple">
-      <h3 style="margin-top:0; color:#7c3aed;">③ 数据隔离专项</h3>
-      <p style="font-size:14px;">
-        立即立项"AI 项目客户数据隔离专项"，3 个月内出方案：
-        ① L1 物理/逻辑隔离架构 ② L2 联邦学习 + 差分隐私技术方案 ③ L3 知识沉淀脱敏委员会成立。
-        所有 AI 供应商合同的强制附件，包括智现未来。
-      </p>
-    </div>
-    <div class="card purple">
-      <h3 style="margin-top:0; color:#7c3aed;">④ 多供应商并行评估</h3>
-      <p style="font-size:14px;">
-        在智现未来 PoC 期间，同步评估<strong>华为云盘古制药、Aizon、Mareana</strong> 至少 1 家。
-        每个核心 AI 方向（A/B/C/D/G）配 1-2 家备选供应商，
-        避免单点绑定。形成"凯莱英 AI 供应商组合"。
-      </p>
-    </div>
-  </div>
-
-  <div class="card" style="margin-top:22px; background:#f5f3ff;">
-    <h3 style="margin-top:0;">⑤ 给智现未来的"反向需求规格书"</h3>
-    <p style="font-size:14px;">
-      把 PART 04-08（场景输入输出 + 基础设施 + 数据隔离 + 跨域工作清单）打包给智现未来，
-      要求他们在 <strong>4 周内</strong>逐项回应"能 / 部分能 / 不能"，并给出：
-      ① 跨域适配工作量和时间表 ② GAMP 5 验证路径 ③ "灵犀"制药继续训练方案 ④ 首席客户条款。
-      这份"反向需求规格书"是双方进入 PoC 谈判的入场券。
-    </p>
   </div>
 </section>
 
@@ -1991,23 +2232,22 @@ updateFdc();
 /* =========================================================================
    Radar — 供应商对比
    ========================================================================= */
-(function renderRadar(){
+const radarDims = ['工艺工程算法','制药行业经验','大模型 / LLM','GMP / Part 11 合规','国内本地化','开放生态','跨行业风险(反)','价格性价比'];
+const radarSeries = [
+  { id:'ff',   name:'智现未来',          color:'#a855f7', vals:[9, 1, 8, 3, 9, 6, 3, 7], on:true },
+  { id:'hw',   name:'华为云盘古制药',     color:'#1e40af', vals:[7, 7, 9, 6, 9, 7, 7, 5], on:true },
+  { id:'aiz',  name:'Aizon / Mareana',  color:'#10b981', vals:[6, 9, 7, 9, 5, 7, 9, 4], on:true },
+  { id:'av',   name:'AVEVA / Aspen',    color:'#f59e0b', vals:[7, 8, 5, 9, 6, 9, 8, 4], on:true },
+  { id:'sd',   name:'中控石化大模型',     color:'#3b82f6', vals:[7, 3, 7, 5, 9, 6, 5, 6], on:true },
+];
+
+function renderRadarChart(){
   const svg = document.getElementById('radarCompare');
   if (!svg) return;
-  const dims = ['工艺工程算法','制药行业经验','大模型 / LLM','GMP / Part 11 合规','国内本地化','开放生态','跨行业风险(反)','价格性价比'];
-  const series = [
-    { name:'智现未来',          color:'#a855f7', vals:[9, 1, 8, 3, 9, 6, 3, 7] },
-    { name:'华为云盘古制药',     color:'#1e40af', vals:[7, 7, 9, 6, 9, 7, 7, 5] },
-    { name:'Aizon / Mareana',  color:'#10b981', vals:[6, 9, 7, 9, 5, 7, 9, 4] },
-    { name:'AVEVA / Aspen',    color:'#f59e0b', vals:[7, 8, 5, 9, 6, 9, 8, 4] },
-    { name:'中控石化大模型',     color:'#3b82f6', vals:[7, 3, 7, 5, 9, 6, 5, 6] },
-    { name:'创新奇智 AInnoGC',  color:'#ef4444', vals:[6, 4, 8, 4, 9, 7, 6, 7] },
-  ];
   const cx=270, cy=240, r=160;
-  const n = dims.length;
+  const n = radarDims.length;
   let html = '';
 
-  // grid
   for (let g=2; g<=10; g+=2) {
     let pts = [];
     for (let i=0;i<n;i++) {
@@ -2018,7 +2258,6 @@ updateFdc();
     html += `<polygon points="${pts.join(' ')}" fill="none" stroke="#e3e8f2"/>`;
   }
 
-  // axes + labels
   for (let i=0;i<n;i++) {
     const ang = -Math.PI/2 + i*2*Math.PI/n;
     const x = cx + r*Math.cos(ang);
@@ -2026,23 +2265,23 @@ updateFdc();
     html += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#e3e8f2"/>`;
     const lx = cx + (r+20)*Math.cos(ang);
     const ly = cy + (r+20)*Math.sin(ang);
-    html += `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#5b6a8a">${dims[i]}</text>`;
+    html += `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#5b6a8a">${radarDims[i]}</text>`;
   }
 
-  // series
-  series.forEach((s, si) => {
+  const visible = radarSeries.filter(s => s.on);
+  visible.forEach(s => {
     let pts = [];
     s.vals.forEach((v, i) => {
       const ang = -Math.PI/2 + i*2*Math.PI/n;
       const rr = r * v/10;
       pts.push((cx+rr*Math.cos(ang)).toFixed(1)+','+(cy+rr*Math.sin(ang)).toFixed(1));
     });
-    const opacity = si === 0 ? 0.4 : 0.1;
-    html += `<polygon points="${pts.join(' ')}" fill="${s.color}" fill-opacity="${opacity}" stroke="${s.color}" stroke-width="${si===0?2.5:1.2}"/>`;
+    const isFf = s.id === 'ff';
+    const opacity = isFf ? 0.4 : 0.12;
+    html += `<polygon points="${pts.join(' ')}" fill="${s.color}" fill-opacity="${opacity}" stroke="${s.color}" stroke-width="${isFf?2.5:1.3}"/>`;
   });
 
-  // legend
-  series.forEach((s, i) => {
+  visible.forEach((s, i) => {
     const y = 415 + (i%3)*22;
     const x = 30 + Math.floor(i/3)*250;
     html += `<rect x="${x}" y="${y}" width="12" height="12" fill="${s.color}" rx="2"/>`;
@@ -2050,7 +2289,29 @@ updateFdc();
   });
 
   svg.innerHTML = html;
-})();
+}
+
+function renderRadarCandidates(){
+  const el = document.getElementById('radarCandidates');
+  if (!el) return;
+  el.innerHTML = radarSeries.map(s => `
+    <label style="display:inline-flex; align-items:center; gap:6px; font-size:13px; cursor:pointer; user-select:none;">
+      <input type="checkbox" data-id="${s.id}" ${s.on?'checked':''} style="accent-color:${s.color}; width:16px; height:16px;"/>
+      <span style="display:inline-block; width:10px; height:10px; background:${s.color}; border-radius:2px;"></span>
+      <span style="color:#0f1f3d; font-weight:${s.id==='ff'?700:500};">${s.name}</span>
+    </label>
+  `).join('');
+  el.querySelectorAll('input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', e => {
+      const id = e.target.dataset.id;
+      const s = radarSeries.find(x => x.id === id);
+      if (s) { s.on = e.target.checked; renderRadarChart(); }
+    });
+  });
+}
+
+renderRadarCandidates();
+renderRadarChart();
 
 /* =========================================================================
    Roadmap SVG (Step 1/2/3)
