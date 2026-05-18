@@ -287,7 +287,6 @@
 
 <header class="topbar">
   <div class="brand">
-    凯莱英 · CIMT
     <span class="badge">智现未来 PoC 评估</span>
   </div>
   <nav>
@@ -1259,47 +1258,6 @@
     </div>
   </div>
 
-  <!-- DeepSeek 替代 D2 GPU 服务器的问题 -->
-  <div class="card info" style="margin-top: 22px; padding: 18px 22px;">
-    <strong style="font-size:14px; color:#1e40af;">💡 常见问题 · 本地部署的 DeepSeek 满血版能否替代 D2 GPU 服务器？</strong>
-    <p style="font-size:13.5px; margin-top: 8px; line-height: 1.75;">
-      <strong>简短答案</strong>：<strong style="color:#dc2626;">不能</strong>。这两者不是"互相替代"关系——
-      DeepSeek 是<strong>"软件 / 模型"</strong>，D2 GPU 服务器是<strong>"硬件 / 算力底座"</strong>；
-      DeepSeek 自己<strong>就是要跑在 GPU 服务器上</strong>。
-    </p>
-
-    <div class="grid-2" style="margin-top: 12px;">
-      <div class="card" style="margin:0; background:#fff;">
-        <strong style="font-size:13px;">DeepSeek 满血版的真实算力要求</strong>
-        <ul class="bul tight" style="margin-top:6px; font-size:12.5px;">
-          <li>DeepSeek-V3 / R1 满血版约 <strong>671B 参数</strong></li>
-          <li>FP16（半精度）推理需要约 <strong>700+ GB 显存</strong></li>
-          <li>典型部署：<strong>8 张 H100 (8×80GB=640GB)</strong> 或 <strong>16 张 A100</strong></li>
-          <li>INT4 量化版可降到 <strong>2-4 张 H100</strong>，但精度有损</li>
-          <li>没有 GPU 服务器，根本跑不起来</li>
-        </ul>
-      </div>
-      <div class="card" style="margin:0; background:#fff;">
-        <strong style="font-size:13px;">DeepSeek 真正能替代的是什么</strong>
-        <ul class="bul tight" style="margin-top:6px; font-size:12.5px;">
-          <li><strong>不能</strong>替代 D2 GPU 硬件（必须有）</li>
-          <li><strong>可以</strong>替代智现未来的"灵犀" LLM（模型层）</li>
-          <li>凯莱英可以用 <strong>DeepSeek + 凯莱英 RAG + 制药语料微调</strong> 自建制药 LLM</li>
-          <li>这样不依赖智现未来的"灵犀" License，自主可控度更高</li>
-          <li>但<strong>GPU 服务器还是必须自己准备</strong></li>
-        </ul>
-      </div>
-    </div>
-
-    <div style="margin-top: 12px; padding: 10px 14px; background:#dbeafe; border-radius: 6px; font-size: 12.5px; color: #1e3a8a;">
-      <strong>降低 D2 投入的几个真实路径</strong>：
-      ① 用<strong>量化版本</strong>（INT4 / INT8）降低显存需求；
-      ② 用<strong>国产替代</strong>（华为昇腾 / 寒武纪 / 摩尔线程）降低单卡成本；
-      ③ <strong>云 GPU 租用</strong>（阿里云 / 火山引擎）做 PoC 阶段，规模化再自建；
-      ④ <strong>边端 + 云端协同</strong>——简单查询走本地小模型（如 7B-32B 蒸馏版），复杂任务走云端满血版。
-      但<strong>不论哪种方式，本地至少要保留一定的 GPU 推理能力</strong>，这是"灵犀"或 DeepSeek 跑起来的最低门槛。
-    </div>
-  </div>
 
   <div class="footnote">
     <strong>读这张表的方式</strong>：
@@ -1594,29 +1552,10 @@
 
 </section>
 
-<!-- ============ S-appendix 附录: 半导体 ↔ CDMO 制药 术语对照 + tag 说明 ============ -->
+<!-- ============ S-appendix 附录: 半导体 ↔ CDMO 制药 术语对照 ============ -->
 <section class="slide" id="s-appendix" data-page="9">
-  <h2 class="kicker">附录 · 术语对照 + 紫色标签说明</h2>
-  <h1>智现未来"行话" → 凯莱英能听懂的话 + 全文 tag 含义</h1>
-
-  <!-- 紫色 tag 含义说明 -->
-  <div class="card info" style="margin-bottom: 22px; padding: 16px 20px;">
-    <strong style="font-size:14px; color:#1e40af;">📌 全文紫色 tag 含义</strong>
-    <p style="font-size:13px; margin: 6px 0 10px; color:#3a4d72;">
-      文中每项基础设施 / 数据项后面带的紫色 tag，表示这项投入能<strong>支撑哪些 AI 应用功能</strong>。
-      读表时同一笔投入对应多个 tag = 一笔钱多个 AI 应用都能用，避免重复投资。
-    </p>
-    <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:8px 16px; font-size:12.5px; margin-top:10px;">
-      <div><span class="tag" style="padding:2px 8px;">FDC</span> <span style="color:#5b6a8a;">故障检测与分类（场景 ①）— 反应过程多变量异常实时监控</span></div>
-      <div><span class="tag" style="padding:2px 8px;">技术转移</span> <span style="color:#5b6a8a;">场景 ② — R&amp;D 到生产的工艺包移植 + 设备等效性 + 黄金路径推荐</span></div>
-      <div><span class="tag" style="padding:2px 8px;">Q&amp;A RAG</span> <span style="color:#5b6a8a;">场景 ③ — 偏差调查 / CAPA / SOP 助手等 LLM 应用</span></div>
-      <div><span class="tag" style="padding:2px 8px;">PdM</span> <span style="color:#5b6a8a;">场景 ④ — 关键设备健康监测 + 剩余寿命预测</span></div>
-      <div><span class="tag" style="padding:2px 8px;">所有 AI 应用基础</span> <span style="color:#5b6a8a;">是所有 AI 应用的共同前置（如 IP.21 实时数据库）</span></div>
-      <div><span class="tag" style="padding:2px 8px;">合规必投</span> <span style="color:#5b6a8a;">GMP / 法规强制要求，不投不合规</span></div>
-    </div>
-  </div>
-
-  <h3 style="font-size:16px; color:#7c3aed; margin-top: 0;">A. 半导体 ↔ CDMO 制药 术语对照表</h3>
+  <h2 class="kicker">附录 · 半导体 ↔ CDMO 制药 术语对照</h2>
+  <h1>智现未来"行话" → 凯莱英能听懂的话 — 平移可行性的基础</h1>
   <p class="lead">
     业界很少有人把这两个行业放在一起讲，但<strong>"软"的逻辑层（数据建模、批次追溯、根因分析、AI 算法）出奇地相似</strong>，
     "硬"的物理层（设备、工艺、合规）完全不同。读懂这张表是理解前面所有方案的前提。
