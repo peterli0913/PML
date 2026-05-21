@@ -295,7 +295,6 @@
     <a href="#d4">④设备</a>
     <a href="#d5">⑤视觉</a>
     <a href="#d6">⑥培训</a>
-    <a href="#d7">⑦复核</a>
     <a href="#s-common">共性</a>
   </nav>
   <button class="present-btn" onclick="document.body.requestFullscreen?.()">▶ 演示模式</button>
@@ -303,33 +302,33 @@
 
 <!-- ============ S-cover ============ -->
 <section class="slide cover" id="s-cover" data-page="1">
-  <div class="kicker">INTERNAL BRIEFING · AI ROADMAP FOR ASYMCHEM CDMO</div>
-  <h1>凯莱英 AI 落地 7 大重点方向<br>思路方案汇报</h1>
-  <p class="lead">
-    结合潜在供应商交流（智现未来 / 埃森哲 等）+ 内部跨部门思路梳理，凯莱英 AI 落地的 7 个重点方向已经收敛。
-    本次汇报<strong>不下结论，只把每个方向的"它是什么、谁来用、能做到多好、卡点在哪"讲清楚</strong>，供后续决策参考。
-  </p>
-  <div style="margin-top: 26px; padding: 18px 22px; background: rgba(255,255,255,0.10); border-radius: 8px; backdrop-filter: blur(6px); font-size: 14px; line-height: 1.85;">
-    <strong>本次汇报的 4 个特点</strong>：<br>
-    1. 7 个方向用<strong>一张总览表</strong>横向对比，先看全貌再看细节<br>
-    2. 每个方向<strong>展开 6 个标准维度</strong>：场景 / 输入 / 输出 / 工作流程 / AI 能做到多好 / 执行难度与卡点<br>
-    3. 每个方向附<strong>一个互动 demo</strong>，让"AI 能做什么"看得见摸得着<br>
-    4. <strong>不下结论、不排优先级</strong>—— 是<strong>思路汇报</strong>，决策权留给后续评估
+  <h1 style="font-size:42px; line-height:1.3; margin-top:30px;">凯莱英 AI 落地<br>重点方向思路方案汇报</h1>
+
+  <div style="margin-top: 56px; padding: 26px 32px; background: rgba(255,255,255,0.08); border-radius: 12px; backdrop-filter: blur(6px);">
+    <div style="font-size: 13px; letter-spacing: 2px; color: #c4b5fd; margin-bottom: 16px;">CONTENTS · 目录</div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 10px 30px; font-size: 15px; line-height: 2;">
+      <div><span style="color:#a78bfa; margin-right:8px;">PART 00</span>重点方向总览</div>
+      <div><span style="color:#a78bfa; margin-right:8px;">方向 ④</span>设备全生命周期 AI 智能管理</div>
+      <div><span style="color:#a78bfa; margin-right:8px;">方向 ①</span>批次放行预测 + QC 报告 AI 起草</div>
+      <div><span style="color:#a78bfa; margin-right:8px;">方向 ⑤</span>视觉 AI 操作合规实时监测</div>
+      <div><span style="color:#a78bfa; margin-right:8px;">方向 ②</span>生产技术报告 AI 辅助撰写</div>
+      <div><span style="color:#a78bfa; margin-right:8px;">方向 ⑥</span>AI 培训内容自动化生成</div>
+      <div><span style="color:#a78bfa; margin-right:8px;">方向 ③</span>AI 辅助技术转移与工艺放大评估</div>
+      <div><span style="color:#a78bfa; margin-right:8px;">共性观察</span>共同前置 / 挑战 / 疑问</div>
+    </div>
   </div>
-  <div style="margin-top:20px; font-size:13px; color: #ddd6fe;">
-    <strong>受众</strong>：对 AI 有基础认知、不关心算法细节、关心场景价值 + 执行难度的业务/管理决策者
-  </div>
+
   <div class="page-num">封面</div>
 </section>
 
 <!-- ============ S-overview · 7 方向总览表 ============ -->
 <section class="slide" id="s-overview" data-page="2">
-  <div class="kicker">PART 00 · 7 大方向横向总览</div>
-  <h1>一张表看完 — 7 个方向的核心信息</h1>
+  <div class="kicker">PART 00 · 重点方向横向总览</div>
+  <h1>重点方向的核心信息</h1>
   <p class="lead">
     点击下方表格<strong>任一行</strong>即可跳转到该方向的详细展开页（含互动 demo）。
     "执行难度" ★ 越多越难； "AI 可达水平"是 AI 在该场景目前能做到的<strong>实际效果上限</strong>；
-    "卡点" 是落地前必须解决的关键约束。
+    "挑战" 是落地前必须解决的关键约束。
   </p>
 
   <table>
@@ -337,11 +336,11 @@
       <tr>
         <th style="width:4%;">#</th>
         <th style="width:18%;">方向（CDMO 专业表述）</th>
-        <th style="width:23%;">解决场景 · 一句话</th>
-        <th style="width:18%;">主要用户 / 部门</th>
+        <th style="width:23%;">解决场景</th>
+        <th style="width:15%;">主要用户 / 部门</th>
         <th style="width:13%;">AI 可达水平</th>
-        <th style="width:8%;">执行难度</th>
-        <th style="width:16%;">最大卡点</th>
+        <th style="width:7%;">执行难度</th>
+        <th style="width:20%;">最大挑战</th>
       </tr>
     </thead>
     <tbody>
@@ -355,19 +354,19 @@
           <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">同项目 60-85% / 跨项目 30-50%</div>
         </td>
         <td><span class="stars">★★★★</span><span class="stars-empty">★</span></td>
-        <td>同项目批次少 + 跨项目客户数据隔离 + GMP 监管</td>
+        <td>① CDMO 单项目历史批次稀疏，"小数据"难训练；② 跨项目客户数据严格隔离限制 AI 跨项目学习；③ QC 报告 + 放行决策是 GMP 强监管项，AI 起草 ≠ AI 决策，监管 SOP 还要凯莱英自己写</td>
       </tr>
       <tr class="clickable-row" onclick="document.getElementById('d2').scrollIntoView({behavior:'smooth'})">
         <td><strong>②</strong></td>
         <td><strong>生产技术报告 AI 辅助撰写</strong><br><span style="font-size:11px;color:var(--text-muted);">Campaign Report · MOR · APR</span></td>
-        <td>从批记录 / IPC / 偏差 / KPI 自动汇编 Campaign Report、MOR、年度产品评审等</td>
+        <td>从批记录 / IPC / 偏差 / KPI 自动汇编 Campaign Report、MOR、APR 等</td>
         <td>工艺研发 / 生产 / QA</td>
         <td>
           <div class="bar"><div style="width:75%;"></div></div>
           <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">大纲 + 草稿 70-90% 完成度</div>
         </td>
         <td><span class="stars">★★</span><span class="stars-empty">★★★</span></td>
-        <td>数据源散落 + 报告模板需结构化</td>
+        <td>① 跨系统取数（MES / QMS / LIMS / EBR / SAP）需要建中间数据层；② 客户专属 + 凯莱英标准 + 监管 多套报告模板都要结构化；③ 历史 Word / PDF 报告需要先建语料库</td>
       </tr>
       <tr class="clickable-row" onclick="document.getElementById('d3').scrollIntoView({behavior:'smooth'})">
         <td><strong>③</strong></td>
@@ -379,19 +378,24 @@
           <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">辅助审查 + 80% 风险点覆盖</div>
         </td>
         <td><span class="stars">★★★★</span><span class="stars-empty">★</span></td>
-        <td>物理放大规律非纯 AI 可解 + 隐性知识沉淀</td>
+        <td>① 反应器从 50L 放大到 5000L 物理传质传热规律不同，纯数据 AI 不够，必须叠加化工机理模型（CFD + Aspen）；② 凯莱英过去 10 年项目数据沉淀在 Word / PDF / Excel，结构化是 6-12 个月专项；③ 资深工艺工程师隐性知识没系统化记录</td>
       </tr>
       <tr class="clickable-row" onclick="document.getElementById('d4').scrollIntoView({behavior:'smooth'})">
         <td><strong>④</strong></td>
         <td><strong>设备全生命周期 AI 智能管理</strong><br><span style="font-size:11px;color:var(--text-muted);">含电子点检 / 备件 / PdM / 验证 / 故障调查</span></td>
-        <td>EAM/CMMS 之上叠加 AI 层，5 个子模块统一升级</td>
+        <td>EAM / CMMS 之上叠加 AI 层，5 个子模块统一升级：<br>
+          ① <strong>电子点检</strong>：动态任务推荐 + 拍照异常识别<br>
+          ② <strong>备品备件 AI 管理</strong>：需求预测 + 智能采购建议 + 呆滞备件识别<br>
+          ③ <strong>预测性维护 PdM</strong>：设备健康分数 + RUL 剩余寿命预测<br>
+          ④ <strong>设备验证</strong>：IQ / OQ / PQ 验证方案 + 报告草稿生成<br>
+          ⑤ <strong>故障 / 安全调查</strong>：根因分析报告 + 故障树 + CAPA 建议</td>
         <td>设备工程 / 生产 / EHS / IT</td>
         <td>
           <div class="bar"><div style="width:60%;"></div></div>
           <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">点检 90% / PdM 70% / 故障调查 50%</div>
         </td>
         <td><span class="stars">★★★</span><span class="stars-empty">★★</span></td>
-        <td>5 子模块基础不齐 + BOM/原理图数字化</td>
+        <td>① 设备 BOM / P&amp;ID / 操作手册大部分是 PDF，结构化数字化是 6-12 个月专项；② 历史故障 / 维修案例库未按 AI 可用格式沉淀，需回头整理（最大工作量）；③ 5 子模块基础成熟度不齐，需要先界定推进顺序</td>
       </tr>
       <tr class="clickable-row" onclick="document.getElementById('d5').scrollIntoView({behavior:'smooth'})">
         <td><strong>⑤</strong></td>
@@ -403,7 +407,7 @@
           <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">关键动作识别 85% / 替代率 30-50%</div>
         </td>
         <td><span class="stars">★★★</span><span class="stars-empty">★★</span></td>
-        <td>摄像头盲区 + 隐私 / 工会接受度 + 视频留档合规</td>
+        <td>① 员工 / 工会接受度（实时视频监控涉及隐私和心理压力）；② 视频留档时长 / 访问权限 / 数据安全均涉法务合规审核；③ CDMO 多客户场景视频里可能拍到其他客户工艺细节；④ 摄像头覆盖盲区需要补点 + 洁净区摄像头特殊设计</td>
       </tr>
       <tr class="clickable-row" onclick="document.getElementById('d6').scrollIntoView({behavior:'smooth'})">
         <td><strong>⑥</strong></td>
@@ -415,34 +419,22 @@
           <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">分镜 + 脚本 + 数字人 90%</div>
         </td>
         <td><span class="stars">★★</span><span class="stars-empty">★★★</span></td>
-        <td>SOP 变更跟踪 + 培训效果验证</td>
-      </tr>
-      <tr class="clickable-row" onclick="document.getElementById('d7').scrollIntoView({behavior:'smooth'})">
-        <td><strong>⑦</strong></td>
-        <td><strong>GMP 双人复核 AI 化</strong><br><span style="font-size:11px;color:var(--text-muted);">AI Second-Person Verification</span></td>
-        <td>投料 / 配方计算 / 批记录数据 / 报告数字 等场景，AI 替代或辅助第二人复核</td>
-        <td>QA / 生产 / 工艺研发</td>
-        <td>
-          <div class="bar"><div style="width:70%;"></div></div>
-          <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">数字复核 99% / 操作复核 70%</div>
-        </td>
-        <td><span class="stars">★★★★</span><span class="stars-empty">★</span></td>
-        <td>GMP 监管对 AI 复核的认可度 + 责任划分</td>
+        <td>① 老 SOP 结构化程度低，需先做模板化；② 高质量操作示范素材库需要专项拍摄（一次性投入）；③ SOP 变更后哪些视频章节要重做需要自动识别；④ AI 生成的培训 vs 真人讲师的实际培训效果对比需要数据验证</td>
       </tr>
     </tbody>
   </table>
 
   <div class="card info" style="margin-top:14px;">
-    <strong>💡 7 个方向的 4 个共性</strong>（详见末尾 PART · 共性观察）
+    <strong>💡 这些方向的共性</strong>（详见末尾 · 共性观察）
     <ul class="bul tight" style="margin-top:6px;">
-      <li><strong>都需要"数据底座"先就绪</strong> — IP.21 / MES / QMS / LIMS 的数据打通是 4 个方向的共同前置</li>
+      <li><strong>都需要"数据底座"先就绪</strong> — IP.21 / MES / QMS / LIMS 的数据打通是共同前置</li>
       <li><strong>都涉及"客户数据隔离"</strong> — CDMO 多客户业务必须先解决跨项目数据使用边界</li>
       <li><strong>都需要"AI 辅助 vs AI 主导"边界</strong> — 哪些场景 AI 出建议、哪些场景 AI 直接判决，必须先界定</li>
       <li><strong>都涉及"合规审计"</strong> — FDA CSA / EU GMP Annex 22 已开门，但具体 SOP 还要凯莱英自己写</li>
     </ul>
   </div>
 
-  <div class="page-num">总览 / 9</div>
+  <div class="page-num">总览 / 8</div>
 </section>
 
 <!-- ============ D1 · 批次放行预测 + QC 报告 ============ -->
@@ -532,10 +524,10 @@
     </div>
   </div>
 
-  <h2>执行难度与卡点</h2>
+  <h2>执行难度与挑战</h2>
   <div class="grid-2">
     <div class="card warn">
-      <h4>🟡 数据 / 技术卡点</h4>
+      <h4>🟡 数据 / 技术挑战</h4>
       <ul class="bul tight">
         <li><strong>CDMO 单项目批次稀疏</strong>：1 个项目可能就 5-30 批，对 AI 来说"小数据"，模型方差大</li>
         <li>原料 COA 与生产数据<strong>关联不足</strong>，原料供应商数据接入难度大</li>
@@ -544,7 +536,7 @@
       </ul>
     </div>
     <div class="card danger">
-      <h4>🔴 业务 / 合规卡点</h4>
+      <h4>🔴 业务 / 合规挑战</h4>
       <ul class="bul tight">
         <li><strong>跨项目客户数据隔离</strong>：不同客户的工艺经验不能互通，限制 AI 学习范围</li>
         <li><strong>GMP 监管认可</strong>：QC 报告 + 放行决策是 GMP 强监管项，AI 起草 ≠ AI 决策，最终签字仍要 QC 工程师</li>
@@ -557,103 +549,159 @@
   <!-- DEMO 1 -->
   <h2>互动 DEMO</h2>
   <div class="card demo" id="demo1-card">
-    <div><span class="demo-label">DEMO ①</span><strong>用历史批次数据量 + 跨项目学习开关，看预测准确度变化</strong></div>
+    <div><span class="demo-label">DEMO ①</span><strong>模拟一个实际批次 — 看 AI 实时给出的预测 + 报告草稿 + 放行建议</strong></div>
     <p style="font-size:13px; color:var(--text-muted); margin:8px 0 14px;">
-      场景：某 API 项目，第 N 批生产中。请拖动下方滑块感受"数据量"对预测准确度的影响。
+      场景：API 项目 X-2026-Q3 第 18 批正在生产。请切换"当前生产阶段"，看 AI 在不同节点给出的实时建议如何随过程演进。
     </p>
-    <div class="grid-2" style="gap:18px;">
-      <div>
-        <label style="font-size:13px; color:var(--text-sub);">
-          <strong>历史同类批次数量</strong>：<span id="d1-batches-val">15</span> 批
-        </label>
-        <input type="range" id="d1-batches" min="3" max="100" value="15" oninput="updateDemo1()">
-        <div style="font-size:11px;color:var(--text-muted);">3 = 项目早期 | 30+ = 商业化稳定期 | 100+ = 多年大项目</div>
-        <br>
-        <label style="font-size:13px; color:var(--text-sub); margin-top:10px; display:block;">
-          <strong>启用跨项目"工艺规律"学习</strong>（不学具体参数）
-          <input type="checkbox" id="d1-cross" onchange="updateDemo1()" style="margin-left:6px;">
-        </label>
-        <br>
-        <label style="font-size:13px; color:var(--text-sub); margin-top:10px; display:block;">
-          <strong>QC 项目</strong>：
-          <select id="d1-qc" onchange="updateDemo1()" style="padding:4px 8px; border-radius:4px; border:1px solid var(--border);">
-            <option value="content">含量（HPLC 主峰）</option>
-            <option value="impA">有关物质 杂质 A</option>
-            <option value="water">水分（KF）</option>
-            <option value="psd">粒度 D90</option>
-            <option value="crystal">晶型（XRD）</option>
-          </select>
-        </label>
-      </div>
-      <div>
-        <div class="card" style="background:#fff; margin:0;">
-          <strong style="font-size:13px;">📊 AI 预测结果</strong>
-          <div style="margin-top:10px;">
-            <div style="font-size:13px; color:var(--text-sub);">预测值（含置信区间）：</div>
-            <div id="d1-pred-val" style="font-size:22px; font-weight:700; color:var(--primary-deep); margin-top:4px;">99.2 ± 0.5%</div>
-          </div>
-          <div style="margin-top:14px;">
-            <div style="font-size:13px; color:var(--text-sub);">预测准确度：<strong id="d1-acc">72%</strong></div>
-            <div class="bar"><div id="d1-acc-bar" style="width:72%;"></div></div>
-          </div>
-          <div style="margin-top:14px;">
-            <div style="font-size:13px; color:var(--text-sub);">放行建议：</div>
-            <div id="d1-suggestion" style="margin-top:4px; padding:8px 12px; background:#ecfdf5; border-radius:6px; color:#065f46; font-size:13px; font-weight:600;">
-              🟢 高概率合格，可走标准放行流程
-            </div>
-          </div>
-          <div style="margin-top:10px; font-size:11px; color:var(--text-muted);" id="d1-explain">
-            基于 15 批同类历史 + 本批工艺数据 → 模型置信度中等。
-          </div>
-        </div>
-      </div>
+
+    <div style="margin-bottom:14px;">
+      <button class="toggle active" data-d1="early" onclick="showD1('early')">🟡 阶段 1 · 反应中期（步骤 4/10）</button>
+      <button class="toggle" data-d1="mid" onclick="showD1('mid')">🟠 阶段 2 · 反应后期（步骤 7/10）</button>
+      <button class="toggle" data-d1="late" onclick="showD1('late')">🟢 阶段 3 · 即将完批（步骤 10/10）</button>
+      <button class="toggle" data-d1="alert" onclick="showD1('alert')">🔴 阶段 4 · 异常情景（杂质 A 偏高）</button>
     </div>
+
+    <div id="d1-output"></div>
   </div>
 
-  <div class="page-num">方向 1 · QC 预测 / 9</div>
+  <div class="page-num">方向 1 · QC 预测 / 8</div>
 </section>
 
 <script>
-function updateDemo1(){
-  const batches = +document.getElementById('d1-batches').value;
-  const cross = document.getElementById('d1-cross').checked;
-  const qc = document.getElementById('d1-qc').value;
-  document.getElementById('d1-batches-val').textContent = batches;
-
-  // 准确度算法（模拟）：基础值由批次数决定，跨项目加 5-10%，QC 项越复杂准确度越低
-  let acc = Math.min(95, 30 + Math.log(batches+1) * 18);
-  if (cross) acc = Math.min(95, acc + 7);
-  const qcDifficulty = {content: 0, impA: -8, water: 5, psd: -10, crystal: -18};
-  acc += qcDifficulty[qc];
-  acc = Math.max(20, Math.round(acc));
-
-  // 预测值显示
-  const qcNames = {content: '含量 99.2', impA: '杂质 A 0.08', water: '水分 0.15', psd: 'D90 45.2', crystal: '晶型 I'};
-  const qcUnits = {content: '%', impA: '%', water: '%', psd: 'μm', crystal: ''};
-  const interval = qc==='crystal' ? '（概率 ' + acc + '%）' : ' ± ' + ((100-acc)*0.02).toFixed(2) + qcUnits[qc];
-  document.getElementById('d1-pred-val').textContent = qcNames[qc] + (qc==='crystal' ? interval : interval);
-
-  document.getElementById('d1-acc').textContent = acc + '%';
-  document.getElementById('d1-acc-bar').style.width = acc + '%';
-
+const d1Stages = {
+  early: {
+    title: '🟡 反应中期 · 步骤 4/10 · T+ 2.5h',
+    sensors: [
+      {k:'反应温度', v:'68.2 ℃ (CPP 60-70)', ok:true},
+      {k:'压力', v:'2.1 bar (CPP 1.8-2.5)', ok:true},
+      {k:'加料速率', v:'12.5 kg/h (SOP 10-15)', ok:true},
+      {k:'pH', v:'7.4 (CPP 7.0-8.0)', ok:true},
+      {k:'IPC 杂质 A', v:'0.04% (限 ≤0.15)', ok:true},
+      {k:'转化率（在线 IR）', v:'58% (期望 ≥95% 在步骤 8 完成)', ok:true}
+    ],
+    predict: '过程数据正常，但<strong>反应未完成，暂不出具 QC 预测</strong>。AI 当前作用：实时盯关键参数偏离 + 跟历史同类批的"温度-压力-加料"曲线做比对。',
+    qcDraft: null,
+    suggest: { color:'#9a3412', bg:'#fff7ed', icon:'🟡', txt:'继续生产 · AI 持续监控中', detail:'当前所有 CPP 在范围内，跟历史 17 批同类批次轨迹一致；预计在步骤 8 完成后给出首次 QC 预测' }
+  },
+  mid: {
+    title: '🟠 反应后期 · 步骤 7/10 · T+ 5.2h',
+    sensors: [
+      {k:'反应温度', v:'66.8 ℃ (CPP 60-70)', ok:true},
+      {k:'压力', v:'2.3 bar (CPP 1.8-2.5)', ok:true},
+      {k:'加料速率', v:'已停止加料', ok:true},
+      {k:'pH', v:'7.6 (CPP 7.0-8.0)', ok:true},
+      {k:'IPC 杂质 A', v:'0.09% (限 ≤0.15)', ok:true},
+      {k:'转化率（在线 IR）', v:'94.2% (期望 ≥95%)', ok:true}
+    ],
+    predict: '反应接近完成，AI 给出<strong>首次 QC 预测</strong>（基于本批前 7 步数据 + 17 批历史同类批次）：',
+    qcDraft: [
+      {item:'含量（HPLC）', pred:'99.1% ± 0.4%', range:'≥ 98.0%', risk:'low'},
+      {item:'有关物质 · 杂质 A', pred:'0.10% ± 0.03%', range:'≤ 0.15%', risk:'low'},
+      {item:'有关物质 · 杂质 B', pred:'0.05% ± 0.02%', range:'≤ 0.10%', risk:'low'},
+      {item:'水分（KF）', pred:'0.18% ± 0.04%', range:'≤ 0.30%', risk:'low'},
+      {item:'残留溶剂 · 甲苯', pred:'380 ppm ± 80', range:'≤ 890 ppm', risk:'low'}
+    ],
+    suggest: { color:'#065f46', bg:'#ecfdf5', icon:'🟢', txt:'预测 5/5 项合格 · 可按标准流程进入步骤 8', detail:'AI 模型置信度高（同类历史 17 批 + 本批 7 步轨迹高度吻合）' }
+  },
+  late: {
+    title: '🟢 即将完批 · 步骤 10/10 · T+ 7.8h',
+    sensors: [
+      {k:'反应温度', v:'25.0 ℃ (已降温)', ok:true},
+      {k:'压力', v:'常压', ok:true},
+      {k:'终点判定', v:'反应完成 + 取样确认', ok:true},
+      {k:'IPC 杂质 A', v:'0.10% (限 ≤0.15)', ok:true},
+      {k:'IPC 转化率', v:'98.8%', ok:true},
+      {k:'结晶 · D90', v:'45 μm (规格 30-60)', ok:true}
+    ],
+    predict: 'AI 输出 <strong>QC 报告草稿（v1.0）</strong>，待 QC 工程师审核签字：',
+    qcDraft: [
+      {item:'含量（HPLC 主峰）', pred:'99.2%', range:'≥ 98.0%', risk:'pass'},
+      {item:'有关物质 · 杂质 A', pred:'0.10%', range:'≤ 0.15%', risk:'pass'},
+      {item:'有关物质 · 杂质 B', pred:'0.05%', range:'≤ 0.10%', risk:'pass'},
+      {item:'水分（KF）', pred:'0.18%', range:'≤ 0.30%', risk:'pass'},
+      {item:'残留溶剂 · 甲苯', pred:'380 ppm', range:'≤ 890 ppm', risk:'pass'},
+      {item:'粒度 D90', pred:'45 μm', range:'30-60 μm', risk:'pass'},
+      {item:'晶型（XRD）', pred:'晶型 I', range:'晶型 I', risk:'pass'}
+    ],
+    reportSummary: 'AI 同步生成报告附件：① 本批 vs 历史 17 批趋势对比图；② CPP 全程曲线图（温度 / 压力 / pH / 加料）；③ IPC 数据汇总表；④ 合规声明草稿"本批所有 CQA 均符合放行标准"',
+    suggest: { color:'#065f46', bg:'#ecfdf5', icon:'🟢', txt:'AI 建议：可走标准放行流程 · QC 工程师审核 + 签字', detail:'7/7 项预测合格 · 跟历史 17 批均值偏差 &lt; 0.1σ · 模型置信度 91%' }
+  },
+  alert: {
+    title: '🔴 异常情景 · 步骤 7/10 · T+ 5.5h（杂质 A 偏高预警）',
+    sensors: [
+      {k:'反应温度', v:'71.2 ℃ (CPP 60-70 · 偏离！)', ok:false},
+      {k:'压力', v:'2.4 bar (CPP 1.8-2.5)', ok:true},
+      {k:'加料速率', v:'已停止', ok:true},
+      {k:'pH', v:'8.1 (CPP 7.0-8.0 · 偏离！)', ok:false},
+      {k:'IPC 杂质 A', v:'0.18% (限 ≤0.15 · 已超！)', ok:false},
+      {k:'转化率', v:'92%（低于期望 95%）', ok:false}
+    ],
+    predict: 'AI 检出多项偏离 → <strong>本批最终 QC 预测高风险</strong>：',
+    qcDraft: [
+      {item:'含量（HPLC）', pred:'97.8% ± 0.5%', range:'≥ 98.0%', risk:'high'},
+      {item:'有关物质 · 杂质 A', pred:'0.22% ± 0.04%', range:'≤ 0.15%', risk:'high'},
+      {item:'有关物质 · 杂质 B', pred:'0.07% ± 0.02%', range:'≤ 0.10%', risk:'low'},
+      {item:'水分', pred:'0.20% ± 0.05%', range:'≤ 0.30%', risk:'low'}
+    ],
+    rootCause: [
+      'AI 识别最可能的 3 个根因（按概率排序）：',
+      '① <strong>温度过冲</strong>（概率 55%）：步骤 5 温度峰值 73℃ 超出 CPP，触发副反应路径生成杂质 A',
+      '② <strong>pH 偏碱</strong>（概率 25%）：碱催化体系下 pH > 8 加速杂质 A 生成',
+      '③ <strong>原料杂质</strong>（概率 20%）：本批原料 LOT-789012 的活泼杂质 C 含量偏高，需复查 COA'
+    ],
+    suggest: { color:'#991b1b', bg:'#fef2f2', icon:'🔴', txt:'高风险 · 建议工艺工程师立即介入', detail:'选项 A：现场调整（降温 + 调 pH）尝试挽救；选项 B：提前完批 + 全检 + 启动 OOS 调查；选项 C：报废本批，损失 ≈ 150-200 万元' }
+  }
+};
+function showD1(k){
+  document.querySelectorAll('button.toggle[data-d1]').forEach(b => b.classList.remove('active'));
+  document.querySelector('button.toggle[data-d1="'+k+'"]').classList.add('active');
+  const s = d1Stages[k];
+  let html = '<div class="grid-2" style="gap:14px;">';
+  // 左 · 现场实时数据
+  html += '<div class="card" style="background:#fff; margin:0;"><strong style="font-size:13px;">📡 现场实时数据 · '+s.title+'</strong><table style="margin-top:8px; font-size:12px;"><tbody>';
+  s.sensors.forEach(sn => {
+    const c = sn.ok ? '#065f46' : '#991b1b';
+    const bg = sn.ok ? '#ecfdf5' : '#fef2f2';
+    html += '<tr><td style="color:var(--text-muted); padding:5px 8px; border:1px solid #f3f4f6;">'+sn.k+'</td>' +
+            '<td style="font-weight:600; padding:5px 8px; border:1px solid #f3f4f6; background:'+bg+'; color:'+c+';">'+sn.v+'</td></tr>';
+  });
+  html += '</tbody></table></div>';
+  // 右 · AI 输出
+  html += '<div class="card" style="background:#fff; margin:0;"><strong style="font-size:13px;">🤖 AI 实时分析输出</strong>';
+  html += '<div style="font-size:12.5px; color:var(--text-sub); margin-top:8px; line-height:1.7;">'+s.predict+'</div>';
+  if (s.qcDraft) {
+    html += '<table style="margin-top:8px; font-size:11.5px;"><thead><tr>' +
+            '<th style="background:#f5f3ff;">CQA 项目</th><th style="background:#f5f3ff;">AI 预测值</th><th style="background:#f5f3ff;">放行限度</th><th style="background:#f5f3ff;">判定</th></tr></thead><tbody>';
+    s.qcDraft.forEach(q => {
+      const icons = {low:'✓ 低风险', high:'⚠ 高风险', pass:'✓ 合格'};
+      const colors = {low:'#065f46', high:'#991b1b', pass:'#065f46'};
+      html += '<tr><td style="padding:4px 8px;">'+q.item+'</td><td style="padding:4px 8px; font-weight:600;">'+q.pred+'</td>' +
+              '<td style="padding:4px 8px; color:var(--text-muted);">'+q.range+'</td>' +
+              '<td style="padding:4px 8px; color:'+colors[q.risk]+'; font-weight:600;">'+icons[q.risk]+'</td></tr>';
+    });
+    html += '</tbody></table>';
+  }
+  if (s.rootCause) {
+    html += '<div style="margin-top:10px; padding:8px 12px; background:#fef2f2; border-left:3px solid #dc2626; border-radius:4px; font-size:11.5px; line-height:1.7;">';
+    s.rootCause.forEach((r,i) => { html += (i===0 ? '<strong>'+r+'</strong>' : '<div style="margin-top:3px;">'+r+'</div>'); });
+    html += '</div>';
+  }
+  if (s.reportSummary) {
+    html += '<div style="margin-top:8px; padding:8px 12px; background:#eef2ff; border-radius:4px; font-size:11.5px; color:var(--text-sub);">📎 '+s.reportSummary+'</div>';
+  }
+  html += '</div></div>';
   // 放行建议
-  let suggest, color, bg;
-  if (acc >= 80) { suggest = '🟢 高概率合格，可走标准放行流程'; color = '#065f46'; bg = '#ecfdf5'; }
-  else if (acc >= 60) { suggest = '🟡 建议留样复核 + 重点核对 ' + (qc==='crystal'?'晶型':'此项'); color = '#9a3412'; bg = '#fff7ed'; }
-  else { suggest = '🔴 模型置信度不足，建议全检 + 工艺工程师介入'; color = '#991b1b'; bg = '#fef2f2'; }
-  const sugDiv = document.getElementById('d1-suggestion');
-  sugDiv.textContent = suggest;
-  sugDiv.style.background = bg;
-  sugDiv.style.color = color;
-
-  // 解释
-  let explain = '基于 ' + batches + ' 批同类历史' + (cross ? ' + 跨项目工艺规律' : '') + ' → ';
-  if (batches < 10) explain += '数据偏少，置信度受限';
-  else if (batches < 30) explain += '中等数据量，模型基本稳定';
-  else explain += '充足数据，模型高置信';
-  document.getElementById('d1-explain').textContent = explain;
+  html += '<div style="margin-top:12px; padding:12px 16px; background:'+s.suggest.bg+'; border-left:4px solid '+s.suggest.color+'; border-radius:6px;">' +
+          '<strong style="color:'+s.suggest.color+'; font-size:14px;">'+s.suggest.icon+' AI 建议：'+s.suggest.txt+'</strong>' +
+          '<div style="font-size:12px; color:'+s.suggest.color+'; margin-top:4px; line-height:1.7;">'+s.suggest.detail+'</div></div>';
+  document.getElementById('d1-output').innerHTML = html;
 }
-updateDemo1();
+showD1('early');
+// 支持 URL hash 直接打开特定阶段（便于演示）
+if (location.hash.startsWith('#d1-')) {
+  const stage = location.hash.replace('#d1-','');
+  if (d1Stages[stage]) showD1(stage);
+}
 </script>
 
 <!-- ============ D2 · 生产技术报告 AI 撰写 ============ -->
@@ -674,10 +722,7 @@ updateDemo1();
   <h2>解决的场景</h2>
   <p style="font-size:14px; color:var(--text-sub); line-height:1.8;">
     凯莱英每个项目都要写多种<strong>结构化报告</strong>：
-    <strong>Campaign Report</strong>（一个生产 campaign / 周期的总结）、
-    <strong>MOR (Manufacturing Operations Review)</strong>（月度运营评审）、
-    <strong>APR (Annual Product Review)</strong>（年度产品质量回顾）、
-    <strong>偏差总结报告</strong>、<strong>CAPA 关闭报告</strong>、<strong>客户技术报告</strong> 等。
+    Campaign Report、MOR、APR、偏差总结报告、CAPA 关闭报告、客户技术报告 等。
   </p>
   <p style="font-size:14px; color:var(--text-sub); line-height:1.8; margin-top:8px;">
     <strong>痛点</strong>是这些报告里 70-80% 的内容是<strong>"机械汇编"</strong>—— 从 MES 抓批次清单、从 EBR 抓 IPC 数据、
@@ -750,7 +795,7 @@ updateDemo1();
     </div>
   </div>
 
-  <h2>执行难度与卡点</h2>
+  <h2>执行难度与挑战</h2>
   <div class="grid-2">
     <div class="card warn">
       <h4>🟡 主要工程问题</h4>
@@ -762,7 +807,7 @@ updateDemo1();
       </ul>
     </div>
     <div class="card success">
-      <h4>🟢 相对低的卡点</h4>
+      <h4>🟢 相对低的挑战</h4>
       <ul class="bul tight">
         <li><strong>不涉及生产决策</strong>：报告撰写是"事后总结"，不直接影响放行 / 投料，监管敏感度低</li>
         <li><strong>有兜底</strong>：所有报告最终由工程师审核签字，AI 出错不会直接到客户手里</li>
@@ -798,7 +843,7 @@ updateDemo1();
     </div>
   </div>
 
-  <div class="page-num">方向 2 · 报告撰写 / 9</div>
+  <div class="page-num">方向 2 · 报告撰写 / 8</div>
 </section>
 
 <script>
@@ -881,7 +926,7 @@ renderD2();
   <h2>解决的场景</h2>
   <p style="font-size:14px; color:var(--text-sub); line-height:1.8;">
     技术转移是 CDMO 业务的"心脏" —— 一个新项目从研发到中试到商业化，要经历<strong>工艺包审查 → 设备等效性评估 → 放大风险识别 → 试生产 → 工艺验证 → 正式生产</strong>。
-    其中<strong>工艺审查</strong>和<strong>放大建议</strong>最依赖资深专家的"工程化经验"，是凯莱英老法师们的核心价值。
+    其中<strong>工艺审查</strong>和<strong>放大建议</strong>最依赖资深专家的"工程化经验"。
   </p>
   <p style="font-size:14px; color:var(--text-sub); line-height:1.8; margin-top:8px;">
     <strong>痛点</strong>：（1）资深工艺工程师产能有限，新项目排队等审查；（2）<strong>隐性知识</strong>分散在不同部门，新人不易传承；（3）放大风险点经常"踩坑后才发现"。
@@ -952,10 +997,10 @@ renderD2();
     </div>
   </div>
 
-  <h2>执行难度与卡点</h2>
+  <h2>执行难度与挑战</h2>
   <div class="grid-2">
     <div class="card danger">
-      <h4>🔴 最大卡点 · 历史项目知识结构化</h4>
+      <h4>🔴 最大挑战 · 历史项目知识结构化</h4>
       <ul class="bul tight">
         <li>凯莱英过去 10 年项目数据<strong>大量沉淀在 Word / PDF / Excel</strong>，AI 不能直接读取</li>
         <li>资深工程师的<strong>"隐性知识"</strong>分散在不同人脑中，没有系统化记录</li>
@@ -1012,7 +1057,7 @@ renderD2();
     </div>
   </div>
 
-  <div class="page-num">方向 3 · 技术转移 / 9</div>
+  <div class="page-num">方向 3 · 技术转移 / 8</div>
 </section>
 
 <script>
@@ -1273,9 +1318,9 @@ updateDemo3();
     </div>
   </div>
 
-  <h2>执行难度与卡点</h2>
+  <h2>执行难度与挑战</h2>
   <div class="card warn">
-    <strong>🟡 5 子模块共同卡点</strong>
+    <strong>🟡 5 子模块共同挑战</strong>
     <ul class="bul tight" style="margin-top:6px;">
       <li><strong>设备主数据基础不齐</strong>：BOM / P&ID / 操作手册 大部分是 PDF，需要先做数字化结构化（6-12 个月专项工作）</li>
       <li><strong>历史故障 / 维修案例库</strong>没有按 AI 可用格式沉淀，需要回头整理（最大工作量）</li>
@@ -1284,16 +1329,7 @@ updateDemo3();
     </ul>
   </div>
 
-  <!-- DEMO 4 嵌入到 5 子模块切换中 -->
-  <div class="card demo" style="margin-top:14px;">
-    <div><span class="demo-label">DEMO ④</span><strong>5 个子模块切换 = 同一底层数据可支撑的不同 AI 应用</strong></div>
-    <p style="font-size:13px; color:var(--text-muted); margin:8px 0 0;">
-      ↑ 上方的 5 个 tab 就是 demo —— 点击切换可以看到同一份"设备主数据 + 运行历史"如何衍生出 5 种 AI 应用。
-      这正是这个方向的核心优势：<strong>一笔基础设施投入，多个 AI 应用同时受益</strong>。
-    </p>
-  </div>
-
-  <div class="page-num">方向 4 · 设备 AI / 9</div>
+  <div class="page-num">方向 4 · 设备 AI / 8</div>
 </section>
 
 <script>
@@ -1388,7 +1424,7 @@ function showD4(k) {
     </div>
   </div>
 
-  <h2>执行难度与卡点</h2>
+  <h2>执行难度与挑战</h2>
   <div class="grid-2">
     <div class="card warn">
       <h4>🟡 技术 / 工程问题</h4>
@@ -1400,7 +1436,7 @@ function showD4(k) {
       </ul>
     </div>
     <div class="card danger">
-      <h4>🔴 非技术卡点</h4>
+      <h4>🔴 非技术挑战</h4>
       <ul class="bul tight">
         <li><strong>员工 / 工会接受度</strong>：实时视频监控涉及员工隐私和心理压力，需要先沟通取得共识</li>
         <li><strong>视频留档合规</strong>：留档时长 / 访问权限 / 数据安全 都涉及法务和合规审核</li>
@@ -1459,7 +1495,7 @@ function showD4(k) {
     </div>
   </div>
 
-  <div class="page-num">方向 5 · 视觉 AI / 9</div>
+  <div class="page-num">方向 5 · 视觉 AI / 8</div>
 </section>
 
 <script>
@@ -1605,10 +1641,10 @@ function resetDemo5() {
     </div>
   </div>
 
-  <h2>执行难度与卡点</h2>
+  <h2>执行难度与挑战</h2>
   <div class="grid-2">
     <div class="card success">
-      <h4>🟢 相对低的卡点</h4>
+      <h4>🟢 相对低的挑战</h4>
       <ul class="bul tight">
         <li><strong>不涉及生产决策</strong>，监管敏感度低</li>
         <li>市场上有大量成熟数字人产品（HeyGen / 腾讯智影 / D-ID）</li>
@@ -1643,7 +1679,7 @@ function resetDemo5() {
     <div id="d6-output"></div>
   </div>
 
-  <div class="page-num">方向 6 · 培训生成 / 9</div>
+  <div class="page-num">方向 6 · 培训生成 / 8</div>
 </section>
 
 <script>
@@ -1725,271 +1761,15 @@ function showD6(k){
 showD6('weigh');
 </script>
 
-<!-- ============ D7 · AI 复核 ============ -->
-<section class="slide" id="d7" data-page="9">
-  <div class="dir-header">
-    <div class="dir-number">⑦</div>
-    <div>
-      <div class="kicker">方向 7 · GMP 双人复核 AI 化</div>
-      <h1 style="margin-bottom:4px;">投料 / 计算 / 数据 / 签字复核 — AI 替代或辅助第二人</h1>
-      <div>
-        <span class="tag blue">主要用户：QA / 生产 / 工艺研发</span>
-        <span class="tag orange">执行难度 ★★★★</span>
-        <span class="tag purple">GMP 监管认可是核心卡点</span>
-      </div>
-    </div>
-  </div>
-
-  <h2>解决的场景</h2>
-  <p style="font-size:14px; color:var(--text-sub); line-height:1.8;">
-    GMP 强制要求<strong>双人复核</strong>（Two-Person Verification）的场景非常多：
-    投料量复核、配方计算复核、批记录数据校验、报告数字一致性、关键签字确认、参数变更复核、清洁验证结果核对 等。
-    现状：第二人往往<strong>"占用了一个高级别员工的时间"</strong>，且<strong>"两人都看一眼，反而互相依赖"</strong>。
-  </p>
-  <p style="font-size:14px; color:var(--text-sub); line-height:1.8; margin-top:8px;">
-    AI 复核思路：在<strong>"规则明确、有标准答案"</strong>的复核场景，让 AI 做第二人 ——
-    第一人输入 → AI 实时核对 → 一致则放行，不一致则<strong>三人介入</strong>（第一人 + AI + 真人复核员）。
-  </p>
-  <p style="font-size:14px; color:var(--text-sub); line-height:1.8; margin-top:8px;">
-    <strong>关键边界</strong>：AI 复核<strong>不是替代所有第二人</strong>，而是<strong>替代"规则明确的部分"</strong>，把人力释放到"需要专家判断"的复核上。
-  </p>
-
-  <h2>典型应用场景</h2>
-  <div class="grid-4">
-    <div class="card">
-      <h4>📦 投料复核</h4>
-      <p style="font-size:12.5px; color:var(--text-sub);">称量结果 vs 配方单 vs 批生产指令单的一致性。 <strong>AI 准确度 99%+</strong></p>
-    </div>
-    <div class="card">
-      <h4>🧮 配方计算复核</h4>
-      <p style="font-size:12.5px; color:var(--text-sub);">起始物料投料量 → 中间体 → 最终产物的理论收率 / 限量计算。 <strong>AI 准确度 99%+</strong></p>
-    </div>
-    <div class="card">
-      <h4>📋 批记录数据校验</h4>
-      <p style="font-size:12.5px; color:var(--text-sub);">实际操作参数 vs 工艺范围；时间戳一致性；签字完整性。 <strong>AI 准确度 95-99%</strong></p>
-    </div>
-    <div class="card">
-      <h4>📊 报告数字一致性</h4>
-      <p style="font-size:12.5px; color:var(--text-sub);">同一份报告中相同数字在不同位置出现是否一致；图表 vs 文字 vs 表格。 <strong>AI 准确度 99%+</strong></p>
-    </div>
-    <div class="card">
-      <h4>✏️ 关键签字确认</h4>
-      <p style="font-size:12.5px; color:var(--text-sub);">签字人资质 / 时间戳 / 权限范围核查。 <strong>AI 准确度 99%+</strong></p>
-    </div>
-    <div class="card">
-      <h4>🔄 参数变更复核</h4>
-      <p style="font-size:12.5px; color:var(--text-sub);">变更前后参数差异是否在允许范围；影响范围评估。 <strong>AI 准确度 80-90%</strong></p>
-    </div>
-    <div class="card">
-      <h4>🧹 清洁验证核对</h4>
-      <p style="font-size:12.5px; color:var(--text-sub);">CIP 各阶段参数 vs 验证范围；LIMS 结果 vs 接受标准。 <strong>AI 准确度 95%+</strong></p>
-    </div>
-    <div class="card" style="background:#fef2f2; border-color:#fca5a5;">
-      <h4>🤔 操作动作复核</h4>
-      <p style="font-size:12.5px; color:var(--text-sub);">"看着第一人是否按 SOP 操作"—— 这类场景 AI 仍受限，要靠方向 5 视觉 AI。<strong>AI 准确度 70%</strong></p>
-    </div>
-  </div>
-
-  <h2>工作流程</h2>
-  <div class="workflow">
-    <div class="wf-step">① 第一人<br>输入数据/操作</div>
-    <div class="wf-arrow">→</div>
-    <div class="wf-step">② AI 拉取<br>SOP / 标准</div>
-    <div class="wf-arrow">→</div>
-    <div class="wf-step">③ AI 逐项<br>核对</div>
-    <div class="wf-arrow">→</div>
-    <div class="wf-step">④ 一致 → 放行<br>不一致 → 升级</div>
-    <div class="wf-arrow">→</div>
-    <div class="wf-step">⑤ 真人复核<br>（升级时）</div>
-    <div class="wf-arrow">→</div>
-    <div class="wf-step">⑥ 留档<br>+ 审计追踪</div>
-  </div>
-
-  <h2>AI 能做到多好</h2>
-  <div class="grid-3">
-    <div class="card">
-      <h4>"数字 / 文本"复核</h4>
-      <p style="font-size:13px;color:var(--text-sub);">投料量 / 计算 / 数据校验 / 报告数字 — AI <strong>准确度 99%+</strong>，比真人复核更可靠（人会眼花，AI 不会）。</p>
-      <div class="bar"><div style="width:99%;"></div></div>
-    </div>
-    <div class="card">
-      <h4>"规则 / 条件"复核</h4>
-      <p style="font-size:13px;color:var(--text-sub);">SOP 步骤完整性、签字权限、时间戳 — AI <strong>准确度 95%+</strong>。</p>
-      <div class="bar"><div style="width:95%;"></div></div>
-    </div>
-    <div class="card">
-      <h4>"判断 / 异常"复核</h4>
-      <p style="font-size:13px;color:var(--text-sub);">参数变更影响评估、清洁验证异常处置 — AI 给建议，最终还是<strong>真人判断（70%+）</strong>。</p>
-      <div class="bar"><div style="width:70%;"></div></div>
-    </div>
-  </div>
-
-  <h2>执行难度与卡点</h2>
-  <div class="grid-2">
-    <div class="card danger">
-      <h4>🔴 核心卡点 · GMP 监管认可</h4>
-      <ul class="bul tight">
-        <li>FDA 21 CFR Part 11 + EU Annex 11 对"<strong>电子记录电子签字</strong>"已有明确规则；但对"<strong>AI 作为第二人</strong>"的态度<strong>尚未完全明确</strong></li>
-        <li><strong>FDA CSA 2025-09 + EU GMP Annex 22 已开门</strong> —— 明确支持 AI/ML 在 GxP 用，含放行决策辅助</li>
-        <li><strong>但</strong> 客户审计 / NMPA / FDA 检查时，需要逐项解释"AI 复核 SOP + 验证证据 + 失效兜底"</li>
-        <li>需要凯莱英自己写一套<strong>"AI 复核 SOP + 验证主计划"</strong>，作为客户审计应对材料</li>
-      </ul>
-    </div>
-    <div class="card warn">
-      <h4>🟡 业务 / 工程问题</h4>
-      <ul class="bul tight">
-        <li><strong>责任划分</strong>：AI 复核出错谁负责？需要明确"AI 是工具，签字人仍是责任人"</li>
-        <li><strong>规则结构化</strong>：每种复核场景的 SOP 规则要先结构化（非自然语言），工程师工作量大</li>
-        <li><strong>异常升级机制</strong>：AI 不确定时要"升级到真人"，触发阈值需要调优</li>
-        <li><strong>客户接受度</strong>：不同客户对 AI 介入 GMP 复核的态度不同，可能需要客户特殊豁免</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- DEMO 7 -->
-  <h2>互动 DEMO</h2>
-  <div class="card demo">
-    <div><span class="demo-label">DEMO ⑦</span><strong>4 个复核场景切换 — 看 AI 如何替代第二人</strong></div>
-    <p style="font-size:13px; color:var(--text-muted); margin:8px 0 14px;">
-      场景：第一人提交操作 / 数据，AI 实时复核给出"一致 / 不一致 / 升级"判断。
-    </p>
-    <div style="margin-bottom:12px;">
-      <button class="toggle active" data-d7="weigh" onclick="showD7('weigh')">投料复核</button>
-      <button class="toggle" data-d7="calc" onclick="showD7('calc')">配方计算复核</button>
-      <button class="toggle" data-d7="batch" onclick="showD7('batch')">批记录数据校验</button>
-      <button class="toggle" data-d7="report" onclick="showD7('report')">报告数字一致性</button>
-    </div>
-    <div id="d7-output"></div>
-  </div>
-
-  <div class="page-num">方向 7 · AI 复核 / 9</div>
-</section>
-
-<script>
-const d7Scenarios = {
-  weigh: {
-    title: '投料复核 · 第二人由 AI 替代',
-    input: [
-      {label:'配方单理论投料量', val:'25.000 kg ± 0.5%'},
-      {label:'操作员实际称量', val:'25.020 kg'},
-      {label:'电子秤读数', val:'25.020 kg'},
-      {label:'批生产指令单批号', val:'B2026-A-0518'},
-      {label:'第一人签字', val:'张三 / 14:32:11'}
-    ],
-    check: [
-      {item:'实际称量 vs 理论范围', result:'pass', detail:'25.020 ∈ [24.875, 25.125] ✓'},
-      {item:'电子秤读数 vs 操作员记录', result:'pass', detail:'25.020 = 25.020 ✓'},
-      {item:'批号格式 + 时间戳', result:'pass', detail:'B2026-A-0518 符合规则 ✓'},
-      {item:'第一人签字资质', result:'pass', detail:'张三 有效期内 + 有称量权限 ✓'}
-    ],
-    final: { result:'放行', color:'success', msg:'4/4 项一致，AI 第二人签字 + 流程继续' }
-  },
-  calc: {
-    title: '配方计算复核 · AI 核对收率与限量',
-    input: [
-      {label:'起始物料 A', val:'15.000 kg（MW=234.2，纯度 99.5%）'},
-      {label:'起始物料 B', val:'8.500 kg（MW=156.8，纯度 99.8%）'},
-      {label:'反应当量比 A:B', val:'1.00 : 1.05'},
-      {label:'理论产物量', val:'第一人计算：18.245 kg'},
-      {label:'实际产物量', val:'17.890 kg'},
-      {label:'第一人收率计算', val:'98.05%'}
-    ],
-    check: [
-      {item:'起始物料 A 当量计算', result:'pass', detail:'15.000 × 0.995 / 234.2 = 0.06372 mol ✓'},
-      {item:'起始物料 B 当量计算', result:'pass', detail:'8.500 × 0.998 / 156.8 = 0.05407 mol ✓'},
-      {item:'当量比 A:B 核对', result:'warn', detail:'计算实际比 = 1.00 : 0.849 ≠ 输入的 1:1.05，第一人输入有误'},
-      {item:'理论产物量', result:'pass', detail:'AI 重新计算：18.218 kg（差 0.027 可接受）'},
-      {item:'收率计算', result:'pass', detail:'17.890/18.218 = 98.20% （第一人 98.05% 接近）'}
-    ],
-    final: { result:'升级真人复核', color:'warn', msg:'当量比输入异常 → 升级至 QA 主管复核' }
-  },
-  batch: {
-    title: '批记录数据校验 · AI 扫描批记录',
-    input: [
-      {label:'批号', val:'B2026-B-0612'},
-      {label:'反应温度记录', val:'58℃, 62℃, 65℃, 67℃, 68℃（5 个测点）'},
-      {label:'CPP 范围', val:'温度 60-70℃'},
-      {label:'反应时间', val:'第一人记录：4.5 h'},
-      {label:'CPP 范围', val:'反应时间 4-6 h'},
-      {label:'IPC 取样时间', val:'第一人记录：12:30'},
-      {label:'IPC 实际取样时间', val:'LIMS 系统记录：12:42'}
-    ],
-    check: [
-      {item:'反应温度 vs CPP 范围', result:'warn', detail:'第 1 个测点 58℃ 低于下限 60℃ 偏离 → 触发 OOS 启动检查'},
-      {item:'反应时间 vs CPP 范围', result:'pass', detail:'4.5 ∈ [4, 6] ✓'},
-      {item:'批号格式', result:'pass', detail:'B2026-B-0612 符合规则 ✓'},
-      {item:'IPC 取样时间 vs LIMS', result:'warn', detail:'12:30 ≠ LIMS 12:42 偏离 12 分钟 → 时间戳不一致'},
-      {item:'签字完整性', result:'pass', detail:'所有关键节点签字齐全 ✓'}
-    ],
-    final: { result:'升级真人复核', color:'warn', msg:'2 项偏离 → 自动启动偏差调查 + QA 复核' }
-  },
-  report: {
-    title: '报告数字一致性 · AI 扫描整份 Campaign Report',
-    input: [
-      {label:'报告', val:'Campaign Report Q3 / Project X-API-2026'},
-      {label:'页数', val:'42 页'},
-      {label:'数字出现处', val:'AI 提取出 187 处数字'},
-      {label:'图表数', val:'12 张图表'},
-      {label:'表格数', val:'8 个表格'},
-      {label:'扫描范围', val:'数字一致性 + 图表与正文一致性 + 表格交叉引用一致性'}
-    ],
-    check: [
-      {item:'数字一致性扫描', result:'pass', detail:'187 处数字交叉对比 = 184 处一致'},
-      {item:'数字不一致项 1', result:'warn', detail:'P12 "总收率 98.2%" vs P28 表格 "98.5%" → 不一致'},
-      {item:'数字不一致项 2', result:'warn', detail:'P3 摘要 "完成 25 批" vs P15 清单 "26 批" → 不一致'},
-      {item:'数字不一致项 3', result:'warn', detail:'P19 趋势图 Y 轴 vs P19 正文描述方向相反 → 不一致'},
-      {item:'图表 vs 表格交叉引用', result:'pass', detail:'12 张图均有正文引用 ✓ ; 8 个表格交叉引用一致 ✓'}
-    ],
-    final: { result:'修改后再放行', color:'warn', msg:'3 处不一致 → 退回作者修订后重新提交' }
-  }
-};
-function showD7(k){
-  document.querySelectorAll('button.toggle[data-d7]').forEach(b => b.classList.remove('active'));
-  document.querySelector('button.toggle[data-d7="'+k+'"]').classList.add('active');
-  const s = d7Scenarios[k];
-  let html = '<div class="grid-2" style="gap:14px;">';
-  // 左 · 第一人输入
-  html += '<div class="card" style="background:#fff; margin:0;"><strong style="font-size:13px;">👤 第一人输入 / 现场数据</strong><table style="margin-top:8px; font-size:12px;"><tbody>';
-  s.input.forEach(i => {
-    html += '<tr><td style="color:var(--text-muted); padding:4px 6px; border:1px solid #f3f4f6;">'+i.label+'</td><td style="font-weight:600; padding:4px 6px; border:1px solid #f3f4f6;">'+i.val+'</td></tr>';
-  });
-  html += '</tbody></table></div>';
-  // 右 · AI 复核过程
-  html += '<div class="card" style="background:#fff; margin:0;"><strong style="font-size:13px;">🤖 AI 第二人 · 逐项核对</strong><div style="margin-top:8px;">';
-  s.check.forEach((c, i) => {
-    const colors = { pass:{bg:'#ecfdf5', txt:'#065f46', icon:'✓'}, warn:{bg:'#fff7ed', txt:'#9a3412', icon:'⚠'}, fail:{bg:'#fef2f2', txt:'#991b1b', icon:'✗'} };
-    const cc = colors[c.result];
-    html += '<div style="margin:5px 0; padding:6px 10px; background:'+cc.bg+'; border-radius:4px; font-size:12px;">' +
-            '<strong style="color:'+cc.txt+';">'+cc.icon+'</strong> <strong>'+c.item+'</strong>' +
-            '<div style="color:var(--text-sub); font-size:11px; margin-top:2px;">'+c.detail+'</div></div>';
-  });
-  html += '</div>';
-  // 最终判定
-  const fc = { success:{bg:'#d1fae5', border:'#10b981', txt:'#065f46', icon:'✅'}, warn:{bg:'#fed7aa', border:'#f59e0b', txt:'#9a3412', icon:'⚠️'}, danger:{bg:'#fecaca', border:'#dc2626', txt:'#991b1b', icon:'❌'} };
-  const fcc = fc[s.final.color];
-  html += '<div style="margin-top:12px; padding:10px 14px; background:'+fcc.bg+'; border-left:4px solid '+fcc.border+'; border-radius:6px;">' +
-          '<strong style="color:'+fcc.txt+'; font-size:13px;">'+fcc.icon+' AI 判定：'+s.final.result+'</strong>' +
-          '<div style="color:'+fcc.txt+'; font-size:12px; margin-top:4px;">'+s.final.msg+'</div></div></div>';
-  html += '</div>';
-  // 标题
-  html = '<div style="font-size:13px; margin-bottom:10px; color:var(--primary-deep); font-weight:600;">📌 '+s.title+'</div>' + html;
-  document.getElementById('d7-output').innerHTML = html;
-}
-showD7('weigh');
-</script>
 
 <!-- ============ S-common · 共性观察 ============ -->
-<section class="slide" id="s-common" data-page="10">
-  <div class="kicker">最后一页 · 7 个方向的共性观察（不下结论）</div>
-  <h1>4 个共同前置 + 4 个共同卡点 + 4 个共同疑问</h1>
-  <p class="lead">
-    汇报最后，把 7 个方向的<strong>共同特性</strong>抽出来 —— 这些是无论哪个方向先做，都需要凯莱英思考的问题。
-    本汇报<strong>不下结论、不排优先级</strong>，把这些共性留给后续评估讨论。
-  </p>
+<section class="slide" id="s-common" data-page="8">
+  <div class="kicker">共性观察</div>
+  <h1>共同前置 + 共同挑战 + 共同疑问</h1>
 
   <div class="grid-3">
     <div class="card success">
-      <h3>🟢 4 个共同前置 — 哪个方向先做都要先有这些</h3>
+      <h3>🟢 共同前置 — 哪个方向先做都要先有这些</h3>
       <ul class="bul tight">
         <li><strong>数据底座</strong>：MES / EBR / LIMS / QMS / IP.21 / SAP / EAM 多系统数据打通</li>
         <li><strong>主数据治理</strong>：批号 / 项目 / 客户 / 设备 / 物料 主数据统一</li>
@@ -1999,29 +1779,29 @@ showD7('weigh');
     </div>
 
     <div class="card warn">
-      <h3>🟡 4 个共同卡点</h3>
+      <h3>🟡 共同挑战</h3>
       <ul class="bul tight">
         <li><strong>客户数据隔离</strong>：CDMO 多客户业务里 AI 学习边界（哪些可跨项目、哪些不可）</li>
         <li><strong>GMP / GxP 合规</strong>：每个方向都要做 AI 系统验证（GAMP 5）+ 客户审计应对</li>
         <li><strong>AI 辅助 vs AI 主导</strong>：哪些场景 AI 出建议、哪些场景 AI 直接判决</li>
-        <li><strong>责任划分</strong>：AI 出错谁负责？签字人 vs AI 工具供应商 vs 凯莱英 IT</li>
+        <li><strong>责任划分</strong>：AI 出错谁负责？</li>
       </ul>
     </div>
 
     <div class="card info">
-      <h3>🔵 4 个共同疑问 — 留给后续评估</h3>
+      <h3>🔵 共同疑问 — 留给后续评估</h3>
       <ul class="bul tight">
         <li><strong>先做哪个？</strong> 短期 ROI 最显性的（方向 2 报告 / 方向 6 培训）vs 长期价值最大的（方向 1 QC / 方向 3 技转）</li>
         <li><strong>谁来做？</strong> 一个供应商打包 vs 多个专精供应商组合 vs 凯莱英自建</li>
-        <li><strong>多大投入？</strong> 每个方向单独 PoC（200-500 万/项）vs 平台化总集成（千万级）</li>
+        <li><strong>多大投入？</strong> 每个方向单独 PoC vs 平台化总集成</li>
         <li><strong>多大节奏？</strong> 同时启动 3-4 个方向 vs 串行依次推进</li>
       </ul>
     </div>
   </div>
 
-  <h2 style="margin-top:24px;">7 个方向的"投入 - 价值 - 难度"概览</h2>
+  <h2 style="margin-top:24px;">"投入 - 价值 - 难度"概览</h2>
   <p style="font-size:13.5px; color:var(--text-sub); margin-bottom:10px;">
-    这张图把 7 个方向放在二维平面上 —— 横轴是执行难度，纵轴是预估业务价值。
+    这张图把重点方向放在二维平面上 —— 横轴是执行难度，纵轴是预估业务价值。
     <strong>不是最终评估</strong>，只是一个直观参考。
   </p>
 
@@ -2061,8 +1841,6 @@ showD7('weigh');
       <g><circle cx="430" cy="240" r="14" fill="#3b82f6" stroke="#fff" stroke-width="3"/><text x="430" y="245" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">⑤</text><text x="430" y="275" text-anchor="middle" font-size="12" font-weight="600" fill="#3b82f6">视觉合规</text></g>
       <!-- ⑥ 培训：价值中、难度低 -->
       <g><circle cx="180" cy="240" r="14" fill="#10b981" stroke="#fff" stroke-width="3"/><text x="180" y="245" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">⑥</text><text x="180" y="275" text-anchor="middle" font-size="12" font-weight="600" fill="#10b981">培训生成</text></g>
-      <!-- ⑦ 复核：价值高、难度高 -->
-      <g><circle cx="620" cy="120" r="14" fill="#7c3aed" stroke="#fff" stroke-width="3"/><text x="620" y="125" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">⑦</text><text x="620" y="150" text-anchor="middle" font-size="12" font-weight="600" fill="#7c3aed">AI 复核</text></g>
 
       <!-- 图例 -->
       <g transform="translate(620, 320)">
@@ -2074,31 +1852,7 @@ showD7('weigh');
     </svg>
   </div>
 
-  <div class="card tip" style="margin-top:14px;">
-    <strong>💭 关于这张图的说明</strong>
-    <ul class="bul tight" style="margin-top:6px;">
-      <li>这张图<strong>不是推荐路径图</strong>，只是把 7 个方向的相对难度和价值放在一起便于直观对比</li>
-      <li><strong>"价值高 · 难度低"象限是空的</strong> —— 真正的"快赢机会"在哪？需要进一步评估</li>
-      <li>方向 2（报告撰写）和方向 6（培训生成）<strong>难度相对低</strong>，是 PoC 起点的候选</li>
-      <li>方向 1 / 3 / 7 都涉及 GMP 强监管，是<strong>长期战略性投入</strong>而非短期项目</li>
-      <li>方向 4 / 5 是"中期布局" —— 需要先建基础（设备数字化 / 摄像头改造）才能展开</li>
-    </ul>
-  </div>
-
-  <div class="card info" style="margin-top:14px;">
-    <strong>📌 本汇报到这里结束</strong>
-    <p style="margin-top:6px; font-size:13.5px;">
-      <strong>这是思路汇报，不下结论</strong>。希望讨论能聚焦在：
-    </p>
-    <ul class="bul tight" style="margin-top:6px;">
-      <li>7 个方向的<strong>专业表述是否准确</strong>？有没有遗漏的方向？</li>
-      <li>每个方向的<strong>"卡点"识别是否充分</strong>？还有哪些团队角度的卡点？</li>
-      <li>4 个<strong>共同前置</strong>哪些已经在做、哪些还没启动？</li>
-      <li>下一步评估应该从哪个方向<strong>展开细化</strong>（POC 设计、供应商对接、投入估算）？</li>
-    </ul>
-  </div>
-
-  <div class="page-num">共性观察 / 9</div>
+  <div class="page-num">共性观察 / 8</div>
 </section>
 
 </body>
