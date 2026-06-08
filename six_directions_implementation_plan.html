@@ -1,0 +1,2113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>6 方向落地实施方案 · 跟 IT 联合推进 v1.0</title>
+<style>
+  :root {
+    --primary: #7c3aed;
+    --primary-deep: #5b21b6;
+    --primary-light: #a78bfa;
+    --primary-bg: #f5f3ff;
+    --text-main: #1a1d2e;
+    --text-sub: #3a4d72;
+    --text-muted: #5b6a8a;
+    --green: #10b981;
+    --green-deep: #047857;
+    --orange: #ff7e3d;
+    --red: #dc2626;
+    --blue: #3b82f6;
+    --blue-deep: #1d4ed8;
+    --gold: #fbbf24;
+    --border: #e5e7eb;
+    --bg-card: #fafbfc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f8fafc;
+    color: var(--text-main);
+    line-height: 1.6;
+  }
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { display:flex; align-items:center; gap:14px; }
+  .badge {
+    background: var(--primary);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .badge.v { background: #1a1d2e; }
+  .topbar nav a {
+    color: var(--text-sub);
+    text-decoration: none;
+    margin-left: 12px;
+    font-size: 12.5px;
+  }
+  .topbar nav a:hover { color: var(--primary); }
+  .present-btn {
+    background: var(--text-main);
+    color: #fff;
+    border: 0;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .slide {
+    max-width: 1240px;
+    margin: 32px auto;
+    background: #fff;
+    border-radius: 14px;
+    padding: 40px 48px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    position: relative;
+  }
+  .slide.cover {
+    background: linear-gradient(135deg, #1e1b4b 0%, #5b21b6 60%, #7c3aed 100%);
+    color: #fff;
+  }
+  .slide.cover .kicker { color: #c4b5fd; }
+  .slide.cover h1, .slide.cover h2 { color: #fff; }
+  .slide.cover .lead { color: #ddd6fe; }
+  .kicker {
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 30px;
+    color: var(--text-main);
+    margin-bottom: 16px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  h2 { font-size: 22px; color: var(--primary-deep); margin: 22px 0 12px; }
+  h3 { font-size: 16px; color: var(--text-main); margin: 14px 0 8px; }
+  h4 { font-size: 14px; color: var(--primary-deep); margin: 10px 0 6px; }
+  .lead { color: var(--text-sub); font-size: 15px; margin-bottom: 18px; }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 12px 0;
+  }
+  .card.info { background: #eef2ff; border-color: #c7d2fe; }
+  .card.warn { background: #fff7ed; border-color: #fdba74; }
+  .card.danger { background: #fef2f2; border-color: #fca5a5; }
+  .card.success { background: #ecfdf5; border-color: #6ee7b7; }
+  .card.tip { background: #f5f3ff; border-color: #c4b5fd; }
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+  .grid-3 { display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+  .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; }
+  .grid-5 { display:grid; grid-template-columns: repeat(5, 1fr); gap:10px; }
+  .tag {
+    display: inline-block;
+    background: var(--primary-bg);
+    color: var(--primary-deep);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-right: 4px;
+    margin-bottom: 4px;
+  }
+  .tag.green { background: #ecfdf5; color: #065f46; }
+  .tag.orange { background: #fff7ed; color: #9a3412; }
+  .tag.red { background: #fef2f2; color: #991b1b; }
+  .tag.blue { background: #eff6ff; color: #1e40af; }
+  .tag.gold { background: #fef3c7; color: #92400e; }
+  ul.bul { padding-left: 22px; margin: 6px 0; }
+  ul.bul.tight li { margin: 2px 0; font-size: 13.5px; color: var(--text-sub); }
+  ul.bul li { margin: 4px 0; color: var(--text-sub); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13px;
+  }
+  table th, table td {
+    border: 1px solid var(--border);
+    padding: 8px 10px;
+    text-align: left;
+    vertical-align: top;
+  }
+  table thead th {
+    background: var(--primary-bg);
+    color: var(--primary-deep);
+    font-weight: 600;
+  }
+  table tr:nth-child(even) td { background: #fafbfc; }
+  .pill {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11.5px;
+    font-weight: 600;
+  }
+  .pill.green { background: #d1fae5; color: #065f46; }
+  .pill.orange { background: #fed7aa; color: #9a3412; }
+  .pill.red { background: #fee2e2; color: #991b1b; }
+  .pill.blue { background: #dbeafe; color: #1e40af; }
+  .pill.gray { background: #e5e7eb; color: #4b5563; }
+  .pill.purple { background: #ede9fe; color: #5b21b6; }
+  .pill.gold { background: #fef3c7; color: #92400e; }
+  .page-num {
+    position: absolute;
+    bottom: 12px; right: 20px;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+  button.toggle {
+    background: #fff;
+    border: 1.5px solid var(--primary);
+    color: var(--primary);
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    margin: 4px 6px 4px 0;
+    transition: all 0.2s;
+  }
+  button.toggle:hover { background: var(--primary-bg); }
+  button.toggle.active { background: var(--primary); color: #fff; }
+  .dir-header {
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom: 14px;
+  }
+  .dir-number {
+    width: 52px; height: 52px;
+    background: linear-gradient(135deg, #7c3aed, #5b21b6);
+    color: #fff;
+    border-radius: 12px;
+    display:flex; align-items:center; justify-content:center;
+    font-size: 24px; font-weight: 700;
+    flex-shrink: 0;
+  }
+  /* IT/业务 双栏责任表 */
+  .resp-table {
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 12px 0;
+  }
+  .resp-col {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-left: 4px solid;
+    border-radius: 8px;
+    padding: 14px 18px;
+  }
+  .resp-col.it { border-left-color: var(--blue); }
+  .resp-col.biz { border-left-color: var(--green); }
+  .resp-col .title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .resp-col.it .title { color: var(--blue-deep); }
+  .resp-col.biz .title { color: var(--green-deep); }
+  /* 3 阶段路径 */
+  .phase-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  .phase {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-top: 4px solid;
+    border-radius: 8px;
+    padding: 12px 16px;
+  }
+  .phase.poc { border-top-color: var(--green); }
+  .phase.pilot { border-top-color: var(--blue); }
+  .phase.scale { border-top-color: var(--primary); }
+  .phase .ph-name { font-size:13px; font-weight:700; }
+  .phase .ph-dur { font-size:11px; color: var(--text-muted); margin-top:2px; }
+  /* 量化效益 KPI 卡 */
+  .kpi-card {
+    background: linear-gradient(135deg, #f5f3ff, #eef2ff);
+    border: 1px solid #c4b5fd;
+    border-radius: 10px;
+    padding: 14px 18px;
+    text-align: center;
+  }
+  .kpi-card .num { font-size: 26px; font-weight: 700; color: var(--primary-deep); }
+  .kpi-card .label { font-size: 12px; color: var(--text-sub); margin-top: 4px; }
+  .kpi-card .basis { font-size: 10.5px; color: var(--text-muted); margin-top: 3px; font-style: italic; }
+  /* 30 天 todo */
+  .todo-30d {
+    background: #fefce8;
+    border: 1px solid #fde68a;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+  .todo-30d h4 { color: #92400e; margin: 0 0 8px; }
+  .todo-30d ul { padding-left: 22px; }
+  .todo-30d li { margin: 4px 0; font-size: 13px; color: var(--text-sub); }
+  /* Gantt-like bar */
+  .gantt-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 10px;
+    align-items: center;
+    padding: 4px 0;
+    font-size: 12.5px;
+  }
+  .gantt-track {
+    position: relative;
+    height: 22px;
+    background: #f3f4f6;
+    border-radius: 4px;
+  }
+  .gantt-bar {
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 6px;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .gantt-axis {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 10px;
+    font-size: 11px;
+    color: var(--text-muted);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .gantt-months {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    text-align: center;
+  }
+  @media print {
+    body { background:#fff; }
+    .topbar { display:none; }
+    .slide { box-shadow: none; page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="badge">6 方向实施方案</span>
+    <span class="badge v">v1.0 · 跟 IT 联合推进</span>
+  </div>
+  <nav>
+    <a href="#s-cover">封面</a>
+    <a href="#s-overview">总览</a>
+    <a href="#d1">①QC</a>
+    <a href="#d2">②报告</a>
+    <a href="#d3">③技转</a>
+    <a href="#d4">④设备</a>
+    <a href="#d5">⑤视觉</a>
+    <a href="#d6">⑥培训</a>
+    <a href="#s-mech">联合机制</a>
+    <a href="#s-sprint">6 周 Sprint</a>
+  </nav>
+  <button class="present-btn" onclick="document.body.requestFullscreen?.()">▶ 演示模式</button>
+</header>
+
+<!-- ============ S-cover ============ -->
+<section class="slide cover" id="s-cover" data-page="1">
+  <h1 style="font-size:40px; line-height:1.3; margin-top:24px;">凯莱英 AI 落地<br>6 方向落地实施方案</h1>
+  <p class="lead" style="font-size: 17px; margin-top: 18px;">
+    跟 IT 联合推进 · v1.0 · 工程化方案
+  </p>
+
+  <div style="margin-top: 30px; padding: 22px 26px; background: rgba(255,255,255,0.08); border-radius: 12px; backdrop-filter: blur(6px); font-size: 14px; line-height: 1.85;">
+    <strong>本方案 vs 之前的思路汇报有什么不同？</strong><br>
+    <table style="margin-top:10px; font-size:13px; color: #ddd6fe;">
+      <tr style="background:transparent;"><td style="padding:4px 12px 4px 0; border:none; color:#a78bfa;">之前的思路汇报</td><td style="border:none; padding:4px 0;">→ "<strong>有什么方向</strong>"，<strong>不下结论</strong>，给管理层决策</td></tr>
+      <tr style="background:transparent;"><td style="padding:4px 12px 4px 0; border:none; color:#a78bfa;">本实施方案</td><td style="border:none; padding:4px 0;">→ "<strong>具体怎么做</strong>"，<strong>给出工程级路径</strong>，给 IT 对接人 / 业务对接人</td></tr>
+    </table>
+  </div>
+
+  <div style="margin-top: 24px; padding: 22px 26px; background: rgba(255,255,255,0.08); border-radius: 12px; backdrop-filter: blur(6px);">
+    <div style="font-size: 13px; letter-spacing: 2px; color: #c4b5fd; margin-bottom: 14px;">CONTENTS · 目录</div>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 6px 30px; font-size: 14px; line-height: 1.85;">
+      <div><span style="color:#a78bfa; margin-right:8px;">PART 00</span>总体推进 — 依赖网 / 分工矩阵 / Gantt</div>
+      <div><span style="color:#a78bfa; margin-right:8px;">方向 ④</span>设备全生命周期 AI 智能管理</div>
+      <div><span style="color:#a78bfa; margin-right:8px;">方向 ①</span>批次放行预测 + QC 报告 AI 起草</div>
+      <div><span style="color:#a78bfa; margin-right:8px;">方向 ⑤</span>视觉 AI 操作合规实时监测</div>
+      <div><span style="color:#a78bfa; margin-right:8px;">方向 ②</span>生产技术报告 AI 辅助撰写</div>
+      <div><span style="color:#a78bfa; margin-right:8px;">方向 ⑥</span>AI 培训内容自动化生成</div>
+      <div><span style="color:#a78bfa; margin-right:8px;">方向 ③</span>AI 辅助技术转移与工艺放大评估</div>
+      <div><span style="color:#a78bfa; margin-right:8px;">PART 07</span>联合工作机制 + Quick Win 候选</div>
+      <div><span style="color:#a78bfa; margin-right:8px;">PART 08</span>6 周快速启动 Sprint 表</div>
+      <div></div>
+    </div>
+  </div>
+
+  <div class="page-num">封面</div>
+</section>
+
+<!-- ============ S-overview · PART 00 总体推进 ============ -->
+<section class="slide" id="s-overview" data-page="2">
+  <div class="kicker">PART 00 · 总体推进 · 一张大图说清楚</div>
+  <h1>6 方向不是 6 个独立项目 — 共享 4 大基础设施 + 互相依赖</h1>
+  <p class="lead">
+    所有方向都依赖<strong>共同的基础设施 + 数据底座</strong>。基础设施先做、共享，则 6 方向可以并行 / 渐进推进；
+    基础设施不做，每个方向都要自己重建一遍，会严重浪费投入。
+    <strong>这是本方案最重要的洞察</strong> —— 不要把 6 方向当 6 个独立项目立项。
+  </p>
+
+  <h2>0.1 · 依赖关系网图 — 6 方向 + 4 共同基础设施</h2>
+
+  <div style="background:#fff; border:1px solid var(--border); border-radius:10px; padding:18px; margin:10px 0;">
+    <svg viewBox="0 0 1100 540" style="width:100%; height:auto;">
+      <!-- 共同基础设施层 -->
+      <rect x="50" y="380" width="1000" height="130" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5" rx="10"/>
+      <text x="60" y="402" font-size="13" font-weight="700" fill="#065f46">🟢 共同基础设施层（4 大件 · 必须先做或并行做）</text>
+      <!-- 4 个基础设施 -->
+      <g>
+        <rect x="80" y="420" width="220" height="70" fill="#fff" stroke="#10b981" stroke-width="2" rx="8"/>
+        <text x="190" y="445" text-anchor="middle" font-size="14" font-weight="700" fill="#065f46">B1 · 数据底座</text>
+        <text x="190" y="465" text-anchor="middle" font-size="11" fill="#3a4d72">IP.21 / MES / EBR / LIMS / QMS</text>
+        <text x="190" y="480" text-anchor="middle" font-size="11" fill="#3a4d72">/ SAP / EAM 跨系统数据打通</text>
+      </g>
+      <g>
+        <rect x="320" y="420" width="220" height="70" fill="#fff" stroke="#10b981" stroke-width="2" rx="8"/>
+        <text x="430" y="445" text-anchor="middle" font-size="14" font-weight="700" fill="#065f46">B2 · 主数据治理</text>
+        <text x="430" y="465" text-anchor="middle" font-size="11" fill="#3a4d72">批号 / 项目 / 客户 / 设备</text>
+        <text x="430" y="480" text-anchor="middle" font-size="11" fill="#3a4d72">/ 物料 主数据统一</text>
+      </g>
+      <g>
+        <rect x="560" y="420" width="220" height="70" fill="#fff" stroke="#10b981" stroke-width="2" rx="8"/>
+        <text x="670" y="445" text-anchor="middle" font-size="14" font-weight="700" fill="#065f46">B3 · 客户数据隔离</text>
+        <text x="670" y="465" text-anchor="middle" font-size="11" fill="#3a4d72">CDMO 多客户业务的 AI 学习</text>
+        <text x="670" y="480" text-anchor="middle" font-size="11" fill="#3a4d72">边界 + 模型权限设计</text>
+      </g>
+      <g>
+        <rect x="800" y="420" width="220" height="70" fill="#fff" stroke="#10b981" stroke-width="2" rx="8"/>
+        <text x="910" y="445" text-anchor="middle" font-size="14" font-weight="700" fill="#065f46">B4 · AI 平台底座</text>
+        <text x="910" y="465" text-anchor="middle" font-size="11" fill="#3a4d72">GPU 算力 / 大模型 API / RAG</text>
+        <text x="910" y="480" text-anchor="middle" font-size="11" fill="#3a4d72">引擎 / GAMP 5 验证框架</text>
+      </g>
+
+      <!-- 6 个方向（上半部分） -->
+      <!-- 方向 ① QC 预测 -->
+      <g>
+        <circle cx="120" cy="180" r="50" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+        <text x="120" y="175" text-anchor="middle" font-size="20" font-weight="700" fill="#991b1b">①</text>
+        <text x="120" y="195" text-anchor="middle" font-size="11" fill="#7f1d1d">QC 预测</text>
+      </g>
+      <!-- 方向 ② 报告 -->
+      <g>
+        <circle cx="280" cy="120" r="50" fill="#d1fae5" stroke="#10b981" stroke-width="2.5"/>
+        <text x="280" y="115" text-anchor="middle" font-size="20" font-weight="700" fill="#065f46">②</text>
+        <text x="280" y="135" text-anchor="middle" font-size="11" fill="#065f46">报告撰写</text>
+      </g>
+      <!-- 方向 ③ 技转 -->
+      <g>
+        <circle cx="450" cy="180" r="50" fill="#fee2e2" stroke="#dc2626" stroke-width="2.5"/>
+        <text x="450" y="175" text-anchor="middle" font-size="20" font-weight="700" fill="#991b1b">③</text>
+        <text x="450" y="195" text-anchor="middle" font-size="11" fill="#7f1d1d">技转放大</text>
+      </g>
+      <!-- 方向 ④ 设备 -->
+      <g>
+        <circle cx="620" cy="120" r="50" fill="#dbeafe" stroke="#3b82f6" stroke-width="2.5"/>
+        <text x="620" y="115" text-anchor="middle" font-size="20" font-weight="700" fill="#1e40af">④</text>
+        <text x="620" y="135" text-anchor="middle" font-size="11" fill="#1e40af">设备 AI</text>
+      </g>
+      <!-- 方向 ⑤ 视觉 -->
+      <g>
+        <circle cx="790" cy="180" r="50" fill="#dbeafe" stroke="#3b82f6" stroke-width="2.5"/>
+        <text x="790" y="175" text-anchor="middle" font-size="20" font-weight="700" fill="#1e40af">⑤</text>
+        <text x="790" y="195" text-anchor="middle" font-size="11" fill="#1e40af">视觉合规</text>
+      </g>
+      <!-- 方向 ⑥ 培训 -->
+      <g>
+        <circle cx="960" cy="120" r="50" fill="#d1fae5" stroke="#10b981" stroke-width="2.5"/>
+        <text x="960" y="115" text-anchor="middle" font-size="20" font-weight="700" fill="#065f46">⑥</text>
+        <text x="960" y="135" text-anchor="middle" font-size="11" fill="#065f46">培训生成</text>
+      </g>
+
+      <!-- 颜色图例：长期战略=红，中期布局=蓝，短期可见=绿 -->
+      <g transform="translate(60, 30)">
+        <rect width="350" height="30" fill="#fafbfc" stroke="#e5e7eb"/>
+        <circle cx="20" cy="15" r="7" fill="#fee2e2" stroke="#dc2626" stroke-width="1.5"/>
+        <text x="32" y="19" font-size="11" fill="#374151">长期战略（①③）</text>
+        <circle cx="130" cy="15" r="7" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="142" y="19" font-size="11" fill="#374151">中期布局（④⑤）</text>
+        <circle cx="240" cy="15" r="7" fill="#d1fae5" stroke="#10b981" stroke-width="1.5"/>
+        <text x="252" y="19" font-size="11" fill="#374151">短期可见（②⑥）</text>
+      </g>
+
+      <!-- 依赖连线（方向 → 基础设施） -->
+      <!-- 方向 ① → B1/B2/B3/B4 -->
+      <line x1="110" y1="230" x2="170" y2="420" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.7"/>
+      <line x1="130" y1="230" x2="400" y2="420" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.5"/>
+      <line x1="135" y1="230" x2="640" y2="420" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.5"/>
+      <line x1="140" y1="230" x2="880" y2="420" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.4"/>
+      <!-- 方向 ② → B1/B2/B4 -->
+      <line x1="260" y1="170" x2="200" y2="420" stroke="#10b981" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.7"/>
+      <line x1="280" y1="170" x2="440" y2="420" stroke="#10b981" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.6"/>
+      <line x1="300" y1="170" x2="900" y2="420" stroke="#10b981" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.5"/>
+      <!-- 方向 ③ → B1/B2/B3/B4 -->
+      <line x1="430" y1="230" x2="230" y2="420" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.5"/>
+      <line x1="450" y1="230" x2="450" y2="420" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.7"/>
+      <line x1="460" y1="230" x2="690" y2="420" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.5"/>
+      <line x1="470" y1="230" x2="920" y2="420" stroke="#dc2626" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.5"/>
+      <!-- 方向 ④ → B1/B2/B4 -->
+      <line x1="600" y1="170" x2="260" y2="420" stroke="#3b82f6" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.5"/>
+      <line x1="620" y1="170" x2="480" y2="420" stroke="#3b82f6" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.7"/>
+      <line x1="640" y1="170" x2="930" y2="420" stroke="#3b82f6" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.6"/>
+      <!-- 方向 ⑤ → B1/B3/B4 -->
+      <line x1="770" y1="230" x2="290" y2="420" stroke="#3b82f6" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.4"/>
+      <line x1="790" y1="230" x2="730" y2="420" stroke="#3b82f6" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.7"/>
+      <line x1="800" y1="230" x2="950" y2="420" stroke="#3b82f6" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.5"/>
+      <!-- 方向 ⑥ → B4（轻依赖）+ B2 -->
+      <line x1="940" y1="170" x2="450" y2="420" stroke="#10b981" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.4"/>
+      <line x1="960" y1="170" x2="960" y2="420" stroke="#10b981" stroke-width="1.2" stroke-dasharray="3,3" opacity="0.7"/>
+
+      <!-- 关键洞察文字 -->
+      <text x="550" y="320" text-anchor="middle" font-size="13" font-weight="700" fill="#5b21b6">↑ 6 方向都依赖下方基础设施 · 基础设施越好 6 方向收益越大</text>
+      <text x="550" y="345" text-anchor="middle" font-size="11" fill="#5b6a8a">每条虚线表示一个依赖关系 · 颜色对应方向类型</text>
+    </svg>
+  </div>
+
+  <div class="card tip" style="margin-top:14px;">
+    <strong>💡 核心洞察 · 跟 IT 沟通时的第一句话</strong>
+    <p style="margin-top:6px; font-size:13.5px;">
+      <strong>不要把 6 方向当成 6 个独立项目立项</strong>。它们共享 4 大基础设施（数据底座 / 主数据治理 / 客户隔离 / AI 平台底座）。
+      正确做法：
+    </p>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li><strong>基础设施作为独立的 1 号项目立项</strong>—— 由 IT 主责 + 业务全力配合</li>
+      <li><strong>6 方向以"应用项目"形式跟随基础设施推进</strong>—— 基础设施做到什么程度，能跑什么方向</li>
+      <li>方向 ②（报告）+ ⑥（培训）依赖最浅 → 可以最早做出来当 <strong>Quick Win</strong></li>
+      <li>方向 ①（QC）+ ③（技转）依赖最深 + 监管最严 → <strong>长期战略性投入</strong></li>
+    </ul>
+  </div>
+
+  <div class="page-num">总览 · 1/3 / 10</div>
+</section>
+
+<!-- ============ S-overview-2 · 分工矩阵 ============ -->
+<section class="slide" id="s-overview-2" data-page="3">
+  <div class="kicker">PART 00 · 总体推进 · IT vs 业务 分工矩阵</div>
+  <h1>0.2 · 谁做什么 — 6 方向 × 5 工作类型 分工矩阵</h1>
+  <p class="lead">
+    跟 IT 第一次对接时最容易卡住的就是"<strong>到底是 IT 干还是业务干</strong>"。把这张表先对齐了再开工。
+    🟦 = IT 主责（业务配合） · 🟩 = 业务主责（IT 配合） · 🟪 = 联合负责（双方对等投入）
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="2" style="width:18%; vertical-align:middle;">方向</th>
+        <th colspan="5" style="text-align:center;">5 类工作（横向 IT vs 业务分工）</th>
+      </tr>
+      <tr>
+        <th style="width:16%;">数据接入<br>+ 集成</th>
+        <th style="width:16%;">算法 / 模型<br>+ 平台</th>
+        <th style="width:16%;">UI / 工作流<br>嵌入</th>
+        <th style="width:16%;">业务规则<br>+ 数据标注</th>
+        <th style="width:18%;">验证 + UAT<br>+ 监管应对</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>① QC 预测 + 报告</strong></td>
+        <td>🟦 IT 主责<br><span style="font-size:11px;color:var(--text-muted);">LIMS/EBR/IP.21/原料 COA 取数</span></td>
+        <td>🟪 联合<br><span style="font-size:11px;color:var(--text-muted);">外采 + IT 集成 + 业务调优</span></td>
+        <td>🟦 IT 主责<br><span style="font-size:11px;color:var(--text-muted);">LIMS 内嵌"AI 预测"区块</span></td>
+        <td>🟩 业务主责<br><span style="font-size:11px;color:var(--text-muted);">QC / 工艺研发 提供 CPP/CQA</span></td>
+        <td>🟪 联合<br><span style="font-size:11px;color:var(--text-muted);">QA 主导 GAMP 5 验证</span></td>
+      </tr>
+      <tr>
+        <td><strong>② 技术报告 AI 撰写</strong></td>
+        <td>🟦 IT 主责<br><span style="font-size:11px;color:var(--text-muted);">跨 MES/QMS/LIMS/SAP 取数</span></td>
+        <td>🟦 IT 主责<br><span style="font-size:11px;color:var(--text-muted);">LLM + RAG 架构</span></td>
+        <td>🟪 联合<br><span style="font-size:11px;color:var(--text-muted);">报告生成器 UI</span></td>
+        <td>🟩 业务主责<br><span style="font-size:11px;color:var(--text-muted);">报告模板结构化 + 历史语料</span></td>
+        <td>🟩 业务主责<br><span style="font-size:11px;color:var(--text-muted);">工程师审核签字流程不变</span></td>
+      </tr>
+      <tr>
+        <td><strong>③ 技转 + 放大评估</strong></td>
+        <td>🟪 联合<br><span style="font-size:11px;color:var(--text-muted);">设备能力库 + 历史项目库</span></td>
+        <td>🟪 联合<br><span style="font-size:11px;color:var(--text-muted);">机理 + 数据双模型</span></td>
+        <td>🟪 联合<br><span style="font-size:11px;color:var(--text-muted);">工艺审查工作台</span></td>
+        <td>🟩 业务主责<br><span style="font-size:11px;color:var(--text-muted);">资深工艺工程师结构化经验</span></td>
+        <td>🟩 业务主责<br><span style="font-size:11px;color:var(--text-muted);">人工签字必须保留</span></td>
+      </tr>
+      <tr>
+        <td><strong>④ 设备全生命周期 AI</strong></td>
+        <td>🟦 IT 主责<br><span style="font-size:11px;color:var(--text-muted);">DCS/SCADA/EAM/CMMS</span></td>
+        <td>🟦 IT 主责<br><span style="font-size:11px;color:var(--text-muted);">PdM / FDC 算法平台</span></td>
+        <td>🟦 IT 主责<br><span style="font-size:11px;color:var(--text-muted);">点检 APP + 备件预测台</span></td>
+        <td>🟪 联合<br><span style="font-size:11px;color:var(--text-muted);">设备 BOM 数字化 + 故障案例库</span></td>
+        <td>🟩 业务主责<br><span style="font-size:11px;color:var(--text-muted);">设备工程师 + EHS 验收</span></td>
+      </tr>
+      <tr>
+        <td><strong>⑤ 视觉 AI 操作合规</strong></td>
+        <td>🟦 IT 主责<br><span style="font-size:11px;color:var(--text-muted);">CCTV 视频流 + 边缘计算节点</span></td>
+        <td>🟦 IT 主责<br><span style="font-size:11px;color:var(--text-muted);">CV 目标检测 + 动作识别</span></td>
+        <td>🟪 联合<br><span style="font-size:11px;color:var(--text-muted);">告警推送 + 复核 APP</span></td>
+        <td>🟩 业务主责<br><span style="font-size:11px;color:var(--text-muted);">SOP 关键动作字典</span></td>
+        <td>🟪 联合<br><span style="font-size:11px;color:var(--text-muted);">QA + HR + 工会沟通</span></td>
+      </tr>
+      <tr>
+        <td><strong>⑥ AI 培训内容生成</strong></td>
+        <td>🟦 IT 主责<br><span style="font-size:11px;color:var(--text-muted);">SOP 库 + 培训系统对接</span></td>
+        <td>🟦 IT 主责<br><span style="font-size:11px;color:var(--text-muted);">数字人 + 视频生成 API</span></td>
+        <td>🟦 IT 主责<br><span style="font-size:11px;color:var(--text-muted);">培训平台播放页</span></td>
+        <td>🟩 业务主责<br><span style="font-size:11px;color:var(--text-muted);">SOP 结构化 + 素材库建设</span></td>
+        <td>🟩 业务主责<br><span style="font-size:11px;color:var(--text-muted);">培训部审核 + 考核效果对照</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-3" style="margin-top:14px;">
+    <div class="kpi-card" style="background:#dbeafe; border-color:#93c5fd;">
+      <div class="num" style="color:#1e40af;">🟦 12</div>
+      <div class="label">IT 主责单元（占 40%）</div>
+      <div class="basis">数据 / 算法 / UI / 集成</div>
+    </div>
+    <div class="kpi-card" style="background:#d1fae5; border-color:#86efac;">
+      <div class="num" style="color:#065f46;">🟩 11</div>
+      <div class="label">业务主责单元（占 37%）</div>
+      <div class="basis">业务规则 / 验证 / 流程变更</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">🟪 7</div>
+      <div class="label">联合单元（占 23%）</div>
+      <div class="basis">需要双方对等投入的</div>
+    </div>
+  </div>
+
+  <div class="card warn" style="margin-top:14px;">
+    <strong>⚠️ 跟 IT 对齐时的关键提醒</strong>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li><strong>"业务主责"不等于"IT 不参与"</strong>—— 业务主责的工作（如数据标注、UAT）IT 仍需提供工具支撑</li>
+      <li><strong>"联合负责"的 7 个单元最容易扯皮</strong>—— 提前明确 RACI（谁来推、谁审、谁配合、谁知会）</li>
+      <li>所有 6 个方向的 <strong>"验证 + UAT + 监管应对"</strong>都是业务侧最终拍板，IT 不能替代</li>
+    </ul>
+  </div>
+
+  <div class="page-num">总览 · 2/3 / 10</div>
+</section>
+
+<!-- ============ S-overview-3 · Gantt ============ -->
+<section class="slide" id="s-overview-3" data-page="4">
+  <div class="kicker">PART 00 · 总体推进 · 12 个月 Gantt</div>
+  <h1>0.3 · 时间排期 — 4 个阶段 / 12 个月 / 6 方向并行推进</h1>
+  <p class="lead">
+    基础设施先启动（M1-M6），方向 ②⑥ 快赢（M2-M5），方向 ④⑤ 中期落地（M4-M9），方向 ①③ 长期战略（M6-M12）。
+    <strong>不是依次串行</strong>，是<strong>波浪式推进</strong>。
+  </p>
+
+  <div style="background:#fff; border:1px solid var(--border); border-radius:10px; padding:18px; margin:12px 0;">
+    <!-- 月份轴 -->
+    <div class="gantt-axis">
+      <div>项目 / 阶段</div>
+      <div class="gantt-months">
+        <div>M1</div><div>M2</div><div>M3</div><div>M4</div><div>M5</div><div>M6</div>
+        <div>M7</div><div>M8</div><div>M9</div><div>M10</div><div>M11</div><div>M12</div>
+      </div>
+    </div>
+
+    <!-- 基础设施 -->
+    <div class="gantt-row">
+      <div><strong style="color:#065f46;">🟢 B1 数据底座打通</strong></div>
+      <div class="gantt-track"><div class="gantt-bar" style="background:#10b981; left:0%; width:50%;">数据接入 + 中间层 (M1-M6)</div></div>
+    </div>
+    <div class="gantt-row">
+      <div><strong style="color:#065f46;">🟢 B2 主数据治理</strong></div>
+      <div class="gantt-track"><div class="gantt-bar" style="background:#10b981; left:0%; width:33%;">批号 / 项目 / 设备主数据 (M1-M4)</div></div>
+    </div>
+    <div class="gantt-row">
+      <div><strong style="color:#065f46;">🟢 B3 客户隔离架构</strong></div>
+      <div class="gantt-track"><div class="gantt-bar" style="background:#10b981; left:8%; width:33%;">3 层隔离方案 + 合同 (M2-M5)</div></div>
+    </div>
+    <div class="gantt-row">
+      <div><strong style="color:#065f46;">🟢 B4 AI 平台底座</strong></div>
+      <div class="gantt-track"><div class="gantt-bar" style="background:#10b981; left:8%; width:42%;">GPU + 大模型 + RAG + GAMP5 (M2-M7)</div></div>
+    </div>
+
+    <!-- 短期可见 -->
+    <div style="height:8px;"></div>
+    <div class="gantt-row">
+      <div><strong style="color:#065f46;">② 报告 AI 撰写（PoC→Pilot→Scale）</strong></div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="background:#86efac; color:#065f46; left:8%; width:17%;">PoC (M2-M4)</div>
+        <div class="gantt-bar" style="background:#10b981; left:25%; width:25%;">Pilot 2 项目 (M4-M7)</div>
+        <div class="gantt-bar" style="background:#047857; left:50%; width:42%;">Scale 全公司 (M7-M12)</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div><strong style="color:#065f46;">⑥ 培训视频生成（PoC→Pilot→Scale）</strong></div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="background:#86efac; color:#065f46; left:8%; width:17%;">PoC 5 SOP (M2-M4)</div>
+        <div class="gantt-bar" style="background:#10b981; left:25%; width:25%;">Pilot 50 SOP (M4-M7)</div>
+        <div class="gantt-bar" style="background:#047857; left:50%; width:42%;">Scale 全 SOP库 (M7-M12)</div>
+      </div>
+    </div>
+
+    <!-- 中期布局 -->
+    <div style="height:8px;"></div>
+    <div class="gantt-row">
+      <div><strong style="color:#1e40af;">④ 设备 AI 5 子模块</strong></div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="background:#93c5fd; color:#1e40af; left:25%; width:17%;">点检 PoC</div>
+        <div class="gantt-bar" style="background:#3b82f6; left:42%; width:25%;">点检+备件+PdM Pilot</div>
+        <div class="gantt-bar" style="background:#1d4ed8; left:67%; width:25%;">5 子模块 Scale</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div><strong style="color:#1e40af;">⑤ 视觉 AI 操作合规</strong></div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="background:#93c5fd; color:#1e40af; left:33%; width:17%;">PoC 1 车间</div>
+        <div class="gantt-bar" style="background:#3b82f6; left:50%; width:33%;">Pilot 3 车间</div>
+      </div>
+    </div>
+
+    <!-- 长期战略 -->
+    <div style="height:8px;"></div>
+    <div class="gantt-row">
+      <div><strong style="color:#991b1b;">① QC 预测 + 报告 AI</strong></div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="background:#fca5a5; color:#7f1d1d; left:42%; width:25%;">PoC 单项目</div>
+        <div class="gantt-bar" style="background:#dc2626; left:67%; width:25%;">Pilot 3 项目</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div><strong style="color:#991b1b;">③ 技转 + 放大评估</strong></div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="background:#fca5a5; color:#7f1d1d; left:42%; width:25%;">历史项目结构化</div>
+        <div class="gantt-bar" style="background:#dc2626; left:67%; width:25%;">PoC 新项目应用</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-4" style="margin-top:18px;">
+    <div class="kpi-card" style="background:#ecfdf5; border-color:#86efac;">
+      <div class="num" style="color:#065f46;">M1-M6</div>
+      <div class="label">基础设施建设期</div>
+      <div class="basis">数据底座 + 主数据 + 隔离 + AI 平台</div>
+    </div>
+    <div class="kpi-card" style="background:#ecfdf5; border-color:#86efac;">
+      <div class="num" style="color:#065f46;">M2-M5</div>
+      <div class="label">Quick Win 期</div>
+      <div class="basis">方向 ②⑥ 短期出成果</div>
+    </div>
+    <div class="kpi-card" style="background:#dbeafe; border-color:#93c5fd;">
+      <div class="num" style="color:#1e40af;">M4-M9</div>
+      <div class="label">中期布局期</div>
+      <div class="basis">方向 ④⑤ 落地</div>
+    </div>
+    <div class="kpi-card" style="background:#fee2e2; border-color:#fca5a5;">
+      <div class="num" style="color:#991b1b;">M6-M12+</div>
+      <div class="label">长期战略期</div>
+      <div class="basis">方向 ①③ 启动 + 验证</div>
+    </div>
+  </div>
+
+  <div class="page-num">总览 · 3/3 / 10</div>
+</section>
+
+<!-- ============ D1 · QC 预测 + 报告 ============ -->
+<section class="slide" id="d1" data-page="5">
+  <div class="dir-header">
+    <div class="dir-number">①</div>
+    <div>
+      <div class="kicker">方向 1 · 批次放行预测 + QC 报告 AI 起草（BDCT 升级）</div>
+      <h1 style="margin-bottom:4px;">让 QC 工程师从"测完才知道"变成"做的时候就知道"</h1>
+      <div>
+        <span class="tag red">长期战略</span>
+        <span class="tag blue">主导部门：QC / QA / 工艺研发</span>
+        <span class="tag">配套：LIMS / EBR / IP.21 / 原料 COA</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>1.1 · 业务目标 & 量化效益预估</h2>
+  <div class="grid-4">
+    <div class="kpi-card">
+      <div class="num">−40% ~ −60%</div>
+      <div class="label">单批 QC 等待时间</div>
+      <div class="basis">从批结束到放行 7-10 天 → 3-5 天</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">−60% ~ −80%</div>
+      <div class="label">不合格批"事后才发现"事件</div>
+      <div class="basis">AI 在批中期可识别异常，提前干预</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">×0.5 ~ ×0.7</div>
+      <div class="label">单批报废率</div>
+      <div class="basis">某商业化批 50-200kg × 2-10万/kg = 100-2000万/次</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">−50%</div>
+      <div class="label">QC 工程师"机械汇编"工时</div>
+      <div class="basis">报告草稿 95% 自动生成</div>
+    </div>
+  </div>
+  <div class="card info" style="margin-top:10px;">
+    <strong>💰 简单算笔账（保守估计）</strong>：假设凯莱英年商业化生产 800 批 × 单批 200 万价值 × 1% 报废率 = 1600 万损失/年；
+    若 AI 能把报废率从 1% 降到 0.5%，<strong>就是 800 万/年的直接收益</strong>。配合放行加速带来的产能提升（同样的设备做更多批），
+    长期收益 1000-2000 万/年是合理预期。
+  </div>
+
+  <h2>1.2 · MVP 范围（先做小，再放大）</h2>
+  <div class="grid-2">
+    <div class="card success">
+      <strong>✅ MVP 第一版做的</strong>
+      <ul class="bul tight">
+        <li><strong>1 个商业化项目</strong>（如某主力 API）</li>
+        <li>预测 <strong>3 个核心 CQA</strong>：含量 / 杂质 A / 水分</li>
+        <li>预测窗口：批结束<strong>前 2 步 ~ 完批时</strong>给出预测</li>
+        <li>输出：在 LIMS 中嵌入"AI 预测"区块（不替换 QC 检测）</li>
+        <li>QC 工程师审核签字流程<strong>完全保留</strong></li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <strong>❌ MVP 不做的（避免范围蔓延）</strong>
+      <ul class="bul tight">
+        <li>不做"用 AI 替代 QC 检测"</li>
+        <li>不做跨客户数据混训</li>
+        <li>不做晶型 / 粒度等复杂 CQA（这些放到 V2）</li>
+        <li>不做"AI 自动放行"（始终人工签字）</li>
+        <li>不做实时干预（第一版只做被动预测，不做主动报警停机）</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>1.3 · 数据流 + 系统集成架构</h2>
+  <div style="background:#fff; border:1px solid var(--border); border-radius:10px; padding:18px; margin:10px 0;">
+    <svg viewBox="0 0 1100 280" style="width:100%; height:auto;">
+      <!-- 数据源层 -->
+      <rect x="20" y="20" width="200" height="220" fill="#eff6ff" stroke="#3b82f6" rx="8"/>
+      <text x="120" y="45" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">📥 数据源（IT 系统）</text>
+      <g font-size="11" fill="#1e3a8a">
+        <text x="35" y="75">• IP.21 (DCS 实时数据)</text>
+        <text x="35" y="95">• MES / EBR (批记录)</text>
+        <text x="35" y="115">• LIMS (历史 QC 结果)</text>
+        <text x="35" y="135">• SAP (原料 COA)</text>
+        <text x="35" y="155">• PAT 在线监测</text>
+        <text x="35" y="175">• EAM (设备状态)</text>
+        <text x="35" y="200" font-weight="700" fill="#7c2d12">↓ IT 主责</text>
+        <text x="35" y="220" fill="#7c2d12">数据 ETL + 中间层</text>
+      </g>
+
+      <!-- AI 平台层 -->
+      <rect x="260" y="20" width="200" height="220" fill="#f5f3ff" stroke="#7c3aed" rx="8"/>
+      <text x="360" y="45" text-anchor="middle" font-size="13" font-weight="700" fill="#5b21b6">🤖 AI 平台层</text>
+      <g font-size="11" fill="#3a4d72">
+        <text x="275" y="75">• 数据预处理 + 特征工程</text>
+        <text x="275" y="95">• 历史同类批次模型</text>
+        <text x="275" y="115">• 贝叶斯先验 / 迁移学习</text>
+        <text x="275" y="135">• 置信区间评估</text>
+        <text x="275" y="155">• 根因分析模块</text>
+        <text x="275" y="175">• QC 报告模板填充</text>
+        <text x="275" y="200" font-weight="700" fill="#5b21b6">↓ 联合（外采+自建）</text>
+        <text x="275" y="220" fill="#5b21b6">候选：智现未来 + 华为云</text>
+      </g>
+
+      <!-- 业务工作层 -->
+      <rect x="500" y="20" width="200" height="220" fill="#ecfdf5" stroke="#10b981" rx="8"/>
+      <text x="600" y="45" text-anchor="middle" font-size="13" font-weight="700" fill="#065f46">👤 业务工作层</text>
+      <g font-size="11" fill="#3a4d72">
+        <text x="515" y="75">• LIMS 内嵌"AI 预测"区块</text>
+        <text x="515" y="95">• QC 工程师审核界面</text>
+        <text x="515" y="115">• QA 复核签字</text>
+        <text x="515" y="135">• 偏差启动按钮</text>
+        <text x="515" y="155">• 工艺工程师干预入口</text>
+        <text x="515" y="200" font-weight="700" fill="#065f46">↓ 业务主责</text>
+        <text x="515" y="220" fill="#065f46">QC + QA + 工艺研发</text>
+      </g>
+
+      <!-- 输出层 -->
+      <rect x="740" y="20" width="340" height="220" fill="#fff7ed" stroke="#f59e0b" rx="8"/>
+      <text x="910" y="45" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">📤 输出 / 价值实现</text>
+      <g font-size="11" fill="#3a4d72">
+        <text x="755" y="75">• 各 QC 项预测值 + 置信区间</text>
+        <text x="755" y="95">• 风险分级（🟢🟡🔴）</text>
+        <text x="755" y="115">• 自动生成 QC 报告草稿</text>
+        <text x="755" y="135">• 放行决策建议（不替代人工签字）</text>
+        <text x="755" y="155">• 异常根因 Top-3 提示</text>
+        <text x="755" y="175">• 数据可追溯（合规审计）</text>
+        <text x="755" y="200" font-weight="700" fill="#92400e">↓ 客户审计材料</text>
+        <text x="755" y="220" fill="#92400e">GAMP 5 验证 + 21 CFR Part 11 兼容</text>
+      </g>
+
+      <!-- 流向箭头 -->
+      <polygon points="225,130 255,130 250,125 250,135" fill="#3b82f6"/>
+      <polygon points="465,130 495,130 490,125 490,135" fill="#7c3aed"/>
+      <polygon points="705,130 735,130 730,125 730,135" fill="#10b981"/>
+    </svg>
+  </div>
+
+  <h2>1.4 · IT 侧 vs 业务侧职责清单</h2>
+  <div class="resp-table">
+    <div class="resp-col it">
+      <div class="title">🟦 IT 侧职责（数据 + 平台 + 集成）</div>
+      <ul class="bul tight">
+        <li><strong>数据接口</strong>：IP.21 / LIMS / EBR / SAP / EAM 历史数据 ETL + 实时 API</li>
+        <li><strong>数据中间层</strong>：跨系统统一批次 ID + 元数据治理</li>
+        <li><strong>AI 平台部署</strong>：供应商方案上线 + 模型托管 + GPU 资源调度</li>
+        <li><strong>LIMS UI 集成</strong>：在 QC 工作台嵌入"AI 预测"卡片</li>
+        <li><strong>权限管理</strong>：项目级数据访问 + 客户隔离</li>
+        <li><strong>合规支持</strong>：审计日志 + 数据血缘 + GAMP 5 验证文档</li>
+        <li><strong>运维监控</strong>：模型准确率监控 + 模型漂移告警</li>
+      </ul>
+    </div>
+    <div class="resp-col biz">
+      <div class="title">🟩 业务侧职责（数据语义 + 验证 + 流程）</div>
+      <ul class="bul tight">
+        <li><strong>CPP / CQA 字典</strong>：QC + 工艺研发 提供每个项目的关键参数定义</li>
+        <li><strong>历史批次标注</strong>：标注合格 / 不合格 / 偏差批 + 根因</li>
+        <li><strong>放行决策规则</strong>：QA 提供 SOP + 监管要求</li>
+        <li><strong>预测验收标准</strong>：业务认可的"准确率 80%" 含义</li>
+        <li><strong>UAT 测试</strong>：QC 工程师试用 + 反馈</li>
+        <li><strong>变更管理</strong>：QC SOP / 培训材料更新</li>
+        <li><strong>监管应对</strong>：客户审计 / FDA 检查应对材料准备</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>1.5 · 3 阶段路径</h2>
+  <div class="phase-card">
+    <div class="phase poc">
+      <div class="ph-name">🟢 PoC · 概念验证</div>
+      <div class="ph-dur">M6-M8 · 3 个月</div>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>1 个项目 × 3 CQA × 历史回测</li>
+        <li>不上线 LIMS，纯离线验证</li>
+        <li>验收标准：含量 ±0.5% 准确率 ≥80%</li>
+        <li>预算量级：<strong>50-150 万</strong></li>
+      </ul>
+    </div>
+    <div class="phase pilot">
+      <div class="ph-name">🔵 Pilot · 试点</div>
+      <div class="ph-dur">M9-M12 · 4 个月</div>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>3 个项目，覆盖 5+ CQA</li>
+        <li>在 LIMS 内嵌"AI 预测"区块</li>
+        <li>QC 工程师试用 3 个月，做对照</li>
+        <li>预算量级：<strong>200-500 万</strong></li>
+      </ul>
+    </div>
+    <div class="phase scale">
+      <div class="ph-name">🟣 Scale · 推广</div>
+      <div class="ph-dur">Y2 · 12+ 个月</div>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>10-20 个商业化项目全覆盖</li>
+        <li>GAMP 5 验证 + 客户审计应对</li>
+        <li>模型持续优化机制</li>
+        <li>预算量级：<strong>800-2000 万</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>1.6 · 关键风险与应对</h2>
+  <table>
+    <thead><tr><th style="width:25%;">风险</th><th style="width:35%;">影响</th><th>应对措施</th></tr></thead>
+    <tbody>
+      <tr><td><strong>数据稀疏</strong>（单项目批次少）</td><td>模型不收敛，预测置信度差</td><td>① 选商业化稳定项目（≥30 批）；② 用贝叶斯先验启动；③ 跨项目只学规律不学参数</td></tr>
+      <tr><td><strong>客户数据隔离</strong></td><td>AI 学到的经验不能跨客户复用</td><td>每客户独立模型 + 共享底层算法 + 合同附件明确许可</td></tr>
+      <tr><td><strong>GMP 合规</strong></td><td>FDA / 客户审计无法通过</td><td>① 早期介入 QA + 法规事务；② GAMP 5 类别 4 验证；③ AI ≠ 决策，永远人工签字</td></tr>
+      <tr><td><strong>QC 部门抗拒</strong></td><td>"AI 黑盒" → 不信任 → 不用</td><td>① 强制可解释性（每个预测要给依据）；② QC 工程师参与训练数据筛选；③ AI 不是替代而是辅助</td></tr>
+    </tbody>
+  </table>
+
+  <div class="todo-30d">
+    <h4>📅 第一个 30 天 IT 可以马上做的事</h4>
+    <ul>
+      <li><strong>Week 1</strong>：跟 QA / QC 部门确认 1 个 PoC 候选项目 + 元数据梳理范围</li>
+      <li><strong>Week 2</strong>：IP.21 / LIMS / EBR 数据接口可行性评估（API 是否就绪 / 接入需多久）</li>
+      <li><strong>Week 3</strong>：邀请 2-3 家供应商（智现未来 / 华为云盘古制药 / Aizon）做 1 小时方案 demo</li>
+      <li><strong>Week 4</strong>：完成 PoC TRD（技术需求文档）+ 预算审批材料</li>
+    </ul>
+  </div>
+
+  <div class="page-num">方向 ① QC 预测 / 10</div>
+</section>
+
+<!-- ============ D2 · 报告撰写 ============ -->
+<section class="slide" id="d2" data-page="6">
+  <div class="dir-header">
+    <div class="dir-number">②</div>
+    <div>
+      <div class="kicker">方向 2 · 生产技术报告 AI 辅助撰写</div>
+      <h1 style="margin-bottom:4px;">把"机械汇编"那 70-80% 自动化 — Quick Win 候选</h1>
+      <div>
+        <span class="tag green">短期可见</span>
+        <span class="tag gold">Quick Win 候选 #1</span>
+        <span class="tag blue">主导部门：工艺研发 / 生产 / QA</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>2.1 · 业务目标 & 量化效益预估</h2>
+  <div class="grid-4">
+    <div class="kpi-card">
+      <div class="num">5d → 1d</div>
+      <div class="label">单份 Campaign Report 工时</div>
+      <div class="basis">资深工程师 5 工作日 → 草稿 1 天 + 审核 0.5 天</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">−70%</div>
+      <div class="label">报告撰写工时</div>
+      <div class="basis">机械汇编部分自动化（70-80% 内容）</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">~ 2000 工时/年</div>
+      <div class="label">假设 200 份报告 × 10 工时/份节省</div>
+      <div class="basis">按 100 元/工时 ≈ 200 万/年价值</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">+30%</div>
+      <div class="label">报告质量一致性</div>
+      <div class="basis">模板填充 + 数据交叉校验，少漏项</div>
+    </div>
+  </div>
+
+  <div class="card info" style="margin-top:10px;">
+    <strong>💡 为什么是 Quick Win 候选 #1</strong>：
+    ① 不涉及生产决策 → 监管敏感度低；② 工程师审核签字流程不变 → AI 出错有兜底；
+    ③ 价值显性 → 每份报告省工时立刻看得见；④ 市场上有成熟 LLM + RAG 方案，6-9 个月可上线；
+    ⑤ 跟方向 ⑥ 培训 一起做 → 都是"内容生成"类，可共用 AI 平台底座。
+  </div>
+
+  <h2>2.2 · MVP 范围（先做小，再放大）</h2>
+  <div class="grid-2">
+    <div class="card success">
+      <strong>✅ MVP 第一版做的</strong>
+      <ul class="bul tight">
+        <li><strong>1 种报告类型</strong>：Campaign Report（出现频率最高）</li>
+        <li><strong>5-10 份历史 Campaign Report 作训练 / 模板</strong></li>
+        <li>覆盖 5 个数据源：MES / LIMS / QMS / IP.21 / SAP</li>
+        <li>输出：Word + PDF 双格式草稿，<strong>工程师拷贝 / 修改 / 签字定稿</strong></li>
+        <li>用<strong>大语言模型 + RAG（检索增强生成）</strong>架构（不需要训练模型）</li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <strong>❌ MVP 不做的</strong>
+      <ul class="bul tight">
+        <li>不做 APR（年度产品评审，监管要求最严，留到 V3）</li>
+        <li>不做客户专属报告模板（先做凯莱英标准模板）</li>
+        <li>不做 AI 直接发布（永远工程师签字定稿）</li>
+        <li>不做"AI 写结论"（结论部分由工程师独立完成）</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>2.3 · 工作流 + 系统集成</h2>
+  <div style="background:#fff; border:1px solid var(--border); border-radius:10px; padding:18px; margin:10px 0;">
+    <svg viewBox="0 0 1100 200" style="width:100%; height:auto;">
+      <!-- 步骤 -->
+      <g>
+        <rect x="20" y="40" width="160" height="120" fill="#eff6ff" stroke="#3b82f6" rx="8"/>
+        <text x="100" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#1e40af">① 用户启动</text>
+        <text x="100" y="90" text-anchor="middle" font-size="11" fill="#1e3a8a">"生成 Campaign Q3</text>
+        <text x="100" y="105" text-anchor="middle" font-size="11" fill="#1e3a8a">Report 项目 X"</text>
+        <text x="100" y="135" text-anchor="middle" font-size="10" fill="#7c2d12">业务工程师</text>
+      </g>
+      <polygon points="180,100 210,100" stroke="#3b82f6" stroke-width="2" fill="none"/>
+      <polygon points="210,100 200,95 200,105" fill="#3b82f6"/>
+
+      <g>
+        <rect x="220" y="40" width="180" height="120" fill="#f5f3ff" stroke="#7c3aed" rx="8"/>
+        <text x="310" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#5b21b6">② AI 拉取数据</text>
+        <text x="310" y="90" text-anchor="middle" font-size="10" fill="#3a4d72">跨 MES/LIMS/QMS/</text>
+        <text x="310" y="105" text-anchor="middle" font-size="10" fill="#3a4d72">SAP/IP.21 查询</text>
+        <text x="310" y="125" text-anchor="middle" font-size="10" fill="#3a4d72">+ RAG 检索历史报告</text>
+        <text x="310" y="148" text-anchor="middle" font-size="10" fill="#5b21b6">IT 数据中间层</text>
+      </g>
+      <polygon points="400,100 430,100" stroke="#7c3aed" stroke-width="2" fill="none"/>
+      <polygon points="430,100 420,95 420,105" fill="#7c3aed"/>
+
+      <g>
+        <rect x="440" y="40" width="180" height="120" fill="#f5f3ff" stroke="#7c3aed" rx="8"/>
+        <text x="530" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#5b21b6">③ LLM 生成草稿</text>
+        <text x="530" y="90" text-anchor="middle" font-size="10" fill="#3a4d72">按模板填充章节</text>
+        <text x="530" y="105" text-anchor="middle" font-size="10" fill="#3a4d72">+ 自动生成图表</text>
+        <text x="530" y="125" text-anchor="middle" font-size="10" fill="#3a4d72">+ 趋势分析</text>
+        <text x="530" y="148" text-anchor="middle" font-size="10" fill="#5b21b6">AI 平台</text>
+      </g>
+      <polygon points="620,100 650,100" stroke="#7c3aed" stroke-width="2" fill="none"/>
+      <polygon points="650,100 640,95 640,105" fill="#7c3aed"/>
+
+      <g>
+        <rect x="660" y="40" width="180" height="120" fill="#ecfdf5" stroke="#10b981" rx="8"/>
+        <text x="750" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46">④ 工程师审核</text>
+        <text x="750" y="90" text-anchor="middle" font-size="10" fill="#3a4d72">Word 中修订 / 补结论</text>
+        <text x="750" y="105" text-anchor="middle" font-size="10" fill="#3a4d72">/ 补建议</text>
+        <text x="750" y="125" text-anchor="middle" font-size="10" fill="#3a4d72">采纳率 50-70%</text>
+        <text x="750" y="148" text-anchor="middle" font-size="10" fill="#065f46">业务工程师</text>
+      </g>
+      <polygon points="840,100 870,100" stroke="#10b981" stroke-width="2" fill="none"/>
+      <polygon points="870,100 860,95 860,105" fill="#10b981"/>
+
+      <g>
+        <rect x="880" y="40" width="200" height="120" fill="#fff7ed" stroke="#f59e0b" rx="8"/>
+        <text x="980" y="65" text-anchor="middle" font-size="12" font-weight="700" fill="#92400e">⑤ 定稿 + 归档</text>
+        <text x="980" y="90" text-anchor="middle" font-size="10" fill="#3a4d72">QA 签字 → 发送客户</text>
+        <text x="980" y="105" text-anchor="middle" font-size="10" fill="#3a4d72">或归档</text>
+        <text x="980" y="125" text-anchor="middle" font-size="10" fill="#3a4d72">沉淀为下次 RAG</text>
+        <text x="980" y="148" text-anchor="middle" font-size="10" fill="#92400e">QA + 客户</text>
+      </g>
+    </svg>
+  </div>
+
+  <h2>2.4 · IT 侧 vs 业务侧职责清单</h2>
+  <div class="resp-table">
+    <div class="resp-col it">
+      <div class="title">🟦 IT 侧职责</div>
+      <ul class="bul tight">
+        <li><strong>跨系统数据 API</strong>：MES / LIMS / QMS / SAP / EAM / IP.21 统一查询接口</li>
+        <li><strong>LLM + RAG 平台</strong>：选型（自建 / 阿里通义 / DeepSeek / OpenAI / 华为云盘古）+ 接入</li>
+        <li><strong>向量数据库</strong>：装载历史报告作 RAG 检索库</li>
+        <li><strong>报告生成 UI</strong>：内部门户上"一键生成报告"按钮</li>
+        <li><strong>Word/PDF 输出</strong>：模板渲染 + 图表自动生成（参考 docx skill）</li>
+        <li><strong>客户隔离</strong>：每客户独立 RAG 索引 + 项目级权限</li>
+        <li><strong>审计日志</strong>：每次生成记录"用谁的数据 / 谁触发 / 谁审核"</li>
+      </ul>
+    </div>
+    <div class="resp-col biz">
+      <div class="title">🟩 业务侧职责</div>
+      <ul class="bul tight">
+        <li><strong>报告模板结构化</strong>：把 Campaign Report 模板"段落 + 数据来源"明确</li>
+        <li><strong>历史报告语料</strong>：提供 50+ 份历史已通过审核的报告作训练参考</li>
+        <li><strong>验收 KPI</strong>：定义"AI 生成的草稿采纳率 ≥60%"</li>
+        <li><strong>UAT 测试</strong>：5-10 位资深工艺工程师试用 1 月</li>
+        <li><strong>SOP 更新</strong>：报告撰写 SOP 加入"AI 草稿 + 工程师定稿"流程</li>
+        <li><strong>定稿签字</strong>：永远人工签字（不变）</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>2.5 · 3 阶段路径</h2>
+  <div class="phase-card">
+    <div class="phase poc">
+      <div class="ph-name">🟢 PoC</div>
+      <div class="ph-dur">M2-M4 · 3 个月</div>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>1 种报告（Campaign Report）× 1 个项目历史回测</li>
+        <li>纯离线生成，工程师对比"AI 版 vs 原版"</li>
+        <li>采纳率 ≥50% 即过</li>
+        <li>预算：<strong>30-80 万</strong></li>
+      </ul>
+    </div>
+    <div class="phase pilot">
+      <div class="ph-name">🔵 Pilot</div>
+      <div class="ph-dur">M4-M7 · 4 个月</div>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>3 种报告（Campaign + MOR + 偏差总结）</li>
+        <li>10-20 个项目实际生成 + 工程师试用</li>
+        <li>采纳率 ≥60%、工时节省 ≥40% 即过</li>
+        <li>预算：<strong>100-250 万</strong></li>
+      </ul>
+    </div>
+    <div class="phase scale">
+      <div class="ph-name">🟣 Scale</div>
+      <div class="ph-dur">M7-M12+ · 半年到 1 年</div>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>覆盖所有项目 + APR 等监管报告</li>
+        <li>客户专属模板支持</li>
+        <li>持续优化采纳率</li>
+        <li>预算：<strong>300-600 万</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>2.6 · 关键风险与应对</h2>
+  <table>
+    <thead><tr><th style="width:25%;">风险</th><th style="width:35%;">影响</th><th>应对措施</th></tr></thead>
+    <tbody>
+      <tr><td><strong>跨系统取数难</strong></td><td>报告生成依赖打通 MES / QMS / LIMS / SAP</td><td>① IT 先做数据中间层；② 必要时优先打通 80% 字段，剩余 20% 工程师手填</td></tr>
+      <tr><td><strong>报告模板多 + 客户化</strong></td><td>同一种报告不同客户不同模板</td><td>① 第一版只做凯莱英标准模板；② 客户化模板作为 V2 特性</td></tr>
+      <tr><td><strong>LLM "幻觉"</strong></td><td>生成的数字 / 结论与原始数据不符</td><td>① 必须用 RAG 强约束；② 关键数字"硬填充"（不让 LLM 自由生成）；③ 工程师审核兜底</td></tr>
+      <tr><td><strong>客户数据隔离</strong></td><td>不同客户 RAG 索引混用风险</td><td>每客户独立向量库 + 项目级权限 + 审计追溯</td></tr>
+    </tbody>
+  </table>
+
+  <div class="todo-30d">
+    <h4>📅 第一个 30 天 IT 可以马上做的事</h4>
+    <ul>
+      <li><strong>Week 1</strong>：跟工艺研发部 / QA 确认 PoC 报告类型（Campaign Report 优先）+ 拿 50 份历史报告作语料</li>
+      <li><strong>Week 2</strong>：选 LLM 服务（推荐：DeepSeek + 凯莱英 RAG，国产、可私有化、性价比高）</li>
+      <li><strong>Week 3</strong>：MES / LIMS / QMS / SAP 数据 API 可行性评估</li>
+      <li><strong>Week 4</strong>：搭建 PoC 环境（向量库 + LLM 推理 + 报告模板渲染），1 份报告样例跑通</li>
+    </ul>
+  </div>
+
+  <div class="page-num">方向 ② 报告 / 10</div>
+</section>
+
+<!-- ============ D3 · 技转 + 放大评估 ============ -->
+<section class="slide" id="d3" data-page="7">
+  <div class="dir-header">
+    <div class="dir-number">③</div>
+    <div>
+      <div class="kicker">方向 3 · AI 辅助技术转移与工艺放大评估</div>
+      <h1 style="margin-bottom:4px;">把资深工程师的"隐性知识"沉淀成可复用资产</h1>
+      <div>
+        <span class="tag red">长期战略</span>
+        <span class="tag blue">主导部门：技术转移 / 工艺研发 / 生产</span>
+        <span class="tag">CDMO 业务命脉</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>3.1 · 业务目标 & 量化效益预估</h2>
+  <div class="grid-4">
+    <div class="kpi-card">
+      <div class="num">+50% ~ +100%</div>
+      <div class="label">资深工艺工程师产能</div>
+      <div class="basis">从"全部从头审查"变为"审核 + 补充"</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">−30%</div>
+      <div class="label">新项目 NPI 周期</div>
+      <div class="basis">技转 + 试生产 + 验证 6-9 月 → 4-6 月</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">+20%</div>
+      <div class="label">放大首次成功率</div>
+      <div class="basis">提前识别风险点，减少"踩坑后才发现"</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">~100%</div>
+      <div class="label">隐性知识沉淀率</div>
+      <div class="basis">资深工程师退休后知识仍可复用</div>
+    </div>
+  </div>
+
+  <h2>3.2 · MVP 范围</h2>
+  <div class="grid-2">
+    <div class="card success">
+      <strong>✅ MVP 第一版做的</strong>
+      <ul class="bul tight">
+        <li><strong>3 类反应</strong>：连续流氢化 + 结晶 + Buchwald 偶联（凯莱英主力反应类型）</li>
+        <li><strong>5 种反应器</strong>：50L / 200L 玻璃 + 500L / 2000L / 5000L 不锈钢/哈氏</li>
+        <li><strong>历史项目结构化</strong>：选 50-100 个已结案项目数字化</li>
+        <li>输出：工艺审查清单 + 放大风险矩阵 + 推荐参数（AI 辅助 = 永远不替代资深工程师签字）</li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <strong>❌ MVP 不做的</strong>
+      <ul class="bul tight">
+        <li>不做 CFD 仿真集成（V2 再加）</li>
+        <li>不做客户工艺包自动跨用（CDMO 隔离约束）</li>
+        <li>不做"AI 直接给放大参数"（永远给 3-5 个候选 + 资深工程师选）</li>
+        <li>不做新化学反应类型预测（V3 才考虑）</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>3.3 · 知识资产建设流程（这是核心，不是 IT 系统）</h2>
+  <div style="background:#fff; border:1px solid var(--border); border-radius:10px; padding:18px; margin:10px 0;">
+    <svg viewBox="0 0 1100 240" style="width:100%; height:auto;">
+      <g>
+        <rect x="20" y="20" width="200" height="200" fill="#fff7ed" stroke="#f59e0b" rx="8"/>
+        <text x="120" y="45" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">📚 历史项目数字化</text>
+        <text x="35" y="75" font-size="11" fill="#3a4d72">50-100 个结案项目：</text>
+        <text x="35" y="95" font-size="11" fill="#3a4d72">• 反应类型 + 路线</text>
+        <text x="35" y="115" font-size="11" fill="#3a4d72">• R&D / 中试 / 商业化</text>
+        <text x="35" y="135" font-size="11" fill="#3a4d72">  设备规格 + 工艺参数</text>
+        <text x="35" y="155" font-size="11" fill="#3a4d72">• 遇到的风险 + 解决</text>
+        <text x="35" y="180" font-size="11" font-weight="700" fill="#92400e">业务主责（6-12 月）</text>
+        <text x="35" y="200" font-size="11" fill="#92400e">资深工程师 + 文档组</text>
+      </g>
+      <polygon points="220,120 250,120" stroke="#f59e0b" stroke-width="2" fill="none"/>
+      <polygon points="250,120 240,115 240,125" fill="#f59e0b"/>
+
+      <g>
+        <rect x="260" y="20" width="220" height="200" fill="#eff6ff" stroke="#3b82f6" rx="8"/>
+        <text x="370" y="45" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">🗂️ 知识库结构化</text>
+        <text x="275" y="75" font-size="11" fill="#3a4d72">• 设备能力库（30+ 参数）</text>
+        <text x="275" y="95" font-size="11" fill="#3a4d72">• 历史反应案例库</text>
+        <text x="275" y="115" font-size="11" fill="#3a4d72">• 风险矩阵库</text>
+        <text x="275" y="135" font-size="11" fill="#3a4d72">• 等效性映射表</text>
+        <text x="275" y="155" font-size="11" fill="#3a4d72">• 资深工程师隐性知识</text>
+        <text x="275" y="180" font-size="11" font-weight="700" fill="#1e40af">联合（4-6 月）</text>
+        <text x="275" y="200" font-size="11" fill="#1e40af">IT 系统 + 业务结构化</text>
+      </g>
+      <polygon points="480,120 510,120" stroke="#3b82f6" stroke-width="2" fill="none"/>
+      <polygon points="510,120 500,115 500,125" fill="#3b82f6"/>
+
+      <g>
+        <rect x="520" y="20" width="220" height="200" fill="#f5f3ff" stroke="#7c3aed" rx="8"/>
+        <text x="630" y="45" text-anchor="middle" font-size="13" font-weight="700" fill="#5b21b6">🤖 AI 推理模型</text>
+        <text x="535" y="75" font-size="11" fill="#3a4d72">输入：新项目 R&D 工艺包</text>
+        <text x="535" y="95" font-size="11" fill="#3a4d72">+ 目标反应器规格</text>
+        <text x="535" y="120" font-size="11" fill="#3a4d72">检索相似历史案例</text>
+        <text x="535" y="140" font-size="11" fill="#3a4d72">+ 物理传质传热模型</text>
+        <text x="535" y="160" font-size="11" fill="#3a4d72">+ 风险点匹配</text>
+        <text x="535" y="180" font-size="11" font-weight="700" fill="#5b21b6">IT 主责（3-6 月）</text>
+        <text x="535" y="200" font-size="11" fill="#5b21b6">外采 + 自建集成</text>
+      </g>
+      <polygon points="740,120 770,120" stroke="#7c3aed" stroke-width="2" fill="none"/>
+      <polygon points="770,120 760,115 760,125" fill="#7c3aed"/>
+
+      <g>
+        <rect x="780" y="20" width="300" height="200" fill="#ecfdf5" stroke="#10b981" rx="8"/>
+        <text x="930" y="45" text-anchor="middle" font-size="13" font-weight="700" fill="#065f46">📋 AI 工艺审查输出</text>
+        <text x="795" y="75" font-size="11" fill="#3a4d72">• 5 维审查清单（🟢🟡🔴）</text>
+        <text x="795" y="95" font-size="11" fill="#3a4d72">• 5-15 个放大风险点</text>
+        <text x="795" y="115" font-size="11" fill="#3a4d72">• 3-5 个推荐参数方案</text>
+        <text x="795" y="135" font-size="11" fill="#3a4d72">• 历史相似项目引用</text>
+        <text x="795" y="155" font-size="11" fill="#3a4d72">• PoC 实验设计建议</text>
+        <text x="795" y="180" font-size="11" font-weight="700" fill="#065f46">业务签字（不变）</text>
+        <text x="795" y="200" font-size="11" fill="#065f46">资深工艺工程师审核 + 拍板</text>
+      </g>
+    </svg>
+  </div>
+
+  <h2>3.4 · IT 侧 vs 业务侧职责清单</h2>
+  <div class="resp-table">
+    <div class="resp-col it">
+      <div class="title">🟦 IT 侧职责</div>
+      <ul class="bul tight">
+        <li><strong>知识库平台</strong>：搭建设备库 + 反应库 + 风险库 + 等效性映射表的数据库</li>
+        <li><strong>结构化工具</strong>：给业务用的"项目结构化录入"工具（Web 表单 / Excel 模板）</li>
+        <li><strong>检索 + 推理引擎</strong>：相似度检索 + 风险匹配 + 参数推荐算法</li>
+        <li><strong>OCR / PDF 解析</strong>：把历史 Word/PDF 项目报告半自动结构化（参考 pdf skill）</li>
+        <li><strong>工艺审查工作台 UI</strong>：给资深工程师的辅助界面</li>
+        <li><strong>客户隔离</strong>：每客户工艺细节绝不互通，公共物只保留方法论</li>
+      </ul>
+    </div>
+    <div class="resp-col biz">
+      <div class="title">🟩 业务侧职责（最大头）</div>
+      <ul class="bul tight">
+        <li><strong>历史项目梳理</strong>：每月选 5-10 个项目结构化（资深工程师 + 文档组）</li>
+        <li><strong>设备能力库</strong>：把每台反应器抽象为 30+ 工程参数 + 实测数据</li>
+        <li><strong>反应类型分类体系</strong>：建立凯莱英自己的反应分类法</li>
+        <li><strong>风险点分类法</strong>：把"踩坑案例"分类（放热 / 结晶 / 杂质 / 设备等）</li>
+        <li><strong>隐性知识访谈</strong>：资深工程师 1-2 小时/周访谈，把"老法师经验"结构化</li>
+        <li><strong>验证 / 拍板</strong>：每个 AI 输出最后必须有资深工程师签字</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>3.5 · 3 阶段路径</h2>
+  <div class="phase-card">
+    <div class="phase poc">
+      <div class="ph-name">🟢 PoC · 知识库建设</div>
+      <div class="ph-dur">M6-M12 · 6 个月</div>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>20 个项目结构化 + 设备库雏形</li>
+        <li>1 个 AI 工艺审查样例（对已结案项目回测）</li>
+        <li>预算：<strong>150-400 万</strong></li>
+      </ul>
+    </div>
+    <div class="phase pilot">
+      <div class="ph-name">🔵 Pilot · 试点应用</div>
+      <div class="ph-dur">Y2 H1 · 6 个月</div>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>50+ 个项目库 + AI 工艺审查工作台</li>
+        <li>2-3 个新项目应用 → 资深工程师对照评估</li>
+        <li>预算：<strong>400-1000 万</strong></li>
+      </ul>
+    </div>
+    <div class="phase scale">
+      <div class="ph-name">🟣 Scale · 标准化</div>
+      <div class="ph-dur">Y2 H2+ · 持续</div>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>所有新项目走 AI 辅助审查</li>
+        <li>持续沉淀 + 跨项目复用</li>
+        <li>预算：<strong>1000-2000 万</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>3.6 · 关键风险与应对</h2>
+  <table>
+    <thead><tr><th style="width:25%;">风险</th><th style="width:35%;">影响</th><th>应对措施</th></tr></thead>
+    <tbody>
+      <tr><td><strong>历史项目结构化工作量巨大</strong></td><td>6-12 月专项工作，资深工程师占用</td><td>① 分批做（每月 5-10 个项目）；② 招专门的文档结构化人员；③ 用 OCR + LLM 半自动化</td></tr>
+      <tr><td><strong>物理放大规律 AI 不擅长</strong></td><td>放大参数推荐方向对但精度不够</td><td>① 叠加 Aspen Plus / CFD 机理模型；② AI 给方向，PoC 实验验证精度</td></tr>
+      <tr><td><strong>客户隔离</strong></td><td>不能用客户 A 的具体工艺参数推 B</td><td>"只学规律不学参数" — 设备能力库 + 反应类型库可共享，CPP/CQA 数值不共享</td></tr>
+      <tr><td><strong>资深工程师不愿配合</strong></td><td>把经验"教给 AI"威胁自身价值</td><td>① 把隐性知识沉淀作为绩效正向；② 资深工程师参与 AI 设计、署名；③ AI 永远辅助不替代</td></tr>
+    </tbody>
+  </table>
+
+  <div class="todo-30d">
+    <h4>📅 第一个 30 天 IT 可以马上做的事</h4>
+    <ul>
+      <li><strong>Week 1</strong>：跟工艺研发部协商"项目结构化"的范围 + 资深工程师配合时间（每周 4 小时承诺）</li>
+      <li><strong>Week 2</strong>：设计设备能力库的字段（30+ 参数）+ 反应类型分类法初版</li>
+      <li><strong>Week 3</strong>：搭建结构化录入工具（Web 表单 + Excel 模板）+ 1 个项目试录入</li>
+      <li><strong>Week 4</strong>：评估 AI 引擎选型（智现未来的技术转移产品 + 自建 RAG 哪个更适合）</li>
+    </ul>
+  </div>
+
+  <div class="page-num">方向 ③ 技转 / 10</div>
+</section>
+
+<!-- ============ D4 · 设备 AI ============ -->
+<section class="slide" id="d4" data-page="8">
+  <div class="dir-header">
+    <div class="dir-number">④</div>
+    <div>
+      <div class="kicker">方向 4 · 设备全生命周期 AI 智能管理（5 子模块）</div>
+      <h1 style="margin-bottom:4px;">一笔基础设施投入，5 个 AI 应用同时受益</h1>
+      <div>
+        <span class="tag blue">中期布局</span>
+        <span class="tag">主导部门：设备工程 / 生产 / EHS / IT</span>
+        <span class="tag gold">已有部分基础（DH1 PdM 评估期）</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>4.1 · 业务目标 & 量化效益预估（按 5 子模块分别）</h2>
+  <div class="grid-5">
+    <div class="kpi-card" style="background:#ecfdf5; border-color:#86efac;">
+      <div class="num" style="color:#065f46;">① 点检</div>
+      <div class="label">−50% 点检工时</div>
+      <div class="basis">动态任务 + 拍照异常识别</div>
+    </div>
+    <div class="kpi-card" style="background:#ecfdf5; border-color:#86efac;">
+      <div class="num" style="color:#065f46;">② 备件</div>
+      <div class="label">−20% 库存 + 防短缺</div>
+      <div class="basis">需求预测 + 呆滞识别</div>
+    </div>
+    <div class="kpi-card" style="background:#fef3c7; border-color:#fcd34d;">
+      <div class="num" style="color:#92400e;">③ PdM</div>
+      <div class="label">−30% 非计划停机</div>
+      <div class="basis">RUL 预测带置信区间</div>
+    </div>
+    <div class="kpi-card" style="background:#dbeafe; border-color:#93c5fd;">
+      <div class="num" style="color:#1e40af;">④ 验证</div>
+      <div class="label">−40% 验证报告工时</div>
+      <div class="basis">IQ/OQ/PQ 草稿生成</div>
+    </div>
+    <div class="kpi-card" style="background:#fee2e2; border-color:#fca5a5;">
+      <div class="num" style="color:#991b1b;">⑤ 故障调查</div>
+      <div class="label">−50% 调查周期</div>
+      <div class="basis">根因 Top-3 + CAPA 草稿</div>
+    </div>
+  </div>
+
+  <div class="card info" style="margin-top:10px;">
+    <strong>💰 总价值估算</strong>：以一个 3 厂区凯莱英规模估算：① 点检年节省 ~2000 工时 ≈ 50 万；
+    ② 备件库存优化 ≈ 100-200 万/年；③ PdM 单次停机避免 50-300 万，年 5-10 次 = 250-3000 万；
+    ④ 设备验证 / 年 30+ 次 × 工时节省 ≈ 100 万；⑤ 故障调查周期缩短 → 设备可用率提升 +1-2%。
+    <strong>整体年价值 500-3500 万的合理预期</strong>。
+  </div>
+
+  <h2>4.2 · 5 子模块推进次序建议（不是同时启动）</h2>
+  <table>
+    <thead><tr><th>子模块</th><th>启动节点</th><th>难度</th><th>依赖前置</th><th>推进逻辑</th></tr></thead>
+    <tbody>
+      <tr><td><strong>① 电子点检 AI</strong></td><td>M3-M6</td><td>★★（低）</td><td>移动 APP 平台 + 点检数据</td><td>最简单的入手 → 让员工先体验 AI 加成</td></tr>
+      <tr><td><strong>② 备品备件 AI</strong></td><td>M4-M9</td><td>★★（低）</td><td>EAM 历史数据 + ERP 库存</td><td>价值显性 + 数据相对充足</td></tr>
+      <tr><td><strong>③ 预测性维护 PdM</strong></td><td>M6-M12</td><td>★★★（中）</td><td>设备传感器补齐 + 数据时长</td><td>DH1 评估阶段成果可继承</td></tr>
+      <tr><td><strong>④ 设备验证 AI</strong></td><td>M9-M15</td><td>★★★（中）</td><td>历史 IQ/OQ/PQ 语料库</td><td>跟方向 ② 同源技术（LLM + RAG）</td></tr>
+      <tr><td><strong>⑤ 故障 / 安全调查 AI</strong></td><td>M12+</td><td>★★★★（高）</td><td>设备 BOM + 故障案例库</td><td>难度最高，最后做</td></tr>
+    </tbody>
+  </table>
+
+  <h2>4.3 · IT 侧 vs 业务侧职责清单（5 子模块通用）</h2>
+  <div class="resp-table">
+    <div class="resp-col it">
+      <div class="title">🟦 IT 侧职责</div>
+      <ul class="bul tight">
+        <li><strong>EAM / CMMS 升级</strong>：API 开放 + 数据中间层</li>
+        <li><strong>移动点检 APP</strong>：拍照识别 + 任务推送 + 离线缓存</li>
+        <li><strong>DCS / SCADA 实时数据接入</strong>：振动 / 电流 / 温度等传感器对接</li>
+        <li><strong>PdM 算法平台</strong>：跟智现未来 / 和利时 / 信力共擎对接</li>
+        <li><strong>设备主数据</strong>：BOM / P&ID / 操作手册数字化（含 OCR）</li>
+        <li><strong>故障案例库</strong>：QMS 历史故障结构化</li>
+        <li><strong>跨子模块统一底座</strong>：5 子模块共用设备主数据 + AI 平台</li>
+      </ul>
+    </div>
+    <div class="resp-col biz">
+      <div class="title">🟩 业务侧职责</div>
+      <ul class="bul tight">
+        <li><strong>设备工程团队</strong>：BOM / P&ID 整理 + 设备能力定义</li>
+        <li><strong>资深维修工程师</strong>：故障案例库结构化 + 隐性知识沉淀</li>
+        <li><strong>EHS 部</strong>：安全调查 SOP + 风险评估方法论</li>
+        <li><strong>生产部</strong>：关键设备清单 + 优先级排序</li>
+        <li><strong>采购部</strong>：备件供应商交期 + 备件分类策略</li>
+        <li><strong>验证 / UAT</strong>：每个子模块独立验收</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>4.4 · 跟 DH1 评估的衔接</h2>
+  <div class="card warn">
+    <strong>⚠️ 跟现有 DH1 PdM 评估期的关系</strong>
+    <p style="margin-top:6px; font-size:13.5px;">
+      DH1 动力站设备的预测性维护已经在跟<strong>和利时 / 信力共擎</strong>评估方案。本方向 ④ 不是另起炉灶，而是<strong>把 DH1 PdM 升级为 5 子模块的统一底座</strong>：
+    </p>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li>DH1 PdM PoC 阶段产出 → 子模块 ③ 的实质内容</li>
+      <li>同步在 DH1 试点 ① 电子点检（动力站设备点检最规整）</li>
+      <li>DH1 经验沉淀的"设备 BOM + 故障案例"作为全公司 ④ ⑤ 子模块的种子数据</li>
+    </ul>
+  </div>
+
+  <h2>4.5 · 关键风险与应对</h2>
+  <table>
+    <thead><tr><th style="width:25%;">风险</th><th style="width:35%;">影响</th><th>应对措施</th></tr></thead>
+    <tbody>
+      <tr><td><strong>5 子模块基础不齐</strong></td><td>不能同时启动，否则资源分散</td><td>按推进次序（① → ② → ③ → ④ → ⑤）波浪式</td></tr>
+      <tr><td><strong>设备 BOM / P&ID 数字化工作量</strong></td><td>6-12 月专项，覆盖几千台设备</td><td>① 关键设备优先（A 类 50-100 台）；② OCR + LLM 半自动；③ 设备工程团队 + 文档组联合</td></tr>
+      <tr><td><strong>跨厂区数据互通</strong></td><td>不同厂区 EAM 系统不同</td><td>统一中间层 + 主数据治理 — 跟基础设施 B2 同步推进</td></tr>
+      <tr><td><strong>故障样本稀疏</strong></td><td>PdM 模型训练数据不足</td><td>① 跨设备类型迁移学习（智现未来强项）；② 主动加传感器；③ 跨厂区数据汇总</td></tr>
+    </tbody>
+  </table>
+
+  <div class="todo-30d">
+    <h4>📅 第一个 30 天 IT 可以马上做的事</h4>
+    <ul>
+      <li><strong>Week 1</strong>：跟设备工程部 + 生产部 确认 5 子模块的推进次序（不要同时启动）</li>
+      <li><strong>Week 2</strong>：盘点 DH1 PdM 评估期成果 + 跟和利时 / 信力共擎 / 智现未来对齐能否扩展到 5 子模块</li>
+      <li><strong>Week 3</strong>：选 1 个厂区做电子点检 APP PoC（不依赖任何重的基础设施）</li>
+      <li><strong>Week 4</strong>：启动设备 BOM 数字化专项（关键设备 50 台优先）</li>
+    </ul>
+  </div>
+
+  <div class="page-num">方向 ④ 设备 AI / 10</div>
+</section>
+
+<!-- ============ D5 · 视觉 AI ============ -->
+<section class="slide" id="d5" data-page="9">
+  <div class="dir-header">
+    <div class="dir-number">⑤</div>
+    <div>
+      <div class="kicker">方向 5 · 视觉 AI 操作合规实时监测</div>
+      <h1 style="margin-bottom:4px;">车间 CCTV + AI 模型 → 部分替代 QC 巡检</h1>
+      <div>
+        <span class="tag blue">中期布局</span>
+        <span class="tag red">隐私/工会议题需提前打通</span>
+        <span class="tag">主导部门：QA / 生产 / EHS</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>5.1 · 业务目标 & 量化效益预估</h2>
+  <div class="grid-4">
+    <div class="kpi-card">
+      <div class="num">30% ~ 50%</div>
+      <div class="label">QC 巡检工时替代</div>
+      <div class="basis">关键动作识别覆盖率 + 异常告警</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">+90%</div>
+      <div class="label">违规识别覆盖率</div>
+      <div class="basis">从抽查到全时段监测</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">~6 小时/天</div>
+      <div class="label">实时合规告警响应</div>
+      <div class="basis">24×7 不间断 vs 人工抽检</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">−60%</div>
+      <div class="label">客户审计准备时间</div>
+      <div class="basis">视频证据可自动调取</div>
+    </div>
+  </div>
+
+  <h2>5.2 · MVP 范围</h2>
+  <div class="grid-2">
+    <div class="card success">
+      <strong>✅ MVP 第一版做的</strong>
+      <ul class="bul tight">
+        <li><strong>1 个车间</strong>：选称量间或配料间作试点（动作规则最清晰）</li>
+        <li><strong>5 个关键动作</strong>：戴手套 / 戴口罩 / 洗手 / 签字 / 进入受限区</li>
+        <li><strong>边缘计算节点</strong>：本地处理 + 不传云（降低法务风险）</li>
+        <li>仅<strong>告警 + 视频片段留档</strong>，不做自动处置</li>
+        <li>巡检员复核 → 闭环 → 培训反馈</li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <strong>❌ MVP 不做的</strong>
+      <ul class="bul tight">
+        <li>不做全厂区铺开（先单车间验证）</li>
+        <li>不做"AI 自动停机 / 处罚"（仅告警 + 人工复核）</li>
+        <li>不做精细操作识别（如"称量步骤是否正确"，留 V2）</li>
+        <li>不做跨厂区视频汇总分析</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>5.3 · IT 侧 vs 业务侧职责清单</h2>
+  <div class="resp-table">
+    <div class="resp-col it">
+      <div class="title">🟦 IT 侧职责</div>
+      <ul class="bul tight">
+        <li><strong>CCTV 升级</strong>：现有摄像头评估 + 盲区补点（不需要顶级摄像头）</li>
+        <li><strong>边缘计算节点</strong>：车间本地服务器 + GPU 推理（避免视频上云）</li>
+        <li><strong>CV 算法平台</strong>：目标检测（YOLO / DETR）+ 动作识别（MMaction）</li>
+        <li><strong>告警系统</strong>：钉钉 / 企业微信对接 → 巡检员手机</li>
+        <li><strong>视频片段管理</strong>：违规事件前后 10 秒自动留档 + 检索</li>
+        <li><strong>数据安全</strong>：视频访问日志 + 客户数据隔离</li>
+      </ul>
+    </div>
+    <div class="resp-col biz">
+      <div class="title">🟩 业务侧职责</div>
+      <ul class="bul tight">
+        <li><strong>SOP 动作字典</strong>：QA + 生产 整理"关键合规动作"</li>
+        <li><strong>员工沟通 + 工会沟通</strong>：HR + 工会"先取得共识"（这是最大卡点）</li>
+        <li><strong>客户合规审视</strong>：CDMO 客户对"视频监控"接受度核查</li>
+        <li><strong>巡检流程改造</strong>：QA 巡检员从"主动巡查" → "响应告警"</li>
+        <li><strong>培训反馈闭环</strong>：高频违规 → 自动推送对应培训视频</li>
+        <li><strong>UAT 验收</strong>：误报率 ≤10% + 漏报率 ≤5%</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>5.4 · 3 阶段路径</h2>
+  <div class="phase-card">
+    <div class="phase poc">
+      <div class="ph-name">🟢 PoC</div>
+      <div class="ph-dur">M4-M7 · 4 个月</div>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>1 车间 × 5 关键动作 × 1 套边缘节点</li>
+        <li>跟 HR + 工会沟通 → 员工同意书</li>
+        <li>预算：<strong>50-150 万</strong></li>
+      </ul>
+    </div>
+    <div class="phase pilot">
+      <div class="ph-name">🔵 Pilot</div>
+      <div class="ph-dur">M7-M12 · 6 个月</div>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>3 车间 × 10 关键动作</li>
+        <li>误报率优化 + 巡检流程改造</li>
+        <li>预算：<strong>200-500 万</strong></li>
+      </ul>
+    </div>
+    <div class="phase scale">
+      <div class="ph-name">🟣 Scale</div>
+      <div class="ph-dur">Y2 · 全厂铺开</div>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>所有 GMP 车间 + 关键操作区</li>
+        <li>预算：<strong>500-1500 万</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>5.5 · 关键风险与应对</h2>
+  <table>
+    <thead><tr><th style="width:25%;">风险</th><th style="width:35%;">影响</th><th>应对措施</th></tr></thead>
+    <tbody>
+      <tr><td><strong>员工 / 工会接受度（最大风险）</strong></td><td>项目可能整体卡住</td><td>① 提前沟通 + 员工代表参与设计；② 强调"辅助巡检员、不监控个人"；③ 视频留档严格权限</td></tr>
+      <tr><td><strong>客户数据保密</strong></td><td>视频可能拍到客户工艺</td><td>① 视频本地处理不传云；② 客户审计前知会 + 合同明确</td></tr>
+      <tr><td><strong>误报率高</strong></td><td>巡检员不信任系统</td><td>① PoC 阶段严控误报；② 持续学习机制；③ 误报样本反馈</td></tr>
+      <tr><td><strong>监管态度</strong></td><td>FDA / NMPA 对"AI 替代人工巡检"未明确</td><td>谨慎宣称"替代"，定位为"辅助"；保留人工巡检 SOP</td></tr>
+    </tbody>
+  </table>
+
+  <div class="todo-30d">
+    <h4>📅 第一个 30 天 IT 可以马上做的事</h4>
+    <ul>
+      <li><strong>Week 1</strong>：跟 HR + 工会非正式沟通"视觉 AI 监测"的预期 → 评估接受度</li>
+      <li><strong>Week 2</strong>：选 PoC 车间（建议称量间）+ 评估现有 CCTV 覆盖度</li>
+      <li><strong>Week 3</strong>：QA 跟 5-10 位资深巡检员访谈"哪些动作最该被监测"</li>
+      <li><strong>Week 4</strong>：评估 CV 算法供应商（海康威视 / 商汤 / 旷视）+ 边缘节点硬件方案</li>
+    </ul>
+  </div>
+
+  <div class="page-num">方向 ⑤ 视觉 AI / 10</div>
+</section>
+
+<!-- ============ D6 · AI 培训生成 ============ -->
+<section class="slide" id="d6" data-page="10">
+  <div class="dir-header">
+    <div class="dir-number">⑥</div>
+    <div>
+      <div class="kicker">方向 6 · AI 培训内容自动化生成</div>
+      <h1 style="margin-bottom:4px;">SOP 一键 → 数字人讲解视频 + 考核题 — Quick Win 候选 #2</h1>
+      <div>
+        <span class="tag green">短期可见</span>
+        <span class="tag gold">Quick Win 候选 #2</span>
+        <span class="tag blue">主导部门：培训部 / HR / QA</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>6.1 · 业务目标 & 量化效益预估</h2>
+  <div class="grid-4">
+    <div class="kpi-card">
+      <div class="num">2 周 → 1-2 天</div>
+      <div class="label">单视频制作周期</div>
+      <div class="basis">SOP → 上线全流程</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">×10</div>
+      <div class="label">视频化覆盖率</div>
+      <div class="basis">从 10% SOP 视频化 → 80%+</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">~500 工时/年</div>
+      <div class="label">培训部工时节省</div>
+      <div class="basis">假设年制作 30 个视频 × 16 小时节省</div>
+    </div>
+    <div class="kpi-card">
+      <div class="num">−40%</div>
+      <div class="label">新员工合规事件率</div>
+      <div class="basis">标准化视频 + 强制考核</div>
+    </div>
+  </div>
+
+  <div class="card info" style="margin-top:10px;">
+    <strong>💡 为什么是 Quick Win 候选 #2</strong>：
+    ① 完全不涉及生产决策 → 零监管风险；② 培训部主导接受度高（节省自己工时）；
+    ③ 市场上数字人 + LLM 生成方案成熟（HeyGen / 腾讯智影 / 商汤如影），3-4 个月可上线；
+    ④ <strong>跟方向 ② 共用 LLM + 大模型平台</strong> → 是"内容生成"姊妹方向；
+    ⑤ 视频化 SOP 也是方向 ⑤ 视觉 AI 的<strong>数据源</strong>。
+  </div>
+
+  <h2>6.2 · MVP 范围</h2>
+  <div class="grid-2">
+    <div class="card success">
+      <strong>✅ MVP 第一版做的</strong>
+      <ul class="bul tight">
+        <li><strong>5 个 SOP 视频</strong>：从结构化最完整的开始（投料 / 称量 / 清洁 / 取样 / 更衣）</li>
+        <li><strong>分镜脚本自动生成</strong>（LLM）+ <strong>数字人讲解</strong>（HeyGen / 智影）+ <strong>素材库人工拍摄</strong></li>
+        <li><strong>5-8 道配套考核题</strong>（LLM 自动生成 + 培训部审核）</li>
+        <li>上线到现有培训平台（不另建系统）</li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <strong>❌ MVP 不做的</strong>
+      <ul class="bul tight">
+        <li>不做 100% AI 生成视频（操作示范画面仍需拍摄）</li>
+        <li>不做多语言版本（第一版只做中文）</li>
+        <li>不做"AI 评估学员考核结果"（用现有考核系统）</li>
+        <li>不做交互式 VR 培训（V3 才考虑）</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>6.3 · IT 侧 vs 业务侧职责清单</h2>
+  <div class="resp-table">
+    <div class="resp-col it">
+      <div class="title">🟦 IT 侧职责</div>
+      <ul class="bul tight">
+        <li><strong>LLM 平台对接</strong>：跟方向 ② 共用 LLM 服务（DeepSeek + RAG）</li>
+        <li><strong>数字人服务对接</strong>：HeyGen / 腾讯智影 / 商汤如影 API 集成</li>
+        <li><strong>SOP 文档解析</strong>：Word / PDF → 结构化分镜脚本</li>
+        <li><strong>视频素材库</strong>：建素材管理系统（按设备 / 操作 / 标签检索）</li>
+        <li><strong>培训平台对接</strong>：视频自动发布到现有培训系统</li>
+        <li><strong>变更跟踪</strong>：SOP 更新 → 自动识别需要重做的视频章节</li>
+      </ul>
+    </div>
+    <div class="resp-col biz">
+      <div class="title">🟩 业务侧职责</div>
+      <ul class="bul tight">
+        <li><strong>培训部</strong>：SOP 结构化 + 分镜脚本审核</li>
+        <li><strong>资深操作员</strong>：操作示范素材拍摄（一次性投入）</li>
+        <li><strong>QA</strong>：合规要素审核（哪些动作必须出现在视频里）</li>
+        <li><strong>考核题</strong>：培训部审核 LLM 生成的题目</li>
+        <li><strong>试用反馈</strong>：组织新员工试看 + 收集反馈</li>
+        <li><strong>培训效果对比</strong>：AI 视频 vs 真人讲师 → 通过率 / 操作正确率</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>6.4 · 3 阶段路径</h2>
+  <div class="phase-card">
+    <div class="phase poc">
+      <div class="ph-name">🟢 PoC</div>
+      <div class="ph-dur">M2-M4 · 3 个月</div>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>5 个 SOP × 完整 5-8 分钟视频 + 考核题</li>
+        <li>新员工 / 老员工对照试用</li>
+        <li>采纳率 ≥70% 即过</li>
+        <li>预算：<strong>30-80 万</strong></li>
+      </ul>
+    </div>
+    <div class="phase pilot">
+      <div class="ph-name">🔵 Pilot</div>
+      <div class="ph-dur">M4-M7 · 4 个月</div>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>50 个 SOP 视频 + 配套考核</li>
+        <li>覆盖 3-5 个部门</li>
+        <li>培训通过率 / 操作正确率对比</li>
+        <li>预算：<strong>100-300 万</strong></li>
+      </ul>
+    </div>
+    <div class="phase scale">
+      <div class="ph-name">🟣 Scale</div>
+      <div class="ph-dur">M7-M12+ · 持续</div>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>500+ SOP 全库视频化</li>
+        <li>多语言版本（中 / 英 / 韩等）</li>
+        <li>SOP 变更自动跟踪机制</li>
+        <li>预算：<strong>300-600 万</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>6.5 · 关键风险与应对</h2>
+  <table>
+    <thead><tr><th style="width:25%;">风险</th><th style="width:35%;">影响</th><th>应对措施</th></tr></thead>
+    <tbody>
+      <tr><td><strong>SOP 文档质量参差</strong></td><td>老 SOP 结构化程度低，AI 解析困难</td><td>① 先选结构化好的 SOP；② 培训部配合补全模板；③ 借此机会推动 SOP 模板化</td></tr>
+      <tr><td><strong>操作示范素材库建设</strong></td><td>一次性投入 50-100 工时拍摄</td><td>① 选最常用的操作动作（如称量 / 投料）优先拍；② 复用现有培训视频片段</td></tr>
+      <tr><td><strong>数字人质量</strong></td><td>员工反馈"不像真人"</td><td>① 选业内顶级（HeyGen / 智影）；② 让员工选偏好的数字人形象</td></tr>
+      <tr><td><strong>SOP 变更频繁</strong></td><td>视频频繁需要重做</td><td>① 模块化分镜（变更只重做对应章节）；② 自动跟踪 SOP 版本</td></tr>
+    </tbody>
+  </table>
+
+  <div class="todo-30d">
+    <h4>📅 第一个 30 天 IT 可以马上做的事</h4>
+    <ul>
+      <li><strong>Week 1</strong>：跟培训部 + QA 选 5 个 PoC SOP（建议：投料 / 清洁 / 取样 / 更衣 / 称量）</li>
+      <li><strong>Week 2</strong>：评估数字人服务（HeyGen vs 腾讯智影 vs 商汤如影 vs DeepSeek 文本生成 + 智影）</li>
+      <li><strong>Week 3</strong>：搭建分镜脚本生成 PoC（LLM + SOP 解析）</li>
+      <li><strong>Week 4</strong>：跟培训部对齐"AI 视频 vs 真人讲师"对比验收方案</li>
+    </ul>
+  </div>
+
+  <div class="page-num">方向 ⑥ 培训 / 10</div>
+</section>
+
+<!-- ============ S-mech · 联合工作机制 ============ -->
+<section class="slide" id="s-mech" data-page="11">
+  <div class="kicker">PART 07 · 联合工作机制</div>
+  <h1>跟 IT 怎么协作 — 节奏、决策、Quick Win</h1>
+
+  <h2>7.1 · 联合工作节奏</h2>
+  <div class="grid-3">
+    <div class="card success">
+      <h4>📅 周节奏</h4>
+      <ul class="bul tight">
+        <li><strong>周一站会</strong> 30 分钟：上周复盘 + 本周计划</li>
+        <li><strong>周五同步</strong> 15 分钟：风险升级 / 决策需要</li>
+        <li>双方各派 1 个 PM 角色（IT + 业务）</li>
+      </ul>
+    </div>
+    <div class="card info">
+      <h4>📅 月节奏</h4>
+      <ul class="bul tight">
+        <li><strong>月度 Review</strong> 1.5 小时：方向负责人 + IT + 业务部门负责人</li>
+        <li>每方向 1 张状态卡片（绿黄红）</li>
+        <li>风险升级 + 资源调整 + 决策点</li>
+      </ul>
+    </div>
+    <div class="card tip">
+      <h4>📅 季度节奏</h4>
+      <ul class="bul tight">
+        <li><strong>季度 Steering Committee</strong>：副总裁 + 各部门负责人</li>
+        <li>Quick Win 成果展示 + 预算 / 资源调整</li>
+        <li>下季度优先级调整</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>7.2 · 决策升级机制（RACI）</h2>
+  <table>
+    <thead>
+      <tr><th>决策类型</th><th>谁负责 R</th><th>谁审批 A</th><th>谁配合 C</th><th>谁知会 I</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>具体技术选型（如选 DeepSeek vs 通义）</td><td>IT 对接人</td><td>IT 部门负责人</td><td>业务方向负责人</td><td>各方向参与人</td></tr>
+      <tr><td>供应商引入（外采）</td><td>IT 对接人</td><td>CIMT 副总裁</td><td>采购 + 法务</td><td>业务部门</td></tr>
+      <tr><td>业务流程变更（如 QC SOP）</td><td>业务方向负责人</td><td>QA 部门负责人</td><td>IT + 受影响部门</td><td>员工 + 监管事务</td></tr>
+      <tr><td>预算超支 &gt;20%</td><td>方向负责人</td><td>副总裁 + 财务</td><td>IT + 业务部门</td><td>跨部门 PMO</td></tr>
+      <tr><td>客户审计 / FDA 相关</td><td>QA + 法规事务</td><td>副总裁</td><td>IT + 业务方向</td><td>客户 BD 对接人</td></tr>
+      <tr><td>项目延期 &gt;1 月</td><td>方向负责人</td><td>季度 SC 会议</td><td>IT + 业务</td><td>跨部门</td></tr>
+    </tbody>
+  </table>
+
+  <h2>7.3 · Quick Win 候选对比（互动）</h2>
+  <p class="lead" style="margin-bottom: 8px;">
+    "先做哪个"是跟 IT 第一次开会时<strong>最容易卡住的问题</strong>。下面 3 个候选互动对比，
+    决策权留给业务+IT 联合判断。
+  </p>
+
+  <div style="margin: 12px 0;">
+    <button class="toggle active" data-qw="report" onclick="showQW('report')">候选 A · 方向 ② 报告撰写</button>
+    <button class="toggle" data-qw="training" onclick="showQW('training')">候选 B · 方向 ⑥ 培训视频</button>
+    <button class="toggle" data-qw="check" onclick="showQW('check')">候选 C · 方向 ④-① 电子点检</button>
+  </div>
+
+  <div id="qw-output"></div>
+
+  <div class="page-num">联合机制 / 10</div>
+</section>
+
+<script>
+const qwScenarios = {
+  report: {
+    title: '候选 A · 方向 ② 报告撰写',
+    color: '#10b981',
+    bg: '#ecfdf5',
+    why: 'LLM + RAG 架构成熟，市场上已有大量医药行业 RAG 落地案例；不涉及生产决策，监管敏感度低；价值显性（直接节省工程师工时）',
+    duration: '3 个月 PoC + 4 个月 Pilot',
+    budget: '30-80 万 PoC + 100-250 万 Pilot',
+    value: '~200 万/年（2000 工时节省）',
+    risk_level: '🟢 低',
+    risk_detail: '失败也只是 30-80 万沉没成本；工程师审核签字流程不变，AI 出错有兜底',
+    it_workload: '🟦🟦🟦 中（数据接入 + LLM 平台）',
+    biz_workload: '🟩🟩 低-中（报告模板结构化 + UAT）',
+    why_first: '"AI 不是 PPT"的最佳实证 — 副总裁能在 4 个月内看到第一份 AI 写的 Campaign Report 草稿，建立对 AI 项目的信心'
+  },
+  training: {
+    title: '候选 B · 方向 ⑥ 培训视频生成',
+    color: '#10b981',
+    bg: '#ecfdf5',
+    why: '完全不涉及生产决策，零监管风险；数字人 + LLM 服务市场成熟（HeyGen / 智影）；培训部主导意愿强（节省自己工时）',
+    duration: '3 个月 PoC + 4 个月 Pilot',
+    budget: '30-80 万 PoC + 100-300 万 Pilot',
+    value: '~50-150 万/年（培训部工时 + 视频化覆盖率提升）',
+    risk_level: '🟢 低',
+    risk_detail: '完全无监管 / 客户合规风险，仅内部使用',
+    it_workload: '🟦🟦 低-中（API 集成）',
+    biz_workload: '🟩🟩🟩 中（SOP 结构化 + 素材库拍摄）',
+    why_first: '出片效果"可视化最强" — 给副总裁 / 管理层放 1 段 5 分钟 AI 生成的 SOP 培训视频，比任何 PPT 都有说服力；同时是方向 ② 的姊妹方向，可共用 LLM 底座'
+  },
+  check: {
+    title: '候选 C · 方向 ④-① 电子点检 AI',
+    color: '#3b82f6',
+    bg: '#dbeafe',
+    why: '设备工程团队对"点检 APP + 拍照 AI"接受度高；市场上有成熟产品（钉钉点检等）；可以单厂区单车间快速跑通',
+    duration: '2-3 个月 PoC + 4 个月 Pilot',
+    budget: '20-50 万 PoC + 80-200 万 Pilot',
+    value: '~50-100 万/年（点检工时 + 异常早识别）',
+    risk_level: '🟢 低',
+    risk_detail: '不涉及决策只做识别 + 推送；员工接受度高（减轻点检工作量）',
+    it_workload: '🟦🟦 低（采用成熟产品 + 简单定制）',
+    biz_workload: '🟩 低（点检 SOP 不变）',
+    why_first: '"看得见摸得着"的端侧 AI — 现场设备工程师 / 巡检员立刻能用上；为方向 ④ 后续 4 个子模块铺路（设备主数据 + APP 平台共享）'
+  }
+};
+function showQW(k){
+  document.querySelectorAll('button.toggle[data-qw]').forEach(b => b.classList.remove('active'));
+  document.querySelector('button.toggle[data-qw="'+k+'"]').classList.add('active');
+  const s = qwScenarios[k];
+  const html = `
+    <div class="card" style="background:${s.bg}; border-color:${s.color}; border-left: 4px solid ${s.color};">
+      <h3 style="color:${s.color};">${s.title}</h3>
+      <table style="margin-top:10px; font-size:13px;">
+        <tr><td style="width:18%;"><strong>为什么是候选？</strong></td><td>${s.why}</td></tr>
+        <tr><td><strong>预估周期</strong></td><td>${s.duration}</td></tr>
+        <tr><td><strong>预算量级</strong></td><td>${s.budget}</td></tr>
+        <tr><td><strong>预估年化价值</strong></td><td>${s.value}</td></tr>
+        <tr><td><strong>风险等级</strong></td><td>${s.risk_level} · ${s.risk_detail}</td></tr>
+        <tr><td><strong>IT 工作量</strong></td><td>${s.it_workload}</td></tr>
+        <tr><td><strong>业务工作量</strong></td><td>${s.biz_workload}</td></tr>
+        <tr><td><strong>为什么先做这个</strong></td><td>${s.why_first}</td></tr>
+      </table>
+    </div>
+    <div class="card warn" style="margin-top:14px;">
+      <strong>💭 跟 IT 联合判断时的提示</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>3 个候选都是"低风险 + 短周期 + 中等价值"。<strong>不必强行二选一</strong>，可以并行启动 2-3 个 PoC</li>
+        <li>3 个候选共用部分基础设施（LLM + 客户隔离 + 数据中间层），并行不会显著增加边际成本</li>
+        <li>建议跟 IT 一起评估当前 IT 团队的人力余量，决定是 1 个 / 2 个 / 3 个并行</li>
+      </ul>
+    </div>
+  `;
+  document.getElementById('qw-output').innerHTML = html;
+}
+showQW('report');
+</script>
+
+<!-- ============ S-sprint · 6 周快速启动 Sprint 表 ============ -->
+<section class="slide" id="s-sprint" data-page="12">
+  <div class="kicker">PART 08 · 6 周快速启动 Sprint 表</div>
+  <h1>跟 IT 第一次开会后，6 周内每周做什么</h1>
+  <p class="lead">
+    给 IT 对接人的"<strong>周一就能开干</strong>"清单。这是 PoC 前的<strong>准备期</strong>—— 把<strong>基础设施 + Quick Win 候选 ② + ⑥</strong>同步启动。
+    选不同方向看不同 Sprint 表。
+  </p>
+
+  <div style="margin:12px 0;">
+    <button class="toggle active" data-sp="combined" onclick="showSprint('combined')">总览（推荐路径）</button>
+    <button class="toggle" data-sp="d2" onclick="showSprint('d2')">方向 ② 报告</button>
+    <button class="toggle" data-sp="d6" onclick="showSprint('d6')">方向 ⑥ 培训</button>
+    <button class="toggle" data-sp="base" onclick="showSprint('base')">基础设施 B1-B4</button>
+  </div>
+
+  <div id="sprint-output"></div>
+
+  <div class="page-num">Sprint 表 / 10</div>
+</section>
+
+<script>
+const sprintData = {
+  combined: {
+    title: '6 周综合 Sprint · 基础设施 + Quick Win 同步启动',
+    note: '推荐路径：基础设施 + 方向 ② + 方向 ⑥ 三线并行（共用底座，边际成本低）',
+    sprints: [
+      { week:'W1 · 启动周', focus:'对齐 + 选范围', items:[
+        { who:'IT', task:'跟用户对齐 6 方向优先级 + 确定 PoC 候选（建议 ② + ⑥）' },
+        { who:'业务', task:'确定参与的业务部门负责人（QA / 工艺研发 / 培训部）' },
+        { who:'联合', task:'立项申请准备（向 CIMT 提交基础设施 + 2 个 PoC 立项书）' },
+      ]},
+      { week:'W2 · 现状盘点', focus:'数据 / 系统 / 人', items:[
+        { who:'IT', task:'盘点 IP.21 / MES / LIMS / QMS / SAP / EAM 数据接口现状' },
+        { who:'IT', task:'评估 LLM 服务方案（DeepSeek / 通义 / 盘古 / OpenAI 对比）' },
+        { who:'业务', task:'梳理 50 份历史 Campaign Report + 5 个 SOP 作语料' },
+      ]},
+      { week:'W3 · 供应商对接', focus:'外采 vs 自建判断', items:[
+        { who:'IT', task:'邀请 2-3 家供应商做方案 demo（智现未来 / 华为云 / Aizon / 商汤）' },
+        { who:'联合', task:'同步跟进埃森哲（之前 IT 推过来的咨询商）方案' },
+        { who:'业务', task:'报告模板 + SOP 结构化（搭建后续 RAG 索引基础）' },
+      ]},
+      { week:'W4 · TRD 编写', focus:'写技术需求文档', items:[
+        { who:'IT', task:'2 个 PoC 的 TRD 完成（功能 / 接口 / 数据 / 安全 / 验收标准）' },
+        { who:'业务', task:'PoC 验收标准对齐（采纳率 ≥X% / 工时节省 ≥Y%）' },
+        { who:'联合', task:'预算 + 时间 + 资源审批材料就绪' },
+      ]},
+      { week:'W5 · 立项 + 启动', focus:'走流程 + 启动', items:[
+        { who:'联合', task:'立项申请提交 CIMT 副总裁 + 财务审批' },
+        { who:'IT', task:'基础设施 B1 + B4 启动（数据中间层 + AI 平台底座）' },
+        { who:'业务', task:'PoC 团队组建 + 时间承诺确认' },
+      ]},
+      { week:'W6 · PoC 启动', focus:'第一行代码 / 第一个视频', items:[
+        { who:'IT', task:'方向 ② PoC 环境就绪（LLM + 向量库 + 1 份测试报告生成）' },
+        { who:'IT', task:'方向 ⑥ PoC 环境就绪（数字人 API + 1 个 SOP 分镜脚本生成）' },
+        { who:'业务', task:'方向 ② 工程师试用反馈机制 + 方向 ⑥ 培训部审核机制建立' },
+      ]},
+    ]
+  },
+  d2: {
+    title: '方向 ② 报告撰写 · 6 周 Sprint',
+    note: '从"决定要做"到"PoC 跑出第一份草稿"',
+    sprints: [
+      { week:'W1', focus:'范围 + 数据源', items:[
+        { who:'IT', task:'跟工艺研发部 / QA 确认 PoC 报告类型（建议 Campaign Report 优先）' },
+        { who:'业务', task:'拿 50 份历史 Campaign Report 作语料 + 1 份当前在写的报告作模板' },
+      ]},
+      { week:'W2', focus:'LLM 选型', items:[
+        { who:'IT', task:'DeepSeek / 通义 / 盘古 / OpenAI 价格 + 性能 + 数据安全对比' },
+        { who:'IT', task:'向量库选型（Chroma / Milvus / 阿里云 / 私有部署）' },
+      ]},
+      { week:'W3', focus:'数据接口', items:[
+        { who:'IT', task:'MES / LIMS / QMS / SAP / EAM 数据 API 可行性评估' },
+        { who:'业务', task:'报告模板结构化（章节 + 字段 + 数据来源）' },
+      ]},
+      { week:'W4', focus:'PoC 环境搭建', items:[
+        { who:'IT', task:'LLM API + 向量库部署 + RAG 流程跑通' },
+        { who:'IT', task:'报告模板渲染（docx / pdf 双格式）' },
+      ]},
+      { week:'W5', focus:'第一份草稿', items:[
+        { who:'IT', task:'用 1 个项目数据生成 Campaign Report 草稿' },
+        { who:'业务', task:'工程师对比"AI 版 vs 原版"差异点分析' },
+      ]},
+      { week:'W6', focus:'PoC 验收', items:[
+        { who:'联合', task:'采纳率评估 → 决定是否进入 Pilot' },
+        { who:'IT', task:'优化点清单 + Pilot 阶段方案' },
+      ]},
+    ]
+  },
+  d6: {
+    title: '方向 ⑥ 培训视频生成 · 6 周 Sprint',
+    note: '从"选 SOP"到"第一个 5 分钟视频上线"',
+    sprints: [
+      { week:'W1', focus:'选 SOP + 数字人', items:[
+        { who:'业务', task:'培训部 + QA 选 5 个 PoC SOP（建议：投料 / 清洁 / 取样 / 更衣 / 称量）' },
+        { who:'IT', task:'HeyGen / 腾讯智影 / 商汤如影 试用 + 比较' },
+      ]},
+      { week:'W2', focus:'分镜脚本生成', items:[
+        { who:'IT', task:'LLM + SOP 解析 → 分镜脚本生成 PoC' },
+        { who:'业务', task:'培训部审核 1 个 SOP 的脚本输出 → 反馈调优' },
+      ]},
+      { week:'W3', focus:'素材库 + 数字人', items:[
+        { who:'IT', task:'数字人 API 集成 + 第一段讲解音视频生成' },
+        { who:'业务', task:'操作示范素材库建设（拍摄称量 / 投料等关键动作）' },
+      ]},
+      { week:'W4', focus:'第一个完整视频', items:[
+        { who:'联合', task:'1 个完整的 5 分钟培训视频（数字人 + 示范画面 + 字幕）' },
+        { who:'IT', task:'考核题自动生成 + 培训平台对接' },
+      ]},
+      { week:'W5', focus:'扩展到 5 个 SOP', items:[
+        { who:'IT', task:'生成剩余 4 个 SOP 视频' },
+        { who:'业务', task:'培训部审核 + 调整' },
+      ]},
+      { week:'W6', focus:'员工试看 + 验收', items:[
+        { who:'业务', task:'10-20 位新员工试看 + 通过率对比' },
+        { who:'联合', task:'PoC 复盘 → 决定 Pilot 范围' },
+      ]},
+    ]
+  },
+  base: {
+    title: '基础设施 B1-B4 · 6 周启动',
+    note: '所有方向的共同底座 — 先启动才能让 6 方向跑得起来',
+    sprints: [
+      { week:'W1', focus:'盘点 + 立项', items:[
+        { who:'IT', task:'盘点现有 IP.21 / MES / EBR / LIMS / QMS / SAP / EAM 数据接口状态' },
+        { who:'联合', task:'基础设施 4 大件作为独立立项' },
+      ]},
+      { week:'W2', focus:'B1 数据底座 + B2 主数据', items:[
+        { who:'IT', task:'数据中间层方案设计（自建 ETL vs 商业 iPaaS）' },
+        { who:'业务', task:'主数据治理范围确认（批号 / 项目 / 客户 / 设备 / 物料）' },
+      ]},
+      { week:'W3', focus:'B3 客户隔离 + B4 AI 平台', items:[
+        { who:'IT', task:'客户数据隔离 3 层架构设计（数据 + 模型 + 知识沉淀）' },
+        { who:'IT', task:'AI 平台底座选型（GPU 服务器 + LLM + RAG + 向量库）' },
+      ]},
+      { week:'W4', focus:'供应商对接', items:[
+        { who:'联合', task:'埃森哲 / 智现未来 / 华为云 / Aizon 跨方向评估' },
+        { who:'IT', task:'B1 数据中间层 PoC（1 个跨系统取数样例）' },
+      ]},
+      { week:'W5', focus:'GAMP 5 验证框架', items:[
+        { who:'IT', task:'GAMP 5 类别 4 验证框架 + 21 CFR Part 11 合规材料' },
+        { who:'业务', task:'QA + 法规事务 对齐验证方案' },
+      ]},
+      { week:'W6', focus:'基础设施 PoC 闭环', items:[
+        { who:'IT', task:'B1 数据中间层 + B4 AI 平台 PoC 跑通（支撑方向 ② PoC）' },
+        { who:'联合', task:'下一步 18 个月路线图详细化' },
+      ]},
+    ]
+  }
+};
+function showSprint(k){
+  document.querySelectorAll('button.toggle[data-sp]').forEach(b => b.classList.remove('active'));
+  document.querySelector('button.toggle[data-sp="'+k+'"]').classList.add('active');
+  const s = sprintData[k];
+  let html = `<div class="card tip" style="margin-bottom:14px;"><strong>${s.title}</strong><div style="margin-top:4px; font-size:13px; color:var(--text-sub);">${s.note}</div></div>`;
+  html += '<table><thead><tr><th style="width:12%;">Week</th><th style="width:18%;">本周聚焦</th><th style="width:10%;">谁做</th><th>具体任务</th></tr></thead><tbody>';
+  s.sprints.forEach((sp,i) => {
+    sp.items.forEach((item,j) => {
+      const colors = {IT:'#1e40af', '业务':'#065f46', '联合':'#5b21b6'};
+      const bgs = {IT:'#dbeafe', '业务':'#d1fae5', '联合':'#ede9fe'};
+      html += '<tr>';
+      if (j===0) html += `<td rowspan="${sp.items.length}" style="background:#f5f3ff; font-weight:700; color:var(--primary-deep); vertical-align:middle;">${sp.week}</td><td rowspan="${sp.items.length}" style="background:#fafbfc; vertical-align:middle;"><strong>${sp.focus}</strong></td>`;
+      html += `<td><span class="pill" style="background:${bgs[item.who]}; color:${colors[item.who]};">${item.who}</span></td>`;
+      html += `<td>${item.task}</td></tr>`;
+    });
+  });
+  html += '</tbody></table>';
+  // Quick stats
+  let itCount = 0, bizCount = 0, jointCount = 0;
+  s.sprints.forEach(sp => sp.items.forEach(item => {
+    if (item.who === 'IT') itCount++;
+    else if (item.who === '业务') bizCount++;
+    else jointCount++;
+  }));
+  html += `<div class="grid-3" style="margin-top:14px;">
+    <div class="kpi-card" style="background:#dbeafe; border-color:#93c5fd;"><div class="num" style="color:#1e40af;">${itCount}</div><div class="label">IT 任务</div></div>
+    <div class="kpi-card" style="background:#d1fae5; border-color:#86efac;"><div class="num" style="color:#065f46;">${bizCount}</div><div class="label">业务任务</div></div>
+    <div class="kpi-card" style="background:#ede9fe; border-color:#c4b5fd;"><div class="num" style="color:#5b21b6;">${jointCount}</div><div class="label">联合任务</div></div>
+  </div>`;
+  document.getElementById('sprint-output').innerHTML = html;
+}
+showSprint('combined');
+</script>
+
+</body>
+</html>
