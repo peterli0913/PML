@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>凯莱英 SOP 培训视频 AI 生成 — 推进方案</title>
+<style>
+
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "HarmonyOS Sans SC", "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
+    color: #0f1f3d;
+    background: #f3f5fa;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  /* === Top nav === */
+  .topbar {
+    position: sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 10px 28px;
+    background: rgba(15,31,61,.96); color: #fff;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar .brand { font-weight:700; letter-spacing:.5px; font-size:14px;}
+  .topbar .brand .badge {
+    display:inline-block; padding:2px 8px; margin-left:8px;
+    background:#ff7e3d; color:#fff; border-radius:4px; font-size:11px; font-weight:600;
+  }
+  .topbar nav a {
+    color:#cdd6e8; font-size:12.5px; text-decoration:none;
+    margin: 0 8px; padding:6px 8px; border-radius:6px;
+  }
+  .topbar nav a:hover { background:#1d2f55; color:#fff; }
+  .topbar .modeswitch {
+    font-size:12px; cursor:pointer; padding:6px 12px;
+    border:1px solid #3b507e; color:#cdd6e8; border-radius:6px;
+    background:transparent;
+  }
+  .topbar .modeswitch:hover { background:#1d2f55; }
+
+  /* === Slide / section === */
+  main { max-width: 1240px; margin: 0 auto; padding: 0 24px 80px; }
+  section.slide {
+    background:#fff;
+    border-radius: 14px;
+    padding: 44px 52px 50px;
+    margin: 28px 0;
+    box-shadow: 0 6px 24px rgba(15,31,61,.07);
+    position: relative;
+    min-height: 540px;
+  }
+  section.slide.cover {
+    background: linear-gradient(135deg, #0f1f3d 0%, #1f3870 60%, #2a4d9c 100%);
+    color:#fff;
+  }
+  section.slide h2.kicker {
+    color:#ff7e3d; font-size: 13px; font-weight:700; letter-spacing: 4px;
+    margin: 0 0 6px; text-transform: uppercase;
+  }
+  section.slide h1 {
+    font-size: 30px; margin: 0 0 14px; font-weight:700;
+    border-left: 5px solid #ff7e3d; padding-left: 14px; line-height: 1.25;
+  }
+  section.slide.cover h1 { border:none; padding:0; font-size: 44px; line-height: 1.2;}
+  section.slide.cover .subtitle { font-size:18px; opacity:.85; margin-top:18px; max-width: 760px;}
+  section.slide.cover .meta { margin-top: 60px; font-size:13px; opacity:.75; }
+  section.slide.cover .meta div { margin: 4px 0;}
+  section.slide .lead { font-size: 16px; color:#3a4d72; margin: 0 0 24px; max-width: 920px;}
+
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 28px;}
+  .grid-3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;}
+  .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px;}
+
+  /* Cards & callouts */
+  .card {
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px;
+    padding: 20px 22px;
+  }
+  .card.accent { background: #fff7f1; border-color:#ffd8be;}
+  .card.danger { background: #fef2f2; border-color:#fecaca;}
+  .card.success { background: #f0fdf4; border-color:#bbf7d0;}
+  .card .num {
+    font-size: 32px; font-weight:800; color:#0f1f3d;
+    line-height: 1.1;
+  }
+  .card.accent .num { color:#ff7e3d; }
+  .card .num small { font-size:14px; font-weight:600; color:#7a89a8; margin-left:4px;}
+  .card .label { font-size:13px; color:#5b6a8a; margin-top:4px;}
+  .card .desc { font-size:13px; color:#3a4d72; margin-top:10px; line-height:1.5;}
+
+  /* tables */
+  table.kly { width:100%; border-collapse: collapse; font-size: 13.5px; }
+  table.kly th, table.kly td {
+    padding: 10px 12px; text-align:left;
+    border-bottom: 1px solid #e6ebf5;
+  }
+  table.kly thead th {
+    background:#0f1f3d; color:#fff; font-weight:600; font-size:12.5px;
+    letter-spacing:.5px;
+  }
+  table.kly tbody tr:nth-child(even) { background:#f7f9fc; }
+  table.kly td.num { text-align:right; font-variant-numeric: tabular-nums; }
+  table.kly .pill {
+    display:inline-block; padding:2px 9px; border-radius:99px; font-size:11.5px; font-weight:600;
+  }
+  .pill.ok    { background:#dcfce7; color:#166534; }
+  .pill.mid   { background:#fef9c3; color:#854d0e; }
+  .pill.warn  { background:#fee2e2; color:#991b1b; }
+  .pill.info  { background:#dbeafe; color:#1e3a8a; }
+
+  /* lists */
+  ul.bul { padding-left: 0; list-style:none; margin: 8px 0;}
+  ul.bul li { padding: 6px 0 6px 22px; position:relative; font-size:14px;}
+  ul.bul li:before {
+    content:""; position:absolute; left:4px; top:14px; width:8px; height:8px;
+    background:#ff7e3d; border-radius:2px; transform:rotate(45deg);
+  }
+  ul.bul.tight li { padding: 3px 0 3px 22px; font-size:13.5px; }
+  ul.bul.tight li:before { top:12px; }
+
+  .tag {
+    display:inline-block; padding:3px 10px; font-size:12px; border-radius:99px;
+    background:#e7eefb; color:#1e40af; font-weight:600; margin: 2px 4px 2px 0;
+  }
+  .tag.warn { background:#fef3c7; color:#92400e;}
+  .tag.danger { background:#fee2e2; color:#991b1b;}
+  .tag.ok { background:#dcfce7; color:#166534;}
+
+  /* Demo specific */
+  .demo-box {
+    background: linear-gradient(180deg,#0f1f3d 0%,#142a55 100%);
+    color:#fff; border-radius: 14px; padding: 24px;
+  }
+  .demo-box .demo-title { font-size: 14px; opacity:.7; margin-bottom: 10px;}
+  .gauges { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  .gauge {
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px; padding: 14px;
+  }
+  .gauge .g-label { font-size: 11.5px; color: #9aabd6; text-transform: uppercase; letter-spacing: 1px;}
+  .gauge .g-val   { font-size: 28px; font-weight:800; margin: 6px 0 2px; }
+  .gauge .g-unit  { font-size: 12px; color: #9aabd6;}
+  .gauge .g-bar   { height: 5px; background: rgba(255,255,255,.1); border-radius: 4px; margin-top:8px; overflow:hidden;}
+  .gauge .g-bar > div { height:100%; background:#3ec6ff; transition: width .3s; }
+  .gauge.warn .g-val { color:#fbbf24; }
+  .gauge.warn .g-bar > div { background:#fbbf24; }
+  .gauge.danger .g-val { color:#ef4444; }
+  .gauge.danger .g-bar > div { background:#ef4444; }
+  .gauge.ok .g-val { color:#22d3ee; }
+
+  .health-banner {
+    background: rgba(255,255,255,.06); border-radius: 10px; padding: 14px 16px;
+    display:flex; gap:24px; align-items:center; margin-bottom: 14px;
+  }
+  .health-score {
+    font-size: 56px; font-weight: 800; line-height:1;
+    background: linear-gradient(135deg,#22d3ee,#3ec6ff);
+    -webkit-background-clip: text; background-clip: text; color:transparent;
+  }
+  .health-info { flex:1; }
+  .health-info .ttl { font-size: 13px; color:#9aabd6; text-transform: uppercase; letter-spacing: 1.5px;}
+  .health-info .stat { font-size: 18px; font-weight:600; margin: 4px 0;}
+  .health-info .desc { font-size: 13px; color:#cdd6e8; }
+  .countdown { text-align:center; padding: 0 18px; border-left: 1px solid rgba(255,255,255,.1);}
+  .countdown .num { font-size:34px; font-weight:800; color:#fbbf24;}
+  .countdown .lbl { font-size: 11.5px; color:#9aabd6;}
+
+  .demo-controls {
+    display:flex; gap: 10px; align-items:center; margin-top: 14px; flex-wrap: wrap;
+    background: rgba(255,255,255,.04); border-radius:10px; padding:12px 14px;
+  }
+  .demo-controls label { font-size: 12.5px; color:#9aabd6; }
+  .demo-controls input[type=range] { flex:1; max-width: 600px; accent-color: #ff7e3d;}
+  .demo-controls .btn {
+    padding: 6px 14px; font-size: 12.5px; border-radius: 6px;
+    background: #ff7e3d; color:#fff; border:none; cursor:pointer; font-weight:600;
+  }
+  .demo-controls .btn:hover { background:#ff9359;}
+  .demo-controls .btn.ghost { background:transparent; color:#9aabd6; border:1px solid rgba(255,255,255,.18);}
+  .demo-controls .btn.ghost:hover { color:#fff;}
+
+  .event-log {
+    margin-top: 14px; max-height: 180px; overflow-y: auto;
+    background: rgba(255,255,255,.04); border-radius: 10px; padding: 8px 14px;
+    font-size:12.5px;
+  }
+  .event-log .e { padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,.08);}
+  .event-log .e:last-child { border:none;}
+  .event-log .e .t { color:#9aabd6; margin-right:10px; font-variant-numeric: tabular-nums;}
+  .event-log .e.warn .t { color:#fbbf24;}
+  .event-log .e.danger .t { color:#ef4444;}
+
+  /* ROI */
+  .roi-grid { display:grid; grid-template-columns: 380px 1fr; gap: 28px; }
+  .roi-input {
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px;
+    padding: 22px;
+  }
+  .roi-input .field { margin-bottom: 12px;}
+  .roi-input .field label {
+    display:block; font-size: 12.5px; color:#5b6a8a;
+    margin-bottom: 4px; font-weight: 500;
+  }
+  .roi-input .field input {
+    width:100%; padding: 8px 10px; font-size: 14px;
+    border: 1px solid #d4dbed; border-radius:6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .roi-input .field .hint { font-size: 11.5px; color:#7a89a8; margin-top:2px;}
+  .roi-out {
+    background: linear-gradient(135deg, #0f1f3d, #1f3870);
+    color:#fff; border-radius:12px; padding: 22px;
+    display:grid; grid-template-rows: auto 1fr;
+  }
+  .roi-out .ttl { font-size: 13px; color:#9aabd6; text-transform: uppercase; letter-spacing: 2px;}
+  .roi-numbers { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top:14px;}
+  .roi-numbers .item { background: rgba(255,255,255,.06); padding:14px; border-radius:10px; }
+  .roi-numbers .item .v { font-size:30px; font-weight:800; color:#22d3ee;}
+  .roi-numbers .item .v.orange { color:#fbbf24; }
+  .roi-numbers .item .l { font-size:12px; color:#9aabd6; margin-top:4px;}
+  .roi-bar-row { margin-top:14px; }
+  .roi-bar-row .lbl { font-size: 12px; color:#9aabd6; margin-bottom:4px;}
+  .roi-bar { background: rgba(255,255,255,.08); height: 16px; border-radius:8px; overflow:hidden; position:relative;}
+  .roi-bar > div { height:100%; background: linear-gradient(90deg,#22d3ee,#3ec6ff); transition: width .3s;}
+  .roi-bar .marker {
+    position:absolute; top:-4px; bottom:-4px; width:2px; background:#ff7e3d;
+  }
+  .roi-bar .marker:after {
+    content:""; position:absolute; top:-4px; left:-4px; width:10px; height:10px;
+    background:#ff7e3d; border-radius:50%;
+  }
+
+  /* Roadmap */
+  .roadmap { display:grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top:8px;}
+  .roadmap .stage {
+    background:#fff; border:1px solid #e3e8f2; border-radius:10px;
+    padding: 16px 14px;
+    position: relative;
+  }
+  .roadmap .stage:before {
+    content:""; position:absolute; top: 50%; right:-7px; width:14px; height:14px;
+    background:#ff7e3d; border-radius: 50%; transform: translateY(-50%);
+    border: 3px solid #fff; box-shadow: 0 0 0 1px #ffaa7a;
+    z-index:2;
+  }
+  .roadmap .stage:last-child:before { display:none;}
+  .roadmap .stage .month { font-size: 12px; color:#ff7e3d; font-weight:700;}
+  .roadmap .stage .ttl { font-size: 14px; font-weight:700; margin: 4px 0; }
+  .roadmap .stage .det { font-size: 12px; color:#5b6a8a;}
+
+  /* SVG charts */
+  svg.chart text { font-family: inherit; }
+  svg.chart .grid line { stroke: #e3e8f2; stroke-dasharray: 2 3;}
+  svg.chart .axis  line, svg.chart .axis path { stroke: #94a3b8; }
+  svg.chart .axis text { fill:#5b6a8a; font-size: 11px;}
+  svg.chart .l-actual { fill:none; stroke:#3ec6ff; stroke-width:2;}
+  svg.chart .l-pred   { fill:none; stroke:#fbbf24; stroke-width:2; stroke-dasharray: 4 4;}
+  svg.chart .l-thresh { stroke:#ef4444; stroke-dasharray: 5 4; stroke-width:1.5; }
+  svg.chart .a-band   { fill: rgba(251,191,36,.15);}
+
+  /* footer */
+  .footnote { font-size: 11.5px; color:#7a89a8; margin-top: 14px; line-height: 1.5;}
+
+  /* slide deck mode */
+  body.deck main { padding: 0; max-width: none;}
+  body.deck section.slide {
+    margin: 0; min-height: 100vh; border-radius: 0;
+    display: none;
+    padding: 60px 80px 60px;
+  }
+  body.deck section.slide.active { display:block; }
+  body.deck .topbar { display:flex; }
+  body.deck .deck-nav { display:flex !important;}
+  .deck-nav {
+    display:none;
+    position: fixed; bottom: 18px; right: 18px; z-index: 60;
+    background: rgba(15,31,61,.92); padding: 6px 10px; border-radius: 999px;
+    color:#fff; font-size: 12.5px; gap: 8px; align-items:center;
+  }
+  .deck-nav button {
+    background: transparent; border: none; color:#fff; cursor:pointer;
+    padding: 4px 10px; border-radius: 6px; font-weight: 600;
+  }
+  .deck-nav button:hover { background: rgba(255,255,255,.1);}
+  .deck-nav .pages { font-variant-numeric: tabular-nums; opacity: .8;}
+
+  /* Responsive */
+  @media (max-width: 980px){
+    .grid-2, .grid-3, .grid-4, .roadmap { grid-template-columns: 1fr;}
+    .roi-grid { grid-template-columns: 1fr;}
+    section.slide { padding: 28px 22px;}
+    .gauges { grid-template-columns: repeat(2,1fr);}
+  }
+  /* print */
+  @media print {
+    .topbar, .deck-nav { display:none !important;}
+    section.slide { box-shadow:none; page-break-after: always; margin: 0; border-radius: 0;}
+    body { background:#fff;}
+  }
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">凯莱英 · AI 落地推进 <span class="badge">方向 ⑥ · AI 培训生成</span></div>
+  <nav>
+    <a href="#cover">封面</a>
+    <a href="#why">背景</a>
+    <a href="#status">现状</a>
+    <a href="#scope">范围</a>
+    <a href="#tech">技术路线</a>
+    <a href="#demo">演示</a>
+    <a href="#vendor">供应商</a>
+    <a href="#roi">ROI</a>
+    <a href="#roadmap">路径</a>
+    <a href="#risk">风险</a>
+    <a href="#decision">决策</a>
+  </nav>
+  <button class="modeswitch" onclick="document.body.classList.toggle('deck')">演示模式</button>
+</div>
+
+<main>
+
+<section class="slide cover" id="cover">
+  <h2 class="kicker">AI-GENERATED SOP TRAINING VIDEO</h2>
+  <h1>凯莱英 SOP 培训视频<br/>AI 自动化生成推进方案</h1>
+  <div class="subtitle">让 SOP 培训视频从<br/><span style="color:#ff9b6b;">"2 周拍一个"走向"1 天上线"</span></div>
+  <div class="subtitle" style="font-size:15px; margin-top:14px; opacity:.75;">
+    把"SOP 文档 → 数字人讲解 → 操作示范 → 考核题"全流程自动化；
+    培训部从"拍片导演"变成"内容审校"，视频化覆盖率从 10% 提升到 80%+。
+  </div>
+  <div class="meta">
+    <div>方向编号：⑥ · Quick Win 候选 #2（跟 ② 共用 LLM 底座）</div>
+    <div>主导部门：培训部 / HR / QA / 生产 / IT</div>
+    <div>预计 PoC 周期：3 个月 · Pilot 周期：4-6 个月</div>
+    <div>本方案版本：v1.0</div>
+  </div>
+</section>
+
+<section class="slide" id="why">
+  <h2 class="kicker">PART 01 · 为什么是现在</h2>
+  <h1>SOP 培训是 GMP 合规强需求 · 但视频化率只有 ~10%</h1>
+  <p class="lead">
+    新员工入职、SOP 变更、新设备启用 — 都要做培训 + 考核。文字 SOP + PPT 现在仍是主流，
+    视频培训覆盖率低，因为<strong>"拍一个视频太贵"</strong>。AI 数字人技术成熟后，这个瓶颈被打开了。
+  </p>
+  <div class="grid-4" style="margin-top:14px;">
+    <div class="card accent"><div class="num">500-1000</div><div class="label">凯莱英 SOP 总数（估算）</div><div class="desc">含投料/称量/清洁/取样/更衣/设备操作等</div></div>
+    <div class="card accent"><div class="num">~10%</div><div class="label">当前视频化覆盖率</div><div class="desc">大部分是文字 + PPT，质量参差</div></div>
+    <div class="card accent"><div class="num">2 周 / 16h</div><div class="label">现状单视频制作周期</div><div class="desc">脚本 + 排片 + 拍摄 + 剪辑 + 配音 + 字幕 + 审核</div></div>
+    <div class="card accent"><div class="num">+40%</div><div class="label">视频培训通过率提升</div><div class="desc">行业研究：视频化培训 vs 文字培训的考核通过率差异</div></div>
+  </div>
+  <h2 style="margin-top:24px; font-size:18px; color:#0f1f3d;">业务痛点</h2>
+  <div class="grid-3" style="margin-top:8px;">
+    <div class="card danger">
+      <strong style="color:#991b1b;">🔴 视频化覆盖率极低</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>500+ SOP 只有 50+ 有视频，新员工依然靠文字理解</li>
+        <li>操作复杂的 SOP（如无菌更衣）没视频就难以掌握</li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <strong style="color:#991b1b;">🔴 SOP 变更后视频跟不上</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>SOP 变更频次：~5-10 次/月</li>
+        <li>视频重做成本高 → 实际"视频已过期但还在用"</li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <strong style="color:#991b1b;">🔴 多语言培训缺位</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>韩国 / 日本客户驻厂工程师需英文培训</li>
+        <li>少数 SOP 有英文版，大部分没有</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="status">
+  <h2 class="kicker">PART 02 · 凯莱英现状盘点</h2>
+  <h1>SOP 文档完整 · 缺的是"自动化生成视频"那一层</h1>
+  <p class="lead">
+    凯莱英 SOP 体系已经成熟（QA 主管），培训部也有培训平台。缺的是<strong>"SOP → 分镜脚本 → 数字人 → 视频"</strong>的自动化生产线。
+  </p>
+  <table class="kly">
+    <thead><tr><th style="width:18%;">维度</th><th style="width:22%;">现有基础</th><th style="width:22%;">缺什么</th><th>评估</th></tr></thead>
+    <tbody>
+      <tr><td><strong>SOP 库</strong></td><td>500+ SOP，QA 维护</td><td>结构化版本（步骤 / 警示 / 设备 标签化）</td><td><span class="pill mid">部分就绪</span></td></tr>
+      <tr><td><strong>培训平台</strong></td><td>已有（视频播放 + 考核 + 完成度跟踪）</td><td>跟 AI 视频生成系统对接 API</td><td><span class="pill ok">就绪</span></td></tr>
+      <tr><td><strong>素材库</strong></td><td>历年拍摄的操作示范片段</td><td>结构化标签 + 可检索（按设备/操作/区域）</td><td><span class="pill warn">缺失</span></td></tr>
+      <tr><td><strong>数字人 / TTS</strong></td><td>—</td><td>HeyGen / 腾讯智影 / 商汤如影 API</td><td><span class="pill warn">缺失</span></td></tr>
+      <tr><td><strong>LLM 分镜</strong></td><td>—</td><td>同 ② 方向共用 LLM + RAG 底座</td><td><span class="pill mid">同 ② 共建</span></td></tr>
+      <tr><td><strong>考核题库</strong></td><td>每个 SOP 有 5-10 道题</td><td>LLM 自动从 SOP 生成题</td><td><span class="pill ok">就绪</span></td></tr>
+    </tbody>
+  </table>
+  <div class="card success" style="margin-top:16px;">
+    <strong style="color:#166534;">💡 跟方向 ② 报告共享底座的边际成本极低</strong>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li>LLM + RAG 底座 — 跟 ② 完全共用，本方向边际成本 0</li>
+      <li>多出来的成本：① 数字人服务订阅；② 素材库建设（一次性）；③ 视频生成集群</li>
+      <li>两个方向<strong>合并立项</strong>性价比最高</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" id="scope">
+  <h2 class="kicker">PART 03 · 试点覆盖范围</h2>
+  <h1>从"5 个 SOP"扩展到"全 SOP 库 500+ × 多语言"</h1>
+  <div class="roadmap" style="grid-template-columns: repeat(3,1fr); margin-top:14px;">
+    <div class="stage"><div class="month">PoC · M1-M3</div><div class="ttl">5 个 SOP</div><div class="det">投料/清洁/取样/更衣/称量<br/>各 5 分钟视频 + 考核题<br/><strong style="color:#ff7e3d;">采纳率 ≥70%</strong></div></div>
+    <div class="stage"><div class="month">Pilot · M4-M7</div><div class="ttl">50 个 SOP</div><div class="det">覆盖 3-5 个部门<br/>+ 中英文双语<br/>+ SOP 变更跟踪机制<br/><strong style="color:#ff7e3d;">通过率 ≥85%</strong></div></div>
+    <div class="stage"><div class="month">Scale · M8-M12+</div><div class="ttl">500+ 全 SOP</div><div class="det">全 SOP 库视频化<br/>+ 多语言（含韩日）<br/>+ 个性化推送<br/><strong style="color:#ff7e3d;">视频化率 ≥80%</strong></div></div>
+  </div>
+  <div class="grid-2" style="margin-top:18px;">
+    <div class="card success">
+      <strong style="color:#166534;">✅ MVP 做的</strong>
+      <ul class="bul tight">
+        <li><strong>5 个 SOP</strong>：投料/清洁/取样/更衣/称量（结构化最完整）</li>
+        <li><strong>LLM 自动分镜</strong>（输入：SOP Word → 输出：分镜脚本）</li>
+        <li><strong>数字人讲解</strong>（HeyGen / 智影 API 集成）</li>
+        <li><strong>素材库匹配</strong>（人工拍摄 50-100 个关键操作片段一次性）</li>
+        <li><strong>5-8 道考核题</strong>（LLM 生成 + 培训部审核）</li>
+        <li>上传到现有培训平台（不另建系统）</li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <strong style="color:#991b1b;">❌ MVP 不做的</strong>
+      <ul class="bul tight">
+        <li>不做 100% AI 生成视频（关键操作仍需真人拍摄素材）</li>
+        <li>不做多语言（先中文，英文留 Pilot）</li>
+        <li>不做 VR / 交互式培训（V3 才考虑）</li>
+        <li>不做"AI 评估学员考核"（用现有考核系统）</li>
+        <li>不做实时直播（只做录播）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="tech">
+  <h2 class="kicker">PART 04 · 技术路线</h2>
+  <h1>SOP → LLM 分镜 → 素材匹配 → 数字人合成 → 视频成品</h1>
+  <p class="lead">技术成熟度高 — 6 个阶段都有现成方案。关键是<strong>素材库建设</strong>这个一次性投入。</p>
+  <svg viewBox="0 0 1100 240" style="width:100%; height:auto; margin-top:8px;">
+    <rect x="20" y="40" width="160" height="140" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5" rx="8"/>
+    <text x="100" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">① SOP 文档</text>
+    <text x="100" y="90" text-anchor="middle" font-size="11" fill="#1e3a8a">QA 维护的</text>
+    <text x="100" y="108" text-anchor="middle" font-size="11" fill="#1e3a8a">Word / PDF SOP</text>
+    <text x="100" y="135" text-anchor="middle" font-size="10" fill="#7c2d12">业务主责</text>
+    <text x="100" y="155" text-anchor="middle" font-size="10" fill="#7c2d12">需结构化标签</text>
+    <polygon points="180,110 210,110 205,105 205,115" fill="#3b82f6"/>
+
+    <rect x="220" y="40" width="160" height="140" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="8"/>
+    <text x="300" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#5b21b6">② LLM 分镜</text>
+    <text x="300" y="90" text-anchor="middle" font-size="11" fill="#3a4d72">从 SOP 拆出</text>
+    <text x="300" y="108" text-anchor="middle" font-size="11" fill="#3a4d72">每镜头脚本 / 时长 / 配图</text>
+    <text x="300" y="135" text-anchor="middle" font-size="10" fill="#5b21b6">IT (LLM 调用)</text>
+    <text x="300" y="155" text-anchor="middle" font-size="10" fill="#5b21b6">~30 秒输出</text>
+    <polygon points="380,110 410,110 405,105 405,115" fill="#7c3aed"/>
+
+    <rect x="420" y="40" width="160" height="140" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="8"/>
+    <text x="500" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#5b21b6">③ 素材匹配</text>
+    <text x="500" y="90" text-anchor="middle" font-size="11" fill="#3a4d72">从素材库</text>
+    <text x="500" y="108" text-anchor="middle" font-size="11" fill="#3a4d72">检索对应操作片段</text>
+    <text x="500" y="135" text-anchor="middle" font-size="10" fill="#5b21b6">IT 主责</text>
+    <text x="500" y="155" text-anchor="middle" font-size="10" fill="#5b21b6">向量检索</text>
+    <polygon points="580,110 610,110 605,105 605,115" fill="#7c3aed"/>
+
+    <rect x="620" y="40" width="160" height="140" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="8"/>
+    <text x="700" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#5b21b6">④ 数字人合成</text>
+    <text x="700" y="90" text-anchor="middle" font-size="11" fill="#3a4d72">HeyGen / 智影</text>
+    <text x="700" y="108" text-anchor="middle" font-size="11" fill="#3a4d72">API 渲染讲解片段</text>
+    <text x="700" y="135" text-anchor="middle" font-size="10" fill="#5b21b6">外采 API</text>
+    <text x="700" y="155" text-anchor="middle" font-size="10" fill="#5b21b6">~5-10 分钟/视频</text>
+    <polygon points="780,110 810,110 805,105 805,115" fill="#7c3aed"/>
+
+    <rect x="820" y="40" width="260" height="140" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5" rx="8"/>
+    <text x="950" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#065f46">⑤ 视频成品 + 考核</text>
+    <text x="835" y="92" font-size="11" fill="#3a4d72">• 完整 5-8 分钟视频</text>
+    <text x="835" y="108" font-size="11" fill="#3a4d72">• 5-8 道考核题</text>
+    <text x="835" y="124" font-size="11" fill="#3a4d72">• 多语言版本</text>
+    <text x="835" y="142" font-size="11" fill="#3a4d72">• 上传培训平台</text>
+    <text x="835" y="165" font-size="10" font-style="italic" fill="#065f46">培训部审核 + 发布</text>
+  </svg>
+  <div class="card" style="margin-top:14px;">
+    <strong>关键技术选择：素材库建设 vs 完全 AI 生成</strong>
+    <ul class="bul tight">
+      <li>"完全 AI 生成视频"（如 Sora）目前还不够稳定，<strong>不能精确呈现"称量到 25.000 kg 的动作"等细节</strong></li>
+      <li>本方案选择"<strong>真人拍摄素材 + AI 数字人讲解</strong>"组合：50-100 个关键操作片段一次性拍摄，AI 调用</li>
+      <li>素材库建设是<strong>一次性 80-150 工时投入</strong>（培训部 + 资深操作员 + 摄影师配合 2-3 周）</li>
+      <li>后续每个新 SOP 视频生成<strong>只需 LLM 分镜 + 数字人 + 素材检索</strong>，全自动 1-2 小时出片</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" id="demo">
+  <h2 class="kicker">PART 05 · 演示</h2>
+  <h1>切换不同 SOP — 看 AI 自动生成的分镜脚本</h1>
+  <p class="lead">点击不同 SOP，看 AI 在 30 秒内生成的完整分镜脚本 + 数字人台词 + 拍摄提示 + 考核题。</p>
+  <div class="demo-box" style="margin-top:12px;">
+    <div class="demo-title">🎬 AI 视频生成器演示</div>
+    <div style="margin-bottom:12px;">
+      <button class="btn" data-d6="weigh" onclick="d6Show('weigh')">投料称量 SOP</button>
+      <button class="btn ghost" data-d6="clean" onclick="d6Show('clean')">设备清洁 SOP</button>
+      <button class="btn ghost" data-d6="sample" onclick="d6Show('sample')">QC 取样 SOP</button>
+      <button class="btn ghost" data-d6="gown" onclick="d6Show('gown')">无菌更衣 SOP</button>
+    </div>
+    <div id="d6-out"></div>
+  </div>
+</section>
+
+<script>
+const d6Data = {
+  weigh: {
+    title:'投料称量 SOP 培训视频',
+    duration:'5 分 30 秒',
+    quiz:5,
+    scenes:[
+      {t:'0:00-0:20', shot:'标题画面 + 数字人开场', script:'各位同事好，本视频介绍《投料称量 SOP P-SOP-001》。完成后您将能独立按 GMP 完成投料称量。', hint:'数字人讲解 + LOGO 动画'},
+      {t:'0:20-1:00', shot:'称量间环境', script:'认识称量间布局——称量台、物料柜、洗手池、电子秤。进入前必须更衣+洗手。', hint:'实拍 360° 扫视'},
+      {t:'1:00-2:00', shot:'步骤 1 准备', script:'步骤 1：核对批生产指令单 / 物料批号 / 有效期。⚠ 必须双人核对+签字。', hint:'特写 + 提示叠加'},
+      {t:'2:00-3:30', shot:'步骤 2 称量', script:'步骤 2：设置电子秤皮重；缓慢加料；误差不超 ±0.5%。', hint:'数值特写'},
+      {t:'3:30-4:30', shot:'步骤 3 记录', script:'步骤 3：实时记录称量量+操作时间+签字。⚠ 双人复核当场完成。', hint:'批记录特写 + 签字'},
+      {t:'4:30-5:30', shot:'考核 + 结尾', script:'5 道题，通过率 ≥80% 通过培训。', hint:'答题界面 + 数字人结尾'}
+    ]
+  },
+  clean: {
+    title:'反应釜清洁 SOP 培训视频',
+    duration:'7 分 15 秒',
+    quiz:5,
+    scenes:[
+      {t:'0:00-0:20', shot:'标题 + 开场', script:'本视频介绍《反应釜清洁 SOP C-SOP-008》。CIP 流程 + 验证取样 + 接受标准。', hint:'数字人 + LOGO'},
+      {t:'0:20-1:30', shot:'清洁前准备', script:'步骤 1：核对前批物料 + 清洁等级。不同等级 CIP 不同。', hint:'对照表 + 等级标识'},
+      {t:'1:30-3:30', shot:'CIP 6 阶段', script:'预冲洗 / 碱洗 / 水洗 / 酸洗 / 水洗 / 干燥。时长流量参数表。', hint:'CIP 画面 + 进度条'},
+      {t:'3:30-5:00', shot:'清洁验证', script:'淋洗水样 + 擦拭样送 LIMS。TOC ≤10 ppm 表面 ≤4 μg/cm²。', hint:'取样动作 + 标准弹窗'},
+      {t:'5:00-6:30', shot:'放行 + 记录', script:'CIP 报告 + LIMS 合格 → 二级签字 → "清洁待用"。', hint:'状态切换'},
+      {t:'6:30-7:15', shot:'考核', script:'5 道题 + 1 道情景题。', hint:'答题界面'}
+    ]
+  },
+  sample: {
+    title:'QC 取样 SOP 培训视频', duration:'6 分', quiz:5,
+    scenes:[
+      {t:'0:00-0:20', shot:'标题', script:'介绍《QC 取样 SOP Q-SOP-012》—— 工具 / 取样点 / 留样。', hint:'数字人'},
+      {t:'0:20-1:30', shot:'防护', script:'步骤 1：穿 PPE，准备取样器 + 已贴标签样品瓶。', hint:'PPE 特写'},
+      {t:'1:30-3:00', shot:'取样点', script:'步骤 2：3 个高度分别取样。取样器使用前冲洗 3 次。', hint:'取样点标注'},
+      {t:'3:00-4:30', shot:'标签 + 记录', script:'步骤 3：项目号/批号/取样点/时间/取样人 必填。⚠ 现场粘贴+签字。', hint:'标签特写 + 签字'},
+      {t:'4:30-5:30', shot:'送检 + 留样', script:'步骤 4：交 LIMS + 留样按 SOP 保存。', hint:'LIMS 界面'},
+      {t:'5:30-6:00', shot:'考核', script:'5 道题。', hint:'答题界面'}
+    ]
+  },
+  gown: {
+    title:'无菌区更衣 SOP 培训视频', duration:'8 分', quiz:8,
+    scenes:[
+      {t:'0:00-0:30', shot:'标题', script:'介绍《无菌更衣 SOP G-SOP-003》。三级更衣逐级提升洁净。', hint:'三级布局图'},
+      {t:'0:30-2:00', shot:'一更', script:'脱外套 → 换洁净服 → 戴帽 → 进入一更。⚠ 鞋套完全包裹。', hint:'实拍演示'},
+      {t:'2:00-4:00', shot:'二更', script:'二更：无菌服 → 口罩 → 第二副手套 → 洁净度核查。', hint:'特写'},
+      {t:'4:00-5:30', shot:'三更（A 区）', script:'三更：无菌连体服 → 三副手套 → 护目镜 → 助手协助 → 不触碰外表面。', hint:'两人协作'},
+      {t:'5:30-7:00', shot:'进出 A 区', script:'进入 A 区流程 + 出 A 区脱衣顺序 + 异常处置。', hint:'流程图 + 弹窗'},
+      {t:'7:00-8:00', shot:'考核', script:'8 道题（题量加大）。', hint:'答题界面'}
+    ]
+  }
+};
+function d6Show(k){
+  document.querySelectorAll('button[data-d6]').forEach(b=>b.classList.add('ghost'));
+  const btn = document.querySelector('button[data-d6="'+k+'"]'); btn.classList.remove('ghost');
+  const s = d6Data[k];
+  let html = '<div style="background:rgba(255,255,255,.04); border-radius:10px; padding:14px;">' +
+    '<div style="display:flex; justify-content:space-between; margin-bottom:10px;">' +
+    '<strong style="color:#fff;">🎬 '+s.title+'</strong>' +
+    '<span style="color:#fbbf24; font-size:13px;">总时长 '+s.duration+' · '+s.quiz+' 道考核题</span></div>';
+  s.scenes.forEach(sc=>{
+    html += '<div style="display:grid; grid-template-columns:80px 140px 1fr 200px; gap:10px; padding:6px 0; border-bottom:1px dashed rgba(255,255,255,.08); font-size:11.5px;">' +
+      '<div style="color:#22d3ee; font-weight:700;">'+sc.t+'</div>' +
+      '<div style="color:#fff;">'+sc.shot+'</div>' +
+      '<div style="color:#cdd6e8;">'+sc.script+'</div>' +
+      '<div style="color:#9aabd6; font-style:italic;">🎥 '+sc.hint+'</div></div>';
+  });
+  html += '</div>' +
+    '<div style="margin-top:14px; display:flex; gap:10px; align-items:center;">' +
+    '<button class="btn">▶ 渲染数字人视频 (Mock)</button>' +
+    '<span style="font-size:12px; color:#9aabd6;">→ HeyGen API 调用，约 5-10 分钟可生成</span></div>';
+  document.getElementById('d6-out').innerHTML = html;
+}
+d6Show('weigh');
+</script>
+
+<section class="slide" id="vendor">
+  <h2 class="kicker">PART 06 · 三条路线对比</h2>
+  <h1>数字人服务选型 — HeyGen / 腾讯智影 / 商汤如影</h1>
+  <table class="kly" style="margin-top:14px;">
+    <thead><tr><th style="width:14%;">维度</th><th style="width:24%;">HeyGen（国际）</th><th style="width:24%;">腾讯智影（国产 · 推荐）</th><th>商汤如影 / 闪剪</th></tr></thead>
+    <tbody>
+      <tr><td><strong>数字人质量</strong></td><td>顶级（口型 + 表情）</td><td>很好（适合培训场景）</td><td>中上</td></tr>
+      <tr><td><strong>中文 / 制药术语</strong></td><td>中等</td><td><strong>原生中文最强</strong></td><td>原生中文</td></tr>
+      <tr><td><strong>多语言支持</strong></td><td>40+ 语言</td><td>中英日韩</td><td>中英日韩</td></tr>
+      <tr><td><strong>API 集成难度</strong></td><td>低（成熟 REST API）</td><td>低（国内对接简单）</td><td>低</td></tr>
+      <tr><td><strong>价格（单视频 5 分钟）</strong></td><td>约 30-50 元</td><td><strong>约 5-15 元</strong></td><td>约 10-30 元</td></tr>
+      <tr><td><strong>数据出境</strong></td><td><span class="pill warn">是（合规风险）</span></td><td><span class="pill ok">否</span></td><td><span class="pill ok">否</span></td></tr>
+      <tr><td><strong>定制数字人形象</strong></td><td>付费可定制（凯莱英品牌）</td><td>付费可定制</td><td>付费可定制</td></tr>
+      <tr><td><strong>推荐</strong></td><td>—</td><td><strong>★ 推荐 PoC 默认</strong></td><td>备选</td></tr>
+    </tbody>
+  </table>
+  <div class="card success" style="margin-top:14px;">
+    <strong style="color:#166534;">💡 推荐路线：腾讯智影为主 + HeyGen 备选</strong>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li>PoC 阶段直接用<strong>腾讯智影</strong>（国产、价格低、中文最强、无数据出境）</li>
+      <li>Pilot 阶段如果需要英文版多语言深化，再考虑 HeyGen 补充</li>
+      <li>不建议自建数字人系统（投入 500 万 +、维护重，性价比远不如外采）</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" id="roi">
+  <h2 class="kicker">PART 07 · 投资回报测算</h2>
+  <h1>试点投入 vs 年化收益</h1>
+  <div class="roi-grid" style="margin-top:12px;">
+    <div class="roi-input">
+      <div class="field"><label>年新增/重做视频数（份）</label><input type="number" id="r-vids" value="50" min="10" max="500" oninput="d6Roi()"><div class="hint">含新员工培训 + SOP 变更</div></div>
+      <div class="field"><label>现状单视频工时（小时）</label><input type="number" id="r-orig" value="16" min="4" max="40" oninput="d6Roi()"><div class="hint">脚本+拍摄+剪辑+配音+审核</div></div>
+      <div class="field"><label>AI 辅助后单视频工时（小时）</label><input type="number" id="r-new" value="4" min="1" max="10" step="0.5" oninput="d6Roi()"><div class="hint">SOP 录入+审校+发布</div></div>
+      <div class="field"><label>培训部小时成本（元）</label><input type="number" id="r-rate" value="200" min="80" max="500" step="20" oninput="d6Roi()"><div class="hint">含培训部 + 拍摄+剪辑</div></div>
+      <div class="field"><label>新员工合规事件 / 培训不当损失（万元/年）</label><input type="number" id="r-loss" value="50" min="0" max="500" oninput="d6Roi()"><div class="hint">不规范操作 → 偏差 → 返工/客诉</div></div>
+      <div class="field"><label>项目总投入（万元，3 年）</label><input type="number" id="r-cost" value="150" min="50" max="500" oninput="d6Roi()"><div class="hint">PoC 30 + Pilot 70 + Scale 50</div></div>
+    </div>
+    <div class="roi-out">
+      <div class="ttl">📊 年化收益估算</div>
+      <div class="roi-numbers">
+        <div class="item"><div class="v" id="r-save-h">600</div><div class="l">年节省工时（小时）</div></div>
+        <div class="item"><div class="v orange" id="r-save-m">12</div><div class="l">年节省制作成本（万元）</div></div>
+        <div class="item"><div class="v" id="r-total">42</div><div class="l">年化总收益（万元）</div></div>
+        <div class="item"><div class="v orange" id="r-payback">3.6</div><div class="l">回本周期（年）</div></div>
+      </div>
+      <div class="roi-bar-row">
+        <div class="lbl">3 年累计 ROI 比例</div>
+        <div class="roi-bar"><div id="r-bar" style="width:30%;"></div><div class="marker" style="left:33%;"></div></div>
+      </div>
+      <div style="margin-top:18px; font-size:12px; color:#9aabd6;">
+        <strong style="color:#fff;">注</strong>：本方向<strong>显性 ROI 不算特别高</strong>，
+        但有 3 大隐性价值：① 跟方向 ② 共用底座 → 边际成本接近 0；
+        ② 视频化覆盖率 ×10 → 培训效果难量化但很显著；
+        ③ "AI 在凯莱英"的可视化展示效果最强 → 给副总裁 / 集团 / 客户展示。
+      </div>
+    </div>
+  </div>
+  <script>
+  function d6Roi(){
+    const v = +document.getElementById('r-vids').value;
+    const o = +document.getElementById('r-orig').value;
+    const n = +document.getElementById('r-new').value;
+    const r = +document.getElementById('r-rate').value;
+    const l = +document.getElementById('r-loss').value;
+    const c = +document.getElementById('r-cost').value;
+    const sh = v * (o - n);
+    const sm = sh * r / 10000;
+    const t = sm + l;
+    const pb = c / t;
+    const roi = (t * 3) / c;
+    document.getElementById('r-save-h').textContent = Math.round(sh);
+    document.getElementById('r-save-m').textContent = sm.toFixed(0);
+    document.getElementById('r-total').textContent = t.toFixed(0);
+    document.getElementById('r-payback').textContent = pb.toFixed(1);
+    document.getElementById('r-bar').style.width = Math.min(roi*33.3, 100)+'%';
+  }
+  d6Roi();
+  </script>
+</section>
+
+<section class="slide" id="roadmap">
+  <h2 class="kicker">PART 08 · 落地路径</h2>
+  <h1>12 个月跑通 PoC + Pilot + Scale</h1>
+  <div class="roadmap" style="margin-top:10px;">
+    <div class="stage"><div class="month">M1</div><div class="ttl">SOP + 素材</div><div class="det">选 5 个 PoC SOP<br/>拍 50 个关键操作片段<br/>素材库标签化</div></div>
+    <div class="stage"><div class="month">M2-M3</div><div class="ttl">PoC</div><div class="det">数字人 API 集成<br/>5 个 SOP 视频生成<br/>+ 考核题<br/><strong style="color:#ff7e3d;">采纳率 ≥70%</strong></div></div>
+    <div class="stage"><div class="month">M4-M7</div><div class="ttl">Pilot</div><div class="det">50 个 SOP 视频<br/>3-5 个部门覆盖<br/>+ 英文版<br/>+ SOP 变更跟踪</div></div>
+    <div class="stage"><div class="month">M8-M10</div><div class="ttl">规模生产</div><div class="det">每月 50 个新视频<br/>持续素材库扩充<br/>+ 多语言扩展</div></div>
+    <div class="stage"><div class="month">M11-M12+</div><div class="ttl">Scale 全覆盖</div><div class="det">500+ SOP 全覆盖<br/>视频化率 ≥80%<br/>个性化推送</div></div>
+  </div>
+</section>
+
+<section class="slide" id="risk">
+  <h2 class="kicker">PART 09 · 风险与控制</h2>
+  <h1>主要风险与对应控制措施</h1>
+  <table class="kly" style="margin-top:10px;">
+    <thead><tr><th style="width:18%;">风险</th><th style="width:30%;">表现</th><th>控制措施</th></tr></thead>
+    <tbody>
+      <tr><td><strong>① 素材库质量不足</strong></td><td>关键操作没拍到、画面模糊</td><td>① 培训部主导拍摄计划；② 资深操作员示范；③ 分批拍摄 → 边用边补</td></tr>
+      <tr><td><strong>② SOP 文档结构化不一致</strong></td><td>老 SOP 没标签化，LLM 解析效果差</td><td>① QA 配合先做 SOP 模板标准化；② LLM 容错 + 工程师审校</td></tr>
+      <tr><td><strong>③ 数字人"恐怖谷"</strong></td><td>员工反馈"不像真人""出戏"</td><td>① 选业内顶级（智影）；② 让员工选偏好数字人形象；③ 定制凯莱英品牌数字人</td></tr>
+      <tr><td><strong>④ SOP 频繁变更</strong></td><td>视频跟不上 SOP 更新</td><td>① 模块化分镜（只重做变更章节）；② SOP 版本钩子自动触发重生成</td></tr>
+      <tr><td><strong>⑤ 培训效果不及预期</strong></td><td>考核通过率反而下降</td><td>① AI 视频 vs 真人讲师对照组对比；② 持续迭代脚本质量</td></tr>
+      <tr><td><strong>⑥ 客户对 AI 培训接受度</strong></td><td>客户审计时质疑"是不是真培训过"</td><td>① 视频末尾考核成绩留档；② 数字人讲解 ≠ 没培训，关键是考核通过率</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide" id="decision">
+  <h2 class="kicker">PART 10 · 决策建议</h2>
+  <h1>重点决策 4 件事</h1>
+  <div class="grid-2" style="margin-top:14px;">
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">①</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">合并立项 — 跟方向 ② 报告 AI 一起</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">
+        本方向跟方向 ② 共用 LLM + RAG 底座。<strong>分开立项是浪费</strong>。
+        建议"Quick Win 双方向"合并立项：PoC 总预算 80-160 万 / 周期 3 个月。
+      </p>
+      <ul class="bul tight" style="margin-top:6px;"><li>决策项：双方向合并 PoC / 共用基础设施 / 不分开走 RFP</li></ul>
+    </div>
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">②</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">数字人选型 — 腾讯智影优先</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">
+        国产、价格低、中文最强、无数据出境。HeyGen 留作 Pilot 多语言备选。
+        <strong>不自建数字人系统</strong>（投入 500 万 +、性价比远不如外采）。
+      </p>
+      <ul class="bul tight" style="margin-top:6px;"><li>决策项：腾讯智影 PoC 默认 + 凯莱英品牌数字人定制（一次性 5-10 万）</li></ul>
+    </div>
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">③</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">素材库 — 一次性投入 + 持续扩充</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">
+        素材库是<strong>本方向最关键的一次性投入</strong>。50-100 个关键操作片段，
+        培训部 + 资深操作员配合 2-3 周拍完，覆盖 80% 的 SOP 用例。
+      </p>
+      <ul class="bul tight" style="margin-top:6px;"><li>决策项：素材库立项 30-50 万 + 资深操作员配合时间承诺</li></ul>
+    </div>
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">④</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">效果验证 — AI 视频 vs 真人讲师对照</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">
+        PoC 阶段必须做<strong>对照实验</strong>：同一批新员工分两组，一组看 AI 视频、一组听真人讲师，
+        考核通过率 + 操作正确率对比。AI 组不能显著差 — 这是验收的硬指标。
+      </p>
+      <ul class="bul tight" style="margin-top:6px;"><li>决策项：对照实验设计 + HR / 培训部 / QA 验收标准对齐</li></ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+</body>
+</html>

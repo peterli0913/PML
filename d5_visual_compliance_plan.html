@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>凯莱英视觉 AI 操作合规实时监测 — 推进方案</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "HarmonyOS Sans SC", "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
+    color: #0f1f3d;
+    background: #f3f5fa;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  /* === Top nav === */
+  .topbar {
+    position: sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 10px 28px;
+    background: rgba(15,31,61,.96); color: #fff;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar .brand { font-weight:700; letter-spacing:.5px; font-size:14px;}
+  .topbar .brand .badge {
+    display:inline-block; padding:2px 8px; margin-left:8px;
+    background:#ff7e3d; color:#fff; border-radius:4px; font-size:11px; font-weight:600;
+  }
+  .topbar nav a {
+    color:#cdd6e8; font-size:12.5px; text-decoration:none;
+    margin: 0 8px; padding:6px 8px; border-radius:6px;
+  }
+  .topbar nav a:hover { background:#1d2f55; color:#fff; }
+  .topbar .modeswitch {
+    font-size:12px; cursor:pointer; padding:6px 12px;
+    border:1px solid #3b507e; color:#cdd6e8; border-radius:6px;
+    background:transparent;
+  }
+  .topbar .modeswitch:hover { background:#1d2f55; }
+
+  /* === Slide / section === */
+  main { max-width: 1240px; margin: 0 auto; padding: 0 24px 80px; }
+  section.slide {
+    background:#fff;
+    border-radius: 14px;
+    padding: 44px 52px 50px;
+    margin: 28px 0;
+    box-shadow: 0 6px 24px rgba(15,31,61,.07);
+    position: relative;
+    min-height: 540px;
+  }
+  section.slide.cover {
+    background: linear-gradient(135deg, #0f1f3d 0%, #1f3870 60%, #2a4d9c 100%);
+    color:#fff;
+  }
+  section.slide h2.kicker {
+    color:#ff7e3d; font-size: 13px; font-weight:700; letter-spacing: 4px;
+    margin: 0 0 6px; text-transform: uppercase;
+  }
+  section.slide h1 {
+    font-size: 30px; margin: 0 0 14px; font-weight:700;
+    border-left: 5px solid #ff7e3d; padding-left: 14px; line-height: 1.25;
+  }
+  section.slide.cover h1 { border:none; padding:0; font-size: 44px; line-height: 1.2;}
+  section.slide.cover .subtitle { font-size:18px; opacity:.85; margin-top:18px; max-width: 760px;}
+  section.slide.cover .meta { margin-top: 60px; font-size:13px; opacity:.75; }
+  section.slide.cover .meta div { margin: 4px 0;}
+  section.slide .lead { font-size: 16px; color:#3a4d72; margin: 0 0 24px; max-width: 920px;}
+
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 28px;}
+  .grid-3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;}
+  .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px;}
+
+  /* Cards & callouts */
+  .card {
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px;
+    padding: 20px 22px;
+  }
+  .card.accent { background: #fff7f1; border-color:#ffd8be;}
+  .card.danger { background: #fef2f2; border-color:#fecaca;}
+  .card.success { background: #f0fdf4; border-color:#bbf7d0;}
+  .card .num {
+    font-size: 32px; font-weight:800; color:#0f1f3d;
+    line-height: 1.1;
+  }
+  .card.accent .num { color:#ff7e3d; }
+  .card .num small { font-size:14px; font-weight:600; color:#7a89a8; margin-left:4px;}
+  .card .label { font-size:13px; color:#5b6a8a; margin-top:4px;}
+  .card .desc { font-size:13px; color:#3a4d72; margin-top:10px; line-height:1.5;}
+
+  /* tables */
+  table.kly { width:100%; border-collapse: collapse; font-size: 13.5px; }
+  table.kly th, table.kly td {
+    padding: 10px 12px; text-align:left;
+    border-bottom: 1px solid #e6ebf5;
+  }
+  table.kly thead th {
+    background:#0f1f3d; color:#fff; font-weight:600; font-size:12.5px;
+    letter-spacing:.5px;
+  }
+  table.kly tbody tr:nth-child(even) { background:#f7f9fc; }
+  table.kly td.num { text-align:right; font-variant-numeric: tabular-nums; }
+  table.kly .pill {
+    display:inline-block; padding:2px 9px; border-radius:99px; font-size:11.5px; font-weight:600;
+  }
+  .pill.ok    { background:#dcfce7; color:#166534; }
+  .pill.mid   { background:#fef9c3; color:#854d0e; }
+  .pill.warn  { background:#fee2e2; color:#991b1b; }
+  .pill.info  { background:#dbeafe; color:#1e3a8a; }
+
+  /* lists */
+  ul.bul { padding-left: 0; list-style:none; margin: 8px 0;}
+  ul.bul li { padding: 6px 0 6px 22px; position:relative; font-size:14px;}
+  ul.bul li:before {
+    content:""; position:absolute; left:4px; top:14px; width:8px; height:8px;
+    background:#ff7e3d; border-radius:2px; transform:rotate(45deg);
+  }
+  ul.bul.tight li { padding: 3px 0 3px 22px; font-size:13.5px; }
+  ul.bul.tight li:before { top:12px; }
+
+  .tag {
+    display:inline-block; padding:3px 10px; font-size:12px; border-radius:99px;
+    background:#e7eefb; color:#1e40af; font-weight:600; margin: 2px 4px 2px 0;
+  }
+  .tag.warn { background:#fef3c7; color:#92400e;}
+  .tag.danger { background:#fee2e2; color:#991b1b;}
+  .tag.ok { background:#dcfce7; color:#166534;}
+
+  /* Demo specific */
+  .demo-box {
+    background: linear-gradient(180deg,#0f1f3d 0%,#142a55 100%);
+    color:#fff; border-radius: 14px; padding: 24px;
+  }
+  .demo-box .demo-title { font-size: 14px; opacity:.7; margin-bottom: 10px;}
+  .gauges { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  .gauge {
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px; padding: 14px;
+  }
+  .gauge .g-label { font-size: 11.5px; color: #9aabd6; text-transform: uppercase; letter-spacing: 1px;}
+  .gauge .g-val   { font-size: 28px; font-weight:800; margin: 6px 0 2px; }
+  .gauge .g-unit  { font-size: 12px; color: #9aabd6;}
+  .gauge .g-bar   { height: 5px; background: rgba(255,255,255,.1); border-radius: 4px; margin-top:8px; overflow:hidden;}
+  .gauge .g-bar > div { height:100%; background:#3ec6ff; transition: width .3s; }
+  .gauge.warn .g-val { color:#fbbf24; }
+  .gauge.warn .g-bar > div { background:#fbbf24; }
+  .gauge.danger .g-val { color:#ef4444; }
+  .gauge.danger .g-bar > div { background:#ef4444; }
+  .gauge.ok .g-val { color:#22d3ee; }
+
+  .health-banner {
+    background: rgba(255,255,255,.06); border-radius: 10px; padding: 14px 16px;
+    display:flex; gap:24px; align-items:center; margin-bottom: 14px;
+  }
+  .health-score {
+    font-size: 56px; font-weight: 800; line-height:1;
+    background: linear-gradient(135deg,#22d3ee,#3ec6ff);
+    -webkit-background-clip: text; background-clip: text; color:transparent;
+  }
+  .health-info { flex:1; }
+  .health-info .ttl { font-size: 13px; color:#9aabd6; text-transform: uppercase; letter-spacing: 1.5px;}
+  .health-info .stat { font-size: 18px; font-weight:600; margin: 4px 0;}
+  .health-info .desc { font-size: 13px; color:#cdd6e8; }
+  .countdown { text-align:center; padding: 0 18px; border-left: 1px solid rgba(255,255,255,.1);}
+  .countdown .num { font-size:34px; font-weight:800; color:#fbbf24;}
+  .countdown .lbl { font-size: 11.5px; color:#9aabd6;}
+
+  .demo-controls {
+    display:flex; gap: 10px; align-items:center; margin-top: 14px; flex-wrap: wrap;
+    background: rgba(255,255,255,.04); border-radius:10px; padding:12px 14px;
+  }
+  .demo-controls label { font-size: 12.5px; color:#9aabd6; }
+  .demo-controls input[type=range] { flex:1; max-width: 600px; accent-color: #ff7e3d;}
+  .demo-controls .btn {
+    padding: 6px 14px; font-size: 12.5px; border-radius: 6px;
+    background: #ff7e3d; color:#fff; border:none; cursor:pointer; font-weight:600;
+  }
+  .demo-controls .btn:hover { background:#ff9359;}
+  .demo-controls .btn.ghost { background:transparent; color:#9aabd6; border:1px solid rgba(255,255,255,.18);}
+  .demo-controls .btn.ghost:hover { color:#fff;}
+
+  .event-log {
+    margin-top: 14px; max-height: 180px; overflow-y: auto;
+    background: rgba(255,255,255,.04); border-radius: 10px; padding: 8px 14px;
+    font-size:12.5px;
+  }
+  .event-log .e { padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,.08);}
+  .event-log .e:last-child { border:none;}
+  .event-log .e .t { color:#9aabd6; margin-right:10px; font-variant-numeric: tabular-nums;}
+  .event-log .e.warn .t { color:#fbbf24;}
+  .event-log .e.danger .t { color:#ef4444;}
+
+  /* ROI */
+  .roi-grid { display:grid; grid-template-columns: 380px 1fr; gap: 28px; }
+  .roi-input {
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px;
+    padding: 22px;
+  }
+  .roi-input .field { margin-bottom: 12px;}
+  .roi-input .field label {
+    display:block; font-size: 12.5px; color:#5b6a8a;
+    margin-bottom: 4px; font-weight: 500;
+  }
+  .roi-input .field input {
+    width:100%; padding: 8px 10px; font-size: 14px;
+    border: 1px solid #d4dbed; border-radius:6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .roi-input .field .hint { font-size: 11.5px; color:#7a89a8; margin-top:2px;}
+  .roi-out {
+    background: linear-gradient(135deg, #0f1f3d, #1f3870);
+    color:#fff; border-radius:12px; padding: 22px;
+    display:grid; grid-template-rows: auto 1fr;
+  }
+  .roi-out .ttl { font-size: 13px; color:#9aabd6; text-transform: uppercase; letter-spacing: 2px;}
+  .roi-numbers { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top:14px;}
+  .roi-numbers .item { background: rgba(255,255,255,.06); padding:14px; border-radius:10px; }
+  .roi-numbers .item .v { font-size:30px; font-weight:800; color:#22d3ee;}
+  .roi-numbers .item .v.orange { color:#fbbf24; }
+  .roi-numbers .item .l { font-size:12px; color:#9aabd6; margin-top:4px;}
+  .roi-bar-row { margin-top:14px; }
+  .roi-bar-row .lbl { font-size: 12px; color:#9aabd6; margin-bottom:4px;}
+  .roi-bar { background: rgba(255,255,255,.08); height: 16px; border-radius:8px; overflow:hidden; position:relative;}
+  .roi-bar > div { height:100%; background: linear-gradient(90deg,#22d3ee,#3ec6ff); transition: width .3s;}
+  .roi-bar .marker {
+    position:absolute; top:-4px; bottom:-4px; width:2px; background:#ff7e3d;
+  }
+  .roi-bar .marker:after {
+    content:""; position:absolute; top:-4px; left:-4px; width:10px; height:10px;
+    background:#ff7e3d; border-radius:50%;
+  }
+
+  /* Roadmap */
+  .roadmap { display:grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top:8px;}
+  .roadmap .stage {
+    background:#fff; border:1px solid #e3e8f2; border-radius:10px;
+    padding: 16px 14px;
+    position: relative;
+  }
+  .roadmap .stage:before {
+    content:""; position:absolute; top: 50%; right:-7px; width:14px; height:14px;
+    background:#ff7e3d; border-radius: 50%; transform: translateY(-50%);
+    border: 3px solid #fff; box-shadow: 0 0 0 1px #ffaa7a;
+    z-index:2;
+  }
+  .roadmap .stage:last-child:before { display:none;}
+  .roadmap .stage .month { font-size: 12px; color:#ff7e3d; font-weight:700;}
+  .roadmap .stage .ttl { font-size: 14px; font-weight:700; margin: 4px 0; }
+  .roadmap .stage .det { font-size: 12px; color:#5b6a8a;}
+
+  /* SVG charts */
+  svg.chart text { font-family: inherit; }
+  svg.chart .grid line { stroke: #e3e8f2; stroke-dasharray: 2 3;}
+  svg.chart .axis  line, svg.chart .axis path { stroke: #94a3b8; }
+  svg.chart .axis text { fill:#5b6a8a; font-size: 11px;}
+  svg.chart .l-actual { fill:none; stroke:#3ec6ff; stroke-width:2;}
+  svg.chart .l-pred   { fill:none; stroke:#fbbf24; stroke-width:2; stroke-dasharray: 4 4;}
+  svg.chart .l-thresh { stroke:#ef4444; stroke-dasharray: 5 4; stroke-width:1.5; }
+  svg.chart .a-band   { fill: rgba(251,191,36,.15);}
+
+  /* footer */
+  .footnote { font-size: 11.5px; color:#7a89a8; margin-top: 14px; line-height: 1.5;}
+
+  /* slide deck mode */
+  body.deck main { padding: 0; max-width: none;}
+  body.deck section.slide {
+    margin: 0; min-height: 100vh; border-radius: 0;
+    display: none;
+    padding: 60px 80px 60px;
+  }
+  body.deck section.slide.active { display:block; }
+  body.deck .topbar { display:flex; }
+  body.deck .deck-nav { display:flex !important;}
+  .deck-nav {
+    display:none;
+    position: fixed; bottom: 18px; right: 18px; z-index: 60;
+    background: rgba(15,31,61,.92); padding: 6px 10px; border-radius: 999px;
+    color:#fff; font-size: 12.5px; gap: 8px; align-items:center;
+  }
+  .deck-nav button {
+    background: transparent; border: none; color:#fff; cursor:pointer;
+    padding: 4px 10px; border-radius: 6px; font-weight: 600;
+  }
+  .deck-nav button:hover { background: rgba(255,255,255,.1);}
+  .deck-nav .pages { font-variant-numeric: tabular-nums; opacity: .8;}
+
+  /* Responsive */
+  @media (max-width: 980px){
+    .grid-2, .grid-3, .grid-4, .roadmap { grid-template-columns: 1fr;}
+    .roi-grid { grid-template-columns: 1fr;}
+    section.slide { padding: 28px 22px;}
+    .gauges { grid-template-columns: repeat(2,1fr);}
+  }
+  /* print */
+  @media print {
+    .topbar, .deck-nav { display:none !important;}
+    section.slide { box-shadow:none; page-break-after: always; margin: 0; border-radius: 0;}
+    body { background:#fff;}
+  }
+</style></head><body>
+<div class="topbar">
+  <div class="brand">凯莱英 · AI 落地推进 <span class="badge">方向 ⑤ · 视觉合规</span></div>
+  <nav>
+    <a href="#cover">封面</a><a href="#why">背景</a><a href="#status">现状</a><a href="#scope">范围</a>
+    <a href="#tech">技术路线</a><a href="#demo">演示</a><a href="#vendor">供应商</a><a href="#roi">ROI</a>
+    <a href="#roadmap">路径</a><a href="#risk">风险</a><a href="#decision">决策</a>
+  </nav>
+  <button class="modeswitch" onclick="document.body.classList.toggle('deck')">演示模式</button>
+</div>
+<main>
+
+<section class="slide cover" id="cover">
+  <h2 class="kicker">CV-BASED OPERATION COMPLIANCE MONITORING</h2>
+  <h1>凯莱英视觉 AI 操作合规<br/>实时监测推进方案</h1>
+  <div class="subtitle">让 GMP 巡检从<br/><span style="color:#ff9b6b;">"被动抽查"走向"24×7 守门员"</span></div>
+  <div class="subtitle" style="font-size:15px; margin-top:14px; opacity:.75;">
+    用车间已有的 CCTV + 视觉 AI 模型，实时识别违反 SOP 的关键动作；
+    巡检员从"主动巡查"变成"响应告警"，部分替代 30-50% QC 巡检工作量。
+  </div>
+  <div class="meta">
+    <div>方向编号：⑤ · 中期布局</div>
+    <div>主导部门：QA / QC / 生产 / EHS / HR / IT</div>
+    <div>预计 PoC 周期：4 个月 · Pilot 周期：6 个月</div>
+    <div>本方案版本：v1.0 · 隐私 / 工会议题需提前打通</div>
+  </div>
+</section>
+
+<section class="slide" id="why">
+  <h2 class="kicker">PART 01 · 为什么是现在</h2>
+  <h1>巡检员一离开就是盲区 · 7×24 监测靠人力不现实</h1>
+  <p class="lead">QA / QC 巡检员日常抽查车间操作员是否按 SOP 执行（戴手套 / 洗手 / 称量 / 签字 等）。问题在<strong>覆盖率有限</strong>—— 一个巡检员看不过来全厂，且巡检员一离开就是盲区。视觉 AI + 现有 CCTV 可以做<strong>24×7 全覆盖监测</strong>。</p>
+  <div class="grid-4" style="margin-top:14px;">
+    <div class="card accent"><div class="num">~15-30%</div><div class="label">人工巡检实际覆盖率</div><div class="desc">人工抽查节奏：每 1-2 小时一次，单次 10-15 分钟</div></div>
+    <div class="card accent"><div class="num">~100+</div><div class="label">凯莱英 GMP 车间 CCTV 摄像头</div><div class="desc">现有摄像头基础，需要软件升级</div></div>
+    <div class="card accent"><div class="num">30-50%</div><div class="label">巡检工作可替代率</div><div class="desc">"显式动作"AI 准确度 85-90%；"细节判断"仍需人工</div></div>
+    <div class="card accent"><div class="num">~5-10 起/年</div><div class="label">客户审计发现的违规事件</div><div class="desc">人工漏检导致的客户投诉 / 改进单</div></div>
+  </div>
+  <h2 style="margin-top:24px; font-size:18px; color:#0f1f3d;">业务痛点</h2>
+  <div class="grid-3">
+    <div class="card danger"><strong style="color:#991b1b;">🔴 巡检盲区</strong>
+      <ul class="bul tight"><li>夜班 / 节假日 / 凌晨时段巡检覆盖不足</li><li>偏僻车间 / 中控外区域无人值守</li><li>巡检员视线一离开就是盲区</li></ul></div>
+    <div class="card danger"><strong style="color:#991b1b;">🔴 留档不足</strong>
+      <ul class="bul tight"><li>违规事件即使被巡检员看到，事后取证困难</li><li>客户审计要求"视频留档"越来越多</li><li>FDA 检查要求实操合规可追溯</li></ul></div>
+    <div class="card danger"><strong style="color:#991b1b;">🔴 培训反馈滞后</strong>
+      <ul class="bul tight"><li>违规事件被记录后，培训反馈周期长（1-3 周）</li><li>同一类错误反复出现，培训效果差</li><li>缺乏"高频违规 → 自动培训推送"闭环</li></ul></div>
+  </div>
+</section>
+
+<section class="slide" id="status">
+  <h2 class="kicker">PART 02 · 凯莱英现状盘点</h2>
+  <h1>CCTV 80% 就绪 · 缺的是"AI 识别 + 告警闭环"那一层</h1>
+  <table class="kly">
+    <thead><tr><th style="width:18%;">维度</th><th style="width:24%;">现有基础</th><th style="width:24%;">缺什么</th><th>评估</th></tr></thead>
+    <tbody>
+      <tr><td><strong>CCTV 摄像头</strong></td><td>GMP 车间基本已覆盖（海康为主）</td><td>洁净区 / 关键操作区盲点补点 + 部分摄像头升级</td><td><span class="pill mid">部分就绪</span></td></tr>
+      <tr><td><strong>视频管理系统</strong></td><td>NVR 已有（海康）</td><td>API 开放 + 视频流接入 AI 平台</td><td><span class="pill ok">就绪</span></td></tr>
+      <tr><td><strong>视觉 AI 算法</strong></td><td>—</td><td>目标检测（YOLO/DETR）+ 动作识别（MMaction）+ 行业训练</td><td><span class="pill warn">缺失</span></td></tr>
+      <tr><td><strong>边缘计算节点</strong></td><td>—</td><td>本地推理（不上云，降低法务风险）</td><td><span class="pill warn">缺失</span></td></tr>
+      <tr><td><strong>SOP 动作字典</strong></td><td>SOP 文档完整</td><td>"关键合规动作"结构化清单（QA 整理）</td><td><span class="pill mid">部分就绪</span></td></tr>
+      <tr><td><strong>员工 / 工会沟通</strong></td><td>—</td><td>实时视频监测的接受度 + 隐私保护方案</td><td><span class="pill warn">最大风险</span></td></tr>
+      <tr><td><strong>客户合规</strong></td><td>客户审计要求严</td><td>视频涉及多客户工艺数据，需逐家客户沟通</td><td><span class="pill warn">需提前打通</span></td></tr>
+    </tbody>
+  </table>
+  <div class="card danger" style="margin-top:14px;">
+    <strong style="color:#991b1b;">⚠️ 关键认知：技术不难，但"人和合规"是最大挑战</strong>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li>视觉 AI 算法本身<strong>技术成熟</strong>（海康 / 商汤 / 旷视 都能做）</li>
+      <li>但<strong>员工接受度、工会立场、客户合规、监管态度</strong>都需要提前打通 — 这是技术之外的关键工作</li>
+      <li>建议<strong>不要急着上技术 PoC</strong>，先做 4-6 周"软启动"沟通工作</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" id="scope">
+  <h2 class="kicker">PART 03 · 试点覆盖范围</h2>
+  <h1>从"1 个车间 × 5 关键动作"扩展到"全 GMP 车间 × 完整 SOP 覆盖"</h1>
+  <div class="roadmap" style="grid-template-columns:repeat(3,1fr); margin-top:14px;">
+    <div class="stage"><div class="month">PoC · M2-M5</div><div class="ttl">1 车间 × 5 动作</div><div class="det">称量间 PoC<br/>5 个关键动作：<br/>戴手套 / 戴口罩 / 洗手 / 签字 / 进区<br/><strong style="color:#ff7e3d;">误报率 ≤10%</strong></div></div>
+    <div class="stage"><div class="month">Pilot · M6-M11</div><div class="ttl">3 车间 × 10 动作</div><div class="det">扩展至投料间、配液间<br/>+ 操作步骤匹配<br/>+ 巡检流程改造<br/><strong style="color:#ff7e3d;">巡检替代率 ≥30%</strong></div></div>
+    <div class="stage"><div class="month">Scale · Y2</div><div class="ttl">全 GMP 车间</div><div class="det">所有 GMP 关键操作区<br/>+ 全 SOP 覆盖<br/>+ 培训反馈闭环</div></div>
+  </div>
+  <div class="grid-2" style="margin-top:18px;">
+    <div class="card success"><strong style="color:#166534;">✅ MVP 做的</strong>
+      <ul class="bul tight">
+        <li><strong>1 个车间</strong>：选称量间或配料间（动作最清晰）</li>
+        <li><strong>5 个关键动作</strong>：戴手套 / 戴口罩 / 洗手 / 签字 / 进受限区</li>
+        <li><strong>边缘计算</strong>：本地处理，不上云</li>
+        <li><strong>仅告警 + 视频留档</strong>，不自动处置</li>
+        <li>巡检员复核闭环 → 培训反馈</li>
+      </ul>
+    </div>
+    <div class="card danger"><strong style="color:#991b1b;">❌ MVP 不做的</strong>
+      <ul class="bul tight">
+        <li>不做全厂铺开（先单车间）</li>
+        <li>不做 AI 自动停机 / 处罚（仅告警 + 人工复核）</li>
+        <li>不做精细操作识别（如"称量步骤是否正确"，V2）</li>
+        <li>不做跨厂区视频汇总</li>
+        <li>不做员工实名识别（先做"违规行为"识别，不识别"哪个人"）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="tech">
+  <h2 class="kicker">PART 04 · 技术路线</h2>
+  <h1>CCTV 视频流 → 边缘 AI 推理 → 告警闭环 → 培训反馈</h1>
+  <svg viewBox="0 0 1100 280" style="width:100%; height:auto; margin-top:10px;">
+    <rect x="20" y="40" width="180" height="200" fill="#eff6ff" stroke="#3b82f6" rx="8"/>
+    <text x="110" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">📹 CCTV 层</text>
+    <text x="35" y="95" font-size="11" fill="#1e3a8a">• 现有海康摄像头</text>
+    <text x="35" y="115" font-size="11" fill="#1e3a8a">• 盲区补点（小投入）</text>
+    <text x="35" y="135" font-size="11" fill="#1e3a8a">• NVR 视频流输出</text>
+    <text x="35" y="160" font-size="11" fill="#1e3a8a">• 数据保留在本地</text>
+    <text x="35" y="190" font-size="10" font-style="italic" fill="#7c2d12">IT 主责（CCTV 升级）</text>
+    <polygon points="200,140 230,140 225,135 225,145" fill="#3b82f6"/>
+
+    <rect x="240" y="40" width="200" height="200" fill="#f5f3ff" stroke="#7c3aed" rx="8"/>
+    <text x="340" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#5b21b6">🤖 边缘 AI 层</text>
+    <text x="255" y="95" font-size="11" fill="#3a4d72">• 边缘服务器（本地）</text>
+    <text x="255" y="115" font-size="11" fill="#3a4d72">• 目标检测（人/物/区域）</text>
+    <text x="255" y="135" font-size="11" fill="#3a4d72">• 动作识别（戴手套/洗手）</text>
+    <text x="255" y="155" font-size="11" fill="#3a4d72">• SOP 步骤匹配</text>
+    <text x="255" y="175" font-size="11" fill="#3a4d72">• 视频不上云</text>
+    <text x="255" y="205" font-size="10" font-style="italic" fill="#5b21b6">IT (算法) + 业务 (规则)</text>
+    <polygon points="440,140 470,140 465,135 465,145" fill="#7c3aed"/>
+
+    <rect x="480" y="40" width="200" height="200" fill="#fef3c7" stroke="#f59e0b" rx="8"/>
+    <text x="580" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">⚠ 告警闭环</text>
+    <text x="495" y="95" font-size="11" fill="#3a4d72">• 异常实时告警</text>
+    <text x="495" y="115" font-size="11" fill="#3a4d72">• 钉钉 / 企业微信推送</text>
+    <text x="495" y="135" font-size="11" fill="#3a4d72">• 巡检员手机复核</text>
+    <text x="495" y="155" font-size="11" fill="#3a4d72">• 前后 10s 视频留档</text>
+    <text x="495" y="175" font-size="11" fill="#3a4d72">• 误报反馈调优</text>
+    <text x="495" y="205" font-size="10" font-style="italic" fill="#92400e">QA 巡检员主操作</text>
+    <polygon points="680,140 710,140 705,135 705,145" fill="#f59e0b"/>
+
+    <rect x="720" y="40" width="220" height="200" fill="#ecfdf5" stroke="#10b981" rx="8"/>
+    <text x="830" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#065f46">🔁 培训反馈</text>
+    <text x="735" y="95" font-size="11" fill="#3a4d72">• 违规事件分类统计</text>
+    <text x="735" y="115" font-size="11" fill="#3a4d72">• 高频违规自动识别</text>
+    <text x="735" y="135" font-size="11" fill="#3a4d72">• 推送对应培训视频</text>
+    <text x="735" y="155" font-size="11" fill="#3a4d72">  (跟方向 ⑥ 联动)</text>
+    <text x="735" y="175" font-size="11" fill="#3a4d72">• 个人 / 班组 / 区域 KPI</text>
+    <text x="735" y="205" font-size="10" font-style="italic" fill="#065f46">HR + 培训部 + QA</text>
+
+    <rect x="960" y="40" width="120" height="200" fill="#fee2e2" stroke="#dc2626" rx="8"/>
+    <text x="1020" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#991b1b">📋 合规</text>
+    <text x="975" y="95" font-size="11" fill="#3a4d72">• 视频权限管理</text>
+    <text x="975" y="115" font-size="11" fill="#3a4d72">• 留档 ≥N 天</text>
+    <text x="975" y="135" font-size="11" fill="#3a4d72">• 客户审计可调阅</text>
+    <text x="975" y="155" font-size="11" fill="#3a4d72">• 法务合规审核</text>
+    <text x="975" y="185" font-size="10" font-style="italic" fill="#991b1b">QA + 法务</text>
+  </svg>
+  <div class="card success" style="margin-top:14px;">
+    <strong style="color:#166534;">💡 关键设计 · 边缘计算（不上云）</strong>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li>视频流<strong>100% 本地处理</strong>，不传输到云端 — 降低数据泄露 + 客户合规风险</li>
+      <li>每个 GMP 车间装<strong>1 个边缘服务器</strong>（含 GPU 推理卡），处理本车间 4-8 路视频</li>
+      <li>只把"告警事件"+ 短视频片段（前后 10s）传到中心服务器留档</li>
+      <li>原始视频流<strong>72 小时滚动覆盖</strong>，不长期保留</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" id="demo">
+  <h2 class="kicker">PART 05 · 演示</h2>
+  <h1>模拟 CCTV 画面 — 看 AI 实时识别合规 vs 违规</h1>
+  <div class="demo-box" style="margin-top:12px;">
+    <div class="demo-title">📹 CAM-01 · 称量间 · 实时画面</div>
+    <div style="display:grid; grid-template-columns: 1fr 320px; gap: 18px;">
+      <div>
+        <svg id="d5-canvas" viewBox="0 0 480 280" style="width:100%; background:#1a1d2e; border-radius:6px;">
+          <rect x="0" y="0" width="480" height="280" fill="#1a1d2e"/>
+          <rect x="60" y="160" width="140" height="80" fill="#4a5568" stroke="#718096"/>
+          <text x="130" y="200" text-anchor="middle" font-size="11" fill="#cbd5e0">称量台</text>
+          <rect x="260" y="120" width="120" height="120" fill="#4a5568" stroke="#718096"/>
+          <text x="320" y="180" text-anchor="middle" font-size="11" fill="#cbd5e0">物料柜</text>
+          <rect x="400" y="180" width="60" height="60" fill="#4a5568" stroke="#718096"/>
+          <text x="430" y="210" text-anchor="middle" font-size="10" fill="#cbd5e0">洗手池</text>
+          <g id="d5-person">
+            <circle cx="130" cy="120" r="14" fill="#fbbf24"/>
+            <rect x="120" y="133" width="20" height="30" fill="#fbbf24"/>
+          </g>
+          <rect id="d5-det" x="100" y="100" width="60" height="80" fill="none" stroke="#22d3ee" stroke-width="2" stroke-dasharray="4,2"/>
+          <text id="d5-det-lbl" x="130" y="93" text-anchor="middle" font-size="11" fill="#22d3ee" font-weight="700">合规·戴手套</text>
+          <text x="470" y="20" text-anchor="end" font-size="11" fill="#a3a3a3" id="d5-time">T+0s</text>
+        </svg>
+        <div style="margin-top:10px; display:flex; gap:8px;">
+          <button class="btn" id="d5-play" onclick="d5Play()">▶ 模拟播放</button>
+          <button class="btn ghost" onclick="d5Reset()">↻ 重置</button>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px; color:#9aabd6; margin-bottom:8px;">📋 告警事件时间线</div>
+        <div id="d5-log" style="max-height:280px; overflow-y:auto; font-size:12px; background:rgba(255,255,255,.04); border-radius:6px; padding:8px;">
+          <em style="color:#7a89a8;">点击"模拟播放"开始 ...</em>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const d5Events = [
+  { t:0,  x:130, y:120, label:'合规·戴手套', color:'#22d3ee', alert:null },
+  { t:2,  x:180, y:150, label:'合规·走向物料柜', color:'#22d3ee', alert:null },
+  { t:5,  x:300, y:170, label:'合规·取物料', color:'#22d3ee', alert:null },
+  { t:8,  x:190, y:170, label:'⚠ 未洗手返回', color:'#fbbf24', alert:{level:'warn', msg:'未在洗手池停留 → 可能跳过洗手步骤'} },
+  { t:13, x:130, y:170, label:'🔴 步骤跳过', color:'#ef4444', alert:{level:'danger', msg:'未按 SOP 步骤 3.2 洗手 → 阻断式告警 → 推送巡检员复核'} },
+  { t:16, x:430, y:210, label:'返回洗手池', color:'#22d3ee', alert:null },
+  { t:19, x:130, y:170, label:'重新称量', color:'#22d3ee', alert:{level:'success', msg:'操作员重新洗手 + 继续称量 → 告警闭环'} }
+];
+let d5Idx=0, d5Tm=null;
+function d5Play(){
+  d5Reset();
+  d5Tm = setInterval(()=>{
+    if (d5Idx >= d5Events.length){ clearInterval(d5Tm); return; }
+    const e = d5Events[d5Idx];
+    document.getElementById('d5-time').textContent = 'T+'+e.t+'s';
+    const p = document.getElementById('d5-person');
+    p.querySelector('circle').setAttribute('cx', e.x);
+    p.querySelector('circle').setAttribute('cy', e.y);
+    p.querySelector('rect').setAttribute('x', e.x-10);
+    p.querySelector('rect').setAttribute('y', e.y+13);
+    const d = document.getElementById('d5-det');
+    d.setAttribute('x', e.x-30); d.setAttribute('y', e.y-20); d.setAttribute('stroke', e.color);
+    const lbl = document.getElementById('d5-det-lbl');
+    lbl.setAttribute('x', e.x); lbl.setAttribute('y', e.y-25); lbl.setAttribute('fill', e.color);
+    lbl.textContent = e.label;
+    const log = document.getElementById('d5-log');
+    if (d5Idx===0) log.innerHTML = '';
+    let bg='rgba(34,211,238,.1)', bd='#22d3ee';
+    if (e.color==='#fbbf24'){ bg='rgba(251,191,36,.1)'; bd='#fbbf24'; }
+    if (e.color==='#ef4444'){ bg='rgba(239,68,68,.15)'; bd='#ef4444'; }
+    let html = '<div style="margin-bottom:6px; padding:6px 8px; background:'+bg+'; border-left:3px solid '+bd+'; border-radius:3px;"><strong style="font-size:11px; color:#fff;">T+'+e.t+'s</strong> <span style="color:#cdd6e8;">'+e.label+'</span>';
+    if (e.alert) html += '<div style="font-size:11px; color:#9aabd6; margin-top:3px;">→ '+e.alert.msg+'</div>';
+    html += '</div>';
+    log.innerHTML = html + log.innerHTML;
+    d5Idx++;
+  }, 1100);
+}
+function d5Reset(){
+  if (d5Tm) clearInterval(d5Tm);
+  d5Idx=0;
+  document.getElementById('d5-time').textContent = 'T+0s';
+  document.getElementById('d5-log').innerHTML = '<em style="color:#7a89a8;">点击"模拟播放"开始 ...</em>';
+}
+</script>
+
+<section class="slide" id="vendor">
+  <h2 class="kicker">PART 06 · 三条路线对比</h2>
+  <h1>海康威视 vs 商汤 vs 旷视 + 自研</h1>
+  <table class="kly" style="margin-top:14px;">
+    <thead><tr><th style="width:14%;">维度</th><th style="width:24%;">路线 A · 海康威视 (推荐)</th><th style="width:24%;">路线 B · 商汤 SenseFoundry</th><th>路线 C · 旷视 / 自研</th></tr></thead>
+    <tbody>
+      <tr><td><strong>背景</strong></td><td>国内 CCTV 龙头，凯莱英现有摄像头多为海康</td><td>商汤是 CV 大模型领先者</td><td>旷视 Brain++ / 凯莱英 IT 自研</td></tr>
+      <tr><td><strong>跟现有 CCTV 兼容</strong></td><td>★★★ 原生兼容</td><td>需适配</td><td>需适配</td></tr>
+      <tr><td><strong>动作识别精度</strong></td><td>中-高（行业算法）</td><td>★★★ 高（大模型加持）</td><td>中-高</td></tr>
+      <tr><td><strong>制药行业案例</strong></td><td>有（医药 / 食品）</td><td>有（医药 + 智慧城市）</td><td>少</td></tr>
+      <tr><td><strong>边缘计算</strong></td><td>★★★ 自家硬件</td><td>需独立 GPU 服务器</td><td>需独立 GPU 服务器</td></tr>
+      <tr><td><strong>PoC 投入（1 车间）</strong></td><td>50-100 万</td><td>80-150 万</td><td>30-80 万（自研工时）</td></tr>
+      <tr><td><strong>规模化年成本</strong></td><td>30-80 万 / 年</td><td>80-200 万 / 年</td><td>20-50 万 / 年（仅运维）</td></tr>
+      <tr><td><strong>推荐</strong></td><td>★ PoC 默认</td><td>大模型应用 / 复杂动作 V2 考虑</td><td>Pilot 阶段考虑自研降本</td></tr>
+    </tbody>
+  </table>
+  <div class="card success" style="margin-top:14px;">
+    <strong style="color:#166534;">💡 推荐路线：海康 PoC + 自研降本</strong>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li>PoC 阶段用<strong>海康威视</strong>（CCTV 兼容好、行业案例多、一站式）</li>
+      <li>Pilot 阶段评估"<strong>自研降本</strong>"可行性（核心算法可以基于开源 YOLO / MMaction 自建，节省 license）</li>
+      <li><strong>不用</strong> 智现未来（半导体视觉算法，跟车间合规场景不匹配）</li>
+      <li>埃森哲不参与本方向（咨询商不做 CV 落地）</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" id="roi">
+  <h2 class="kicker">PART 07 · 投资回报测算</h2>
+  <h1>试点投入 vs 年化收益</h1>
+  <div class="roi-grid" style="margin-top:12px;">
+    <div class="roi-input">
+      <div class="field"><label>覆盖车间数（个）</label><input type="number" id="r-rooms" value="5" min="1" max="20" oninput="d5Roi()"><div class="hint">GMP 关键操作车间</div></div>
+      <div class="field"><label>每车间替代巡检工时（h/月）</label><input type="number" id="r-hours" value="40" min="10" max="200" oninput="d5Roi()"><div class="hint">巡检员替代工时</div></div>
+      <div class="field"><label>巡检员小时成本（元）</label><input type="number" id="r-rate" value="100" min="50" max="300" oninput="d5Roi()"></div>
+      <div class="field"><label>年违规事件避免（次）</label><input type="number" id="r-event" value="8" min="0" max="30" oninput="d5Roi()"><div class="hint">实时识别 + 闭环纠正</div></div>
+      <div class="field"><label>单次违规避免价值（万元）</label><input type="number" id="r-evtval" value="15" min="2" max="100" oninput="d5Roi()"><div class="hint">客诉 + 改进单避免</div></div>
+      <div class="field"><label>项目总投入（万元，3 年）</label><input type="number" id="r-cost" value="400" min="100" max="2000" oninput="d5Roi()"><div class="hint">5 车间 PoC + Pilot + 边缘 GPU</div></div>
+    </div>
+    <div class="roi-out">
+      <div class="ttl">📊 年化收益估算</div>
+      <div class="roi-numbers">
+        <div class="item"><div class="v" id="r-save-h">2400</div><div class="l">年节省巡检工时</div></div>
+        <div class="item"><div class="v orange" id="r-save-m">24</div><div class="l">年节省人力（万元）</div></div>
+        <div class="item"><div class="v" id="r-total">144</div><div class="l">年化总收益（万元）</div></div>
+        <div class="item"><div class="v orange" id="r-payback">2.8</div><div class="l">回本周期（年）</div></div>
+      </div>
+      <div class="roi-bar-row"><div class="lbl">3 年累计 ROI</div><div class="roi-bar"><div id="r-bar" style="width:60%;"></div><div class="marker" style="left:33%;"></div></div></div>
+      <div style="margin-top:18px; font-size:12px; color:#9aabd6;">
+        <strong style="color:#fff;">注</strong>：本方向 ROI 主要来自<strong>"避免违规事件"</strong>而非"节省巡检工时"。
+        参数调整时这个权重很重要。
+      </div>
+    </div>
+  </div>
+  <script>
+  function d5Roi(){
+    const r=+document.getElementById('r-rooms').value;
+    const h=+document.getElementById('r-hours').value;
+    const rt=+document.getElementById('r-rate').value;
+    const e=+document.getElementById('r-event').value;
+    const ev=+document.getElementById('r-evtval').value;
+    const c=+document.getElementById('r-cost').value;
+    const sh = r*h*12;
+    const sm = sh*rt/10000;
+    const total = sm + e*ev;
+    const pb = c/total;
+    document.getElementById('r-save-h').textContent = Math.round(sh);
+    document.getElementById('r-save-m').textContent = sm.toFixed(0);
+    document.getElementById('r-total').textContent = total.toFixed(0);
+    document.getElementById('r-payback').textContent = pb.toFixed(1);
+    document.getElementById('r-bar').style.width = Math.min((total*3/c)*33.3, 100)+'%';
+  }
+  d5Roi();
+  </script>
+</section>
+
+<section class="slide" id="roadmap">
+  <h2 class="kicker">PART 08 · 落地路径</h2>
+  <h1>11 个月跑通 PoC + Pilot · 关键是"软启动"沟通</h1>
+  <div class="roadmap" style="margin-top:10px;">
+    <div class="stage"><div class="month">M1-M1.5</div><div class="ttl">软启动</div><div class="det">HR + 工会非正式沟通<br/>员工代表参与设计<br/>客户合规审视</div></div>
+    <div class="stage"><div class="month">M2-M5</div><div class="ttl">PoC</div><div class="det">1 车间 × 5 动作<br/>海康 PoC 部署<br/>误报率优化<br/><strong style="color:#ff7e3d;">误报 ≤10%</strong></div></div>
+    <div class="stage"><div class="month">M6-M8</div><div class="ttl">Pilot 准备</div><div class="det">SOP 动作字典完整化<br/>巡检流程改造<br/>培训反馈闭环</div></div>
+    <div class="stage"><div class="month">M9-M11</div><div class="ttl">Pilot</div><div class="det">3 车间 × 10 动作<br/>客户告知 + 审计材料<br/><strong style="color:#ff7e3d;">替代率 ≥30%</strong></div></div>
+    <div class="stage"><div class="month">Y2+</div><div class="ttl">Scale</div><div class="det">全 GMP 车间<br/>多语言告警<br/>培训反馈完整闭环</div></div>
+  </div>
+</section>
+
+<section class="slide" id="risk">
+  <h2 class="kicker">PART 09 · 风险与控制</h2>
+  <h1>主要风险与对应控制措施 · 非技术风险最大</h1>
+  <table class="kly" style="margin-top:10px;">
+    <thead><tr><th style="width:18%;">风险</th><th style="width:30%;">表现</th><th>控制措施</th></tr></thead>
+    <tbody>
+      <tr><td><strong>① 员工 / 工会接受度（最大风险）</strong></td><td>项目可能整体卡住</td><td>① 提前沟通 + 员工代表参与设计；② 强调"辅助巡检员"非"监控个人"；③ 视频权限严格</td></tr>
+      <tr><td><strong>② 客户数据保密</strong></td><td>视频可能拍到客户工艺细节</td><td>① 边缘本地处理不传云；② 客户审计前知会 + 合同明确；③ 视频留档客户可调阅</td></tr>
+      <tr><td><strong>③ 误报率高</strong></td><td>巡检员不信任系统</td><td>① PoC 阶段严控误报；② 持续学习；③ 误报样本反馈闭环</td></tr>
+      <tr><td><strong>④ 监管态度</strong></td><td>FDA/NMPA 对"AI 替代巡检"未明确</td><td>谨慎宣称"替代" → 定位为"辅助"；保留人工巡检 SOP</td></tr>
+      <tr><td><strong>⑤ 视频留档合规</strong></td><td>留档时长 / 访问权限 / 数据安全</td><td>QA + 法务先做合规审核，写入 SOP</td></tr>
+      <tr><td><strong>⑥ 摄像头盲区</strong></td><td>现有 CCTV 覆盖不足</td><td>① 关键操作区先做盲点补点；② 接受"非全覆盖"现实</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide" id="decision">
+  <h2 class="kicker">PART 10 · 决策建议</h2>
+  <h1>重点决策 4 件事</h1>
+  <div class="grid-2" style="margin-top:14px;">
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">①</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">软启动 — 先沟通后立项</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">本方向<strong>不要急着上技术 PoC</strong>。先用 4-6 周做"软启动"——HR + 工会沟通、员工代表访谈、客户合规审视、QA + 法务确认。沟通顺畅再立项。</p>
+      <ul class="bul tight" style="margin-top:6px;"><li>决策项：M1 启动沟通；M2 决定是否进 PoC</li></ul>
+    </div>
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">②</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">PoC 范围 — 严格 1 车间 × 5 动作</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">本方向最大陷阱是"想做太多" —— 上来就想做精细操作识别 / 实名识别。PoC 严格限定<strong>1 个车间 × 5 个最简单动作</strong>，跑通后再扩。</p>
+      <ul class="bul tight" style="margin-top:6px;"><li>决策项：PoC 范围由"QA 主管 + IT + HR" 3 方书面确认</li></ul>
+    </div>
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">③</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">供应商 — 海康 PoC + 自研评估</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">PoC 用<strong>海康威视</strong>（CCTV 兼容、行业案例）。Pilot 评估"自研降本"可行性（开源 YOLO / MMaction）。</p>
+      <ul class="bul tight" style="margin-top:6px;"><li>决策项：海康 PoC + Pilot 阶段自研可行性评估</li></ul>
+    </div>
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">④</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">定位 — 永远是"辅助"非"替代"</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;"><strong>不要对外宣称"AI 替代巡检"</strong>。 始终定位"辅助巡检员、提高覆盖率"。 监管 / 客户审计应对时强调"人工巡检 SOP 保留 + AI 是辅助工具"。</p>
+      <ul class="bul tight" style="margin-top:6px;"><li>决策项：所有对外材料定位"辅助"；保留人工巡检 SOP</li></ul>
+    </div>
+  </div>
+</section>
+
+</main>
+</body>
+</html>

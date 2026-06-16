@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>凯莱英设备全生命周期 AI 智能管理 — 推进方案</title>
+<style>
+
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "HarmonyOS Sans SC", "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
+    color: #0f1f3d;
+    background: #f3f5fa;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  /* === Top nav === */
+  .topbar {
+    position: sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 10px 28px;
+    background: rgba(15,31,61,.96); color: #fff;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar .brand { font-weight:700; letter-spacing:.5px; font-size:14px;}
+  .topbar .brand .badge {
+    display:inline-block; padding:2px 8px; margin-left:8px;
+    background:#ff7e3d; color:#fff; border-radius:4px; font-size:11px; font-weight:600;
+  }
+  .topbar nav a {
+    color:#cdd6e8; font-size:12.5px; text-decoration:none;
+    margin: 0 8px; padding:6px 8px; border-radius:6px;
+  }
+  .topbar nav a:hover { background:#1d2f55; color:#fff; }
+  .topbar .modeswitch {
+    font-size:12px; cursor:pointer; padding:6px 12px;
+    border:1px solid #3b507e; color:#cdd6e8; border-radius:6px;
+    background:transparent;
+  }
+  .topbar .modeswitch:hover { background:#1d2f55; }
+
+  /* === Slide / section === */
+  main { max-width: 1240px; margin: 0 auto; padding: 0 24px 80px; }
+  section.slide {
+    background:#fff;
+    border-radius: 14px;
+    padding: 44px 52px 50px;
+    margin: 28px 0;
+    box-shadow: 0 6px 24px rgba(15,31,61,.07);
+    position: relative;
+    min-height: 540px;
+  }
+  section.slide.cover {
+    background: linear-gradient(135deg, #0f1f3d 0%, #1f3870 60%, #2a4d9c 100%);
+    color:#fff;
+  }
+  section.slide h2.kicker {
+    color:#ff7e3d; font-size: 13px; font-weight:700; letter-spacing: 4px;
+    margin: 0 0 6px; text-transform: uppercase;
+  }
+  section.slide h1 {
+    font-size: 30px; margin: 0 0 14px; font-weight:700;
+    border-left: 5px solid #ff7e3d; padding-left: 14px; line-height: 1.25;
+  }
+  section.slide.cover h1 { border:none; padding:0; font-size: 44px; line-height: 1.2;}
+  section.slide.cover .subtitle { font-size:18px; opacity:.85; margin-top:18px; max-width: 760px;}
+  section.slide.cover .meta { margin-top: 60px; font-size:13px; opacity:.75; }
+  section.slide.cover .meta div { margin: 4px 0;}
+  section.slide .lead { font-size: 16px; color:#3a4d72; margin: 0 0 24px; max-width: 920px;}
+
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 28px;}
+  .grid-3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;}
+  .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px;}
+
+  /* Cards & callouts */
+  .card {
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px;
+    padding: 20px 22px;
+  }
+  .card.accent { background: #fff7f1; border-color:#ffd8be;}
+  .card.danger { background: #fef2f2; border-color:#fecaca;}
+  .card.success { background: #f0fdf4; border-color:#bbf7d0;}
+  .card .num {
+    font-size: 32px; font-weight:800; color:#0f1f3d;
+    line-height: 1.1;
+  }
+  .card.accent .num { color:#ff7e3d; }
+  .card .num small { font-size:14px; font-weight:600; color:#7a89a8; margin-left:4px;}
+  .card .label { font-size:13px; color:#5b6a8a; margin-top:4px;}
+  .card .desc { font-size:13px; color:#3a4d72; margin-top:10px; line-height:1.5;}
+
+  /* tables */
+  table.kly { width:100%; border-collapse: collapse; font-size: 13.5px; }
+  table.kly th, table.kly td {
+    padding: 10px 12px; text-align:left;
+    border-bottom: 1px solid #e6ebf5;
+  }
+  table.kly thead th {
+    background:#0f1f3d; color:#fff; font-weight:600; font-size:12.5px;
+    letter-spacing:.5px;
+  }
+  table.kly tbody tr:nth-child(even) { background:#f7f9fc; }
+  table.kly td.num { text-align:right; font-variant-numeric: tabular-nums; }
+  table.kly .pill {
+    display:inline-block; padding:2px 9px; border-radius:99px; font-size:11.5px; font-weight:600;
+  }
+  .pill.ok    { background:#dcfce7; color:#166534; }
+  .pill.mid   { background:#fef9c3; color:#854d0e; }
+  .pill.warn  { background:#fee2e2; color:#991b1b; }
+  .pill.info  { background:#dbeafe; color:#1e3a8a; }
+
+  /* lists */
+  ul.bul { padding-left: 0; list-style:none; margin: 8px 0;}
+  ul.bul li { padding: 6px 0 6px 22px; position:relative; font-size:14px;}
+  ul.bul li:before {
+    content:""; position:absolute; left:4px; top:14px; width:8px; height:8px;
+    background:#ff7e3d; border-radius:2px; transform:rotate(45deg);
+  }
+  ul.bul.tight li { padding: 3px 0 3px 22px; font-size:13.5px; }
+  ul.bul.tight li:before { top:12px; }
+
+  .tag {
+    display:inline-block; padding:3px 10px; font-size:12px; border-radius:99px;
+    background:#e7eefb; color:#1e40af; font-weight:600; margin: 2px 4px 2px 0;
+  }
+  .tag.warn { background:#fef3c7; color:#92400e;}
+  .tag.danger { background:#fee2e2; color:#991b1b;}
+  .tag.ok { background:#dcfce7; color:#166534;}
+
+  /* Demo specific */
+  .demo-box {
+    background: linear-gradient(180deg,#0f1f3d 0%,#142a55 100%);
+    color:#fff; border-radius: 14px; padding: 24px;
+  }
+  .demo-box .demo-title { font-size: 14px; opacity:.7; margin-bottom: 10px;}
+  .gauges { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  .gauge {
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px; padding: 14px;
+  }
+  .gauge .g-label { font-size: 11.5px; color: #9aabd6; text-transform: uppercase; letter-spacing: 1px;}
+  .gauge .g-val   { font-size: 28px; font-weight:800; margin: 6px 0 2px; }
+  .gauge .g-unit  { font-size: 12px; color: #9aabd6;}
+  .gauge .g-bar   { height: 5px; background: rgba(255,255,255,.1); border-radius: 4px; margin-top:8px; overflow:hidden;}
+  .gauge .g-bar > div { height:100%; background:#3ec6ff; transition: width .3s; }
+  .gauge.warn .g-val { color:#fbbf24; }
+  .gauge.warn .g-bar > div { background:#fbbf24; }
+  .gauge.danger .g-val { color:#ef4444; }
+  .gauge.danger .g-bar > div { background:#ef4444; }
+  .gauge.ok .g-val { color:#22d3ee; }
+
+  .health-banner {
+    background: rgba(255,255,255,.06); border-radius: 10px; padding: 14px 16px;
+    display:flex; gap:24px; align-items:center; margin-bottom: 14px;
+  }
+  .health-score {
+    font-size: 56px; font-weight: 800; line-height:1;
+    background: linear-gradient(135deg,#22d3ee,#3ec6ff);
+    -webkit-background-clip: text; background-clip: text; color:transparent;
+  }
+  .health-info { flex:1; }
+  .health-info .ttl { font-size: 13px; color:#9aabd6; text-transform: uppercase; letter-spacing: 1.5px;}
+  .health-info .stat { font-size: 18px; font-weight:600; margin: 4px 0;}
+  .health-info .desc { font-size: 13px; color:#cdd6e8; }
+  .countdown { text-align:center; padding: 0 18px; border-left: 1px solid rgba(255,255,255,.1);}
+  .countdown .num { font-size:34px; font-weight:800; color:#fbbf24;}
+  .countdown .lbl { font-size: 11.5px; color:#9aabd6;}
+
+  .demo-controls {
+    display:flex; gap: 10px; align-items:center; margin-top: 14px; flex-wrap: wrap;
+    background: rgba(255,255,255,.04); border-radius:10px; padding:12px 14px;
+  }
+  .demo-controls label { font-size: 12.5px; color:#9aabd6; }
+  .demo-controls input[type=range] { flex:1; max-width: 600px; accent-color: #ff7e3d;}
+  .demo-controls .btn {
+    padding: 6px 14px; font-size: 12.5px; border-radius: 6px;
+    background: #ff7e3d; color:#fff; border:none; cursor:pointer; font-weight:600;
+  }
+  .demo-controls .btn:hover { background:#ff9359;}
+  .demo-controls .btn.ghost { background:transparent; color:#9aabd6; border:1px solid rgba(255,255,255,.18);}
+  .demo-controls .btn.ghost:hover { color:#fff;}
+
+  .event-log {
+    margin-top: 14px; max-height: 180px; overflow-y: auto;
+    background: rgba(255,255,255,.04); border-radius: 10px; padding: 8px 14px;
+    font-size:12.5px;
+  }
+  .event-log .e { padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,.08);}
+  .event-log .e:last-child { border:none;}
+  .event-log .e .t { color:#9aabd6; margin-right:10px; font-variant-numeric: tabular-nums;}
+  .event-log .e.warn .t { color:#fbbf24;}
+  .event-log .e.danger .t { color:#ef4444;}
+
+  /* ROI */
+  .roi-grid { display:grid; grid-template-columns: 380px 1fr; gap: 28px; }
+  .roi-input {
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px;
+    padding: 22px;
+  }
+  .roi-input .field { margin-bottom: 12px;}
+  .roi-input .field label {
+    display:block; font-size: 12.5px; color:#5b6a8a;
+    margin-bottom: 4px; font-weight: 500;
+  }
+  .roi-input .field input {
+    width:100%; padding: 8px 10px; font-size: 14px;
+    border: 1px solid #d4dbed; border-radius:6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .roi-input .field .hint { font-size: 11.5px; color:#7a89a8; margin-top:2px;}
+  .roi-out {
+    background: linear-gradient(135deg, #0f1f3d, #1f3870);
+    color:#fff; border-radius:12px; padding: 22px;
+    display:grid; grid-template-rows: auto 1fr;
+  }
+  .roi-out .ttl { font-size: 13px; color:#9aabd6; text-transform: uppercase; letter-spacing: 2px;}
+  .roi-numbers { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top:14px;}
+  .roi-numbers .item { background: rgba(255,255,255,.06); padding:14px; border-radius:10px; }
+  .roi-numbers .item .v { font-size:30px; font-weight:800; color:#22d3ee;}
+  .roi-numbers .item .v.orange { color:#fbbf24; }
+  .roi-numbers .item .l { font-size:12px; color:#9aabd6; margin-top:4px;}
+  .roi-bar-row { margin-top:14px; }
+  .roi-bar-row .lbl { font-size: 12px; color:#9aabd6; margin-bottom:4px;}
+  .roi-bar { background: rgba(255,255,255,.08); height: 16px; border-radius:8px; overflow:hidden; position:relative;}
+  .roi-bar > div { height:100%; background: linear-gradient(90deg,#22d3ee,#3ec6ff); transition: width .3s;}
+  .roi-bar .marker {
+    position:absolute; top:-4px; bottom:-4px; width:2px; background:#ff7e3d;
+  }
+  .roi-bar .marker:after {
+    content:""; position:absolute; top:-4px; left:-4px; width:10px; height:10px;
+    background:#ff7e3d; border-radius:50%;
+  }
+
+  /* Roadmap */
+  .roadmap { display:grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top:8px;}
+  .roadmap .stage {
+    background:#fff; border:1px solid #e3e8f2; border-radius:10px;
+    padding: 16px 14px;
+    position: relative;
+  }
+  .roadmap .stage:before {
+    content:""; position:absolute; top: 50%; right:-7px; width:14px; height:14px;
+    background:#ff7e3d; border-radius: 50%; transform: translateY(-50%);
+    border: 3px solid #fff; box-shadow: 0 0 0 1px #ffaa7a;
+    z-index:2;
+  }
+  .roadmap .stage:last-child:before { display:none;}
+  .roadmap .stage .month { font-size: 12px; color:#ff7e3d; font-weight:700;}
+  .roadmap .stage .ttl { font-size: 14px; font-weight:700; margin: 4px 0; }
+  .roadmap .stage .det { font-size: 12px; color:#5b6a8a;}
+
+  /* SVG charts */
+  svg.chart text { font-family: inherit; }
+  svg.chart .grid line { stroke: #e3e8f2; stroke-dasharray: 2 3;}
+  svg.chart .axis  line, svg.chart .axis path { stroke: #94a3b8; }
+  svg.chart .axis text { fill:#5b6a8a; font-size: 11px;}
+  svg.chart .l-actual { fill:none; stroke:#3ec6ff; stroke-width:2;}
+  svg.chart .l-pred   { fill:none; stroke:#fbbf24; stroke-width:2; stroke-dasharray: 4 4;}
+  svg.chart .l-thresh { stroke:#ef4444; stroke-dasharray: 5 4; stroke-width:1.5; }
+  svg.chart .a-band   { fill: rgba(251,191,36,.15);}
+
+  /* footer */
+  .footnote { font-size: 11.5px; color:#7a89a8; margin-top: 14px; line-height: 1.5;}
+
+  /* slide deck mode */
+  body.deck main { padding: 0; max-width: none;}
+  body.deck section.slide {
+    margin: 0; min-height: 100vh; border-radius: 0;
+    display: none;
+    padding: 60px 80px 60px;
+  }
+  body.deck section.slide.active { display:block; }
+  body.deck .topbar { display:flex; }
+  body.deck .deck-nav { display:flex !important;}
+  .deck-nav {
+    display:none;
+    position: fixed; bottom: 18px; right: 18px; z-index: 60;
+    background: rgba(15,31,61,.92); padding: 6px 10px; border-radius: 999px;
+    color:#fff; font-size: 12.5px; gap: 8px; align-items:center;
+  }
+  .deck-nav button {
+    background: transparent; border: none; color:#fff; cursor:pointer;
+    padding: 4px 10px; border-radius: 6px; font-weight: 600;
+  }
+  .deck-nav button:hover { background: rgba(255,255,255,.1);}
+  .deck-nav .pages { font-variant-numeric: tabular-nums; opacity: .8;}
+
+  /* Responsive */
+  @media (max-width: 980px){
+    .grid-2, .grid-3, .grid-4, .roadmap { grid-template-columns: 1fr;}
+    .roi-grid { grid-template-columns: 1fr;}
+    section.slide { padding: 28px 22px;}
+    .gauges { grid-template-columns: repeat(2,1fr);}
+  }
+  /* print */
+  @media print {
+    .topbar, .deck-nav { display:none !important;}
+    section.slide { box-shadow:none; page-break-after: always; margin: 0; border-radius: 0;}
+    body { background:#fff;}
+  }
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">凯莱英 · AI 落地推进 <span class="badge">方向 ④ · 设备 AI</span></div>
+  <nav>
+    <a href="#cover">封面</a>
+    <a href="#why">背景</a>
+    <a href="#status">现状</a>
+    <a href="#scope">范围</a>
+    <a href="#tech">技术路线</a>
+    <a href="#demo">演示</a>
+    <a href="#vendor">供应商</a>
+    <a href="#roi">ROI</a>
+    <a href="#roadmap">路径</a>
+    <a href="#risk">风险</a>
+    <a href="#decision">决策</a>
+  </nav>
+  <button class="modeswitch" onclick="document.body.classList.toggle('deck')">演示模式</button>
+</div>
+
+<main>
+
+<section class="slide cover" id="cover">
+  <h2 class="kicker">EQUIPMENT LIFECYCLE AI MANAGEMENT</h2>
+  <h1>凯莱英设备全生命周期 AI 智能管理<br/>推进方案（5 子模块）</h1>
+  <div class="subtitle">让设备管理从<br/><span style="color:#ff9b6b;">"记录系统"走向"决策大脑"</span></div>
+  <div class="subtitle" style="font-size:15px; margin-top:14px; opacity:.75;">
+    在 EAM / CMMS 之上叠加 AI 层，5 个子模块统一升级：电子点检 / 备品备件 / 预测性维护 / 设备验证 / 故障安全调查。
+    一笔基础设施投入，5 个 AI 应用同时受益。
+  </div>
+  <div class="meta">
+    <div>方向编号：④ · 中期布局（部分子模块短期可见）</div>
+    <div>主导部门：设备工程 / 生产 / EHS / IT</div>
+    <div>预计 PoC 周期：3-6 个月（按子模块分别）</div>
+    <div>本方案版本：v1.0 · 跟 DH1 PdM 评估期成果衔接</div>
+  </div>
+</section>
+
+<section class="slide" id="why">
+  <h2 class="kicker">PART 01 · 为什么是现在</h2>
+  <h1>设备管理是 GMP 合规命脉 · 现状是"记录系统" + 主要靠经验</h1>
+  <p class="lead">
+    EAM / CMMS / IP.21 / DCS 都在跑，每天产生海量数据。但<strong>这些系统主要做的是"记录"</strong> ——
+    点检表打勾、备件出入库、维护工单、故障历史。<strong>它们没有"AI 决策"那一层</strong>。
+  </p>
+  <div class="grid-4" style="margin-top:14px;">
+    <div class="card accent"><div class="num">~3000+</div><div class="label">凯莱英全公司关键设备数</div><div class="desc">含反应器 / 离心机 / 冰机 / 干燥设备 / 真空泵 / 纯水系统等</div></div>
+    <div class="card accent"><div class="num">348</div><div class="label">DH1 一个动力站设备数（已盘点）</div><div class="desc">含 776 支传感器，PdM 评估期已完成</div></div>
+    <div class="card accent"><div class="num">~30%</div><div class="label">非计划停机占比</div><div class="desc">行业平均，凯莱英可能更低但仍是 5-15%</div></div>
+    <div class="card accent"><div class="num">~50-300万</div><div class="label">单次非计划停机损失</div><div class="desc">视设备 / 工艺关键性，按"延误一批"估算</div></div>
+  </div>
+  <h2 style="margin-top:24px; font-size:18px; color:#0f1f3d;">5 子模块痛点</h2>
+  <table class="kly" style="margin-top:8px;">
+    <thead><tr><th style="width:18%;">子模块</th><th style="width:32%;">当前痛点</th><th>AI 升级后</th></tr></thead>
+    <tbody>
+      <tr><td><strong>① 电子点检</strong></td><td>手工纸质 / 简单 APP 打勾，无异常识别</td><td>动态任务推荐 + 拍照异常识别 + 数据趋势分析</td></tr>
+      <tr><td><strong>② 备品备件</strong></td><td>静态库存策略，呆滞品多、关键件短缺</td><td>需求预测 + 智能采购 + 呆滞预警</td></tr>
+      <tr><td><strong>③ PdM 预测性维护</strong></td><td>事后维修为主，仅个别设备做了振动监测</td><td>多变量 + 时序模型 → 健康分数 + RUL 预测</td></tr>
+      <tr><td><strong>④ 设备验证</strong></td><td>IQ/OQ/PQ 报告全人工，资深工程师 5+ 工作日/份</td><td>验证方案 + 报告草稿 70% 自动生成</td></tr>
+      <tr><td><strong>⑤ 故障 / 安全调查</strong></td><td>根因调查靠资深工程师经验，重复造轮子</td><td>故障树 + 根因 Top-3 + CAPA 建议初稿</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide" id="status">
+  <h2 class="kicker">PART 02 · 凯莱英现状盘点</h2>
+  <h1>DH1 PdM 评估期已铺好部分基础 · 5 子模块基础不齐需波浪推进</h1>
+  <p class="lead">
+    跟方向 ② / ⑥ 不同，本方向不是"基础已 80% 就绪" — <strong>5 个子模块基础设施成熟度差异大</strong>，
+    必须<strong>分批推进</strong>。但 DH1 PdM 评估期（跟和利时 / 信力共擎已对接）的成果可以衔接。
+  </p>
+  <table class="kly">
+    <thead><tr><th style="width:14%;">子模块</th><th style="width:24%;">现有基础</th><th style="width:24%;">缺什么</th><th style="width:14%;">推进难度</th><th>建议启动节点</th></tr></thead>
+    <tbody>
+      <tr><td><strong>① 电子点检</strong></td><td>部分车间已有点检 APP</td><td>动态任务 + 拍照识别 AI 层</td><td><span class="pill ok">★★ 低</span></td><td>M3-M6 立即启动</td></tr>
+      <tr><td><strong>② 备品备件</strong></td><td>EAM / SAP 有完整库存数据</td><td>需求预测算法 + 智能采购看板</td><td><span class="pill ok">★★ 低</span></td><td>M4-M9</td></tr>
+      <tr><td><strong>③ PdM</strong></td><td>DH1 已跟和利时 / 信力共擎评估</td><td>传感器补点 + 算法平台 + 模型迁移</td><td><span class="pill mid">★★★ 中</span></td><td>M6-M12（继续 DH1）</td></tr>
+      <tr><td><strong>④ 设备验证</strong></td><td>历史 IQ/OQ/PQ 报告齐全</td><td>跟方向 ② 共用 LLM + RAG 底座</td><td><span class="pill mid">★★★ 中</span></td><td>M9-M15</td></tr>
+      <tr><td><strong>⑤ 故障 / 安全</strong></td><td>QMS 故障案例零散</td><td>设备 BOM / P&ID 数字化 + 故障库结构化</td><td><span class="pill warn">★★★★ 高</span></td><td>M12+ 最后做</td></tr>
+    </tbody>
+  </table>
+  <div class="card success" style="margin-top:14px;">
+    <strong style="color:#166534;">💡 跟 DH1 PdM 项目的衔接</strong>
+    <p style="margin-top:6px; font-size:13.5px;">DH1 PdM 项目已经做了"动设备 348 台 / 776 传感器盘点 + 和利时 / 信力共擎方案评估"。
+    本方向不是"另起炉灶"，而是把 DH1 PdM 升级为<strong>"全公司设备 AI 5 子模块的统一底座"</strong>：</p>
+    <ul class="bul tight">
+      <li>DH1 PdM 评估期成果 → 子模块 ③ 的实质内容</li>
+      <li>同步在 DH1 试点 ① 电子点检（动力站点检最规整）</li>
+      <li>DH1 经验沉淀的 BOM + 故障案例 → 全公司 ④ ⑤ 子模块种子数据</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" id="scope">
+  <h2 class="kicker">PART 03 · 试点覆盖范围</h2>
+  <h1>从"DH1 动力站 348 台"扩展到"全公司 3000+ 台 × 5 子模块"</h1>
+  <div class="roadmap" style="grid-template-columns: repeat(4,1fr); margin-top:14px;">
+    <div class="stage"><div class="month">M1-M3</div><div class="ttl">设备 BOM 数字化</div><div class="det">DH1 + 1 个生产厂区<br/>关键设备 100 台 BOM / P&ID 数字化<br/><strong style="color:#ff7e3d;">底座</strong></div></div>
+    <div class="stage"><div class="month">M3-M6</div><div class="ttl">PoC 子模块 ①②</div><div class="det">DH1 电子点检 AI 化<br/>+ 全公司备件 AI 试点</div></div>
+    <div class="stage"><div class="month">M6-M12</div><div class="ttl">Pilot 子模块 ③</div><div class="det">DH1 PdM 落地（继承评估期）<br/>+ 2-3 个分厂复制</div></div>
+    <div class="stage"><div class="month">Y2+</div><div class="ttl">子模块 ④⑤</div><div class="det">设备验证 AI + 故障调查<br/>设备 BOM 全公司铺开</div></div>
+  </div>
+</section>
+
+<section class="slide" id="tech">
+  <h2 class="kicker">PART 04 · 技术路线</h2>
+  <h1>5 子模块共用底座 · 各自专项算法 + 工作流</h1>
+  <p class="lead"><strong>关键洞察</strong>：5 子模块都依赖同一份"设备主数据 + 运行历史 + 故障案例库"。
+  这是<strong>"一笔基础设施投入，5 个 AI 应用同时受益"</strong>的核心。</p>
+  <svg viewBox="0 0 1100 380" style="width:100%; height:auto; margin-top:10px;">
+    <rect x="20" y="240" width="1060" height="120" fill="#f0fdf4" stroke="#86efac" stroke-width="1.5" rx="10"/>
+    <text x="40" y="263" font-size="13" font-weight="700" fill="#065f46">🟢 共同底座（4 大件）</text>
+    <rect x="40" y="280" width="240" height="60" fill="#fff" stroke="#10b981" rx="6"/>
+    <text x="160" y="300" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46">设备主数据</text>
+    <text x="160" y="318" text-anchor="middle" font-size="10" fill="#3a4d72">BOM / P&amp;ID / 操作手册</text>
+    <rect x="290" y="280" width="240" height="60" fill="#fff" stroke="#10b981" rx="6"/>
+    <text x="410" y="300" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46">运行数据</text>
+    <text x="410" y="318" text-anchor="middle" font-size="10" fill="#3a4d72">IP.21 / DCS / 振动 / 传感器</text>
+    <rect x="540" y="280" width="240" height="60" fill="#fff" stroke="#10b981" rx="6"/>
+    <text x="660" y="300" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46">维护历史</text>
+    <text x="660" y="318" text-anchor="middle" font-size="10" fill="#3a4d72">EAM 工单 + 备件出入库</text>
+    <rect x="790" y="280" width="240" height="60" fill="#fff" stroke="#10b981" rx="6"/>
+    <text x="910" y="300" text-anchor="middle" font-size="12" font-weight="700" fill="#065f46">故障案例库</text>
+    <text x="910" y="318" text-anchor="middle" font-size="10" fill="#3a4d72">QMS 历史故障 / CAPA</text>
+
+    <text x="550" y="30" text-anchor="middle" font-size="16" font-weight="700" fill="#1a1d2e">🤖 5 子模块 AI 应用层</text>
+    <rect x="20" y="50" width="200" height="170" fill="#eff6ff" stroke="#3b82f6" rx="8"/>
+    <text x="120" y="73" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">① 电子点检 AI</text>
+    <text x="35" y="100" font-size="11" fill="#3a4d72">• 动态任务推荐</text>
+    <text x="35" y="120" font-size="11" fill="#3a4d72">• 拍照识别（设备状态）</text>
+    <text x="35" y="140" font-size="11" fill="#3a4d72">• 异常自动派单</text>
+    <text x="35" y="160" font-size="11" fill="#3a4d72">• 点检历史趋势</text>
+    <text x="35" y="185" font-size="10" font-style="italic" fill="#1e40af">移动 APP + AI 视觉</text>
+
+    <rect x="240" y="50" width="200" height="170" fill="#eff6ff" stroke="#3b82f6" rx="8"/>
+    <text x="340" y="73" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">② 备件 AI 管理</text>
+    <text x="255" y="100" font-size="11" fill="#3a4d72">• 需求预测</text>
+    <text x="255" y="120" font-size="11" fill="#3a4d72">• 智能采购建议</text>
+    <text x="255" y="140" font-size="11" fill="#3a4d72">• 呆滞备件识别</text>
+    <text x="255" y="160" font-size="11" fill="#3a4d72">• 关键件预警</text>
+    <text x="255" y="185" font-size="10" font-style="italic" fill="#1e40af">时序预测 + ABC 分类</text>
+
+    <rect x="460" y="50" width="200" height="170" fill="#fef3c7" stroke="#f59e0b" rx="8"/>
+    <text x="560" y="73" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">③ PdM 预测性维护</text>
+    <text x="475" y="100" font-size="11" fill="#3a4d72">• 健康分数 0-100</text>
+    <text x="475" y="120" font-size="11" fill="#3a4d72">• RUL 剩余寿命</text>
+    <text x="475" y="140" font-size="11" fill="#3a4d72">• 故障模式预判</text>
+    <text x="475" y="160" font-size="11" fill="#3a4d72">• EAM 自动派单</text>
+    <text x="475" y="185" font-size="10" font-style="italic" fill="#92400e">多变量 + LSTM</text>
+
+    <rect x="680" y="50" width="200" height="170" fill="#dbeafe" stroke="#3b82f6" rx="8"/>
+    <text x="780" y="73" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">④ 验证 AI</text>
+    <text x="695" y="100" font-size="11" fill="#3a4d72">• IQ/OQ/PQ 方案草稿</text>
+    <text x="695" y="120" font-size="11" fill="#3a4d72">• 测试项推荐</text>
+    <text x="695" y="140" font-size="11" fill="#3a4d72">• 验证报告自动填充</text>
+    <text x="695" y="160" font-size="11" fill="#3a4d72">• 跟以往项目差异分析</text>
+    <text x="695" y="185" font-size="10" font-style="italic" fill="#1e40af">跟方向 ② 共用 LLM</text>
+
+    <rect x="900" y="50" width="180" height="170" fill="#fee2e2" stroke="#dc2626" rx="8"/>
+    <text x="990" y="73" text-anchor="middle" font-size="13" font-weight="700" fill="#991b1b">⑤ 故障调查 AI</text>
+    <text x="915" y="100" font-size="11" fill="#3a4d72">• 故障树 FTA</text>
+    <text x="915" y="120" font-size="11" fill="#3a4d72">• 根因 Top-3</text>
+    <text x="915" y="140" font-size="11" fill="#3a4d72">• 5 Why + 鱼骨图</text>
+    <text x="915" y="160" font-size="11" fill="#3a4d72">• CAPA 建议</text>
+    <text x="915" y="185" font-size="10" font-style="italic" fill="#991b1b">最难，最后做</text>
+  </svg>
+</section>
+
+<section class="slide" id="demo">
+  <h2 class="kicker">PART 05 · 演示</h2>
+  <h1>切换 5 子模块 — 看同一底座衍生出 5 种 AI 应用</h1>
+  <div class="demo-box" style="margin-top:12px;">
+    <div class="demo-title">⚙️ 5 子模块互动展示</div>
+    <div style="margin-bottom:12px;">
+      <button class="btn" data-d4="check" onclick="d4Show('check')">① 电子点检</button>
+      <button class="btn ghost" data-d4="spare" onclick="d4Show('spare')">② 备件</button>
+      <button class="btn ghost" data-d4="pdm" onclick="d4Show('pdm')">③ PdM</button>
+      <button class="btn ghost" data-d4="quali" onclick="d4Show('quali')">④ 设备验证</button>
+      <button class="btn ghost" data-d4="fault" onclick="d4Show('fault')">⑤ 故障调查</button>
+    </div>
+    <div id="d4-out"></div>
+  </div>
+</section>
+
+<script>
+const d4Data = {
+  check: { name:'① 电子点检 AI 化', diff:'★★（低）', period:'M3-M6',
+    input:['每台设备的点检项清单 + 历史点检记录','设备运行实时数据（DCS / 振动 / 温度）','设备维护历史 + 已发现的故障','SOP / 验证文件'],
+    output:['动态点检任务（今天哪些设备需要点检 + 重点关注项）','点检员拍照后 AI 立即识别异常项','单台设备 30 天点检趋势可视化','班组 / 个人 / 设备级 KPI'],
+    ability:'电子点检是 5 子模块中<strong>最容易做的</strong>。市场上有成熟产品（钉钉点检 / 蓝凌等），AI 层价值在"动态任务推荐 + 拍照异常识别"，预计 90%+ 准确度。'
+  },
+  spare: { name:'② 备件 AI 管理', diff:'★★（低）', period:'M4-M9',
+    input:['备件主数据 + 设备 BOM','历史出入库记录 + 故障 - 备件关联','设备运行小时数 + 当前健康状态','备件供应商交期 / 库存策略'],
+    output:['未来 3-12 个月各类备件需求预测','智能采购建议（什么时候 / 多少 / 哪家供应商）','呆滞备件识别（超 N 年未用 → 报废 / 流转）','关键备件预警'],
+    ability:'备件预测属于"中等难度"。简单 ABC + 季节性预测准确度高（85%+），但低频高价值件预测难度大。AI 给建议 + 人工决策仍是主流。'
+  },
+  pdm: { name:'③ PdM 预测性维护', diff:'★★★（中）', period:'M6-M12',
+    input:['设备 DCS / SCADA 实时运行数据（温度 / 压力 / 振动 / 电流）','独立 PdM 传感器（振动 / 电流 / 油液）','设备维护历史 + 故障样本','和利时 / 信力共擎 / 智现未来算法接入'],
+    output:['设备健康分数 0-100 实时 + 30 天趋势','RUL 剩余寿命预测（带置信区间，如"11±3 天后跌破阈值"）','故障模式预判（基于异常模式给最可能故障类型）','EAM 工单自动派单'],
+    ability:'技术成熟度最高（智现未来在半导体光刻机做了 20+ 年）。但制药行业落地受"故障样本少 + 设备多样性大"限制，关键设备 70%+ 准确度可达，但全厂全设备 PdM 难度大。'
+  },
+  quali: { name:'④ 设备验证 AI', diff:'★★★（中）', period:'M9-M15',
+    input:['历史 IQ / OQ / PQ 验证报告（语料库）','新设备 / 改造设备 URS（用户需求规格）','验证方案模板','设备 BOM + P&amp;ID + 操作手册'],
+    output:['验证方案草稿（基于 URS + 历史相似设备）','验证测试项推荐 + 接受标准 + 取样点','验证报告草稿（执行后数据填充 + 结论）','跟以往同类设备验证方案的差异点 + 解释'],
+    ability:'是"模板化报告写作"的一种，跟方向 ② 类似。<strong>跟方向 ② 共用 LLM + RAG 底座</strong>。但验证是 GMP 强监管，AI 起草后必须验证工程师签字。预计草稿一次性可用率 70-85%。'
+  },
+  fault: { name:'⑤ 故障 / 安全调查', diff:'★★★★（高）', period:'M12+',
+    input:['故障 / 安全事件描述（文字 + 照片 + 视频）','设备 BOM + 原理图 + 操作手册','事件前后 N 小时 DCS 数据','历史类似故障案例库','设备维护 / 改造历史'],
+    output:['故障 / 事件根因分析报告（基于设备原理 + DCS 数据 + 历史案例）','故障树 FTA 可视化','5 Why + 鱼骨图分析草稿','CAPA 建议（纠正 + 预防措施初稿）','同类设备风险提示（需同步检查的清单）'],
+    ability:'5 子模块里<strong>最难的</strong>。需要 AI 同时理解设备原理 + 当时物理过程 + 历史案例 + 化工 / 机械专业知识。目前能做到 50% 根因分析正确、80% 给出有价值调查方向，仍需资深工程师定论。'
+  }
+};
+function d4Show(k){
+  document.querySelectorAll('button[data-d4]').forEach(b=>b.classList.add('ghost'));
+  document.querySelector('button[data-d4="'+k+'"]').classList.remove('ghost');
+  const s = d4Data[k];
+  let html = '<div style="background:rgba(255,255,255,.04); border-radius:10px; padding:14px;">' +
+    '<div style="display:flex; justify-content:space-between; margin-bottom:10px;">' +
+    '<strong style="color:#fff; font-size:14px;">'+s.name+'</strong>' +
+    '<span style="color:#fbbf24; font-size:12px;">难度 '+s.diff+' · 启动 '+s.period+'</span></div>' +
+    '<div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">' +
+    '<div style="background:rgba(255,255,255,.04); border-left:3px solid #3b82f6; padding:10px;">' +
+    '<div style="color:#9aabd6; font-size:11px; font-weight:700; letter-spacing:1px;">📥 输入</div><ul style="margin:6px 0 0; padding-left:18px; color:#cdd6e8; font-size:12px;">';
+  s.input.forEach(i => html += '<li style="margin:3px 0;">'+i+'</li>');
+  html += '</ul></div><div style="background:rgba(255,255,255,.04); border-left:3px solid #22d3ee; padding:10px;">' +
+    '<div style="color:#9aabd6; font-size:11px; font-weight:700; letter-spacing:1px;">📤 输出</div><ul style="margin:6px 0 0; padding-left:18px; color:#cdd6e8; font-size:12px;">';
+  s.output.forEach(o => html += '<li style="margin:3px 0;">'+o+'</li>');
+  html += '</ul></div></div>' +
+    '<div style="margin-top:12px; padding:10px 14px; background:rgba(255,126,61,.12); border-left:3px solid #ff7e3d; border-radius:4px; font-size:12px; color:#fff; line-height:1.7;">' +
+    '<strong>AI 能做到多好</strong>：'+s.ability+'</div></div>';
+  document.getElementById('d4-out').innerHTML = html;
+}
+d4Show('check');
+</script>
+
+<section class="slide" id="vendor">
+  <h2 class="kicker">PART 06 · 三条路线对比</h2>
+  <h1>智现未来 vs 和利时 vs 信力共擎 + 自建（基于 IP.21）</h1>
+  <p class="lead">DH1 PdM 评估期已经对接过<strong>和利时</strong>和<strong>信力共擎</strong>，本方向 5 子模块的供应商选型沿用 DH1 评估成果，同时引入<strong>智现未来</strong>作为算法层备选。</p>
+  <table class="kly" style="margin-top:14px;">
+    <thead>
+      <tr><th style="width:14%;">维度</th><th style="width:24%;">路线 A · 和利时（已对接）</th><th style="width:24%;">路线 B · 信力共擎（已对接）</th><th>路线 C · 智现未来（半导体跨域）</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>背景</strong></td><td>国内 DCS 老牌，制药行业有客户</td><td>合肥 / 安徽地区设备 AI 厂商</td><td>韩国 BISTel 中国剥离，半导体 AI 强</td></tr>
+      <tr><td><strong>覆盖子模块</strong></td><td>③ PdM 强；①②④⑤ 弱</td><td>③ PdM 中；① 电子点检中</td><td>③ PdM 算法最深；其他较弱</td></tr>
+      <tr><td><strong>制药案例</strong></td><td>有（国内多家 API 厂）</td><td>主要在化工 / 钢铁</td><td>0 制药案例（半导体客户 180+）</td></tr>
+      <tr><td><strong>跨设备类型迁移</strong></td><td>中</td><td>低（偏振动单一维度）</td><td>★★★ 强（半导体光刻机经验可迁移）</td></tr>
+      <tr><td><strong>带置信区间的 RUL</strong></td><td>单点预测</td><td>单点预测</td><td>带置信区间（"11±3 天"）</td></tr>
+      <tr><td><strong>PoC 投入</strong></td><td>200-500 万（含传感器补点）</td><td>100-300 万</td><td>200-400 万 + 跨域适配成本（凯莱英承担）</td></tr>
+      <tr><td><strong>5 子模块覆盖</strong></td><td>需配合其他厂商补齐</td><td>需配合其他厂商补齐</td><td>需配合其他厂商补齐</td></tr>
+    </tbody>
+  </table>
+  <div class="card success" style="margin-top:14px;">
+    <strong style="color:#166534;">💡 推荐路线：多厂商组合 + 智现未来重点试 PdM</strong>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li><strong>① 电子点检</strong> — 不依赖以上 3 家，用钉钉点检 / 国内点检 SaaS（成本低）+ 自建 AI 视觉识别</li>
+      <li><strong>② 备件</strong> — IT 自建即可（基于 EAM + SAP 数据），算法不难</li>
+      <li><strong>③ PdM</strong> — DH1 选定的供应商（和利时 / 信力共擎）继续推进；同时让<strong>智现未来做 PoC 对照</strong>（算法层更强）</li>
+      <li><strong>④ 验证</strong> — 跟方向 ② 共用 LLM + RAG 底座，<strong>不需要专门供应商</strong></li>
+      <li><strong>⑤ 故障调查</strong> — 最后做，可考虑埃森哲咨询商参与（隐性知识沉淀）</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" id="roi">
+  <h2 class="kicker">PART 07 · 投资回报测算</h2>
+  <h1>5 子模块综合 ROI · 输入参数可调</h1>
+  <div class="roi-grid" style="margin-top:12px;">
+    <div class="roi-input">
+      <div class="field"><label>年非计划停机次数</label><input type="number" id="r-stops" value="8" min="2" max="30" oninput="d4Roi()"><div class="hint">凯莱英全公司估算</div></div>
+      <div class="field"><label>单次停机损失（万元）</label><input type="number" id="r-loss" value="120" min="20" max="500" oninput="d4Roi()"><div class="hint">含延误 / 报废 / 加班</div></div>
+      <div class="field"><label>PdM 可避免比例（%）</label><input type="number" id="r-prevent" value="40" min="10" max="80" oninput="d4Roi()"><div class="hint">行业 30-50%</div></div>
+      <div class="field"><label>备件库存节省（万元/年）</label><input type="number" id="r-spare" value="80" min="10" max="300" oninput="d4Roi()"><div class="hint">优化呆滞 + 智能采购</div></div>
+      <div class="field"><label>点检工时节省（万元/年）</label><input type="number" id="r-check" value="40" min="10" max="200" oninput="d4Roi()"><div class="hint">动态推荐 + 拍照识别</div></div>
+      <div class="field"><label>验证 + 故障调查节省（万元/年）</label><input type="number" id="r-qual" value="60" min="10" max="200" oninput="d4Roi()"><div class="hint">报告 + 根因分析自动化</div></div>
+      <div class="field"><label>项目总投入（万元，3 年）</label><input type="number" id="r-cost" value="1200" min="300" max="3000" oninput="d4Roi()"><div class="hint">5 子模块累计 + 基础设施</div></div>
+    </div>
+    <div class="roi-out">
+      <div class="ttl">📊 综合年化收益</div>
+      <div class="roi-numbers">
+        <div class="item"><div class="v" id="r-pdm">384</div><div class="l">PdM 防停机收益（万元/年）</div></div>
+        <div class="item"><div class="v orange" id="r-other">180</div><div class="l">其他 4 子模块（万元/年）</div></div>
+        <div class="item"><div class="v" id="r-total">564</div><div class="l">年化总收益（万元）</div></div>
+        <div class="item"><div class="v orange" id="r-payback">2.1</div><div class="l">回本周期（年）</div></div>
+      </div>
+      <div class="roi-bar-row">
+        <div class="lbl">3 年累计 ROI 比例</div>
+        <div class="roi-bar"><div id="r-bar" style="width:60%;"></div><div class="marker" style="left:33%;"></div></div>
+      </div>
+    </div>
+  </div>
+  <script>
+  function d4Roi(){
+    const s=+document.getElementById('r-stops').value;
+    const l=+document.getElementById('r-loss').value;
+    const p=+document.getElementById('r-prevent').value;
+    const sp=+document.getElementById('r-spare').value;
+    const ch=+document.getElementById('r-check').value;
+    const q=+document.getElementById('r-qual').value;
+    const c=+document.getElementById('r-cost').value;
+    const pdm = s*l*p/100;
+    const other = sp+ch+q;
+    const total = pdm + other;
+    document.getElementById('r-pdm').textContent = pdm.toFixed(0);
+    document.getElementById('r-other').textContent = other.toFixed(0);
+    document.getElementById('r-total').textContent = total.toFixed(0);
+    const pb = c / total;
+    document.getElementById('r-payback').textContent = pb.toFixed(1);
+    document.getElementById('r-bar').style.width = Math.min((total*3/c)*33.3, 100)+'%';
+  }
+  d4Roi();
+  </script>
+</section>
+
+<section class="slide" id="roadmap">
+  <h2 class="kicker">PART 08 · 落地路径</h2>
+  <h1>5 子模块波浪推进 · 12-24 个月分批落地</h1>
+  <div class="roadmap" style="margin-top:10px;">
+    <div class="stage"><div class="month">M1-M3</div><div class="ttl">设备 BOM 数字化</div><div class="det">关键 100 台设备 BOM / P&amp;ID 数字化<br/>故障案例库结构化启动</div></div>
+    <div class="stage"><div class="month">M3-M6</div><div class="ttl">子模块 ①</div><div class="det">DH1 电子点检 PoC<br/>动态任务 + 拍照识别<br/>1 个车间试点</div></div>
+    <div class="stage"><div class="month">M6-M12</div><div class="ttl">子模块 ②③</div><div class="det">备件 AI 全公司试点<br/>+ DH1 PdM 落地<br/>（继承评估期）</div></div>
+    <div class="stage"><div class="month">Y2 H1</div><div class="ttl">子模块 ④</div><div class="det">设备验证 AI<br/>跟方向 ② 共建</div></div>
+    <div class="stage"><div class="month">Y2 H2+</div><div class="ttl">子模块 ⑤</div><div class="det">故障调查 AI<br/>+ 全公司 PdM 扩展</div></div>
+  </div>
+</section>
+
+<section class="slide" id="risk">
+  <h2 class="kicker">PART 09 · 风险与控制</h2>
+  <h1>主要风险与对应控制措施</h1>
+  <table class="kly" style="margin-top:10px;">
+    <thead><tr><th style="width:18%;">风险</th><th style="width:30%;">表现</th><th>控制措施</th></tr></thead>
+    <tbody>
+      <tr><td><strong>① 设备 BOM/P&ID 数字化工作量</strong></td><td>6-12 月专项，覆盖几千台设备</td><td>① 关键设备优先（A 类 100-200 台）；② OCR + LLM 半自动；③ 设备工程 + 文档组联合</td></tr>
+      <tr><td><strong>② 5 子模块基础不齐</strong></td><td>不能同时启动会资源分散</td><td>按推进次序（①→②→③→④→⑤）波浪式</td></tr>
+      <tr><td><strong>③ 跨厂区数据互通</strong></td><td>不同厂区 EAM 系统不同</td><td>统一中间层 + 主数据治理（跟方向 ② 共建）</td></tr>
+      <tr><td><strong>④ 故障样本稀疏</strong></td><td>PdM 模型训练数据不足</td><td>① 跨设备类型迁移（智现未来强项）；② 主动加传感器；③ 跨厂区数据汇总</td></tr>
+      <tr><td><strong>⑤ DH1 PdM 衔接</strong></td><td>评估期成果可能跟全公司方案不兼容</td><td>跟和利时 / 信力共擎确认 PoC 阶段成果可扩展性 → 不行则换</td></tr>
+      <tr><td><strong>⑥ GMP 验证</strong></td><td>设备验证 AI 草稿需 GAMP 5 验证</td><td>跟方向 ② 共用验证框架</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide" id="decision">
+  <h2 class="kicker">PART 10 · 决策建议</h2>
+  <h1>重点决策 5 件事（对应 5 子模块）</h1>
+  <div class="grid-2" style="margin-top:14px;">
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">①</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">推进次序 — 不要同时启动 5 子模块</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">
+        建议按 ①→②→③→④→⑤ 波浪式启动。最简单的子模块 ①②（电子点检 / 备件）<strong>M3-M9 内</strong>完成，
+        中等难度的 ③④（PdM / 验证）<strong>M6-M18</strong>，最难的 ⑤（故障调查）<strong>Y2 才启动</strong>。
+      </p>
+      <ul class="bul tight" style="margin-top:6px;"><li>决策项：5 子模块次序确认 + 不允许中途插队</li></ul>
+    </div>
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">②</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">DH1 PdM 衔接 — 继续 + 评估扩展性</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">
+        DH1 PdM 评估期跟和利时 / 信力共擎已对接，建议<strong>继续推进 DH1 PoC</strong>，但<strong>同时邀请智现未来做 PoC 对照</strong>。
+        Pilot 决策时再选定主供应商。
+      </p>
+      <ul class="bul tight" style="margin-top:6px;"><li>决策项：和利时 / 信力共擎 / 智现未来 三方 PoC 平行；6 个月内 Go/No-Go</li></ul>
+    </div>
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">③</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">设备 BOM/P&ID 数字化 — 立项独立</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">
+        BOM/P&amp;ID 数字化是<strong>5 子模块的共同基础</strong>，不是子模块自己的工作。
+        建议<strong>作为独立项目立项</strong>（200-400 万 / 6-12 月），跟基础设施 B2 主数据治理同步推进。
+      </p>
+      <ul class="bul tight" style="margin-top:6px;"><li>决策项：独立立项 + 设备工程部主责 + 文档组配合</li></ul>
+    </div>
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">④</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">子模块 ④ 设备验证 — 跟方向 ② 合并</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">
+        子模块 ④ 设备验证报告 AI 起草，本质跟方向 ② 报告 AI 撰写是同一类技术 —— LLM + RAG。
+        建议<strong>跟方向 ② Pilot 阶段合并</strong>，共用底座，不另立项。
+      </p>
+      <ul class="bul tight" style="margin-top:6px;"><li>决策项：子模块 ④ 跟方向 ② Pilot 合并，共用 LLM + RAG 平台</li></ul>
+    </div>
+    <div class="card accent" style="grid-column: span 2;">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">⑤</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">子模块 ⑤ 故障调查 — Y2 启动，先沉淀案例库</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">
+        子模块 ⑤ 故障调查 AI 是 5 子模块里<strong>最难的</strong>，需要 AI 同时理解设备原理 + DCS 物理过程 + 历史案例 + 化工/机械专业知识。
+        建议<strong>Y1 先做"故障案例库结构化"</strong>这个基础工作（资深工程师 + 文档组），<strong>Y2 才正式启动 AI 应用</strong>。
+        可以考虑埃森哲咨询商参与"隐性知识沉淀"，但限定为"咨询 + 结构化方法论"，不让其做算法。
+      </p>
+      <ul class="bul tight" style="margin-top:6px;"><li>决策项：Y1 启动案例库结构化（业务主责） + Y2 启动 AI 故障调查</li></ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+</body>
+</html>
