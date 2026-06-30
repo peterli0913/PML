@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>埃森哲设备预测性维护方案讨论 · 会议总结（2026-06-30）</title>
+<title>埃森哲合作能力与设备预测性维护推进思路 · 内部分享</title>
 <style>
   * { box-sizing: border-box; }
   html, body { margin:0; padding:0; }
@@ -12,7 +12,7 @@
     color: #0f1f3d;
     background: #f3f5fa;
     -webkit-font-smoothing: antialiased;
-    line-height: 1.7;
+    line-height: 1.8;
   }
   .topbar {
     position: sticky; top:0; z-index:50;
@@ -32,12 +32,12 @@
     margin: 0 6px; padding:6px 8px; border-radius:6px;
   }
   .topbar nav a:hover { background:#1d2f55; color:#fff; }
-  main { max-width: 1240px; margin: 0 auto; padding: 0 24px 80px; }
+  main { max-width: 1180px; margin: 0 auto; padding: 0 24px 80px; }
   section.slide {
     background:#fff;
     border-radius: 14px;
-    padding: 40px 48px 44px;
-    margin: 22px 0;
+    padding: 44px 52px 48px;
+    margin: 24px 0;
     box-shadow: 0 6px 24px rgba(15,31,61,.07);
     position: relative;
   }
@@ -53,13 +53,15 @@
     font-size: 26px; margin: 0 0 14px; font-weight:700;
     border-left: 5px solid #ff7e3d; padding-left: 14px; line-height: 1.35;
   }
-  section.slide.cover h1 { border:none; padding:0; font-size: 40px; line-height: 1.25;}
-  section.slide.cover .subtitle { font-size:18px; opacity:.88; margin-top:18px; max-width: 920px;}
-  section.slide.cover .meta { margin-top: 40px; font-size:13.5px; opacity:.82; }
-  section.slide.cover .meta div { margin: 5px 0;}
-  section.slide .lead { font-size: 15px; color:#3a4d72; margin: 0 0 18px; max-width: 1000px;}
+  section.slide.cover h1 { border:none; padding:0; font-size: 38px; line-height: 1.3;}
+  section.slide.cover .subtitle { font-size:17px; opacity:.88; margin-top:18px; max-width: 920px; line-height: 1.75;}
+  section.slide.cover .meta { margin-top: 36px; font-size:13.5px; opacity:.82; line-height: 1.9;}
+  section.slide .lead { font-size: 15.5px; color:#3a4d72; margin: 0 0 18px; max-width: 1000px; line-height: 1.85;}
+  section.slide p { font-size: 14px; color: #3a4d72; line-height: 1.85; margin: 8px 0; }
+  section.slide h3 { font-size: 16.5px; color: #0f1f3d; margin: 20px 0 10px; }
+  section.slide h4 { font-size: 14.5px; color: #1e40af; margin: 14px 0 8px; }
 
-  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 22px;}
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 20px;}
   .grid-3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;}
   .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px;}
 
@@ -71,89 +73,58 @@
   .card.danger { background: #fef2f2; border-color:#fecaca;}
   .card.success { background: #f0fdf4; border-color:#bbf7d0;}
   .card.info { background: #eff6ff; border-color:#bfdbfe;}
-  .card .num { font-size: 26px; font-weight:800; color:#0f1f3d; line-height: 1.1;}
+  .card.tip { background: #fefce8; border-color:#fde68a;}
+  .card .num { font-size: 24px; font-weight:800; color:#0f1f3d; line-height: 1.1;}
   .card.accent .num { color:#ff7e3d; }
   .card .label { font-size:12.5px; color:#5b6a8a; margin-top:4px;}
-  .card .desc { font-size:13px; color:#3a4d72; margin-top:8px; line-height:1.6;}
+  .card .desc { font-size:13px; color:#3a4d72; margin-top:8px; line-height:1.7;}
 
-  table.kly { width:100%; border-collapse: collapse; font-size: 13px; margin: 8px 0;}
-  table.kly th, table.kly td { padding: 9px 11px; text-align:left; border-bottom: 1px solid #e6ebf5; vertical-align: top;}
-  table.kly thead th { background:#0f1f3d; color:#fff; font-weight:600; font-size:12px; letter-spacing:.3px;}
+  table.kly { width:100%; border-collapse: collapse; font-size: 13px; margin: 10px 0;}
+  table.kly th, table.kly td { padding: 10px 12px; text-align:left; border-bottom: 1px solid #e6ebf5; vertical-align: top; line-height: 1.7;}
+  table.kly thead th { background:#0f1f3d; color:#fff; font-weight:600; font-size:12px;}
   table.kly tbody tr:nth-child(even) { background:#f7f9fc; }
 
-  .pill { display:inline-block; padding:2px 9px; border-radius:99px; font-size:11.5px; font-weight:600; margin-right:4px; }
-  .pill.ok    { background:#dcfce7; color:#166534; }
-  .pill.mid   { background:#fef9c3; color:#854d0e; }
-  .pill.warn  { background:#fee2e2; color:#991b1b; }
-  .pill.info  { background:#dbeafe; color:#1e3a8a; }
-  .pill.violet{ background:#ede9fe; color:#5b21b6;}
-
   ul.bul { padding-left: 0; list-style:none; margin: 6px 0;}
-  ul.bul li { padding: 5px 0 5px 22px; position:relative; font-size:13.5px; color:#3a4d72; line-height:1.7;}
+  ul.bul li { padding: 5px 0 5px 22px; position:relative; font-size:14px; color:#3a4d72; line-height:1.85;}
   ul.bul li:before {
-    content:""; position:absolute; left:4px; top:14px; width:7px; height:7px;
+    content:""; position:absolute; left:4px; top:15px; width:7px; height:7px;
     background:#ff7e3d; border-radius:2px; transform:rotate(45deg);
   }
-  ul.bul.tight li { padding: 3px 0 3px 22px; font-size:13px; }
-  ul.bul.tight li:before { top:11px; }
+  ul.bul.tight li { padding: 3px 0 3px 22px; font-size:13.5px; }
+  ul.bul.tight li:before { top:12px; }
 
-  .quote {
-    border-left: 4px solid #ff7e3d;
-    padding: 10px 16px;
+  .highlight-box {
     background: #fff7f1;
-    margin: 10px 0;
-    color: #3a4d72;
-    font-size: 13.5px;
-    line-height: 1.75;
-    border-radius: 0 6px 6px 0;
-  }
-  .quote .speaker {
-    color: #ff7e3d; font-weight: 700; font-size: 12px;
-    display: block; margin-bottom: 4px; letter-spacing: 0.5px;
-  }
-  .footnote {
-    font-size: 11.5px; color:#7a89a8; margin-top: 14px; line-height: 1.6;
-    padding-top: 10px; border-top: 1px dashed #e3e8f2;
-  }
-  .img-cap {
+    border-left: 4px solid #ff7e3d;
+    padding: 14px 20px;
     margin: 14px 0;
-    text-align: center;
+    border-radius: 0 8px 8px 0;
+    color: #3a4d72;
+    font-size: 14px;
+    line-height: 1.85;
   }
-  .img-cap img {
-    max-width: 100%;
-    border-radius: 8px;
-    box-shadow: 0 4px 14px rgba(15,31,61,.12);
-    border: 1px solid #e3e8f2;
+  .highlight-box strong {
+    color: #ff7e3d;
   }
-  .img-cap .cap {
-    font-size: 12px; color: #5b6a8a; margin-top: 8px; font-style: italic;
-  }
-  .tag {
-    display:inline-block; padding:3px 10px; font-size:12px; border-radius:99px;
-    background:#e7eefb; color:#1e40af; font-weight:600; margin: 2px 4px 2px 0;
-  }
-  .tag.warn { background:#fef3c7; color:#92400e;}
-  .tag.danger { background:#fee2e2; color:#991b1b;}
-  .tag.ok { background:#dcfce7; color:#166534;}
-  .tag.violet { background:#ede9fe; color:#5b21b6;}
-
   .step-flow {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 8px;
-    margin: 10px 0;
+    margin: 14px 0;
   }
+  .step-flow.flow-4 { grid-template-columns: repeat(4, 1fr); }
+  .step-flow.flow-3 { grid-template-columns: repeat(3, 1fr); }
   .step-flow .step {
     background: #fff;
     border: 1px solid #e3e8f2;
     border-top: 3px solid #ff7e3d;
     border-radius: 8px;
-    padding: 12px 14px;
+    padding: 14px 16px;
     position: relative;
   }
   .step-flow .step .stp { font-size: 11px; color: #ff7e3d; font-weight: 700; letter-spacing: 1px;}
-  .step-flow .step .ttl { font-size: 13.5px; font-weight: 700; margin: 4px 0; color: #0f1f3d;}
-  .step-flow .step .det { font-size: 12px; color: #5b6a8a; line-height: 1.6;}
+  .step-flow .step .ttl { font-size: 14.5px; font-weight: 700; margin: 4px 0; color: #0f1f3d;}
+  .step-flow .step .det { font-size: 12.5px; color: #5b6a8a; line-height: 1.7;}
 
   @media print {
     body { background:#fff; }
@@ -165,20 +136,18 @@
 <body>
 
 <div class="topbar">
-  <div class="brand">凯莱英 × 埃森哲 · 设备预测性维护方案讨论 <span class="badge">会议总结 v1.0</span></div>
+  <div class="brand">埃森哲合作能力与设备预测性维护推进思路 <span class="badge">内部分享 v1.0</span></div>
   <nav>
-    <a href="#cover">封面</a>
-    <a href="#bg">背景</a>
-    <a href="#vendor">埃森哲</a>
-    <a href="#service">能力</a>
-    <a href="#framework">框架</a>
-    <a href="#agents">智能体</a>
+    <a href="#cover">概览</a>
+    <a href="#about">能力定位</a>
+    <a href="#service">三段方法论</a>
+    <a href="#agent">智能体协作</a>
     <a href="#pdm">PdM 思路</a>
+    <a href="#clarity">可解释性</a>
     <a href="#modes">合作模式</a>
-    <a href="#cdmo">CDMO</a>
-    <a href="#discuss">凯莱英场景</a>
+    <a href="#cdmo">CDMO 考量</a>
+    <a href="#start">起步场景</a>
     <a href="#next">下一步</a>
-    <a href="#appendix">附录</a>
   </nav>
 </div>
 
@@ -186,942 +155,810 @@
 
 <!-- ============ 封面 ============ -->
 <section class="slide cover" id="cover">
-  <h2 class="kicker">MEETING SUMMARY · 2026-06-30</h2>
-  <h1>凯莱英 × 埃森哲 设备预测性维护方案讨论<br/><span style="color:#ffaa7a; font-size:30px;">会议总结报告</span></h1>
+  <h2 class="kicker">INTERNAL BRIEFING · ACCENTURE × ASYMCHEM · PdM</h2>
+  <h1>埃森哲合作能力与<br/>设备预测性维护推进思路</h1>
   <div class="subtitle">
-    会议核心议题为<strong>设备预测性维护（Predictive Maintenance, PdM）</strong>方案探讨；
-    埃森哲（Accenture）方介绍其 Industry X 团队在智能资产管理、AI 智能体架构、知识图谱共创等方向的能力体系；
-    双方就凯莱英在天津厂区动力系统、净化空调风机轴承等场景的预测性维护可能路径进行了交流。
+    这份内部分享面向没有参与近期方案交流的同事，目的是把<strong>"埃森哲能为凯莱英做什么"</strong>以及<strong>"设备预测性维护应该怎么开展"</strong>这两件事讲清楚。
+    内容覆盖埃森哲在制造业资产管理方向的能力体系、智能资产管理的方法论、AI 智能体协作的工作方式、设备预测性维护的可行性判断思路、4 种可选合作模式，以及凯莱英起步场景的初步设想。
   </div>
   <div class="meta">
-    <div><strong>会议时间</strong>：2026-06-30</div>
-    <div><strong>会议形式</strong>：线上会议（含安徽 / 天津 / 上海等地远程参会）</div>
-    <div><strong>会议时长</strong>：约 90 分钟（含介绍 ~30 分钟 + 案例分享 ~30 分钟 + 讨论 ~30 分钟）</div>
-    <div><strong>本总结基于</strong>：会议语音转文字记录（约 2.3 万字） + 埃森哲现场 PPT 9 张截屏</div>
-    <div><strong>本总结立场</strong>：客观纪要 · 不做主观推断 · 直接引用会议原话或 PPT 内容</div>
+    <div>分享主题：智能化资产管理与设备预测性维护</div>
+    <div>分享版本：v1.0</div>
+    <div>分享语境：基于近期与埃森哲方的多次方案交流整理</div>
   </div>
 </section>
 
-<!-- ============ PART 01 · 会议背景与议题 ============ -->
-<section class="slide" id="bg">
-  <h2 class="kicker">PART 01 · 会议背景与议题</h2>
-  <h1>凯莱英探索设备预测性维护落地路径 · 邀请埃森哲做方案讨论</h1>
+<!-- ============ PART 01 · 能力定位 ============ -->
+<section class="slide" id="about">
+  <h2 class="kicker">PART 01 · 埃森哲在制造业方向的能力定位</h2>
+  <h1>是一家"咨询 + 系统集成"的全球公司 · 不是设备厂商也不是算法供应商</h1>
 
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 10px;">1.1 与会方</h3>
+  <p class="lead">
+    首先要做一个认知校准 —— 埃森哲跟我们以前评估过的多家供应商不是同一类公司。它<strong>不卖传感器</strong>（这跟西门子、艾默生不同），也<strong>不持有大模型</strong>（这跟阿里、华为云、智现未来等不同）。
+    埃森哲卖的是<strong>"把战略变成结果"的全链条服务能力</strong> —— 用第三方的硬件 + 第三方的软件 + 自家的方法论和团队，端到端把一件事落地。
+  </p>
+
+  <h3>1.1 全球规模与制造业团队</h3>
+  <div class="grid-4">
+    <div class="card accent"><div class="num">约 700 亿美元</div><div class="label">2025 财年全球营收</div></div>
+    <div class="card accent"><div class="num">80 万</div><div class="label">全球员工</div></div>
+    <div class="card accent"><div class="num">120 个</div><div class="label">业务覆盖国家</div></div>
+    <div class="card accent"><div class="num">9000+</div><div class="label">全球服务客户</div></div>
+  </div>
+  <p>
+    在埃森哲内部，专门服务制造型企业的事业部叫 <strong>Industry X（工业 X）</strong>，这次跟我们对接的就是这条业务线。该团队覆盖的范围从"产品设计 → 生产与供应链 → 产品服务支持 → 工厂创新"完整价值链，制造业场景是他们的主战场。
+  </p>
+
+  <h3>1.2 跟我们的关系定位</h3>
   <div class="grid-2">
     <div class="card info">
-      <strong style="color:#1e40af;">凯莱英方</strong>
+      <h4 style="margin-top: 0;">埃森哲在我们的项目中扮演什么角色</h4>
       <ul class="bul tight">
-        <li>David（孙晨）· 会议组织 / 凯莱英对接</li>
-        <li>王亮 · 生产负责人</li>
-        <li>李涛博士 · AI 生产负责人</li>
-        <li>徐工 · CDT（设备相关）</li>
-        <li>高主管、陈永新主管 · 设备部</li>
-        <li>其他生产 / 设备部同事</li>
+        <li>行业顾问 — 把业务流程梳理清楚、把先验经验结构化</li>
+        <li>系统集成商 — 把第三方的传感器、平台、AI 模型组装起来交付</li>
+        <li>数据科学团队 — 自有 DS（Data Scientist）做特征工程、建模、回归验证</li>
+        <li>知识图谱建模者 — 把"行业经验 + 设备故障案例"翻译成 AI 可读的结构</li>
+        <li>变革管理伙伴 — 把 AI 上线后的流程变革、岗位变革陪同走完</li>
       </ul>
     </div>
     <div class="card info">
-      <strong style="color:#1e40af;">埃森哲方</strong>
+      <h4 style="margin-top: 0;">埃森哲不直接做的事情</h4>
       <ul class="bul tight">
-        <li>胡大伟（David Hu）· 生命科学行业线</li>
-        <li>刘博言（Po · 坡哥 / 刘鹏）· 架构师</li>
-        <li>李新贵（新贵）· 总方案交付 / AI 与设备方案专家</li>
+        <li>不卖硬件 —— 传感器需要采购西门子 / 艾默生 / 海康等品牌</li>
+        <li>不卖大模型 —— 用微软、阿里、华为云等的基础模型平台</li>
+        <li>不做工艺研发 —— 化学反应、配方优化由凯莱英工艺团队负责</li>
+        <li>不替代签字职责 —— 关键 GMP 决策仍由凯莱英人员签字</li>
       </ul>
-      <div class="footnote" style="margin-top:6px; border:none; padding:0;">
-        埃森哲与会团队属于 <strong>Industry X</strong>（工业 X）事业部，专门服务制造型企业。
-      </div>
     </div>
   </div>
 
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">1.2 会议议程</h3>
-  <ol style="padding-left: 22px; color:#3a4d72; font-size:13.5px; line-height: 1.9;">
-    <li><strong>埃森哲公司与 Industry X 团队介绍</strong>（约 5 分钟）— 由刘博言介绍</li>
-    <li><strong>埃森哲在设备管理领域的服务能力</strong>（约 5 分钟）— 由李新贵介绍</li>
-    <li><strong>"智能化资产管理"方法论与三段框架</strong>（约 10 分钟）— PPT 1-2</li>
-    <li><strong>典型客户案例分享</strong>（约 20 分钟）— 从资产管理切入到端到端价值的完整闭环（PPT 3-9）</li>
-    <li><strong>凯莱英需求讨论 · 设备预测性维护具体场景</strong>（约 30 分钟）— 天津厂区动力系统、风机轴承等</li>
-    <li><strong>下一步行动</strong>（约 5 分钟）— 凯莱英整理设备清单 / 数据 / 先验知识后再约会议</li>
-  </ol>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">1.3 凯莱英方明确的本次会议聚焦点</h3>
-  <div class="quote">
-    <span class="speaker">凯莱英 · David（孙晨）：</span>
-    "我们感觉这个范围有点太宽了。我们刚提的是一个设备预测性维护，其实还没有跳到最后这一块……我觉得我们可以先把咱们现在生产这边的设备给埃森哲这边同事大概介绍一下。因为我们主要还是要做我们这边设备的一个预测性维护。"
-  </div>
-  <p style="font-size:13.5px; color:#3a4d72; margin-top:8px;">
-    会议过程中，凯莱英方<strong>明确将议题聚焦在"设备预测性维护"</strong>这一个具体场景上，
-    避免范围扩大到全面 AI 战略 / 端到端业务变革。这一聚焦也获得了埃森哲方的认同。
-  </p>
-</section>
-
-<!-- ============ PART 02 · 埃森哲公司与 Industry X 介绍 ============ -->
-<section class="slide" id="vendor">
-  <h2 class="kicker">PART 02 · 埃森哲公司与 Industry X 团队</h2>
-  <h1>全球 80 万员工的咨询 + 集成商 · Industry X 专门服务制造型企业</h1>
-  <p class="lead">以下数据为会议中埃森哲方（刘博言）口头介绍的公司规模与服务体系。本节内容为埃森哲自述。</p>
-
-  <h3 style="font-size:16px; color:#0f1f3d;">2.1 公司规模（埃森哲自述 · 2025 财年）</h3>
-  <div class="grid-4">
-    <div class="card accent"><div class="num">~$700 亿</div><div class="label">2025 财年营收</div><div class="desc">接近 700 亿美元</div></div>
-    <div class="card accent"><div class="num">80 万</div><div class="label">全球员工</div><div class="desc">原话："全球有 80 万员工"</div></div>
-    <div class="card accent"><div class="num">120 国</div><div class="label">业务覆盖国家</div><div class="desc">坐落在全球 120 个国家</div></div>
-    <div class="card accent"><div class="num">9000+</div><div class="label">全球客户</div><div class="desc">"对每个客户都采取深耕的方式"</div></div>
-  </div>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">2.2 埃森哲面向客户的五大业务组织（埃森哲自述）</h3>
-  <table class="kly">
-    <thead><tr><th style="width:20%;">业务组织</th><th>服务范围</th></tr></thead>
-    <tbody>
-      <tr><td><strong>战略咨询服务</strong></td><td>对于客户需要做战略以及咨询服务方面</td></tr>
-      <tr><td><strong>技术服务团队</strong></td><td>对战略服务往下落地，有各种软件、平台、云或者 AI 的技术实现</td></tr>
-      <tr><td><strong>智能运营团队</strong></td><td>实施之后的长期运营，譬如财会运营或人力运营</td></tr>
-      <tr><td><strong>Industry X（工业 X）</strong></td><td><strong>专门服务制造型企业、生产制造型企业</strong>，围绕大的供应链需要都可以支持 · <em>本次合作的对应团队</em></td></tr>
-      <tr><td><strong>营销 / 销售渠道</strong></td><td>市场推广或者市场设计</td></tr>
-    </tbody>
-  </table>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">2.3 Industry X 在制造业的服务范围（埃森哲自述）</h3>
-  <p style="font-size:13.5px; color:#3a4d72;">
-    从产品最源头的<strong>客户需求 → 设计工程 → 生产 + 供应链 → 产品服务支持 → 创新与成长</strong>整条价值链。
-    会议中给出的具体案例：星巴克全球创新体验中心（苏州）即埃森哲帮忙设计建立，提供给星巴克 to B 以及 to C 的客户对于咖啡体验的一个历程。
-  </p>
-
-  <div class="footnote">
-    📌 注：本节所有数据均为埃森哲方在会议中的自述，未经凯莱英方独立核实。仅作背景信息记录。
+  <div class="highlight-box">
+    <strong>一句话理解</strong>：埃森哲是<strong>"把别人的轮子组装成一辆能跑的车并教会你开"</strong>的公司。
+    它的核心价值不在"造轮子"（做底层算法 / 硬件），而在"<strong>知道造哪些轮子、按什么顺序造、谁来造、怎么落地</strong>"。
+    这个定位决定了它适合做什么、不适合做什么 —— 后面几节会展开。
   </div>
 </section>
 
-<!-- ============ PART 03 · 埃森哲在设备管理的三段服务能力 ============ -->
+<!-- ============ PART 02 · 三段方法论 ============ -->
 <section class="slide" id="service">
-  <h2 class="kicker">PART 03 · 埃森哲在设备管理的服务能力</h2>
-  <h1>三段式服务体系 · 当前重心在第三段"AI 应用"</h1>
-  <p class="lead">由埃森哲方（李新贵）介绍的服务体系。三段服务可独立交付，也可组合交付。</p>
+  <h2 class="kicker">PART 02 · 智能资产管理的三段方法论</h2>
+  <h1>"咨询 → 系统落地 → AI 应用"三段服务 · 当前重心在第三段</h1>
 
-  <div class="step-flow" style="grid-template-columns: repeat(3, 1fr);">
+  <p class="lead">埃森哲在资产管理这个赛道上把服务分成三段。三段可以单独交付，也可以组合。当前他们手里大部分项目都集中在第三段"AI 应用"，这也正是凯莱英本次议题的关心点。</p>
+
+  <div class="step-flow flow-3">
     <div class="step">
       <div class="stp">第一段</div>
       <div class="ttl">咨询服务</div>
       <div class="det">
-        TPM 怎么做 / 精益怎么做 / 资产管理怎么做。<br/>
-        埃森哲方表述："有一些很有经验的专家"。
+        TPM 全员生产维护怎么做、精益管理怎么落、企业资产管理体系怎么搭。<br/>
+        这是经典的管理咨询能力，每家公司多少都有自己的版本，埃森哲这块的差异化不大。
       </div>
     </div>
     <div class="step">
       <div class="stp">第二段</div>
       <div class="ttl">系统落地</div>
       <div class="det">
-        除了流程梳理、方法论以外，落到系统里面。<br/>
-        主要含 EAM / APM 等资产管理系统的导入部署。
+        把咨询梳理出的方法论沉淀到企业资产管理系统（EAM）+ 资产绩效管理系统（APM）里。<br/>
+        埃森哲这块经验丰富，是行业头部之一。
       </div>
     </div>
     <div class="step">
       <div class="stp">第三段 · 当前重心</div>
       <div class="ttl">AI 应用</div>
       <div class="det">
-        系统落地之后，基于数据的 AI 应用。<br/>
-        <strong>近期项目普遍集中在第三段</strong>。
+        在 EAM/APM 已经有数据沉淀的基础上，把行业经验和现场数据结合起来，做出可以替代专家"看一眼、判一下"的 AI 智能体。<br/>
+        近期项目普遍集中在这一段。
       </div>
     </div>
   </div>
 
-  <div class="quote">
-    <span class="speaker">埃森哲 · 李新贵：</span>
-    "我们还是偏应用的一家公司，偏技术类的，所以我们在资产管理系统导入部署，就像 EAM、APM 这些，以及我们做这种 AI 应用，后两部分的整体比重、人员和经验会更多一点。第一部分其实各个公司也有做，每家公司都有自己的基础。所以第一部分往往是在做系统和 AI 的时候顺带在做。"
-  </div>
+  <h3>2.1 三段维护框架 — 一次性把"什么时候要做什么"讲清楚</h3>
+  <p>在具体方法论层面，埃森哲把设备维护按时间维度拆成三段。每段对应不同的核心问题、不同的解决组件、不同的可量化提升空间。</p>
 
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">3.1 智能化资产管理的演进路径（埃森哲方法论）</h3>
-  <p style="font-size:13px; color:#3a4d72;">
-    埃森哲在 PPT 中将"智能化资产管理"分为三个阶段，根据客户情况裁剪适配：
-  </p>
-  <div class="img-cap">
-    <img src="埃森哲/2.PNG" alt="埃森哲智能化资产管理路径"/>
-    <div class="cap">图：埃森哲方 PPT — 智能化资产管理的演进路径（资产管理策略与运营 → EAM/APM 系统导入 → 智能互联的 AI 分析）</div>
-  </div>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">3.2 价值来源（埃森哲方表述）</h3>
-  <div class="grid-3">
-    <div class="card success">
-      <strong style="color:#166534;">营收提升</strong>
-      <ul class="bul tight">
-        <li>降低 OEE 损失</li>
-        <li>降低瓶颈工序停机时间，提升产能</li>
-        <li>"过往项目里价值最大的部分"</li>
-        <li>但近两年因产能过剩有折扣</li>
-      </ul>
-    </div>
-    <div class="card success">
-      <strong style="color:#166534;">成本降低</strong>
-      <ul class="bul tight">
-        <li>无形：人员效率、时间消耗、劳动效率</li>
-        <li>有形：备品备件、停机带来的电量损失等</li>
-        <li>资产利用率（备件有寿命，3-5% 提升对应百万级回报）</li>
-        <li>产品使用生命周期延长</li>
-      </ul>
-    </div>
-    <div class="card success">
-      <strong style="color:#166534;">运营 + 安全</strong>
-      <ul class="bul tight">
-        <li>运维部门是基础部门</li>
-        <li>定性贡献以往很少量化，埃森哲方案会去定性 / 部分定量</li>
-        <li>"PAA"（基本无接触）减少现场走动 → 安全提升</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ============ PART 04 · 智能资产管理解决方案框架 ============ -->
-<section class="slide" id="framework">
-  <h2 class="kicker">PART 04 · 智能资产管理解决方案框架</h2>
-  <h1>Before / During / Long-term 三段维护 + 价值指标</h1>
-  <p class="lead">埃森哲方 PPT 中的核心方法论框架 · 含三段维护组件 + 价值指标范围。</p>
-
-  <div class="img-cap">
-    <img src="埃森哲/1.PNG" alt="Intelligent Asset Maintenance Solution Framework"/>
-    <div class="cap">图：埃森哲方 PPT — Intelligent Asset Maintenance Solution Framework</div>
-  </div>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 14px;">4.1 三段维护的问题定义与解决组件（按 PPT 内容直引）</h3>
   <table class="kly">
     <thead>
       <tr>
-        <th style="width:18%;">阶段</th>
-        <th style="width:30%;">问题（Problem）</th>
-        <th style="width:30%;">解决组件（Solution Components）</th>
-        <th>价值指标范围（Value）</th>
+        <th style="width:14%;">阶段</th>
+        <th style="width:24%;">解决的核心问题</th>
+        <th style="width:32%;">具体方法 / 工具</th>
+        <th>行业可达的提升空间</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><strong>Before Maintenance</strong><br/>（运营前 · 提高可靠性）</td>
-        <td>How to maximize Mean Time Between Failure for routine maintenance service?</td>
+        <td><strong>运营前<br/>（提高可靠性）</strong></td>
+        <td>如何让设备多跑、少坏？<br/>—— 拉长两次故障之间的间隔</td>
         <td>
-          • MTBF Reliability modeling<br/>
-          • FTA / FMEA knowledge mngt.<br/>
-          • Online anomaly detection<br/>
-          • Predictive maintenance
+          可靠性建模、故障树分析（FTA）、失效模式与影响分析（FMEA）、在线异常检测、预测性维护
         </td>
         <td>
-          ↓ 10-15% 技术人员现场访问<br/>
-          ↑ 15-25% 生产力<br/>
-          ↓ 30-75% 后台压力
+          技术人员现场访问次数下降 10-15%<br/>
+          整体生产力提升 15-25%<br/>
+          后台沟通压力下降 30-75%
         </td>
       </tr>
       <tr>
-        <td><strong>During Maintenance</strong><br/>（运维中 · 缩短修复时间）</td>
-        <td>How to minimize Mean Time To Repair for repair services?</td>
+        <td><strong>运维中<br/>（缩短修复时间）</strong></td>
+        <td>故障已经发生 — 如何最快修好？</td>
         <td>
-          • Historical records clustering<br/>
-          • Maintenance assistant to guide the quick fix with step-by-step help on handbook / process / tool / success experience
+          历史维修记录聚类、维修助手按手册 / 流程 / 工具 / 成功经验一步步引导
         </td>
         <td>
-          ↑ 10-20% First Time Right<br/>
-          ↑ 20-25% 准确解决率<br/>
-          ↑ &gt; 30% 重复知识共享
+          首次维修成功率提升 10-20%<br/>
+          准确修复率提升 20-25%<br/>
+          重复经验共享提升 30% 以上
         </td>
       </tr>
       <tr>
-        <td><strong>Long-term Spare Parts</strong><br/>（长期备件规划）</td>
-        <td>How to improve the spare parts demand forecasting and optimize the inventory?</td>
+        <td><strong>长期备件<br/>（库存优化）</strong></td>
+        <td>备件该备多少、什么时候补？<br/>—— 既不缺货也不积压</td>
         <td>
-          • Spare parts segmentation<br/>
-          • Demand forecasting<br/>
-          • Inventory optimization with simulation<br/>
-          • Inventory visibility &amp; alarm
+          备件分类、需求预测、库存仿真优化、可视化与预警
         </td>
         <td>
-          ↑ 10-30% 预测准确性<br/>
-          ↓ 5-15% 库存<br/>
-          ↑ 10-20% 补货时机
+          预测准确度提升 10-30%<br/>
+          库存下降 5-15%<br/>
+          补货时机精度提升 10-20%
         </td>
       </tr>
     </tbody>
   </table>
 
-  <div class="card accent" style="margin-top: 14px;">
-    <strong style="color:#92400e;">📌 PPT 底层共同基础</strong>
-    <ul class="bul tight" style="margin-top:6px;">
-      <li><strong>Master Data Mgmt &amp; Data Foundation</strong>（主数据管理与数据基础）— 所有上层应用的底座</li>
-      <li><strong>Strategy / Process / Platform</strong>（战略 / 流程 / 平台）— 配套机制</li>
-    </ul>
-    <p style="font-size:12.5px; color:#3a4d72; margin-top:8px;">
-      <em>注：以上价值指标范围为埃森哲 PPT 给出的"过往项目结果区间"，未明确客户名称、行业、规模，仅作参考。</em>
-    </p>
-  </div>
-</section>
-
-<!-- ============ PART 05 · AI 智能体架构与案例 ============ -->
-<section class="slide" id="agents">
-  <h2 class="kicker">PART 05 · AI 智能体架构与典型案例</h2>
-  <h1>从资产管理切入 → 端到端业务闭环 · 5 大 AI 智能体协作</h1>
-  <p class="lead">本节内容来自埃森哲方 PPT 3-9 及李新贵的案例讲解。该案例的客户行业 / 名称未在会议中披露，仅以"某客户"指代。</p>
-
-  <h3 style="font-size:16px; color:#0f1f3d;">5.1 端到端价值闭环（PPT 3-4）</h3>
-  <p style="font-size:13px; color:#3a4d72;">埃森哲展示了一个"从客户投诉到改进反馈"的完整闭环，涉及 5 大 AI 智能体协作：</p>
-  <div class="img-cap">
-    <img src="埃森哲/4.PNG" alt="人机协作实战 — 5 大智能体闭环"/>
-    <div class="cap">图：埃森哲方 PPT — 人机协作实战（5 大 AI 智能体 + 投诉解决周期从 7 天缩短至 1 天）</div>
-  </div>
-  <table class="kly" style="margin-top:8px;">
-    <thead><tr><th style="width:10%;">编号</th><th style="width:24%;">智能体</th><th style="width:18%;">所属团队</th><th>核心职责（按 PPT 内容）</th></tr></thead>
-    <tbody>
-      <tr><td>①</td><td>PM2 横幅改进智能体</td><td>生产团队</td><td>持续改进 / 生产流程优化</td></tr>
-      <tr><td>②</td><td>预防性维护与故障排除智能体</td><td>资产管理团队</td><td><strong>本次讨论核心相关</strong> · 预测性维护 + 故障排查</td></tr>
-      <tr><td>③</td><td>关键资产管理智能体</td><td>资产管理团队</td><td>关键资产健康监控</td></tr>
-      <tr><td>④</td><td>客户投诉智能助手智能体</td><td>质量团队</td><td>客户投诉调查转化为证据</td></tr>
-      <tr><td>⑤</td><td>智能运营助手智能体</td><td>维护执行团队</td><td>协调全厂资源、快速找文档、生成维修报告、知识沉淀</td></tr>
-    </tbody>
-  </table>
-
-  <div class="card info" style="margin-top: 14px;">
-    <strong>案例量化结果（按 PPT 内容）</strong>
-    <ul class="bul tight" style="margin-top: 6px;">
-      <li><strong>客户投诉解决周期：从 7 天缩短至 1 天</strong>（目标状态：3 天 · 受审批流程影响）</li>
-      <li>问题翻译 / 根本原因分析：<strong>5 分钟翻译 + 多极可追溯性</strong></li>
-      <li>根本原因报告：<strong>90 + 25 分钟回译</strong>（PPT 数据原文）</li>
-      <li>历史纠正措施回顾：过去的 AI 干预操作日志</li>
-    </ul>
-  </div>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">5.2 Ontology &amp; AI · 本体驱动的工厂运营模式（PPT 5）</h3>
-  <p style="font-size:13px; color:#3a4d72;">埃森哲方表述："从孤立的 AI 演示到本体驱动的工厂运营模式"。案例为某<strong>纸机生产线</strong>客户。</p>
-  <div class="img-cap">
-    <img src="埃森哲/5.PNG" alt="Ontology & AI - 纸机生产线案例"/>
-    <div class="cap">图：埃森哲方 PPT — Ontology &amp; AI · CSU 生产与维护 AI 设计项目经验总结</div>
-  </div>
-  <div class="grid-2">
-    <div class="card">
-      <strong>关键信息（按 PPT 注释）</strong>
-      <p style="font-size:13px; color:#3a4d72; margin-top:6px;">
-        对象 + 关系 + 行动 + 人员确认 = <strong>可扩展的工业 AI</strong>
-      </p>
-    </div>
-    <div class="card">
-      <strong>4 类工厂事件（Factory Events）</strong>
-      <ul class="bul tight">
-        <li>客户投诉（Complaint）</li>
-        <li>剖面 / 质量偏差（Profile / Quality）</li>
-        <li>设备健康信号（Equipment Health Signal）</li>
-        <li>维护任务 / 工单（Maintenance Task / Work Order）</li>
-      </ul>
-    </div>
-  </div>
-  <div class="card info" style="margin-top: 12px;">
-    <strong>运营本体（Operational Ontology）的三层结构（PPT 直引）</strong>
-    <ul class="bul tight" style="margin-top: 6px;">
-      <li><strong>语义层 Semantic Layer</strong>：产品 / 背架、工艺参数、设备、SOP / RCA、报警 / 信号、知识更新、维护动作</li>
-      <li><strong>行动层 Action Layer</strong>：推荐建议、任务 / 报告、知识更新</li>
-      <li><strong>治理层 Governance Layer</strong>：人工确认、审计追踪、安全和权限、负责任 AI</li>
-    </ul>
-    <p style="font-size:12.5px; color:#3a4d72; margin-top: 8px;">
-      <strong>数据与系统基础（Data &amp; Systems Foundation）</strong>：MDP（制造数据平台）/ CDP（客户数据平台）/ SAP / GMES（设备管理系统）/ 质量标准 / SOP·RCA 库
-    </p>
-  </div>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">5.3 5 层架构 · 工业事件接入与路由智能体（PPT 6）</h3>
-  <div class="img-cap">
-    <img src="埃森哲/6.PNG" alt="工业事件接入与路由智能体架构"/>
-    <div class="cap">图：埃森哲方 PPT — 工业事件接入与路由智能体架构</div>
-  </div>
-  <div class="step-flow">
-    <div class="step">
-      <div class="stp">①</div>
-      <div class="ttl">统一入口</div>
-      <div class="det">平板 / 移动端、电子邮件、聊天消息、传感器告警、工单系统</div>
-    </div>
-    <div class="step">
-      <div class="stp">②</div>
-      <div class="ttl">智能监控</div>
-      <div class="det">AI 意图识别与路由中心（Intake Agent · NLU · 实体识别 · 上下文关联 · 事件标准化）</div>
-    </div>
-    <div class="step">
-      <div class="stp">③</div>
-      <div class="ttl">智能调查</div>
-      <div class="det">5 个专业化智能体（质量异常 / 设备健康 / 资产管理 / 客户投诉调查 / 维修执行）</div>
-    </div>
-    <div class="step">
-      <div class="stp">④</div>
-      <div class="ttl">知识图谱</div>
-      <div class="det">事件上下文 + 工厂本体 Plant Ontology + 工业知识图谱</div>
-    </div>
-    <div class="step">
-      <div class="stp">⑤</div>
-      <div class="ttl">知识迭代</div>
-      <div class="det">每个事件都沉淀为可验证的知识，赋能下一次更智能的决策</div>
-    </div>
-  </div>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">5.4 健康评分与优先级引擎（PPT 7）</h3>
-  <div class="img-cap">
-    <img src="埃森哲/7.PNG" alt="健康评分与优先级引擎"/>
-    <div class="cap">图：埃森哲方 PPT — 健康评分与优先级引擎</div>
-  </div>
-  <div class="grid-3">
-    <div class="card">
-      <strong style="color:#0f1f3d;">输入：多源工业信号</strong>
-      <ul class="bul tight">
-        <li>传感器趋势（振动 / 温度 / 压力 / 电流 / 流量 / 转速）</li>
-        <li>质量指标（尺寸 / 重量 / 外观 / SPC / 良率）</li>
-        <li>工艺参数（温度 / 压力 / 流量 / pH / 粒度）</li>
-        <li>人工巡检 / 点检 / 维修记录</li>
-        <li>生产损失影响（业务后果评估）</li>
-      </ul>
-    </div>
-    <div class="card">
-      <strong style="color:#0f1f3d;">处理：Health Index 健康分</strong>
-      <ul class="bul tight">
-        <li>每个设备 / 部件都有自己的健康分</li>
-        <li>0-100 评分体系（PPT 案例：辊筒质量 88 / 泵及电机 62 / 辊轴 45）</li>
-        <li>对应风险等级（高 / 中 / 低）</li>
-        <li>业务影响矩阵（4×4 风险-后果矩阵）</li>
-      </ul>
-    </div>
-    <div class="card">
-      <strong style="color:#0f1f3d;">输出：优先行动</strong>
-      <ul class="bul tight">
-        <li>优先队列（按业务后果排名）</li>
-        <li>4 档处置：立即处理 / 计划维护 / 监控 / 无需处理</li>
-        <li>建议项含 ETA、关键事件、责任人</li>
-        <li>PPT 案例底部 KPI：低度风险 128、高风险 7、近期工单 15 等</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="quote" style="margin-top: 14px;">
-    <span class="speaker">埃森哲 · 李新贵：</span>
-    "这个东西很重要，也是我们和 AI 沟通的一个最基本的基础，叫 index，在这里叫 health index，就是健康分。它最后还是会转成一个健康分，从每一个设备、某一个部件都有自己的健康分。然后至于这个健康分，它才会知道健康分的高低产生的生产损失的影响。"
-  </div>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">5.5 基于证据的调查智能体（PPT 8）</h3>
-  <div class="img-cap">
-    <img src="埃森哲/8.PNG" alt="基于证据的调查智能体"/>
-    <div class="cap">图：埃森哲方 PPT — Evidence-Based Investigation Agent · 6 阶段调查流程</div>
-  </div>
-  <div class="step-flow" style="grid-template-columns: repeat(6, 1fr);">
-    <div class="step"><div class="stp">①</div><div class="ttl">事件接收</div><div class="det">客户投诉 / 设备告警 / 质量偏差</div></div>
-    <div class="step"><div class="stp">②</div><div class="ttl">证据收集</div><div class="det">AI 智能体多系统收集关联证据</div></div>
-    <div class="step"><div class="stp">③</div><div class="ttl">时间线重建</div><div class="det">构建事件演化时间线</div></div>
-    <div class="step"><div class="stp">④</div><div class="ttl">假设生成</div><div class="det">基于证据生成根因假设</div></div>
-    <div class="step"><div class="stp">⑤</div><div class="ttl">置信度与缺口</div><div class="det">评估证据充分性 + 关键缺口</div></div>
-    <div class="step"><div class="stp">⑥</div><div class="ttl">人工核查</div><div class="det">专家复核与结论确认</div></div>
-  </div>
-  <p style="font-size:12.5px; color:#3a4d72; margin-top: 8px; font-style:italic;">
-    PPT 案例：整体置信度 0.78 · 业务价值标注 "提升调查效率 50%+ / 沉淀知识 / 推动持续改进"
+  <p style="margin-top:8px; font-size:13px; color:#5b6a8a;">
+    📌 表中"提升空间"是过往项目的<strong>行业经验区间</strong>，跨行业、跨规模、跨成熟度，不是对凯莱英的承诺。
+    具体能拿到多少，要看凯莱英的起点和落地深度。
   </p>
 
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">5.6 工业知识图谱启航 · LLM 加速共创（PPT 9）</h3>
-  <div class="img-cap">
-    <img src="埃森哲/9.PNG" alt="工业知识图谱启航"/>
-    <div class="cap">图：埃森哲方 PPT — 工业知识图谱启航 LLM 加速知识共创</div>
-  </div>
-  <div class="step-flow" style="grid-template-columns: repeat(4, 1fr);">
-    <div class="step">
-      <div class="stp">阶段 ①</div>
-      <div class="ttl">发现（传统咨询）</div>
-      <div class="det">访谈驱动 · 质量 / 生产 / 维修 / 资产 多部门专家访谈</div>
+  <h3>2.2 价值落在哪里</h3>
+  <div class="grid-3">
+    <div class="card success">
+      <h4 style="color:#166534; margin-top:0;">营收侧</h4>
+      <p style="font-size:13px; margin:6px 0;">
+        降低瓶颈工序的停机时间、提升关键设备产能。
+        这部分在过往项目中价值最大，但近两年因为行业产能过剩，提升空间相对收窄。
+      </p>
     </div>
-    <div class="step">
-      <div class="stp">阶段 ②</div>
-      <div class="ttl">LLM 结构化引擎</div>
-      <div class="det">多源知识输入 → 知识抽取与结构化 → 中间样态（设备对象 / 工艺参数 / 质量异常 / 维修措施）</div>
+    <div class="card success">
+      <h4 style="color:#166534; margin-top:0;">成本侧</h4>
+      <p style="font-size:13px; margin:6px 0;">
+        无形成本（人员工时、劳动效率）+ 有形成本（备品备件优化、停机带来的能耗损失）+ 资产利用率（备件寿命延长、设备生命周期管理）。
+        即使是一个小零部件，规模化后也是几百万到几千万级回报。
+      </p>
     </div>
-    <div class="step">
-      <div class="stp">阶段 ③</div>
-      <div class="ttl">专家审核与共创</div>
-      <div class="det">Human-in-the-Loop · 审核 / 补全 / 完善 / 验证 / 确认与发布</div>
+    <div class="card success">
+      <h4 style="color:#166534; margin-top:0;">安全 + 运营侧</h4>
+      <p style="font-size:13px; margin:6px 0;">
+        减少现场人员走动 = 减少碰撞 / 意外 / 伤害。
+        定性价值往往被忽略，但实际给运营和安全部门带来的提升非常显著，可以部分量化进 KPI。
+      </p>
     </div>
-    <div class="step">
-      <div class="stp">阶段 ④</div>
-      <div class="ttl">复用与智能应用</div>
-      <div class="det">工业知识图谱启航 · 复用至质量异常 / 维护助手 / 设备健康 / 生产优化等智能体</div>
-    </div>
-  </div>
-
-  <div class="quote" style="margin-top: 14px;">
-    <span class="speaker">埃森哲 · 李新贵：</span>
-    "以前没有大模型的时候，我们认为这种项目都是做不成的。最近几年为什么能成功，也是因为有大模型出来了，AI 能懂自然语言。我们就会把这个因果链的结果变成一种自然语言的描述，一种陈述给到 AI 去理解。"
   </div>
 </section>
 
-<!-- ============ PART 06 · 设备预测性维护的开展思路 ============ -->
-<section class="slide" id="pdm">
-  <h2 class="kicker">PART 06 · 设备预测性维护的开展思路</h2>
-  <h1>埃森哲方主张的"PdM 项目可行性判断 4 维度"</h1>
-  <p class="lead">本节内容综合自李新贵和刘博言（坡哥）在讨论中给出的关于"如何判断一个 PdM 项目是否能做、怎么做"的具体思路。</p>
+<!-- ============ PART 03 · AI 智能体协作 ============ -->
+<section class="slide" id="agent">
+  <h2 class="kicker">PART 03 · AI 智能体协作的工作方式</h2>
+  <h1>从"单点 AI"到"多智能体协作"的端到端价值闭环</h1>
 
-  <h3 style="font-size:16px; color:#0f1f3d;">6.1 项目可行性判断 4 维度</h3>
-  <p style="font-size:13.5px; color:#3a4d72;">埃森哲方多次强调，判断一个 PdM 项目是否可做，需要凯莱英方先给出以下 4 类信息：</p>
-  <div class="grid-2">
-    <div class="card accent">
-      <strong style="color:#92400e;">① 产线设备 + 主要问题</strong>
-      <ul class="bul tight">
-        <li>是什么产业设备（设备类型 / 关键作用）</li>
-        <li>主要面临的问题（故障类型 / 频次 / 损失）</li>
-        <li>埃森哲建议先按"损失"或"OEE"排出 Top 5 类故障</li>
-      </ul>
-    </div>
-    <div class="card accent">
-      <strong style="color:#92400e;">② 当前可采集的数据 + 监测手段</strong>
-      <ul class="bul tight">
-        <li>现有传感器（震动 / 温度 / 电流 / 压力 / 流量 等）</li>
-        <li>采集频次、历史归档时长（是否有 5 年 / 1 年 / 3 个月数据）</li>
-        <li>当前监测手段（人工巡检 / 在线监测 / DCS）</li>
-      </ul>
-    </div>
-    <div class="card accent">
-      <strong style="color:#92400e;">③ 对设备的先验知识</strong>
-      <ul class="bul tight">
-        <li>这个设备坏可能跟哪些因子（A、B、C、D）有关</li>
-        <li>故障类型分类（物理模型 / RCA 报告 / 偏差报告）</li>
-        <li>过往 5 Why / FTA / FMEA 分析</li>
-      </ul>
-    </div>
-    <div class="card accent">
-      <strong style="color:#92400e;">④ 故障频次 + 历史样本</strong>
-      <ul class="bul tight">
-        <li>近 5 年 / 1 年 / 半年坏过几次</li>
-        <li>每次故障的特征数据是否有保留</li>
-        <li>"如果几乎不坏 → 项目论证就难"</li>
-      </ul>
-    </div>
-  </div>
+  <p class="lead">埃森哲在 AI 落地上有一个核心观点：单点的 AI 应用（比如只做一个故障预测模型）价值有限，真正的价值来自<strong>多个 AI 智能体串成业务闭环</strong> —— 从客户投诉到根因调查到设备改进到再反馈给客户，整条链都让 AI 参与。</p>
 
-  <div class="quote">
-    <span class="speaker">埃森哲 · 李新贵：</span>
-    "我觉得这个项目大家如果要往下走，除了商务上的一些找价值之外，还要做一个什么东西呢？……我先前的案例里面……可能要给的一些东西，各位生产和设备的同事，我觉得你们至少得给我们这些东西，给个这样的图：就是我是什么产业设备，主要的问题是什么，我现在能采什么数据，我对它有哪些先验。你给了这几个维度，我们才能说你这个东西有没有得做，大家得看怎么样。"
-  </div>
+  <h3>3.1 5 个 AI 智能体怎么分工</h3>
+  <p>在他们做过的成熟案例里，围绕"资产管理"会形成 5 个智能体协作：</p>
 
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">6.2 数据基础与解题思路</h3>
   <table class="kly">
-    <thead><tr><th style="width:25%;">情况</th><th>埃森哲方应对</th></tr></thead>
+    <thead>
+      <tr>
+        <th style="width:18%;">智能体角色</th>
+        <th style="width:18%;">所属业务团队</th>
+        <th>主要在干什么</th>
+      </tr>
+    </thead>
     <tbody>
       <tr>
-        <td><strong>有完整历史数据</strong>（含坏批数据）</td>
-        <td>直接做"特征发现 + 多因子回归 + 命中率验证" → 拍胸脯告诉领导能做</td>
+        <td><strong>① 客户投诉调查智能体</strong></td>
+        <td>质量团队</td>
+        <td>接到客户投诉后，自动核查"问题站不站得住脚"、收集相关产品记录、定位是设备问题还是物料问题</td>
+      </tr>
+      <tr>
+        <td><strong>② 持续改进智能体</strong></td>
+        <td>生产团队</td>
+        <td>把每次根因分析的结论沉淀到生产流程改进里，避免同类问题反复</td>
+      </tr>
+      <tr>
+        <td><strong>③ 关键资产管理智能体</strong></td>
+        <td>资产团队</td>
+        <td>对关键设备做 24×7 在线监控、识别早期异常、给出故障趋势</td>
+      </tr>
+      <tr>
+        <td><strong>④ 预测性维护与故障排除智能体</strong></td>
+        <td>资产团队</td>
+        <td>对一般设备做预防性 / 预测性运维与故障排查 —— <strong>本次议题的核心相关</strong></td>
+      </tr>
+      <tr>
+        <td><strong>⑤ 智能运营助手智能体</strong></td>
+        <td>维护执行团队</td>
+        <td>设备出问题时协调全厂资源、快速找文档 / SOP、生成维修报告、沉淀知识资产</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>3.2 端到端闭环带来的价值</h3>
+  <p>当上述 5 个智能体串成闭环之后，一个典型客户投诉的处理流程发生了根本变化：</p>
+  <div class="step-flow flow-4">
+    <div class="step">
+      <div class="stp">环节 ①</div>
+      <div class="ttl">原来 7 天</div>
+      <div class="det">客户投诉收到 → 内部沟通 → 现场排查 → 给客户回复，全流程要 7 个工作日左右</div>
+    </div>
+    <div class="step">
+      <div class="stp">环节 ②</div>
+      <div class="ttl">现在 1 天</div>
+      <div class="det">AI 智能体 24×7 在线，分钟级完成证据收集 + 根因假设，整体周期压到 1 天左右</div>
+    </div>
+    <div class="step">
+      <div class="stp">环节 ③</div>
+      <div class="ttl">质量同步提升</div>
+      <div class="det">回复不是"应付一下"，而是真正理解客户问题、给出解决建议</div>
+    </div>
+    <div class="step">
+      <div class="stp">环节 ④</div>
+      <div class="ttl">知识沉淀</div>
+      <div class="det">每个事件都沉淀进知识图谱，下一次同类问题处理更快、更准</div>
+    </div>
+  </div>
+
+  <h3>3.3 这种工作方式的三个特点</h3>
+  <div class="grid-3">
+    <div class="card tip">
+      <h4 style="margin-top:0;">SMART · 更智能</h4>
+      <p style="font-size:13px;">每个智能体都有自己的"专业方向"（设备健康 / 质量异常 / 投诉调查），相当于把各领域专家变成"在线大师"，24×7 不下班。</p>
+    </div>
+    <div class="card tip">
+      <h4 style="margin-top:0;">无缝集成</h4>
+      <p style="font-size:13px;">所有团队的工作通过同一个统一入口接入，不再是"质量在自己系统里、设备在自己系统里"。事件可以跨部门流转，责任清晰。</p>
+    </div>
+    <div class="card tip">
+      <h4 style="margin-top:0;">PAA · 基本无接触</h4>
+      <p style="font-size:13px;">AI 直接控制部分参数、推送处置建议，减少人在现场的不必要走动。安全提升明显，特别是在洁净区、高风险区。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 04 · PdM 思路 ============ -->
+<section class="slide" id="pdm">
+  <h2 class="kicker">PART 04 · 设备预测性维护的开展思路（核心）</h2>
+  <h1>"想做"还不够 — 先要回答 4 个判断题</h1>
+
+  <p class="lead">设备预测性维护听起来吸引人，但不是所有设备、所有场景都适合一上来就做。<strong>埃森哲在判断一个 PdM 项目能不能做、怎么做的时候，有一套相对成熟的方法</strong> —— 4 个维度的可行性判断，决定项目走向。</p>
+
+  <h3>4.1 可行性判断的 4 个维度</h3>
+  <div class="grid-2">
+    <div class="card accent">
+      <h4 style="margin-top:0;">维度 ① · 产线设备 + 主要问题</h4>
+      <ul class="bul tight">
+        <li>设备是什么、关键作用是什么</li>
+        <li>主要面临的故障是什么类型、什么频次、什么业务损失</li>
+        <li>按"损失"或"设备综合效率（OEE）"排序，先抓最关键的 5 类故障</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h4 style="margin-top:0;">维度 ② · 当前数据基础</h4>
+      <ul class="bul tight">
+        <li>已经装了哪些传感器（震动、温度、电流、压力、流量、转速）</li>
+        <li>采集频次、历史归档时长（5 年 / 1 年 / 3 个月）</li>
+        <li>当前的监测手段（人工巡检、DCS、独立在线监测）</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h4 style="margin-top:0;">维度 ③ · 对设备的先验知识</h4>
+      <ul class="bul tight">
+        <li>这台设备坏跟哪些因子相关（凭经验讲得出来吗）</li>
+        <li>历史故障类型分类 / 物理模型 / RCA 报告 / 偏差报告</li>
+        <li>已经做过的 5 Why、FTA、FMEA 分析结果</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h4 style="margin-top:0;">维度 ④ · 故障频次 + 历史样本</h4>
+      <ul class="bul tight">
+        <li>近 5 年 / 1 年 / 半年坏过几次</li>
+        <li>每次故障的特征数据当时有没有保留</li>
+        <li>"几乎不坏"反而是个问题 —— 项目论证难、训练样本少</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>4.2 不同数据基础对应不同走法</h3>
+  <table class="kly">
+    <thead>
+      <tr><th style="width:30%;">数据基础情况</th><th>对应的解题路径</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>有完整历史数据 + 含故障样本</strong></td>
+        <td>直接做"特征发现 + 多因子回归 + 命中率验证"。项目可论证可量化，立项相对容易。</td>
       </tr>
       <tr>
         <td><strong>有完整历史数据但故障样本少</strong></td>
-        <td>"训练出来的模型不一定特别好用" · 需结合行业经验和前训练模型</td>
+        <td>训练出来的模型方差大，不一定特别好用。需要结合行业前训练模型 + 合成样本扩充。</td>
       </tr>
       <tr>
-        <td><strong>没有历史数据但有先验经验</strong></td>
-        <td>说服领导先装传感器跑 3-6 个月，可能这期间不一定坏 · 风险共担</td>
+        <td><strong>有先验经验但没历史数据</strong></td>
+        <td>先装传感器跑 3-6 个月，期间不一定能拿到故障样本，要做好"风险共担、慢慢见效"的预期管理。</td>
       </tr>
       <tr>
-        <td><strong>没有历史数据也没有先验</strong>（两眼一摸黑）</td>
-        <td>"那可能上了 AI，它也是无水，解决不了问题" · 不推荐立项</td>
+        <td><strong>没有历史数据也没有先验</strong></td>
+        <td>不推荐立项。AI 在缺数据 + 缺先验的场景里发挥不了作用。</td>
       </tr>
     </tbody>
   </table>
 
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">6.3 关于"行业模型能否复用"的讨论</h3>
-  <p style="font-size:13.5px; color:#3a4d72;">凯莱英方提问：能否复用其他客户（行业内）的物理模型和数据，弥补自身数据不足？埃森哲方的回答如下：</p>
-  <div class="quote">
-    <span class="speaker">埃森哲 · 刘博言（坡哥）：</span>
-    "重点不在外部的一些东西，重点是在内部的。比如说像电机，我们会根据你们有些是震动，有些是电流，有些是波峰波谷出现次数，它统一上来讲，就是在外部、在这种开源社区、在这种现在互联网上其实什么都有的环境里，它是有一些计算方法的。埃森哲你可以理解为是在这方面有很多储备。我们要套的这些东西是什么呢？其实就是<strong>前训练，我们已经做得差不多了，后训练一定是得在你的电机、轴承、马达上来做这个事情</strong>。"
-  </div>
-  <p style="font-size:13.5px; color:#3a4d72; margin-top:8px;">
-    换言之，埃森哲方的立场是：
-    <strong>"前训练模型 + 计算方法" 埃森哲有储备 → 可以加速；
-    "后训练" 必须在凯莱英自己的设备数据上做 → 凯莱英自身数据仍是关键</strong>。
+  <h3>4.3 关于"能不能用其他客户的数据 / 模型"</h3>
+  <p>
+    我们之前思考过一个问题 —— 凯莱英自己的 300+ 台设备数据量可能不够支撑一个非常好的模型，能不能用行业其他客户的数据来补？埃森哲的回答是这样的：
   </p>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">6.4 算法层面的具体讨论</h3>
   <div class="grid-2">
     <div class="card info">
-      <strong style="color:#1e40af;">埃森哲方提到的算法</strong>
+      <h4 style="margin-top:0;">他们能做的 · "前训练"</h4>
+      <p style="font-size:13.5px;">
+        埃森哲在<strong>通用电机、轴承、马达</strong>等设备上已经有"前训练模型 + 计算方法"的储备。这一层不用我们再造轮子，可以加速。
+        这相当于"行业经验已经写进了模型的初始权重"。
+      </p>
+    </div>
+    <div class="card info">
+      <h4 style="margin-top:0;">他们做不了的 · "后训练"</h4>
+      <p style="font-size:13.5px;">
+        每个具体设备型号、每个具体工况下的参数微调，<strong>必须用凯莱英自己的电机、轴承、马达数据</strong>来做"后训练"。
+        即使是同一个品牌的设备，工况差异都会让模型需要重新调参。
+      </p>
+    </div>
+  </div>
+  <div class="highlight-box">
+    <strong>翻译成大白话</strong>：行业经验可以借，但<strong>我们自己的数据躲不开</strong>。
+    "拿别家的训练好的模型直接套" 是不存在的捷径 —— 至少需要 3-6 个月的现场数据做后训练。
+  </div>
+
+  <h3>4.4 算法层面：怎么避免"AI 黑盒"</h3>
+  <p>
+    我们在交流中明确提出一个要求：<strong>AI 不能只给一个"健康分数"就完事</strong>。
+    报警发生时，要能给出"故障类型 + 部位 + 证据 + 处置建议"，否则后续没办法落地处理。
+    埃森哲的回应路径是"<strong>预测模型 + 知识图谱解释</strong>"两层：
+  </p>
+  <ul class="bul">
+    <li>预测模型负责给出<strong>异常分数</strong>和<strong>哪个时点会坏</strong>的判断（用时序模型、多因子回归等算法）</li>
+    <li>知识图谱负责给出<strong>为什么会坏 + 应该怎么处理</strong>的解释（基于历史 RCA 报告、偏差报告、供应商资料预先建模）</li>
+    <li>两层结合后，AI 报警时给出的不是黑盒结果，而是<strong>"X 部件可能因为 Y 原因将在 Z 时间出问题，建议做 W 动作"</strong>的完整建议</li>
+  </ul>
+
+  <h3>4.5 一个反向思考 — 设备维护得太好怎么办</h3>
+  <div class="card danger">
+    <p style="font-size:13.5px; margin:0;">
+      <strong>如果某类设备过去几年几乎不坏，PdM 项目反而难做。</strong>
+      原因是：① 没有故障样本来训练模型；② 也没有"经常坏"的痛点支撑项目论证。这是埃森哲在多次项目中观察到的一个"反向逻辑"。
+      对凯莱英来讲，意味着选 PdM 试点设备时，<strong>不应该挑"最好的"，而应该挑"经常出问题 + 损失最大"</strong>的那一类 —— 这是项目能落地的前提之一。
+    </p>
+  </div>
+</section>
+
+<!-- ============ PART 05 · 可解释性 ============ -->
+<section class="slide" id="clarity">
+  <h2 class="kicker">PART 05 · 健康分 + 知识图谱 — 让 AI 看得见、说得清</h2>
+  <h1>"健康分（Health Index）+ 知识图谱"是埃森哲方案的两个核心组件</h1>
+
+  <p class="lead">前面提到要避免"AI 黑盒"，具体怎么做？埃森哲方案里有两个关键组件 —— 一个负责"看见问题"，一个负责"讲清问题"。理解这两个组件，基本就理解了埃森哲 AI 方案的工作机制。</p>
+
+  <h3>5.1 健康分（Health Index）— AI 与人沟通的"基本单位"</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h4 style="margin-top:0;">健康分是怎么算出来的</h4>
       <ul class="bul tight">
-        <li>会议中提及的具体模型：<strong>REMAN（疑为 RUL Estimation 模型类）</strong>、<strong>LSTM</strong>（时序模型）</li>
-        <li>凯莱英方反馈："LSTM 现在不是 attention is all you need 吗，这个感觉会稍微老一点"</li>
-        <li>埃森哲方回应：实际算法由 Data Scientist 团队基于先验知识选择，自己不是算法专家</li>
+        <li>采集设备本身的<strong>多源信号</strong>：振动、温度、压力、电流、流量、转速</li>
+        <li>结合产品<strong>质量指标</strong>：尺寸、重量、外观、SPC 分析、良率</li>
+        <li>结合<strong>工艺参数</strong>：温度、压力、流量、pH、粒度等</li>
+        <li>结合<strong>人工记录</strong>：点检表、维修历史、操作记录</li>
+        <li>所有信号经过 AI 模型加权，最后归一成一个 0-100 的分数</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4 style="margin-top:0;">健康分的颗粒度</h4>
+      <ul class="bul tight">
+        <li>每台<strong>设备</strong>都有自己的健康分</li>
+        <li>每个<strong>关键部件</strong>（轴承 / 马达 / 阀门）也有自己的健康分</li>
+        <li>同一台设备不同部件的健康分组成不一样（震动主要看轴承、电流主要看马达）</li>
+        <li>分数低于预设阈值就触发预警 → 进入"该怎么办"环节</li>
+      </ul>
+    </div>
+  </div>
+  <p>
+    健康分的好处是把"工业级别的复杂多变量"翻译成了"人能理解的单一指标"。无论是设备工程师、生产主任还是车间主管，看到"82 分 / 良好"或"45 分 / 高风险"都能立刻有感觉、知道是不是要采取行动。
+  </p>
+
+  <h3>5.2 业务影响矩阵 — 不只是"坏不坏"，更是"该不该管"</h3>
+  <p>光有健康分不够 —— 一台备用设备健康分 30 和一台核心设备健康分 80，应该先处理哪个？埃森哲方案里把健康分和"业务影响等级"结合，给出优先级建议：</p>
+  <table class="kly">
+    <thead>
+      <tr><th style="width:18%;">健康分</th><th style="width:18%;">业务影响</th><th style="width:20%;">优先级</th><th>建议处置</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>低（&lt; 50）</td><td>高（关键设备）</td><td><span style="color:#dc2626; font-weight:700;">🔴 立即处理</span></td><td>排查负责人 + 4 小时内开始检修</td></tr>
+      <tr><td>中（50-75）</td><td>高 / 中</td><td><span style="color:#f59e0b; font-weight:700;">🟡 计划维护</span></td><td>纳入未来 3-7 天的维护计划</td></tr>
+      <tr><td>低 / 中</td><td>低（非关键 / 有备用）</td><td><span style="color:#3b82f6; font-weight:700;">🔵 持续监控</span></td><td>不打断生产，加密监测频次</td></tr>
+      <tr><td>高（&gt; 75）</td><td>任意</td><td><span style="color:#10b981; font-weight:700;">🟢 无需动作</span></td><td>维持现状，定期回看</td></tr>
+    </tbody>
+  </table>
+
+  <h3>5.3 知识图谱 — 让 AI 不仅"看见"，还能"讲清楚"</h3>
+  <p>
+    健康分只回答了"是不是有问题"，但没回答"为什么、怎么办"。这就是知识图谱的角色 —— 它是 AI 方案里专门负责"<strong>解释性</strong>"的组件。
+  </p>
+  <div class="grid-2">
+    <div class="card info">
+      <h4 style="margin-top:0;">知识图谱里装的是什么</h4>
+      <ul class="bul tight">
+        <li>历史 <strong>RCA（根因分析）</strong>报告</li>
+        <li>历史<strong>偏差报告</strong></li>
+        <li>设备厂商<strong>供应商资料</strong>（BOM / 原理图 / 维护手册）</li>
+        <li>资深维护工程师的<strong>隐性经验</strong>（通过访谈结构化）</li>
+        <li>各种"故障代码 → 异常现象 → 部件 → 特征"的关联关系</li>
       </ul>
     </div>
     <div class="card info">
-      <strong style="color:#1e40af;">凯莱英方对输出形式的具体要求</strong>
+      <h4 style="margin-top:0;">知识图谱怎么用起来</h4>
       <ul class="bul tight">
-        <li>"不是这种黑箱的推荐"</li>
-        <li>报警时要能给出：<strong>故障类型 + 严重程度 + 证据 + 处置建议</strong></li>
-        <li>不是单纯一个"健康度"分数</li>
-        <li>需要可解释性 → 这是会议中明确的需求</li>
+        <li>AI 模型给出"健康分异常"的瞬间</li>
+        <li>知识图谱根据预先建模的"异常特征 → 可能部件 → 可能根因"链条做反向推理</li>
+        <li>给出 Top-3 最可能的根因 + 各自的概率</li>
+        <li>给出每个根因对应的处置建议</li>
+        <li>关键 —— 这些建议都能追溯到具体的历史案例或供应商文档</li>
       </ul>
     </div>
   </div>
-  <div class="card success" style="margin-top: 12px;">
-    <strong style="color:#166534;">埃森哲方的应对方案：知识图谱解释性</strong>
-    <p style="font-size:13.5px; color:#3a4d72; margin-top: 6px;">
-      李新贵说明：通过知识图谱建模——将"一个偏差/异常 → 哪些故障代码 → 哪些部件 → 哪些特征"
-      预先建模成"业务本体"，AI 给出预测后用知识图谱解释根因和处置建议。建模来源包括：
-      RCA 报告、偏差报告、供应商文件、过往人的经验。这一逻辑跟 PPT 9 的"工业知识图谱启航"对应。
-    </p>
-  </div>
 
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">6.5 项目论证的"反向思考"</h3>
-  <div class="quote">
-    <span class="speaker">埃森哲 · 李新贵：</span>
-    "这个东西如果我们要说服领导，我们未来想做到预测的话，它一定是要有足够多的数据样本。没有的话，那其实我们就会有一个问题，那就是说如果你现在都已经没有什么这些异常的数据，它都已经维护这么好了，那预测性维护有没有这么强的一个需求，你看怎么样。"
+  <h3>5.4 知识入库的关键 — 知识与数据要互相验证</h3>
+  <div class="highlight-box">
+    <strong>埃森哲在知识图谱建模上有一个值得重视的做法</strong>：
+    每条"经验知识"录入知识库后，<strong>必须用历史数据做反向验证</strong> ——
+    如果经验说"电流上升 → 轴承磨损"，但历史数据里电流上升的 100 次里只有 20 次是轴承磨损，
+    那这条经验要么不准、要么数据有问题、要么过程中人为干预了，必须排查清楚再确认。
+    经过这层"数据验证"过滤的知识图谱，才能真正用到 AI 决策里。
   </div>
-  <p style="font-size:13.5px; color:#3a4d72; margin-top: 8px;">
-    这是埃森哲方多次提到的"反向逻辑"：如果设备维护得太好（几乎不坏），那项目本身的必要性需要重新论证。
-    凯莱英方在会议中未对此做明确表态，建议会后内部评估。
-  </p>
 </section>
 
-<!-- ============ PART 07 · 合作模式 ============ -->
+<!-- ============ PART 06 · 4 种合作模式 ============ -->
 <section class="slide" id="modes">
-  <h2 class="kicker">PART 07 · 埃森哲能为凯莱英做什么</h2>
-  <h1>4 种合作模式 · 范围与定价跟随凯莱英的具体诉求</h1>
-  <p class="lead">埃森哲方（刘博言）在会议中明确给出的 4 种合作模式，凯莱英方可根据自身情况裁剪。</p>
+  <h2 class="kicker">PART 06 · 跟埃森哲合作的 4 种模式</h2>
+  <h1>"做大做小"自己选 — 合作深度匹配凯莱英的诉求</h1>
+
+  <p class="lead">埃森哲不强求"一上来就全栈合作"。根据凯莱英不同阶段的诉求，可以选择从轻到重的 4 种合作模式。每种模式的范围、提供物、适用场景都不一样。</p>
 
   <table class="kly">
     <thead>
       <tr>
         <th style="width:14%;">合作模式</th>
-        <th style="width:30%;">范围</th>
+        <th style="width:22%;">合作范围</th>
         <th style="width:28%;">埃森哲提供什么</th>
-        <th>原话佐证</th>
+        <th>适合什么阶段</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><strong>① 单一交付（交钥匙）</strong></td>
-        <td>围绕一个 OEE 指标 / 一类设备工艺问题</td>
-        <td>点到点交付 · 含硬件采购（如传感器）+ 软件 + 数据建模 + 模型训练</td>
-        <td>"如果你们觉得交钥匙工程的，就是你们可能就围绕一个 OEE 的指标，或者围绕一类设备工艺问题，那埃森哲就是点到点的交钥匙"</td>
+        <td><strong>① 单一交付<br/>（交钥匙工程）</strong></td>
+        <td>围绕一个具体指标（如 OEE）或一类设备工艺问题</td>
+        <td>点到点交付。包含传感器采购 + 软件平台 + 数据建模 + 模型训练 + 上线培训</td>
+        <td>凯莱英已经想清楚要做什么具体场景，希望"交钥匙"打包给一家</td>
       </tr>
       <tr>
-        <td><strong>② 总集成（多 AI 项目）</strong></td>
-        <td>多个 AI 项目跨厂商集成</td>
-        <td>项目群管理 + 跨厂商集成 + 总集成商角色 · 含买硬件（传感器）+ 买软件（微软 / 阿里 LLM 平台）+ 自有数据科学家加持</td>
-        <td>"埃森哲总的一个大的身份肯定是一个大集成商。我们会买硬件，比如说像传感器，也会去买软件，比如说现在像微软也好，或者说是阿里也好，它本身有机器学习"</td>
+        <td><strong>② 总集成<br/>（多 AI 项目）</strong></td>
+        <td>多个 AI 项目跨厂商集成，需要项目群管理</td>
+        <td>项目群 PMO + 跨厂商集成 + 总集成商角色。整合传感器供应商、大模型平台供应商、自家数据科学团队</td>
+        <td>凯莱英要并行启动多个 AI 应用，需要一个总集成方避免烟囱式建设</td>
       </tr>
       <tr>
         <td><strong>③ 战略咨询</strong></td>
-        <td>集团 AI 战略路线 / 选型 / 变革管理 / 培训体系</td>
-        <td>战略蓝图 + 路径设计 + 项目卡片 · 含 workshop 短期生产域全域扫描（"1-2 个月"）</td>
-        <td>"如果你说老板对于怎么用 AI 来提升大家的工作效率，为凯莱因在下一轮的 AI 竞争里面储备这些能力，那埃森哲肯定是能做的"</td>
+        <td>集团 AI 战略路线、选型咨询、变革管理、培训体系</td>
+        <td>战略蓝图 + 路径设计 + 项目卡片 + 1-2 个月的生产域全域扫描 workshop</td>
+        <td>凯莱英要从全集团角度想 AI 怎么布局，需要的是顾问视角而不是具体项目</td>
       </tr>
       <tr>
         <td><strong>④ 单一 AI 应用建模</strong></td>
-        <td>已有传感器数据，缺建模能力</td>
-        <td>纯算法服务 · 数据建模 + 找特征 + 线性回归 + 模型上线后的流程变革</td>
-        <td>"你们可能已经传感器的东西已经装得差不多了，只是守着一些好的数据……不知道怎么去把它建成 AI 或者机器学习可以用的模型，那埃森哲其实就是做模型，以及做未来的 AI 上线之后的流程变革"</td>
+        <td>已经有传感器和数据，缺的是建模能力</td>
+        <td>纯算法服务 — 数据建模 + 特征发现 + 多因子回归 + AI 上线后的流程变革</td>
+        <td>凯莱英自己已经能拿到数据，只是不知道怎么变成可用的 AI 模型</td>
       </tr>
     </tbody>
   </table>
 
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">7.1 埃森哲在 PdM 项目中的定位（自述）</h3>
-  <div class="quote">
-    <span class="speaker">埃森哲 · 李新贵：</span>
-    "埃森哲其实卖的是什么？我们其实又不像西门子、艾默生去卖传感器，我们其实卖的就是出一个这种行业的顾问，给你去建知识图谱，然后给你做模型训练，最后把这个东西做成一个非常傻瓜式的，就是你看到 A 信号就可能是 X Y 这几个地方坏了，而且它是什么、怎么原因坏的吗。"
-  </div>
-  <div class="card" style="margin-top: 12px;">
-    <strong>埃森哲方定位的关键边界</strong>
-    <ul class="bul tight" style="margin-top: 6px;">
-      <li>埃森哲<strong>不卖传感器</strong>（区别于西门子、艾默生），但<strong>可以采购集成</strong>第三方传感器</li>
-      <li>埃森哲<strong>不持有 LLM 基础模型</strong>，但可以集成微软 / 阿里 / 华为等大模型</li>
-      <li>埃森哲<strong>主要卖的</strong>：行业顾问能力 + 知识图谱建模 + 模型训练 + 流程变革</li>
-      <li>埃森哲<strong>有 Data Scientist 团队</strong>，会做时序、单因子、多因子、回归等具体算法</li>
-    </ul>
-  </div>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">7.2 埃森哲建议的"项目走法"建议</h3>
-  <div class="quote">
-    <span class="speaker">埃森哲 · 李新贵：</span>
-    "如果要大做，那就是去找价值，找整个 AI 对企业的变革；如果小做，可能就落到一个这样特定的场景。我相信你们自己如果要向老板去申请，去做这项的话，首先也得论证为什么先做这个设备的预测性维护，而不是做其他的嘛。"
-  </div>
-  <div class="quote">
-    <span class="speaker">埃森哲 · 刘博言：</span>
-    "我们这边可能要给的一些东西……如果第一次的话，我们把整个范围弄得太大，可能这个项目不管是我们去向上申请，还是开展，可能都不会特别的顺畅。"
-  </div>
-  <p style="font-size:13.5px; color:#3a4d72; margin-top: 8px;">
-    会议结尾时，<strong>双方达成的共识是"先把范围限定在设备预测性维护"</strong>，
-    避免一次性拉太大。后续若效果良好，再讨论其他 AI 方向。
-  </p>
-</section>
-
-<!-- ============ PART 08 · CDMO 相关讨论 ============ -->
-<section class="slide" id="cdmo">
-  <h2 class="kicker">PART 08 · 关于 CDMO 行业的关键讨论</h2>
-  <h1>药明案例参考 · 客户隔离 · GMP 验证 · 监管现状</h1>
-  <p class="lead">凯莱英方主动提出的 CDMO 行业特殊性问题，埃森哲方做了直接回应。本节直接引用对话内容。</p>
-
-  <h3 style="font-size:16px; color:#0f1f3d;">8.1 CDMO 行业案例</h3>
-  <p style="font-size:13.5px; color:#3a4d72;">凯莱英方询问埃森哲在 CDMO / CRO 行业的案例情况。</p>
-  <div class="quote">
-    <span class="speaker">埃森哲 · 刘博言：</span>
-    "有做过，像行业最大的<strong>药明康德</strong>，他之前研发的一些数字化规划就是埃森哲去做的。甚至说像全球一些大的，像<strong>龙沙、三星生物</strong>这些，我们在 global 层面都做过。所以我相信案例这个东西，关键是看你想看哪个方面的。你是说大分子、小分子、早期研究，还是说后面的技术转移，这个我们需要时间准备。"
-  </div>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">8.2 CDMO 模型训练 / 客户隔离的关键矛盾</h3>
-  <p style="font-size:13.5px; color:#3a4d72;">凯莱英方主动提出 CDMO 客户数据 / 模型权重隔离问题。</p>
-  <div class="quote">
-    <span class="speaker">埃森哲 · 刘博言：</span>
-    "之前跟药明谈的很大一点就是，技术难度绝对不在于技术，这些数据药明都有，但是难度是在于说<strong>他们自己的商业化政策上面，可能不大倾向于会跟客户说我会拿你的数据做模型训练</strong>。这点对他们商业上是很多很有影响的。所以我们现在跟药明的非常多的合作，都是在做他的一些流程优化，用 AI 来做这些赋能。但本身包括药明自己都不敢说他会去做什么 ADC 模型、做什么小分子模型，<strong>那不就是砸自己口碑嘛？那哪个客户以后还想跟他合作？</strong>"
-  </div>
-  <div class="card danger" style="margin-top: 12px;">
-    <strong style="color:#991b1b;">关键判断（埃森哲方）</strong>
-    <p style="font-size:13.5px; color:#3a4d72; margin-top: 6px;">
-      "<strong>设备这个东西是你自己的，但工艺这个东西，到底算你来算客户的，这个我们要比较深入地去看。</strong>"
-    </p>
-    <p style="font-size:13.5px; color:#3a4d72; margin-top: 6px;">
-      → <strong>对凯莱英的具体启示</strong>：本次议题"设备 PdM"是相对"安全"的切入点
-      —— 设备数据归凯莱英所有，模型训练不涉及客户工艺。但若未来扩展到工艺优化 / 良率提升等方向，
-      则会触及客户数据 / 模型权重归属的商业政策问题。
-    </p>
-  </div>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">8.3 GMP 验证 / 监管现状</h3>
-  <p style="font-size:13.5px; color:#3a4d72;">凯莱英方询问 GMP / GxP 合规验证 + AI 的处理思路。刘博言主动提到他参与了相关法规研究。</p>
-  <div class="quote">
-    <span class="speaker">埃森哲 · 刘博言：</span>
-    "我自己就是参与了这个 <strong>223 版中国 GMP 指南</strong>，最近也在研究 <strong>欧盟的附录 22 人工智能</strong>。验证的话，现在<strong>中美欧各自其实都还在探索阶段</strong>，所以如果你说我的这个 AI 想把它放到关键的 GMP 决策去做一些放行，或者做一些风险很高的动作，那<strong>我们肯定是不推荐的</strong>。但是如果你说我只是做做绩效，或者说我每个动作都有专家的人在回落这些检测，埃森哲肯定是能帮你做。"
-  </div>
-  <div class="quote">
-    <span class="speaker">埃森哲 · 刘博言：</span>
-    "现在监管其实也没想好这块是要怎么管。我们看那个中 22，还有现在国家的，其实说得都比较模糊，大部分都是说你可以辅助决策，没有一个特别清晰的指导。"
-  </div>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">8.4 关于"AI 报告生成" + 既有系统对接（Veeva 等）</h3>
-  <p style="font-size:13.5px; color:#3a4d72;">凯莱英方询问 AI 能否辅助生成偏差报告、变更等。</p>
-  <div class="quote">
-    <span class="speaker">埃森哲 · 刘博言：</span>
-    "您刚才看到的很多这种知识图谱，本身来讲，它能做这种建模，就是设备的问题分析。你让它去生成一个偏差报告，生成一个变更，其实它的原素材都有了，关键就是可能把你们凯莱英的流程导进去。而且我知道<strong>你们凯莱英不是自己也有 Veeva 这些系统嘛，所以你们现在可以考虑把我们当做一个外挂给到你们</strong>，按照它要的这种结构，我们把这个数据用模型提前生成好，然后在它的报告里面生成，也可以我们在外面去另外造一个这个东西。埃森哲有很多这种不同的经验。"
-  </div>
-  <p style="font-size:12.5px; color:#5b6a8a; margin-top: 8px; font-style:italic;">
-    📌 注：刘博言提及凯莱英现有 SAP（之前由德勤实施）+ Veeva（QMS / EDMS）系统基础，认为"数字化层面凯莱英现在基础是非常好的"。
-  </p>
-</section>
-
-<!-- ============ PART 09 · 凯莱英 PdM 具体场景讨论 ============ -->
-<section class="slide" id="discuss">
-  <h2 class="kicker">PART 09 · 凯莱英具体 PdM 场景的讨论</h2>
-  <h1>天津厂区动力系统 + 净化空调风机轴承 · 现状与可行性问答</h1>
-  <p class="lead">本节内容为会议后半段凯莱英方介绍的具体设备场景 + 双方就该场景做的可行性讨论。</p>
-
-  <h3 style="font-size:16px; color:#0f1f3d;">9.1 凯莱英方提出的具体 PdM 候选场景</h3>
-  <div class="quote">
-    <span class="speaker">凯莱英 · David（孙晨）：</span>
-    "天津这边我们的想法主要就是举个例子，比如说我们的<strong>净化空调的风机轴承</strong>，我们现在可能更多的是预防性维护，比如打大油啊什么东西的。但是我们觉得这个轴承，比如说通过监测它的震动情况啊，或者是什么情况，那是不是通过这种监测可以提前预警到这个轴承要坏了，类似于这种情况的。那我们这边可能首推的还是我们的<strong>动力系统</strong>，上面好多<strong>泵的大泵、积风（鼓风）啊，或者是电机的震动情况</strong>啊，大致是这么个情况，这是我们的根本需求。"
-  </div>
-
-  <div class="card accent" style="margin-top: 12px;">
-    <strong style="color:#92400e;">候选设备清单（凯莱英方初步给出）</strong>
-    <ul class="bul tight">
-      <li>净化空调的<strong>风机轴承</strong>（现状：预防性维护，定期打大油）</li>
-      <li>动力系统的<strong>大泵</strong>（含离心泵等）</li>
-      <li>动力系统的<strong>鼓风机 / 积风设备</strong></li>
-      <li>动力系统<strong>电机</strong>（震动监测）</li>
-    </ul>
-    <div class="footnote" style="border:none; padding:0; margin-top:6px;">
-      <em>该清单为初步举例，凯莱英方会后将整理完整设备清单。本次会议未涉及设备具体型号、规格、数量、品牌。</em>
+  <h3>6.1 这 4 种模式对应 PdM 项目有什么差异</h3>
+  <div class="grid-2">
+    <div class="card success">
+      <h4 style="margin-top:0;">如果起步从"小"开始</h4>
+      <p style="font-size:13.5px;">
+        模式 ① 或模式 ④ 最合适 —— 选一个具体设备类型（比如净化空调风机轴承 / 动力站冰机 / 大型离心泵），围绕这一类做完整 PdM 落地。范围可控、价值可见、风险可管。
+      </p>
+    </div>
+    <div class="card success">
+      <h4 style="margin-top:0;">如果起步从"中"开始</h4>
+      <p style="font-size:13.5px;">
+        模式 ② —— 同步启动 2-3 个 AI 方向（如 PdM + 报告 AI 撰写 + 设备验证），由埃森哲做总集成。共享数据底座，降低边际成本。
+      </p>
+    </div>
+    <div class="card success">
+      <h4 style="margin-top:0;">如果起步从"大"开始</h4>
+      <p style="font-size:13.5px;">
+        模式 ③ —— 先做一次 1-2 个月的全集团 AI 战略扫描 workshop，把"先做哪些、怎么做、谁来做"想清楚再启动具体项目。投入更高，但前期清晰度更好。
+      </p>
     </div>
   </div>
 
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">9.2 关于历史数据的关键讨论</h3>
-  <p style="font-size:13.5px; color:#3a4d72;">埃森哲方追问凯莱英现有数据基础：</p>
-  <div class="quote">
-    <span class="speaker">埃森哲 · 李新贵：</span>
-    "你们这种风机本身现在，你们现在就是周期性去对它进行维护嘛，本身它在这个运行过程中，你们有没有一些温度，或者说电流这种传感器去抓它参数嘛？……<strong>没有的话，我是不是可以说直接点，就是你假设比如说你历史记录上有一些它这种非计划性坏了，但是因为你没有一些温度、震动、电流的参数，所以我现在让 AI 模型去学的话，也学不到它在坏之前大概是一个什么样的特征嘛。</strong>"
-  </div>
-  <p style="font-size:13.5px; color:#3a4d72; margin-top: 8px;">
-    会议中凯莱英方未直接确认是否有完整的传感器历史数据。这是<strong>下一步会后整理的关键内容</strong>。
-  </p>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">9.3 关于"先装传感器再跑数据"的讨论</h3>
-  <div class="quote">
-    <span class="speaker">埃森哲 · 李新贵：</span>
-    "我们这种做法相当于是什么呢，就是我们要说服你们领导说，我们相信，或者说埃森哲之前做过一些这种风机轴承的案例，轴承的那个轴承会坏，会跟它的电流、震动相关。虽然我们现在可能自己没数据，但是<strong>能不能请领导先投资多少钱，我们先监控三个月，看能不能做</strong>。这里面有一个实话说，因为我在企业里面做比较多嘛，就可能就需要大家去向领导拍胸脯了，因为你没有一些历史数据去做回归性验证嘛。"
-  </div>
-  <div class="card" style="margin-top: 10px;">
-    <strong>关键判断（综合双方观点）</strong>
-    <ul class="bul tight" style="margin-top: 6px;">
-      <li>若凯莱英已有 1+ 年的传感器历史数据（含震动 / 电流 / 温度），可直接做"特征发现 + 回归验证"</li>
-      <li>若没有数据但有先验经验，可"<strong>先装传感器 + 跑 3-6 个月再做回归</strong>"，但需领导决策授权</li>
-      <li>若"3-6 个月内设备一次都没坏"，则正样本仍然不足，需更长周期或借助行业前训练模型</li>
-    </ul>
-  </div>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">9.4 凯莱英方对"输出形式"的明确要求</h3>
-  <div class="quote">
-    <span class="speaker">凯莱英 · David（孙晨）：</span>
-    "我们希望的不是这种黑箱的推荐，而是说在报警的时候，根据我们这些 feature 的数据，各种压力、各种温度，<strong>能把我们的故障类型，比如说部位、证据，还有处置建议，都给弄出来</strong>。不是单纯一个黑箱，直接说这个健康度，再过三个月之后可能会坏这种。因为这样我没办法做后续的处理。"
-  </div>
-  <div class="quote">
-    <span class="speaker">埃森哲 · 李新贵：</span>
-    "你那个就是解释性的问题。它相当于，我举个例子，就是你现在按照你自己人的经验，或者说按照你过往的 RCA 报告、偏差报告，你认为一个偏差、一个设备异常可能会产生哪几个故障代码……我先建了一个模，最后只是说，这个建模有的是单因子……有的可能是多因子，几个东西联动之后，一起像你说的，我出个健康分给你报个警。然后你看到这个有问题之后，<strong>其实我就会拿着这个知识图谱给你解释</strong>。"
-  </div>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">9.5 凯莱英方关于"行业数据复用"的设想</h3>
-  <div class="quote">
-    <span class="speaker">凯莱英 · David（孙晨）：</span>
-    "如果光用我们的数据，我觉得它肯定是有这种故障分类，也有历史监测，但是比如说 5 年、10 年，我们这些 300 多台设备，加起来的数据量，我觉得不一定能支持训练一个非常好的模型。<strong>还是需要整个行业的数据积累</strong>，才可能做到一个比较准确的、比如三个月内的预测性。我是这个思路，也想跟您探讨一下。"
-  </div>
-  <p style="font-size:13.5px; color:#3a4d72; margin-top: 8px;">
-    <em>📌 注：本会议第一次出现"300 多台设备"这个数字，凯莱英方未明确指代哪个范围（单个厂区 / 整个集团 / 动力系统）。会后需澄清。</em>
-  </p>
-  <p style="font-size:13.5px; color:#3a4d72; margin-top: 4px;">
-    埃森哲方的回应（如 6.3 节）是"前训练有储备，后训练必须用凯莱英自己数据"，
-    而非直接复用其他客户数据训练参数。
-  </p>
-</section>
-
-<!-- ============ PART 10 · 下一步行动 ============ -->
-<section class="slide" id="next">
-  <h2 class="kicker">PART 10 · 下一步行动（双方共识）</h2>
-  <h1>会后凯莱英整理 4 类信息 · 再约下一次会议</h1>
-  <p class="lead">会议结尾处，双方就下一步明确了行动项。本节为客观行动清单，不做主观推断。</p>
-
-  <h3 style="font-size:16px; color:#0f1f3d;">10.1 凯莱英方需会后整理的信息（按埃森哲方要求）</h3>
+  <h3>6.2 埃森哲跟其他类型供应商的边界</h3>
   <table class="kly">
     <thead>
-      <tr><th style="width:10%;">类别</th><th style="width:40%;">具体内容</th><th>说明</th></tr>
+      <tr><th style="width:25%;">维度</th><th style="width:35%;">埃森哲</th><th>对比：硬件 / 软件 / 算法供应商</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>是否卖硬件</strong></td><td>不卖。但作为集成商可以采购西门子 / 艾默生 / 海康等品牌传感器集成</td><td>西门子 / 艾默生：自家传感器是核心商品</td></tr>
+      <tr><td><strong>是否卖大模型</strong></td><td>不卖。集成微软 / 阿里 / 华为云 / OpenAI 等的基础模型</td><td>华为云盘古 / 阿里通义：自有大模型是核心商品</td></tr>
+      <tr><td><strong>是否卖工业 AI 算法</strong></td><td>有自家 DS 团队 + 算法储备，但同时也用合作伙伴的算法</td><td>智现未来 / 中控：自家工业算法是核心商品</td></tr>
+      <tr><td><strong>核心卖的是什么</strong></td><td>行业顾问 + 知识图谱建模 + 总集成 + 变革管理</td><td>—</td></tr>
+    </tbody>
+  </table>
+  <div class="highlight-box">
+    <strong>关键提示</strong>：埃森哲 vs 智现未来 / 华为云 / 中控等供应商<strong>不是非此即彼</strong>。
+    PdM 项目实际可能的组合是 —— 埃森哲做总集成 + 智现未来或开源算法做底层 + 海康做硬件 + 微软或阿里云做平台。
+    选哪家做什么取决于凯莱英对每一层的诉求。
+  </div>
+</section>
+
+<!-- ============ PART 07 · CDMO 考量 ============ -->
+<section class="slide" id="cdmo">
+  <h2 class="kicker">PART 07 · CDMO 行业的关键考量</h2>
+  <h1>设备 PdM 是相对"安全"的切入点 · 但有几条边界要提前划清</h1>
+
+  <p class="lead">凯莱英作为 CDMO 企业，跟一般化工 / 制药企业相比，有几个独特的约束 —— 客户数据隔离、GMP 监管、跟既有信息系统的对接深度。本节专门梳理这几个点，避免后续推进时再卡壳。</p>
+
+  <h3>7.1 客户数据隔离 — CDMO 业务的命脉</h3>
+  <p>这是 CDMO 行业最特殊的约束。凯莱英给客户 A 做一个药的工艺，从中积累的经验<strong>不能直接用到客户 B 的项目上</strong>。这不是商业道德问题，是合同义务和法律风险。</p>
+  <div class="grid-2">
+    <div class="card success">
+      <h4 style="margin-top:0;">设备 PdM —— 相对"安全"的切入</h4>
+      <p style="font-size:13.5px;">
+        设备 PdM 主要建模对象是<strong>凯莱英自有的设备（反应釜、冰机、空调风机等）</strong>，不涉及客户具体工艺参数。
+        电机震动数据、轴承温度数据是凯莱英自己的资产，跨客户复用没有合规问题。
+        所以本次议题选 PdM 起步是非常合理的 —— 风险最低。
+      </p>
+    </div>
+    <div class="card danger">
+      <h4 style="margin-top:0;">工艺优化 —— 触及客户数据边界</h4>
+      <p style="font-size:13.5px;">
+        如果未来扩展到"良率优化、AI 配方推荐"等方向，就会涉及客户具体工艺参数 / CPP / CQA。
+        这块的商业约束很大 —— 行业头部企业（如药明康德）也不轻易用客户数据训练通用模型，
+        否则一旦被客户得知，"哪个客户以后还想跟你合作"。
+      </p>
+    </div>
+  </div>
+  <p>
+    这意味着：<strong>本次 PdM 项目可以放心推进；如果未来扩展到工艺优化等方向，需要单独评估客户合同条款 / 数据归属 / 模型权重的处置机制</strong>。
+  </p>
+
+  <h3>7.2 GMP 监管现状 — 介于"鼓励"与"未定"之间</h3>
+  <p>AI 在 GMP 场景里的监管态度，目前是<strong>开门但未明确</strong>的状态：</p>
+  <ul class="bul">
+    <li><strong>中国 2023 版 GMP 指南</strong>：开始有 AI 应用的相关提及，但具体怎么验证、怎么应对检查，比较模糊</li>
+    <li><strong>欧盟 GMP 附录 22（AI/ML in GxP）</strong>：2025 起施行，第一次正式把 AI 作为合规工具承认</li>
+    <li><strong>美国 FDA CSA（计算机软件保证）</strong>：2025-09 终稿，把传统重型验证改成基于风险的轻量验证</li>
+  </ul>
+  <div class="highlight-box">
+    <strong>共同特点</strong>：监管承认 AI 可以做"<strong>辅助决策</strong>"，但<strong>不鼓励 AI 直接做关键放行 / 高风险决策</strong>。
+    对凯莱英 PdM 来讲，定位为"<strong>辅助维护决策、人工签字仍保留</strong>"就完全在合规边界内。
+    不要急着宣称"AI 自主决策"或"AI 替代人工"。
+  </div>
+
+  <h3>7.3 跟现有系统的对接深度</h3>
+  <p>
+    凯莱英已经投入了不少数字化系统 —— SAP（ERP）、Veeva（QMS / EDMS）、各类设备管理系统等。
+    AI 项目<strong>不需要推倒重建</strong>，而是作为"外挂"和现有系统对接：
+  </p>
+  <div class="grid-3">
+    <div class="card">
+      <h4 style="margin-top:0;">既有系统 · 数据源</h4>
+      <p style="font-size:13px;">
+        从 Veeva 拿偏差记录 / CAPA，从 SAP 拿物料和成本，从 IP.21 拿 DCS 实时数据，从 EAM 拿设备维护历史。AI 模型在中间层消费这些数据。
+      </p>
+    </div>
+    <div class="card">
+      <h4 style="margin-top:0;">既有系统 · 工作流程</h4>
+      <p style="font-size:13px;">
+        AI 输出（健康预警 / 维修建议 / 报告草稿）回写到既有系统，让现场用户在原来的 SOP 工作台上看到，<strong>不引入新的"AI 专用界面"</strong>。
+      </p>
+    </div>
+    <div class="card">
+      <h4 style="margin-top:0;">既有系统 · 验证体系</h4>
+      <p style="font-size:13px;">
+        凯莱英 GAMP 5 验证流程已成熟，AI 系统作为"类别 4"配置型产品验证。模板需要定制，但框架不用从零搭。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 08 · 起步场景 ============ -->
+<section class="slide" id="start">
+  <h2 class="kicker">PART 08 · 凯莱英 PdM 落地的起步场景设想</h2>
+  <h1>从天津厂区动力系统切入 · 围绕"维护得越好越难做"的反向逻辑选试点</h1>
+
+  <p class="lead">基于前面"4 维度可行性判断"和"反向逻辑（不能选最好的）"，初步勾勒出一个起步场景的轮廓。本节是<strong>方向性设想</strong>，具体设备、数据、参数还要会后细化。</p>
+
+  <h3>8.1 候选试点场景</h3>
+  <div class="grid-2">
+    <div class="card accent">
+      <h4 style="margin-top:0;">场景 A · 净化空调风机轴承</h4>
+      <ul class="bul tight">
+        <li><strong>现状</strong>：以预防性维护为主（如定期打油 / 定期更换）</li>
+        <li><strong>痛点</strong>：可能存在"维护过度"或"突发故障"两种情况</li>
+        <li><strong>能采的数据</strong>：震动监测（如加装）、电流变化、温度</li>
+        <li><strong>预期 AI 输出</strong>：轴承提前 3-6 个月预警 + 处置建议</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h4 style="margin-top:0;">场景 B · 动力系统大泵 / 鼓风机 / 电机</h4>
+      <ul class="bul tight">
+        <li><strong>现状</strong>：周期性维护 + 故障后维修</li>
+        <li><strong>痛点</strong>：一台关键泵停机 = 整条产线停</li>
+        <li><strong>能采的数据</strong>：振动、轴承温度、电流、流量</li>
+        <li><strong>预期 AI 输出</strong>：剩余寿命预测 + 故障类型判断</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>8.2 起步阶段的工作内容</h3>
+  <div class="step-flow flow-4">
+    <div class="step">
+      <div class="stp">第 1 步</div>
+      <div class="ttl">设备清单梳理</div>
+      <div class="det">把要做的设备类型、数量、关键作用、所在厂区都列清楚</div>
+    </div>
+    <div class="step">
+      <div class="stp">第 2 步</div>
+      <div class="ttl">故障 Top 5 排序</div>
+      <div class="det">按业务损失（如停机时间 × 单位损失）排出 Top 5 类故障</div>
+    </div>
+    <div class="step">
+      <div class="stp">第 3 步</div>
+      <div class="ttl">数据基础盘点</div>
+      <div class="det">现有传感器覆盖度 + 历史数据时长 + 数据质量评估</div>
+    </div>
+    <div class="step">
+      <div class="stp">第 4 步</div>
+      <div class="ttl">先验知识整理</div>
+      <div class="det">资深工程师访谈 + RCA / 偏差报告梳理 + FMEA 已有结果汇总</div>
+    </div>
+  </div>
+
+  <h3>8.3 对 AI 输出的明确要求</h3>
+  <p>不管选哪种合作模式，AI 在凯莱英现场要真正用起来，对输出的形式有<strong>4 条硬要求</strong>：</p>
+  <div class="grid-4">
+    <div class="card tip">
+      <h4 style="margin-top:0;">① 不是黑盒</h4>
+      <p style="font-size:12.5px;">不能只给一个分数，要能解释根据是什么</p>
+    </div>
+    <div class="card tip">
+      <h4 style="margin-top:0;">② 含故障类型</h4>
+      <p style="font-size:12.5px;">告诉是"轴承磨损" / "润滑不足" / "电流不平衡"等具体类型</p>
+    </div>
+    <div class="card tip">
+      <h4 style="margin-top:0;">③ 含部位 + 证据</h4>
+      <p style="font-size:12.5px;">指明设备的具体部位 + 引用对应的传感器数据 / 历史案例</p>
+    </div>
+    <div class="card tip">
+      <h4 style="margin-top:0;">④ 含处置建议</h4>
+      <p style="font-size:12.5px;">告诉现场该做什么 —— 检修 / 更换 / 加密观察 / 通知供应商</p>
+    </div>
+  </div>
+
+  <h3>8.4 起步范围控制 — 第一步不要做太大</h3>
+  <div class="highlight-box">
+    第一阶段建议<strong>聚焦 1-2 类设备 + 1 个厂区</strong>（如天津厂区的动力站设备），跑通完整闭环：
+    数据采集 → AI 建模 → 健康分预警 → 知识图谱解释 → 现场处置 → 知识沉淀。
+    跑通之后再考虑扩展到其他设备类型 / 其他厂区。<br/>
+    <strong>避免一上来就铺开</strong> —— 不仅项目难管，而且 AI 模型在不同设备类型上的成功率差异很大，
+    没跑通一类就铺所有类，失败成本会快速放大。
+  </div>
+</section>
+
+<!-- ============ PART 09 · 下一步推进 ============ -->
+<section class="slide" id="next">
+  <h2 class="kicker">PART 09 · 下一步推进</h2>
+  <h1>会后整理 4 类信息 · 然后再约具体方案讨论</h1>
+
+  <h3>9.1 需要凯莱英内部整理的 4 类信息</h3>
+  <table class="kly">
+    <thead>
+      <tr><th style="width:10%;">类别</th><th style="width:35%;">具体内容</th><th>谁来配合</th></tr>
     </thead>
     <tbody>
       <tr>
         <td><strong>① 设备清单</strong></td>
-        <td>产线 / 厂区 + 设备类型 + 关键作用 + 数量</td>
-        <td>建议从天津厂区<strong>动力系统</strong>开始（如 PdM 候选清单）</td>
+        <td>产线 / 厂区 + 设备类型 + 数量 + 关键作用 + 当前维护模式</td>
+        <td>设备工程部 + 各厂区设备组</td>
       </tr>
       <tr>
         <td><strong>② 主要问题</strong></td>
-        <td>按"损失"或"OEE"排序的 Top 5 类故障 + 频次 + 业务影响</td>
-        <td>埃森哲方原话："先把那五类故障排出来"</td>
+        <td>按业务损失或 OEE 排序的 Top 5 类故障 + 频次 + 业务影响金额估算</td>
+        <td>设备工程部 + 生产部 + 精益小组</td>
       </tr>
       <tr>
         <td><strong>③ 数据基础</strong></td>
-        <td>现有传感器（震动 / 电流 / 温度 等）+ 采集频次 + 历史时长（5 年 / 1 年 / 3 月） + 异常案例数</td>
-        <td>"故障类型背后能否讲出所以然来" · 含部件 / 电器 / 人为操作根因</td>
+        <td>已有传感器清单 + 采集频次 + 历史数据时长 + 已发生异常案例数</td>
+        <td>CDT（控制与数字化）+ 设备工程部 + IT</td>
       </tr>
       <tr>
         <td><strong>④ 先验知识</strong></td>
-        <td>RCA 报告、偏差报告、FTA / FMEA 已有结果、供应商资料</td>
-        <td>用于建知识图谱解释性模型的基础</td>
+        <td>历史 RCA 报告 + 偏差报告 + FTA / FMEA 已有结果 + 供应商提供的资料</td>
+        <td>设备工程部 + QA + 资深维护工程师</td>
       </tr>
     </tbody>
   </table>
 
-  <div class="quote">
-    <span class="speaker">凯莱英 · 王亮（生产负责人）：</span>
-    "我们当前可能的设备分下类，看有哪些类、哪些类型的设备；然后包括这些设备之前的一些历史故障，包括它的一个具体原因，我们应该都有这样相关的历史数据。然后包括我们现在设备上面都有哪些探头……这些参数信息，我们是不是可以收集一下，然后统一给到埃森哲那边，让埃森哲的同事帮我们去看一下。"
-  </div>
+  <h3>9.2 整理后能回答的关键问题</h3>
+  <p>这 4 类信息整理出来之后，下一次跟埃森哲（或其他 AI 供应商）讨论时就能回答几个具体问题：</p>
+  <ul class="bul">
+    <li>这些设备里 <strong>哪几类适合先做 PdM</strong> —— 数据够、痛点真、价值高</li>
+    <li>每一类设备需要 <strong>哪些先验经验入库</strong>形成知识图谱</li>
+    <li>当前数据量是否够直接建模 —— 还是需要先装传感器再积累</li>
+    <li>第一阶段的<strong>合理投入和回报区间</strong>是多少</li>
+    <li>采用哪种合作模式（4 种里选哪种）最匹配</li>
+  </ul>
 
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">10.2 双方在会议中达成的明确共识</h3>
+  <h3>9.3 需要继续澄清的事项</h3>
+  <p>除了凯莱英自己整理的信息，还有一些事项需要在下一次跟埃森哲的对接中澄清：</p>
   <div class="grid-2">
-    <div class="card success">
-      <strong style="color:#166534;">✅ 范围控制共识</strong>
+    <div class="card warn" style="background:#fffbeb; border-color:#fde68a;">
+      <h4 style="margin-top:0;">商务层面</h4>
       <ul class="bul tight">
-        <li>本次合作<strong>仅聚焦设备预测性维护</strong>，不扩展到全面 AI 战略</li>
-        <li>第一次合作"范围不宜过大" · 易于向上申请 + 易于推进</li>
-        <li>下一次会议聚焦"具体能不能做、怎么做"</li>
+        <li>PdM 项目的商务计费方式（按人天 / 按里程碑 / 按效果分成）</li>
+        <li>不同合作模式的预算区间参考</li>
+        <li>项目期间是否含培训 / 知识转移内容</li>
+        <li>项目结束后的运维支持安排</li>
       </ul>
     </div>
-    <div class="card success">
-      <strong style="color:#166534;">✅ 输出形式共识</strong>
+    <div class="card warn" style="background:#fffbeb; border-color:#fde68a;">
+      <h4 style="margin-top:0;">技术层面</h4>
       <ul class="bul tight">
-        <li>AI 输出<strong>不能是黑箱</strong></li>
-        <li>报警时需附：故障类型 + 部位 + 证据 + 处置建议</li>
-        <li>埃森哲方将用<strong>知识图谱</strong>来实现解释性</li>
+        <li>埃森哲在<strong>制药 / API / CDMO 行业 PdM</strong>的具体案例（除已知纸机案例外）</li>
+        <li>本地交付团队的具体人员与背景</li>
+        <li>知识图谱 / AI 模型权重的<strong>所有权归属</strong>条款</li>
+        <li>跟凯莱英现有 SAP / Veeva 等系统的对接方式</li>
       </ul>
     </div>
   </div>
 
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">10.3 会议中"未明确"或"待澄清"的事项</h3>
-  <div class="card danger">
-    <strong style="color:#991b1b;">⚠️ 以下事项会议中未明确，建议会后或下一次会议澄清</strong>
-    <ul class="bul tight" style="margin-top: 6px;">
-      <li>埃森哲方在 PdM 项目上的<strong>商务报价区间 / 计费方式</strong>（人天 / 包干 / 按效果分成）</li>
-      <li>埃森哲方在<strong>制药行业（API / CDMO）PdM 的具体案例</strong>（除 CSU 纸机案例外）</li>
-      <li>埃森哲方<strong>本地交付团队的具体名单</strong>（参与本项目的工程师）</li>
-      <li><strong>凯莱英 IT / SAP / Veeva 现有系统</strong>与埃森哲方案的对接深度</li>
-      <li>凯莱英方"<strong>300 多台设备</strong>"指代范围</li>
-      <li>凯莱英现有传感器 / 历史数据完整度（震动 / 电流 / 温度 各覆盖率）</li>
-      <li>PoC 阶段的<strong>具体投入预算上限</strong>（凯莱英方未明确表态）</li>
-      <li>项目<strong>知识图谱 / 模型权重的所有权归属</strong>（凯莱英 vs 埃森哲）</li>
-    </ul>
+  <h3>9.4 整体节奏建议</h3>
+  <div class="step-flow flow-4">
+    <div class="step">
+      <div class="stp">第 1 个月</div>
+      <div class="ttl">信息整理</div>
+      <div class="det">凯莱英内部完成 4 类信息整理 + 选定 1 个起步设备类型</div>
+    </div>
+    <div class="step">
+      <div class="stp">第 2-3 个月</div>
+      <div class="ttl">方案对齐</div>
+      <div class="det">跟埃森哲（+ 其他候选供应商）做 1-2 轮深度方案讨论 + 商务报价</div>
+    </div>
+    <div class="step">
+      <div class="stp">第 3-6 个月</div>
+      <div class="ttl">PoC 启动</div>
+      <div class="det">选 1 类设备开始概念验证 —— 数据采集 + 算法建模 + 知识图谱搭建</div>
+    </div>
+    <div class="step">
+      <div class="stp">第 6-12 个月</div>
+      <div class="ttl">试点 + 推广</div>
+      <div class="det">PoC 结果评估 → 决定是否扩展到其他设备 / 厂区</div>
+    </div>
   </div>
 
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">10.4 双方约定的下一步</h3>
-  <div class="quote">
-    <span class="speaker">凯莱英 · David：</span>
-    "会后的话，我们把这些数据看看能收集哪些，我们整理一下，然后回头发给你们。"
-  </div>
-  <div class="quote">
-    <span class="speaker">埃森哲 · 刘博言：</span>
-    "如果说有什么案例，我现在都可以跟你说……我也可以凭我们经验，大概告诉你们这个东西能做还是不能做。"
-  </div>
-</section>
-
-<!-- ============ 附录 ============ -->
-<section class="slide" id="appendix">
-  <h2 class="kicker">附录</h2>
-  <h1>会议素材 · 术语对照 · 参考资料</h1>
-
-  <h3 style="font-size:16px; color:#0f1f3d;">A. 本总结基于的素材</h3>
-  <ul class="bul tight">
-    <li><strong>语音转文字记录</strong>：<code>06-30设备预测性维护方案探讨.mp3.docx</code>（约 22,700 字符）</li>
-    <li><strong>埃森哲方现场 PPT 截屏</strong>：<code>埃森哲/1.PNG</code> ~ <code>9.PNG</code> 共 9 张
-      <ul class="bul tight" style="margin-top:4px;">
-        <li>PPT 1：Intelligent Asset Maintenance Solution Framework（三段维护框架）</li>
-        <li>PPT 2：智能化资产管理路径（策略 → EAM/APM → AI 分析）</li>
-        <li>PPT 3-4：人机协作实战 — 5 大 AI 智能体闭环</li>
-        <li>PPT 5：Ontology &amp; AI 纸机生产线案例（CSU）</li>
-        <li>PPT 6：工业事件接入与路由智能体架构（5 层）</li>
-        <li>PPT 7：健康评分与优先级引擎</li>
-        <li>PPT 8：基于证据的调查智能体（Evidence-Based Investigation Agent）</li>
-        <li>PPT 9：工业知识图谱启航 — LLM 加速知识共创</li>
-      </ul>
-    </li>
-    <li><strong>埃森哲完整介绍材料</strong>：<code>凯莱英-埃森哲AI能力与赋能制造.pdf</code>（34 页 · 2026-05-13 提供 · 本次会议未全部覆盖）</li>
-  </ul>
-  <p style="font-size:12.5px; color:#7a89a8; margin-top: 8px; font-style:italic;">
-    📌 注：埃森哲方在会议中明示 PPT 截屏不全（"原则上是不能给你们看的，因为这是其他客户的东西"），
-    部分案例细节本总结无法完全还原，仅基于已截屏内容引用。
-  </p>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">B. 关键术语对照</h3>
-  <table class="kly">
-    <thead><tr><th style="width:24%;">术语</th><th style="width:30%;">英文 / 出处</th><th>解释（基于会议讨论）</th></tr></thead>
-    <tbody>
-      <tr><td><strong>PdM</strong></td><td>Predictive Maintenance</td><td>预测性维护 · 本次会议核心议题</td></tr>
-      <tr><td><strong>Industry X</strong></td><td>埃森哲 Industry X 事业部</td><td>专门服务制造型企业的事业部</td></tr>
-      <tr><td><strong>TPM</strong></td><td>Total Productive Maintenance</td><td>全员生产维护 · 埃森哲第一段咨询服务的内容之一</td></tr>
-      <tr><td><strong>EAM</strong></td><td>Enterprise Asset Management</td><td>企业资产管理系统</td></tr>
-      <tr><td><strong>APM</strong></td><td>Asset Performance Management</td><td>资产绩效管理系统</td></tr>
-      <tr><td><strong>MTBF</strong></td><td>Mean Time Between Failure</td><td>平均无故障时间 · PPT 1 中"Before Maintenance"的核心指标</td></tr>
-      <tr><td><strong>MTTR</strong></td><td>Mean Time To Repair</td><td>平均修复时间 · PPT 1 中"During Maintenance"的核心指标</td></tr>
-      <tr><td><strong>FTA / FMEA</strong></td><td>Fault Tree Analysis / Failure Mode and Effects Analysis</td><td>故障树分析 / 失效模式与影响分析 · 设备根因分析常用工具</td></tr>
-      <tr><td><strong>RCA</strong></td><td>Root Cause Analysis</td><td>根本原因分析 · 是建知识图谱的重要素材来源</td></tr>
-      <tr><td><strong>OEE</strong></td><td>Overall Equipment Effectiveness</td><td>设备综合效率 · 项目价值衡量的常用指标</td></tr>
-      <tr><td><strong>SPC</strong></td><td>Statistical Process Control</td><td>统计过程控制 · 质量监控常用方法</td></tr>
-      <tr><td><strong>Health Index</strong></td><td>健康分</td><td>埃森哲方案中 AI 与人沟通的"基本单位" · 0-100 评分</td></tr>
-      <tr><td><strong>Ontology</strong></td><td>运营本体</td><td>埃森哲方案的"语义底座" · PPT 5 核心概念</td></tr>
-      <tr><td><strong>Knowledge Graph</strong></td><td>知识图谱</td><td>埃森哲实现 AI 可解释性的关键技术</td></tr>
-      <tr><td><strong>LSTM</strong></td><td>Long Short-Term Memory</td><td>长短期记忆网络 · 时序模型 · 会议中埃森哲方提及的算法</td></tr>
-      <tr><td><strong>PAA</strong></td><td>—</td><td>"基本无接触"（会议中埃森哲方提及的概念，未给出具体英文全称）</td></tr>
-      <tr><td><strong>GMP / GxP</strong></td><td>Good Manufacturing Practice</td><td>药品生产质量管理规范 · 凯莱英方关心的验证基础</td></tr>
-      <tr><td><strong>欧盟附录 22</strong></td><td>EU GMP Annex 22</td><td>欧盟 GMP 关于人工智能的附录 · 监管尚在探索阶段</td></tr>
-      <tr><td><strong>Veeva</strong></td><td>Veeva Vault</td><td>制药行业 QMS / EDMS 系统 · 凯莱英已部署</td></tr>
-    </tbody>
-  </table>
-
-  <h3 style="font-size:16px; color:#0f1f3d; margin-top: 18px;">C. 同分支配套参考资料</h3>
-  <ul class="bul tight">
-    <li><code>vendor_accenture_assessment.html</code> — 此前内部对埃森哲咨询能力的深度评估</li>
-    <li><code>dh1_predictive_maintenance_brief.html</code> — DH1 关键动设备 PdM 推进方案（含和利时 / 信力共擎方案对照）</li>
-    <li><code>d4_equipment_lifecycle_plan.html</code> — 设备全生命周期 AI 5 子模块推进方案</li>
-    <li><code>plans_index.html</code> — 6 方向独立推进方案导航入口</li>
-    <li><code>杭州和利时给DH1动设备预测性维护系统技术初步方案.docx</code> — DH1 PdM 已对接供应商方案</li>
-    <li><code>安徽信力共擎——关键设备智能监测解决方案.pdf</code> — DH1 PdM 已对接供应商方案</li>
-    <li><code>凯莱英-埃森哲AI能力与赋能制造.pdf</code> — 埃森哲方此前提交的能力介绍材料</li>
-  </ul>
-
-  <div class="footnote" style="margin-top: 18px;">
-    <strong>📌 本会议总结的立场声明</strong><br/>
-    1. 本总结所有内容均基于会议语音转文字记录 + 埃森哲方现场 PPT 截屏；<br/>
-    2. 所有"埃森哲方"观点、数据、案例描述均为埃森哲自述，未经独立核实；<br/>
-    3. 本总结<strong>不下结论、不做主观推荐</strong>，仅作客观纪要；<br/>
-    4. 下一步推进 / 商务谈判 / 供应商比选等决策，应基于本总结 + 后续凯莱英内部评估 + 与其他供应商对比之后做出。<br/>
-    <br/>
-    撰写日期：2026-06-30 · 版本：v1.0
+  <div class="highlight-box" style="margin-top:18px;">
+    <strong>一句话总结</strong>：埃森哲在设备智能化资产管理方向有完整的方法论和成熟的多智能体协作架构，特别在"健康分 + 知识图谱"这套可解释 AI 方案上有深度。
+    凯莱英以"设备预测性维护"作为合作切入点是合理选择 —— 数据归属清晰、合规风险低、价值可量化。
+    下一步推进的关键不在选哪家供应商，而在<strong>把自己的设备清单、故障痛点、数据基础、先验知识这 4 件事先整理出来</strong>，这是任何 PdM 项目能不能落地的共同前提。
   </div>
 </section>
 
