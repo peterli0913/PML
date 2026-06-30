@@ -114,11 +114,12 @@
 <div class="topbar">
   <div class="brand">埃森哲合作能力与设备预测性维护推进思路 <span class="badge">v2.0</span></div>
   <nav>
-    <a href="#cover">概览</a>
-    <a href="#about">埃森哲是什么</a>
+    <a href="#cover">封面</a>
+    <a href="#about">埃森哲</a>
     <a href="#case">案例</a>
+    <a href="#howto">PdM 工作方式</a>
     <a href="#pdm">PdM 思路</a>
-    <a href="#prep">我们需要准备的</a>
+    <a href="#prep">需要准备的</a>
   </nav>
 </div>
 
@@ -128,13 +129,6 @@
 <section class="slide cover" id="cover">
   <h2 class="kicker">ACCENTURE · ASSET MAINTENANCE · INTERNAL BRIEFING</h2>
   <h1>埃森哲合作能力与<br/>设备预测性维护推进思路</h1>
-  <div class="subtitle">
-    本汇报围绕四件事：埃森哲是什么样的合作方、它在资产管理方向的典型案例、设备预测性维护的开展思路、凯莱英启动该项目前需要完成的准备工作。
-  </div>
-  <div class="meta">
-    <div>分享主题：设备预测性维护（Predictive Maintenance, PdM）</div>
-    <div>分享版本：v2.0</div>
-  </div>
 </section>
 
 <!-- ============ PART 01 · 埃森哲是什么、做什么 ============ -->
@@ -145,13 +139,6 @@
   <p class="lead">
     埃森哲是全球性咨询与系统集成公司，2025 财年营收约 700 亿美元、全球员工 80 万、覆盖 120 个国家、服务客户 9000+。
     内部专门服务制造型企业的事业部为 <strong>Industry X（工业 X）</strong>，是本次合作的对接方。
-  </p>
-
-  <p>
-    与传统供应商相比，埃森哲的定位有明确边界：
-    <strong>不卖传感器</strong>（区别于西门子、艾默生）、<strong>不持有大模型</strong>（区别于阿里、华为云、智现未来）、
-    <strong>不做工艺研发</strong>。其核心交付能力是<strong>行业咨询、系统集成、数据建模、知识图谱构建、变革管理</strong>五项，
-    通过组合第三方硬件与软件，把客户的业务目标端到端落到现场。
   </p>
 
   <h3>资产管理方向的三段服务体系</h3>
@@ -239,19 +226,91 @@
       <tr><td>备件管理（长期）</td><td>预测准确度 ↑10-30% · 库存 ↓5-15% · 补货时机精度 ↑10-20%</td></tr>
     </tbody>
   </table>
-  <p style="font-size:12.5px; color:#5b6a8a; margin-top:6px;">
-    以上为跨行业、跨规模项目的经验区间，不构成对凯莱英 PdM 项目的承诺。实际效果取决于起点条件与落地深度。
-  </p>
 </section>
 
-<!-- ============ PART 03 · PdM 思路 ============ -->
+<!-- ============ PART 03 · 埃森哲 PdM 工作方式 ============ -->
+<section class="slide" id="howto">
+  <h2 class="kicker">PART 03 · 埃森哲设备预测性维护的工作方式</h2>
+  <h1>从"多源信号"到"处置建议"的端到端工作流</h1>
+
+  <p class="lead">
+    埃森哲的 PdM 方案不是单一算法，而是<strong>"5 层架构 + 6 阶段闭环 + 知识图谱底座"</strong>的整体设计。
+    其核心是把现场信号、专家经验、业务影响三者联动，输出可解释的处置建议，并保留人工核查环节确保合规。
+  </p>
+
+  <h3>整体架构 · 5 层</h3>
+  <table class="kly">
+    <thead>
+      <tr><th style="width:14%;">层级</th><th style="width:22%;">名称</th><th>主要职责</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>第 1 层</td><td>统一入口</td><td>移动端、邮件、企业 IM、传感器告警、工单系统接入同一入口</td></tr>
+      <tr><td>第 2 层</td><td>智能监控</td><td>AI 意图识别与事件路由，自动语言理解 + 实体识别 + 上下文关联</td></tr>
+      <tr><td>第 3 层</td><td>智能调查</td><td>按设备类型 / 故障类型分派给专项智能体（如马达、轴承、阀门智能体）</td></tr>
+      <tr><td>第 4 层</td><td>知识图谱</td><td>工厂运营本体 + 工业知识图谱，提供根因解释与处置建议</td></tr>
+      <tr><td>第 5 层</td><td>知识迭代</td><td>每个事件的处置结果反馈回知识库，AI 推理能力持续优化</td></tr>
+    </tbody>
+  </table>
+
+  <h3>核心闭环 · 6 阶段</h3>
+  <table class="kly">
+    <thead>
+      <tr><th style="width:8%;">阶段</th><th style="width:24%;">环节</th><th>具体内容</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>①</strong></td>
+        <td>多源信号采集（24×7 在线）</td>
+        <td>设备信号（振动、温度、压力、电流、流量、转速）+ 质量信号（SPC、良率）+ 工艺参数（温度、压力、pH、粒度）+ 人工记录（点检表、维修历史）+ 业务数据（生产损失影响）</td>
+      </tr>
+      <tr>
+        <td><strong>②</strong></td>
+        <td>健康分计算（Health Index）</td>
+        <td>AI 模型加权多源信号 → 归一为 0-100 健康分；每台设备 + 每个关键部件各自独立健康分；不同部件由不同信号主导（轴承看振动、马达看电流）</td>
+      </tr>
+      <tr>
+        <td><strong>③</strong></td>
+        <td>业务影响评估</td>
+        <td>健康分 × 设备业务关键性 → 4×4 风险后果矩阵 → 自动排序优先级队列，避免"健康分低但其实不关键"被误优先</td>
+      </tr>
+      <tr>
+        <td><strong>④</strong></td>
+        <td>智能体调查与根因分析</td>
+        <td>按设备类型设立专项 AI 智能体（马达专家、阀门专家、轴承专家、润滑专家、点检专家），跨系统收集证据，重建事件时间线，生成 Top-3 根因假设 + 各自置信度</td>
+      </tr>
+      <tr>
+        <td><strong>⑤</strong></td>
+        <td>处置建议输出</td>
+        <td>4 档处置：立即处理 / 计划维护 / 持续监控 / 无需动作。每条建议包含动作类型、ETA、责任人、风险评分；并附引用源（追溯到历史 RCA、维修案例或供应商手册）</td>
+      </tr>
+      <tr>
+        <td><strong>⑥</strong></td>
+        <td>人工核查与知识沉淀</td>
+        <td>所有 AI 结论保留 Human-in-the-Loop 复核环节；复核结果（确认 / 修正 / 拒绝）反馈回知识库，模型与知识图谱持续迭代</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>底层关键 · 知识图谱与数据双向验证</h3>
+  <p>
+    知识图谱不是简单的"经验录入"，而是<strong>知识与数据互相验证的产物</strong>：每条专家经验录入知识库后，必须用历史数据反向校验。
+    如果某条"经验规则"与历史数据吻合度低，会被标为待澄清，由专家复核 —— 要么修正经验、要么排查数据失真、要么补充未识别的过程干扰。
+    这层验证机制保证了 AI 决策的可信度，也是埃森哲方案区别于一般工业 AI 产品的关键。
+  </p>
+
+  <div class="highlight-box">
+    <strong>架构特点小结</strong>：5 层架构解决"事件怎么进来、怎么分派"，6 阶段闭环解决"信号怎么变成行动"，知识图谱解决"为什么这么判、可不可信"。三者共同实现 PdM 全流程的自动化与可解释化，并通过 Human-in-the-Loop 满足 GMP 合规对"AI 辅助、人工签字"的要求。
+  </div>
+</section>
+
+<!-- ============ PART 04 · PdM 思路 ============ -->
 <section class="slide" id="pdm">
-  <h2 class="kicker">PART 03 · 设备预测性维护的开展思路</h2>
+  <h2 class="kicker">PART 04 · 设备预测性维护的开展思路</h2>
   <h1>项目可行性取决于"数据 + 先验 + 故障样本"三要素</h1>
 
   <p class="lead">
-    预测性维护不是所有设备、所有场景都适合开展。能否落地，取决于<strong>数据基础、先验知识、故障样本</strong>三要素的成熟度。
-    埃森哲在判断 PdM 项目可行性时使用一套相对成熟的方法 —— 围绕 4 个维度判断，并对不同数据基础给出不同的解题路径。
+    预测性维护取决于<strong>数据基础、先验知识、故障样本</strong>三要素的成熟度。
+    埃森哲在判断 PdM 项目可行性时围绕 4 个维度判断，并对不同数据基础给出不同的解题路径。
   </p>
 
   <h3>3.1 项目可行性的 4 个判断维度</h3>
@@ -321,43 +380,39 @@
 
 <!-- ============ PART 04 · 凯莱英需要准备什么 ============ -->
 <section class="slide" id="prep">
-  <h2 class="kicker">PART 04 · 凯莱英需要准备的内容</h2>
+  <h2 class="kicker">PART 05 · 凯莱英需要准备的内容</h2>
   <h1>4 类信息整理 · 决定下一步能不能推、怎么推</h1>
 
   <p class="lead">
     无论最终选择埃森哲还是其他供应商，启动 PdM 项目前需要由凯莱英内部完成 4 类信息的整理。
-    这是后续方案设计、商务报价、立项论证的共同前提，缺一不可。
+    这是后续方案设计、商务报价、立项论证的共同前提。
   </p>
 
   <h3>4 类信息整理清单</h3>
   <table class="kly">
     <thead>
-      <tr><th style="width:10%;">类别</th><th style="width:14%;">主题</th><th style="width:46%;">具体内容</th><th>建议配合部门</th></tr>
+      <tr><th style="width:10%;">类别</th><th style="width:18%;">主题</th><th>具体内容</th></tr>
     </thead>
     <tbody>
       <tr>
         <td><strong>①</strong></td>
         <td>设备清单</td>
         <td>产线 / 厂区 + 设备类型 + 数量 + 关键作用 + 当前维护模式（预防性 / 故障后维修）</td>
-        <td>设备工程部 + 各厂区设备组</td>
       </tr>
       <tr>
         <td><strong>②</strong></td>
         <td>主要故障</td>
         <td>按业务损失或 OEE 排序的 Top 5 类故障 + 年度频次 + 单次损失金额估算</td>
-        <td>设备工程部 + 生产部 + 精益小组</td>
       </tr>
       <tr>
         <td><strong>③</strong></td>
         <td>数据基础</td>
         <td>现有传感器清单（类型、位置、覆盖率）+ 采集频次 + 历史数据归档时长 + 已发生异常案例的数据完整度</td>
-        <td>CDT + 设备工程部 + IT</td>
       </tr>
       <tr>
         <td><strong>④</strong></td>
         <td>先验知识</td>
         <td>历史 RCA 报告 + 偏差报告 + 已有 FTA / FMEA 分析 + 供应商提供的设备技术资料</td>
-        <td>设备工程部 + QA + 资深维护工程师</td>
       </tr>
     </tbody>
   </table>
@@ -367,50 +422,7 @@
     <li>设备清单中哪几类适合优先开展 PdM —— 数据充分、痛点明确、价值显著</li>
     <li>每类设备需要哪些先验经验入库以构建知识图谱</li>
     <li>当前数据量是否足以直接建模，还是需要先补装传感器再积累</li>
-    <li>第一阶段的合理投入与回报区间</li>
-    <li>采用何种合作模式（外采交钥匙 / 总集成 / 单一建模等）最匹配</li>
   </ul>
-
-  <h3>需要在后续方案对接中澄清的事项</h3>
-  <div class="grid-2">
-    <div class="card">
-      <h4 style="margin-top:0;">商务层面</h4>
-      <ul class="bul tight">
-        <li>项目商务计费方式（按人天 / 按里程碑 / 按效果分成）</li>
-        <li>不同合作模式的预算区间参考</li>
-        <li>项目期间的培训与知识转移安排</li>
-        <li>项目结束后的运维支持机制</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h4 style="margin-top:0;">技术层面</h4>
-      <ul class="bul tight">
-        <li>在制药 / API / CDMO 行业 PdM 的具体案例</li>
-        <li>本地交付团队的人员构成与经验背景</li>
-        <li>知识图谱 / AI 模型权重的所有权归属</li>
-        <li>与凯莱英现有 SAP / Veeva 等系统的对接方式</li>
-      </ul>
-    </div>
-  </div>
-
-  <h3>下一步推进节奏建议</h3>
-  <table class="kly">
-    <thead>
-      <tr><th style="width:18%;">时间</th><th style="width:22%;">阶段</th><th>主要工作</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>第 1 个月</td><td>信息整理</td><td>凯莱英内部完成 4 类信息整理 + 选定起步设备类型</td></tr>
-      <tr><td>第 2-3 个月</td><td>方案对齐</td><td>与埃森哲（及其他候选供应商）做 1-2 轮深度方案讨论 + 商务报价</td></tr>
-      <tr><td>第 3-6 个月</td><td>PoC 启动</td><td>选定 1 类设备开展概念验证 —— 数据采集 + 算法建模 + 知识图谱搭建</td></tr>
-      <tr><td>第 6-12 个月</td><td>试点与推广</td><td>PoC 结果评估，决定是否扩展到其他设备类型 / 厂区</td></tr>
-    </tbody>
-  </table>
-
-  <div class="highlight-box" style="margin-top:18px;">
-    <strong>核心结论</strong>：埃森哲在设备智能化资产管理方向具备完整的方法论与多智能体协作架构，"<strong>健康分 + 知识图谱</strong>"的可解释 AI 方案具有显著优势。
-    凯莱英以"设备预测性维护"作为合作切入点是合理选择 —— 数据归属清晰、合规风险低、价值可量化。
-    项目能否顺利推进，取决于<strong>设备清单、故障痛点、数据基础、先验知识</strong>四类信息的整理质量。
-  </div>
 </section>
 
 </main>
