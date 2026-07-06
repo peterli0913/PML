@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI 落地推进 · 2026 上半年汇报</title>
+<style>
+  :root {
+    --navy: #00366A;
+    --navy-deep: #001d3d;
+    --blue: #3263A7;
+    --text: #0F2B46;
+    --sub: #2C3E50;
+    --orange: #FF7E3D;
+    --orange-light: #FFAA7A;
+    --white: #FFFFFF;
+    --gray: #7A89A8;
+    --light: #F0F4FA;
+    --lighter: #E7EEFB;
+    --border: #DCE3EF;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
+    color: var(--text);
+    background: #f3f5fa;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+  /* 顶部导航 */
+  .topbar {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 28px;
+    background: var(--navy);
+    color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar .brand { font-weight: 700; letter-spacing: .5px; font-size: 14px; }
+  .topbar .brand .badge {
+    display: inline-block; padding: 2px 10px; margin-left: 8px;
+    background: var(--orange); border-radius: 4px; font-size: 11px; font-weight: 600;
+  }
+  .topbar nav a {
+    color: #cdd6e8; font-size: 12.5px; text-decoration: none;
+    margin: 0 6px; padding: 6px 10px; border-radius: 6px;
+  }
+  .topbar nav a:hover { background: rgba(255,255,255,.1); color: #fff; }
+
+  main { max-width: 1200px; margin: 0 auto; padding: 0 24px 60px; }
+
+  /* 通用 section */
+  section.slide {
+    background: #fff;
+    border-radius: 14px;
+    padding: 40px 48px 44px;
+    margin: 26px 0;
+    box-shadow: 0 6px 24px rgba(15,31,61,.07);
+    position: relative;
+  }
+
+  /* 分节封面样式（深蓝背景 + 六边形装饰） */
+  section.slide.cover {
+    background: linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 55%, #1a4d8f 100%);
+    color: #fff;
+    overflow: hidden;
+    padding: 60px 48px;
+    text-align: center;
+  }
+  section.slide.cover::before {
+    content: '';
+    position: absolute; right: -60px; top: -60px; width: 350px; height: 350px;
+    border: 3px solid rgba(255,255,255,.15);
+    transform: rotate(30deg);
+    border-radius: 20px;
+    z-index: 0;
+  }
+  section.slide.cover::after {
+    content: '';
+    position: absolute; right: 40px; top: 30px; width: 220px; height: 220px;
+    border: 2px solid rgba(255,255,255,.2);
+    transform: rotate(30deg);
+    border-radius: 15px;
+    z-index: 0;
+  }
+  section.slide.cover .inner { position: relative; z-index: 1; }
+  section.slide.cover h1 {
+    font-size: 42px; font-weight: 700; line-height: 1.3;
+    margin: 40px 0 20px;
+    border: none; padding: 0;
+  }
+  section.slide.cover .subtitle {
+    font-size: 16px; opacity: .85; line-height: 1.8;
+    max-width: 800px; margin: 20px auto 0;
+  }
+  section.slide.cover .meta {
+    margin-top: 60px; font-size: 13px; opacity: .8;
+    display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;
+  }
+
+  /* 章节标题（内容页） */
+  section.slide h1 {
+    font-size: 26px; font-weight: 700; color: var(--navy);
+    padding-bottom: 12px; margin-bottom: 24px;
+    border-bottom: 3px solid var(--orange);
+    display: inline-block;
+  }
+  section.slide h2 {
+    font-size: 18px; font-weight: 600; color: var(--blue);
+    margin: 22px 0 10px;
+  }
+  section.slide .lead {
+    font-size: 15px; color: var(--sub);
+    max-width: 1000px; margin: 0 0 22px;
+    line-height: 1.85;
+  }
+
+  /* 顶部橙色横条装饰 */
+  section.slide.content::before {
+    content: '';
+    position: absolute; left: 0; top: 0;
+    width: 100%; height: 4px;
+    background: linear-gradient(90deg, var(--navy) 0%, var(--blue) 50%, var(--orange) 100%);
+    border-radius: 14px 14px 0 0;
+  }
+
+  /* KPI 卡片 */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 20px 0; }
+  .kpi {
+    background: linear-gradient(135deg, var(--lighter) 0%, #fff 100%);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--navy);
+    border-radius: 10px;
+    padding: 20px 22px;
+    text-align: center;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .kpi:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(15,31,61,.08); }
+  .kpi.orange { border-left-color: var(--orange); }
+  .kpi.blue { border-left-color: var(--blue); }
+  .kpi .num {
+    font-size: 32px; font-weight: 800; color: var(--navy);
+    line-height: 1.1; margin-bottom: 4px;
+  }
+  .kpi.orange .num { color: var(--orange); }
+  .kpi.blue .num { color: var(--blue); }
+  .kpi .label { font-size: 12px; color: var(--sub); }
+
+  /* 4 列工作块 */
+  .work-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 20px 0; }
+  .work-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .work-card .tab {
+    background: var(--navy);
+    color: #fff;
+    padding: 10px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .work-card .body {
+    padding: 14px 16px;
+    font-size: 12.5px;
+    color: var(--text);
+    line-height: 1.75;
+  }
+  .work-card .body ul { padding-left: 18px; }
+  .work-card .body ul li { margin: 4px 0; }
+
+  /* 6 方向 2×3 网格 */
+  .dir-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 20px 0; }
+  .dir-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .dir-card .tab {
+    background: var(--navy); color: #fff;
+    padding: 10px 14px; font-size: 13.5px; font-weight: 700;
+  }
+  .dir-card:nth-child(even) .tab { background: var(--blue); }
+  .dir-card .subtitle {
+    padding: 8px 16px 4px;
+    color: var(--blue);
+    font-size: 12px; font-weight: 600; font-style: italic;
+    border-bottom: 1px dashed var(--border);
+  }
+  .dir-card:nth-child(even) .subtitle { color: var(--navy); }
+  .dir-card .body {
+    padding: 12px 16px 14px;
+    font-size: 12.5px; color: var(--text);
+    line-height: 1.75;
+    flex: 1;
+  }
+  .dir-card .body ul { padding-left: 18px; }
+
+  /* 供应商 3 列对比 */
+  .vendor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 22px 0; }
+  .vendor-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(15,31,61,.05);
+  }
+  .vendor-card .header {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--blue) 100%);
+    color: #fff;
+    padding: 16px 20px;
+  }
+  .vendor-card:nth-child(2) .header { background: linear-gradient(135deg, var(--blue) 0%, #4b7ac9 100%); }
+  .vendor-card .header .name { font-size: 20px; font-weight: 700; }
+  .vendor-card .header .cat { font-size: 12.5px; opacity: .9; margin-top: 2px; font-style: italic; }
+  .vendor-card .body { padding: 16px 20px; }
+  .vendor-card .body .row { margin: 10px 0; }
+  .vendor-card .body .row .k {
+    font-size: 11px; font-weight: 700; color: var(--orange);
+    letter-spacing: 1px; margin-bottom: 3px;
+    text-transform: uppercase;
+  }
+  .vendor-card .body .row .v {
+    font-size: 13px; color: var(--text); line-height: 1.7;
+  }
+
+  /* PdM 双栏 */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+  .box {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .box.orange > .head { background: var(--orange); }
+  .box.blue > .head { background: var(--blue); }
+  .box > .head {
+    background: var(--navy);
+    color: #fff;
+    padding: 10px 16px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .box > .body {
+    padding: 14px 18px;
+    font-size: 13px;
+    line-height: 1.75;
+  }
+  .box > .body h3 {
+    font-size: 13.5px;
+    color: var(--blue);
+    margin: 6px 0 4px;
+    font-weight: 700;
+  }
+  .box > .body h3:first-child { margin-top: 0; }
+  .box > .body p { color: var(--text); margin: 3px 0 8px; padding-left: 12px; }
+
+  /* 4 类信息 */
+  .info-4-list { list-style: none; padding: 0; }
+  .info-4-list li {
+    padding: 8px 0 8px 32px; position: relative;
+    border-bottom: 1px dashed var(--border);
+    font-size: 12.5px;
+  }
+  .info-4-list li:last-child { border-bottom: 0; }
+  .info-4-list li::before {
+    content: attr(data-num);
+    position: absolute; left: 0; top: 8px;
+    width: 22px; height: 22px;
+    background: var(--navy); color: #fff;
+    border-radius: 50%;
+    text-align: center; line-height: 22px;
+    font-size: 11px; font-weight: 700;
+  }
+  .info-4-list li strong { color: var(--navy); }
+
+  /* Roadmap */
+  .roadmap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 14px 0; }
+  .roadmap .stage {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--orange);
+    border-radius: 8px;
+    padding: 14px 16px;
+    position: relative;
+  }
+  .roadmap .stage:not(:last-child)::after {
+    content: '→';
+    position: absolute;
+    right: -14px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--orange);
+    font-size: 20px; font-weight: 700;
+    z-index: 2;
+  }
+  .roadmap .stage .month {
+    font-size: 11px; color: var(--orange);
+    font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .roadmap .stage .ttl {
+    font-size: 15px; font-weight: 700;
+    color: var(--navy);
+    margin: 4px 0 6px;
+  }
+  .roadmap .stage .det {
+    font-size: 12px; color: var(--sub);
+    line-height: 1.7;
+  }
+
+  /* 底部 */
+  .footer-note {
+    font-size: 11px; color: var(--gray);
+    text-align: center; margin-top: 20px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+  }
+
+  @media print {
+    body { background: #fff; }
+    .topbar { display: none; }
+    section.slide { box-shadow: none; page-break-after: always; margin: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">AI 落地推进 · 2026 上半年汇报 <span class="badge">凯莱英</span></div>
+  <nav>
+    <a href="#cover">封面</a>
+    <a href="#overview">整体进展</a>
+    <a href="#directions">6 大方向</a>
+    <a href="#vendors">供应商评估</a>
+    <a href="#pdm">PdM 推进</a>
+    <a href="#plan">下半年计划</a>
+  </nav>
+</div>
+
+<main>
+
+<!-- =================== 封面 =================== -->
+<section class="slide cover" id="cover">
+  <div class="inner">
+    <div style="font-size: 13px; letter-spacing: 4px; color: var(--orange-light); font-weight: 600;">
+      2026 · MID-YEAR REVIEW
+    </div>
+    <h1>AI 落地推进 · 2026 上半年汇报</h1>
+    <div class="subtitle">
+      围绕生产管理数智化重点方向，系统推动 AI 应用的方向梳理、供应商评估、
+      预测性维护重点场景推进与跨部门协同落地
+    </div>
+    <div class="meta">
+      <div>📌 6 大 AI 应用方向</div>
+      <div>🤝 3 家潜在合作商深度评估</div>
+      <div>⚙️ 1 个重点场景 · 设备预测性维护</div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 整体进展概览 =================== -->
+<section class="slide content" id="overview">
+  <h1>上半年整体进展概览</h1>
+  <p class="lead">围绕"重点方向梳理 + 供应商评估 + 重点场景推进 + 跨部门协同"四条主线，系统落地生产管理 AI 应用推动工作。</p>
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="num">6</div>
+      <div class="label">生产管理 AI 应用方向系统梳理</div>
+    </div>
+    <div class="kpi">
+      <div class="num">3</div>
+      <div class="label">潜在合作商深度评估</div>
+    </div>
+    <div class="kpi blue">
+      <div class="num">5+</div>
+      <div class="label">工程化实施方案（含 IT 联合推进）</div>
+    </div>
+    <div class="kpi orange">
+      <div class="num">1</div>
+      <div class="label">重点场景 · 设备预测性维护</div>
+    </div>
+  </div>
+
+  <h2>四条主线工作</h2>
+  <div class="work-grid">
+    <div class="work-card">
+      <div class="tab">① 方向系统梳理</div>
+      <div class="body">
+        <ul>
+          <li>收敛并系统梳理生产管理 6 大 AI 应用方向</li>
+          <li>编制思路方案 + 逐项落地推进方案</li>
+          <li>形成集团 AI 布局的横向蓝图</li>
+        </ul>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="tab">② 供应商评估</div>
+      <div class="body">
+        <ul>
+          <li>智现未来（半导体 AI 跨域平移）</li>
+          <li>埃森哲（Industry X 智能资产管理）</li>
+          <li>远景智能（平台级 AI）</li>
+          <li>形成"多供应商组合"合作思路</li>
+        </ul>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="tab">③ PdM 重点推进</div>
+      <div class="body">
+        <ul>
+          <li>结合 DH1 动力站现有基础</li>
+          <li>完成和利时、信力共擎、埃森哲三方对比</li>
+          <li>主导埃森哲 PdM 会议后总结</li>
+          <li>明确 4 类信息 + PoC 推进节奏</li>
+        </ul>
+      </div>
+    </div>
+    <div class="work-card">
+      <div class="tab">④ 跨部门协同</div>
+      <div class="body">
+        <ul>
+          <li>与 IT 联合输出 6 方向工程化实施方案</li>
+          <li>生产看板系统氨基酸项目功能对接</li>
+          <li>配合电算化等其他数智化重点工作</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 6 大方向 =================== -->
+<section class="slide content" id="directions">
+  <h1>6 大 AI 应用方向 · 系统梳理</h1>
+  <p class="lead">
+    结合多轮内部研讨与外部供应商交流，围绕生产管理全流程，收敛并梳理出 6 大 AI 应用方向，
+    每个方向均已形成独立的落地推进方案（含现状盘点、技术路线、供应商对比、投资回报测算与决策建议）。
+  </p>
+
+  <div class="dir-grid">
+    <div class="dir-card">
+      <div class="tab">① 生产技术报告 AI 撰写</div>
+      <div class="subtitle">Campaign Report / MOR / APR</div>
+      <div class="body">
+        <ul>
+          <li>数据源：MES / QMS / LIMS / SAP</li>
+          <li>底座：LLM + RAG 检索增强</li>
+          <li>价值：工时节省 50-70%</li>
+        </ul>
+      </div>
+    </div>
+    <div class="dir-card">
+      <div class="tab">② AI 辅助技术转移与放大</div>
+      <div class="subtitle">R&D → 中试 → 商业化</div>
+      <div class="body">
+        <ul>
+          <li>输入：R&D 工艺包 + 设备规格</li>
+          <li>输出：审查清单 + 风险矩阵 + 推荐参数</li>
+          <li>价值：NPI 周期缩短 30%</li>
+        </ul>
+      </div>
+    </div>
+    <div class="dir-card">
+      <div class="tab">③ 设备全生命周期 AI</div>
+      <div class="subtitle">PdM / 备件 / 验证 / 故障 / 点检</div>
+      <div class="body">
+        <ul>
+          <li>5 子模块共享同一基础设施</li>
+          <li>关键场景：预测性维护（本次重点）</li>
+          <li>价值：非计划停机减少 40%</li>
+        </ul>
+      </div>
+    </div>
+    <div class="dir-card">
+      <div class="tab">④ 视觉 AI 操作合规监测</div>
+      <div class="subtitle">CV + SOP 实时监测</div>
+      <div class="body">
+        <ul>
+          <li>输入：车间 CCTV 视频流</li>
+          <li>输出：违规实时告警 + 事件留档</li>
+          <li>价值：巡检工作替代 30-50%</li>
+        </ul>
+      </div>
+    </div>
+    <div class="dir-card">
+      <div class="tab">⑤ AI 培训内容自动化生成</div>
+      <div class="subtitle">SOP → 数字人视频 + 考核题</div>
+      <div class="body">
+        <ul>
+          <li>输入：SOP 文档 + 素材库</li>
+          <li>输出：分镜脚本 + 数字人视频 + 考核</li>
+          <li>价值：制作周期 2 周 → 1 天</li>
+        </ul>
+      </div>
+    </div>
+    <div class="dir-card">
+      <div class="tab">⑥ 批次放行预测 + QC 报告</div>
+      <div class="subtitle">BDCT 升级 · AI 预测放行</div>
+      <div class="body">
+        <ul>
+          <li>数据源：LIMS + IPC + 在线 PAT</li>
+          <li>底座：多变量预测 + 贝叶斯先验</li>
+          <li>价值：放行加速 + 报废前置预警</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">6 大方向均已形成独立推进方案，可根据业务优先级和资源情况分批启动 PoC 与试点</div>
+</section>
+
+<!-- =================== 供应商评估 =================== -->
+<section class="slide content" id="vendors">
+  <h1>3 家潜在合作商深度评估</h1>
+  <p class="lead">
+    针对生产管理 AI 应用落地，主导对智现未来、埃森哲、远景智能三家潜在合作商的深度评估，
+    输出内部评估报告，形成"多供应商组合、凯莱英自主主导"的合作思路。
+  </p>
+
+  <div class="vendor-grid">
+    <div class="vendor-card">
+      <div class="header">
+        <div class="name">智现未来</div>
+        <div class="cat">半导体 AI 跨域平移</div>
+      </div>
+      <div class="body">
+        <div class="row"><div class="k">定位</div><div class="v">半导体晶圆厂 AI 软件国产化领先者</div></div>
+        <div class="row"><div class="k">核心能力</div><div class="v">FDC / RMS / APC / 技术转移 / PdM 算法体系</div></div>
+        <div class="row"><div class="k">凯莱英适配</div><div class="v">算法层深度突出，制药案例空白需 6-12 月跨域适配</div></div>
+        <div class="row"><div class="k">合作定位</div><div class="v">算法层最深，可用作 PoC 对照方案</div></div>
+      </div>
+    </div>
+
+    <div class="vendor-card">
+      <div class="header">
+        <div class="name">埃森哲</div>
+        <div class="cat">Industry X 智能资产管理</div>
+      </div>
+      <div class="body">
+        <div class="row"><div class="k">定位</div><div class="v">全球咨询与系统集成商 · Industry X 事业部</div></div>
+        <div class="row"><div class="k">核心能力</div><div class="v">5 智能体协作 · 健康分 + 知识图谱 · 端到端集成</div></div>
+        <div class="row"><div class="k">凯莱英适配</div><div class="v">不卖硬件不持模型，做端到端集成与变革管理</div></div>
+        <div class="row"><div class="k">合作定位</div><div class="v">端到端能力最完整，PdM 推进节奏清晰</div></div>
+      </div>
+    </div>
+
+    <div class="vendor-card">
+      <div class="header">
+        <div class="name">远景智能</div>
+        <div class="cat">平台级 AI</div>
+      </div>
+      <div class="body">
+        <div class="row"><div class="k">定位</div><div class="v">能源 + 工业 IoT 平台服务商</div></div>
+        <div class="row"><div class="k">核心能力</div><div class="v">EnOS 平台 · 设备数据接入 · AI 算法生态</div></div>
+        <div class="row"><div class="k">凯莱英适配</div><div class="v">平台底座能力强，制药领域案例有限</div></div>
+        <div class="row"><div class="k">合作定位</div><div class="v">平台层备选，可结合基础设施规划评估</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">三家评估均形成独立的评估报告，为后续多供应商组合式合作提供决策依据</div>
+</section>
+
+<!-- =================== PdM 三方对比 + 4 类信息 + 下半年节奏 =================== -->
+<section class="slide content" id="pdm">
+  <h1>设备预测性维护 · 重点场景推进</h1>
+  <p class="lead">
+    结合 DH1 动力站现有基础，同步推进设备预测性维护重点场景 —— 完成和利时、信力共擎、埃森哲三方方案对比，
+    明确启动前 4 类信息整理清单及"信息整理 → 方案对齐 → PoC 启动"的推进节奏。
+  </p>
+
+  <div class="grid-2">
+    <div class="box">
+      <div class="head">PdM 三方方案对比</div>
+      <div class="body">
+        <h3>杭州和利时 · 已对接方案</h3>
+        <p>聚焦 DH1 动力站关键动设备 PdM，覆盖冰机、循环泵、凉水塔、真空泵、离心机等的智能监测与故障诊断，硬件+软件+云平台+算法迭代一体化交付</p>
+
+        <h3>安徽信力共擎 · 已对接方案</h3>
+        <p>关键设备智能监测解决方案，含硬件安装、软件设计与调试、云平台数据分析、诊断算法升级迭代等，覆盖化工/钢铁行业实践</p>
+
+        <h3>埃森哲 · 会议交流方案</h3>
+        <p>5 层架构 + 6 阶段闭环 —— 多源信号采集 → 健康分（Health Index 0-100）→ 业务影响评估 → 智能体根因分析 → 处置建议 → 人工核查</p>
+        <p><strong style="color:var(--orange);">底层关键</strong>：知识图谱与历史数据双向验证机制，确保 AI 决策可追溯、可审计</p>
+      </div>
+    </div>
+
+    <div class="box orange">
+      <div class="head">启动前需整理 4 类信息</div>
+      <div class="body">
+        <ul class="info-4-list">
+          <li data-num="1"><strong>设备清单</strong><br/>厂区 + 设备类型 + 数量 + 关键作用 + 当前维护模式</li>
+          <li data-num="2"><strong>主要故障</strong><br/>按业务损失 / OEE 排序的 Top 5 类故障 + 频次 + 损失估算</li>
+          <li data-num="3"><strong>数据基础</strong><br/>传感器清单 + 采集频次 + 历史数据时长 + 异常案例数据完整度</li>
+          <li data-num="4"><strong>先验知识</strong><br/>历史 RCA 报告 + 偏差报告 + FTA / FMEA + 供应商技术资料</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== 下半年计划 =================== -->
+<section class="slide content" id="plan">
+  <h1>下半年推进节奏</h1>
+  <p class="lead">
+    以"低风险 + 高显示度"为原则推动落地 —— 一方面完成设备预测性维护 4 类信息整理与方案对齐，
+    另一方面选定 1-2 个短周期方向进入 PoC 阶段，形成实证支撑集团 AI 战略下一步决策。
+  </p>
+
+  <div class="roadmap">
+    <div class="stage">
+      <div class="month">第 3 季度</div>
+      <div class="ttl">信息整理与方案对齐</div>
+      <div class="det">
+        完成 PdM 4 类信息内部整理；深化三方方案对比；选定 1 个起步设备类型；协同 IT 明确基础设施投入
+      </div>
+    </div>
+    <div class="stage">
+      <div class="month">第 4 季度</div>
+      <div class="ttl">PoC 启动</div>
+      <div class="det">
+        选定的 1 类设备开展概念验证 —— 数据采集 + 算法建模 + 知识图谱搭建；同步启动 1 个短周期方向（如报告 AI 撰写 / 培训视频生成）
+      </div>
+    </div>
+    <div class="stage">
+      <div class="month">明年 Q1</div>
+      <div class="ttl">试点评估与推广</div>
+      <div class="det">
+        PoC 结果评估 → 决定扩展至其他设备类型 / 厂区；形成集团 AI 战略下一步决策的实证依据
+      </div>
+    </div>
+  </div>
+
+  <h2>关键成果目标</h2>
+  <div class="grid-3">
+    <div class="box blue">
+      <div class="head">短期成果 · 3-4 季度</div>
+      <div class="body">
+        <p>• 完成 PdM 4 类信息整理 + 三方深度对比</p>
+        <p>• 1-2 个短周期方向 PoC 启动</p>
+        <p>• 生产看板氨基酸项目功能上线</p>
+      </div>
+    </div>
+    <div class="box">
+      <div class="head">中期成果 · 明年 H1</div>
+      <div class="body">
+        <p>• PdM 起步设备 PoC 完成 + 效果评估</p>
+        <p>• 至少 1 个 AI 方向进入 Pilot 阶段</p>
+        <p>• 供应商合作策略形成明确共识</p>
+      </div>
+    </div>
+    <div class="box orange">
+      <div class="head">长期方向</div>
+      <div class="body">
+        <p>• 6 大 AI 方向按业务优先级分批落地</p>
+        <p>• 沉淀凯莱英自主的 AI 应用能力</p>
+        <p>• 形成"多供应商组合 + 自主主导"格局</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note" style="margin-top: 30px;">
+    以上为 2026 上半年 AI 推进工作总结与下半年安排，欢迎各位领导与同事指正与讨论
+  </div>
+</section>
+
+</main>
+
+</body>
+</html>
