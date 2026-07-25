@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>凯莱英 AI 战略路径 · 2026</title>
+<style>
+  :root{
+    --navy:#00366A; --navy-deep:#00224A; --blue:#2E5FA0; --blue-lt:#5B8FD4;
+    --orange:#FF7E3D; --orange-lt:#FFA872;
+    --txt:#404040; --sub:#6B7A90; --line:#D5DFEE; --tint:#F7FAFE; --pale:#E4EEFB;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:"PingFang SC","Microsoft YaHei","Source Han Sans CN",sans-serif;
+    background:#e9edf4; color:var(--txt); line-height:1.6;
+    -webkit-font-smoothing:antialiased; padding:24px 16px 40px;
+  }
+  /* ===== 16:9 幻灯片画布 ===== */
+  .slide{
+    width:1100px; max-width:100%; aspect-ratio:16/9;
+    margin:0 auto; background:#fff; position:relative;
+    border-radius:6px; overflow:hidden;
+    box-shadow:0 18px 50px rgba(0,34,74,.18);
+    display:flex; flex-direction:column;
+    padding:2.2% 3.4% 0;
+  }
+  .slide::after{ /* 底部深蓝条（与原 PPT 一致） */
+    content:''; position:absolute; left:0; right:0; bottom:0; height:1.35%;
+    background:linear-gradient(90deg,var(--navy-deep),var(--blue));
+  }
+  /* ===== 头部：LOGO + 标题 ===== */
+  .head{display:flex; align-items:flex-start; justify-content:space-between; gap:20px;}
+  .logo{display:flex; align-items:center; gap:8px; flex-shrink:0;}
+  .logo svg{width:30px;height:30px;}
+  .logo .name{font-size:22px; font-weight:800; letter-spacing:2px; color:var(--navy);}
+  h1{
+    font-size:clamp(15px,1.72vw,20px); font-weight:800; color:var(--navy);
+    text-align:right; line-height:1.35; padding-top:2px;
+  }
+  /* ===== 战略主张条 ===== */
+  .claim{
+    margin-top:1.5%;
+    background:linear-gradient(90deg,var(--navy) 0%,#3E74B8 100%);
+    border-radius:3px; padding:.9% 1.6%;
+    display:flex; align-items:center; justify-content:space-between; gap:14px;
+  }
+  .claim .main{
+    color:#fff; font-weight:700; font-size:clamp(11px,1.22vw,14px); letter-spacing:.5px;
+    display:flex; align-items:center; gap:.6em; flex-wrap:wrap;
+  }
+  .claim .main i{color:var(--orange-lt); font-style:normal; font-weight:700;}
+  .claim .en{
+    color:#9EC2EC; font-size:clamp(7px,.76vw,8.5px); font-weight:700;
+    letter-spacing:1.4px; white-space:nowrap;
+  }
+  /* ===== 主体两栏 ===== */
+  .body{display:flex; gap:2%; margin-top:1.5%; flex:1; min-height:0;}
+  .left{width:56%; display:flex; flex-direction:column; gap:1.4%;}
+  .right{width:42%; display:flex; flex-direction:column;}
+
+  /* --- 三层架构 --- */
+  .layer{
+    position:relative; border-radius:3px; overflow:hidden;
+    flex:1; display:flex; min-height:0;
+  }
+  .layer.l3{background:linear-gradient(90deg,#FF7E3D,#FFA872);}
+  .layer.l2{background:linear-gradient(90deg,#2E5FA0,#5B8FD4);}
+  .layer.l1{background:linear-gradient(90deg,#00366A,#1E4E86);}
+  .layer .no{
+    width:11.4%; background:#fff; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:1px; flex-shrink:0;
+  }
+  .layer .no b{font-size:clamp(13px,1.55vw,18px); font-weight:800; font-family:Arial;}
+  .layer.l3 .no b{color:#FF7E3D;} .layer.l2 .no b{color:#2E5FA0;} .layer.l1 .no b{color:#00366A;}
+  .layer .no span{font-size:clamp(4.5px,.5vw,5.6px); font-weight:700; color:var(--sub); letter-spacing:.6px;}
+  .layer .content{flex:1; padding:1.6% 2.4%; display:flex; flex-direction:column; justify-content:center; gap:3px; min-width:0;}
+  .layer .row1{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;}
+  .layer .tag{color:#fff; font-weight:800; font-size:clamp(10px,1.14vw,12.5px); white-space:nowrap;}
+  .layer .head-txt{color:var(--pale); font-size:clamp(6.5px,.76vw,8.4px); font-weight:600;}
+  .layer .body-txt{color:#CFDEF4; font-size:clamp(6.2px,.72vw,8px);}
+  /* 六大场景标签 */
+  .chips{display:flex; gap:5px; flex-wrap:wrap; margin-top:2px;}
+  .chip{
+    background:#fff; color:#2E5FA0; font-weight:700;
+    font-size:clamp(6px,.7vw,7.8px); padding:2.5px 7px; border-radius:99px;
+    white-space:nowrap; box-shadow:0 1px 3px rgba(0,34,74,.12);
+  }
+  /* 层间箭头 */
+  .arrows{display:flex; justify-content:space-around; padding:0 14%; height:0; position:relative;}
+  .arrows i{
+    position:relative; top:-3px; width:0;height:0;
+    border-left:4px solid transparent; border-right:4px solid transparent;
+    border-bottom:5px solid #B9CBE6;
+  }
+
+  /* --- 右栏：配图 --- */
+  .visual{
+    position:relative; border:1px solid var(--line); border-radius:3px;
+    overflow:hidden; height:22%; flex-shrink:0;
+  }
+  .visual img{width:100%; height:100%; object-fit:cover; opacity:.62;}
+  .visual .cap{
+    position:absolute; left:0; right:0; bottom:0;
+    background:linear-gradient(90deg,var(--navy),#2E5FA0);
+    color:#fff; font-size:clamp(6.5px,.8vw,8.6px); font-weight:700;
+    padding:3px 8px;
+  }
+  /* --- 右栏：推进机制 --- */
+  .mech-h{margin-top:4.2%; display:flex; flex-direction:column; gap:5px;}
+  .mech-h b{font-size:clamp(10px,1.14vw,12px); color:var(--navy); font-weight:800;}
+  .mech-h i{width:44px; height:2px; background:var(--orange); display:block;}
+  .mech{display:flex; flex-direction:column; gap:2.6%; margin-top:3.4%; flex:1; min-height:0;}
+  .mcard{
+    background:var(--tint); border:1px solid var(--line); border-left:3.5px solid var(--blue);
+    border-radius:2px; padding:1.9% 2.4% 1.9% 2%;
+    display:flex; gap:8px; align-items:flex-start; flex:1; min-height:0;
+  }
+  .mcard .n{color:var(--orange); font-family:Arial; font-weight:800; font-size:clamp(7.5px,.9vw,9.5px); flex-shrink:0; padding-top:1px;}
+  .mcard .t b{display:block; color:var(--navy); font-weight:800; font-size:clamp(7.5px,.86vw,9px); line-height:1.35;}
+  .mcard .t span{display:block; color:var(--sub); font-size:clamp(6.2px,.68vw,7.4px); line-height:1.4; margin-top:2px;}
+
+  /* ===== 底部里程碑 ===== */
+  .miles{margin-top:1.6%; padding-bottom:2.6%; border-top:1px solid var(--line); display:flex;}
+  .mile{flex:1; padding-top:1.4%; position:relative; padding-right:12px;}
+  .mile::before{
+    content:''; position:absolute; top:-5px; left:0; width:9px; height:9px; border-radius:50%;
+  }
+  .mile.m1::before{background:var(--navy);} .mile.m2::before{background:var(--blue);} .mile.m3::before{background:var(--orange);}
+  .mile .yr{font-family:Arial; font-weight:800; font-size:clamp(9px,1.06vw,11.5px); margin-left:16px;}
+  .mile.m1 .yr{color:var(--navy);} .mile.m2 .yr{color:var(--blue);} .mile.m3 .yr{color:var(--orange);}
+  .mile .h{margin-left:16px; margin-top:3px; font-weight:800; color:var(--navy); font-size:clamp(7.6px,.88vw,9.5px);}
+  .mile .d{margin-left:16px; margin-top:2px; color:var(--sub); font-size:clamp(6.2px,.7vw,7.6px);}
+
+  /* ===== 页脚 ===== */
+  .foot{
+    position:absolute; left:0; right:0; bottom:0; height:1.35%;
+    display:flex; align-items:center; gap:18px; padding:0 1.2%;
+    color:#fff; font-size:6.5px; font-family:Arial; z-index:2; letter-spacing:.3px;
+  }
+  .foot .sp{flex:1;}
+  @media print{
+    body{background:#fff;padding:0;}
+    .slide{box-shadow:none;border-radius:0;width:100%;}
+  }
+</style>
+</head>
+<body>
+
+<div class="slide">
+  <!-- 头部 -->
+  <div class="head">
+    <div class="logo">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M22 4 L9 9 L5 20 L13 28 L25 25 L28 13 Z" stroke="#00366A" stroke-width="2.6" fill="none" stroke-linejoin="round"/>
+      </svg>
+      <span class="name">ASYMCHEM</span>
+    </div>
+    <h1>AI 战略路径：从“点状试点”到“体系化生产力”</h1>
+  </div>
+
+  <!-- 战略主张 -->
+  <div class="claim">
+    <div class="main">
+      数据筑基 <i>→</i> 场景验证 <i>→</i> 组合赋能 <i>→</i> 生产力重塑
+    </div>
+    <div class="en">ASYMCHEM AI STRATEGY 2026</div>
+  </div>
+
+  <!-- 主体 -->
+  <div class="body">
+    <!-- 左：三层架构 -->
+    <div class="left">
+      <div class="layer l3">
+        <div class="no"><b>03</b><span>VALUE</span></div>
+        <div class="content">
+          <div class="row1">
+            <span class="tag">生产力重塑</span>
+            <span class="head-txt">AI 原生的生产运营模式</span>
+          </div>
+          <div class="body-txt">人机协同新分工 · 决策链路自动化 · 组织能力升级</div>
+        </div>
+      </div>
+
+      <div class="arrows"><i></i><i></i><i></i></div>
+
+      <div class="layer l2">
+        <div class="no"><b>02</b><span>SCENARIO</span></div>
+        <div class="content">
+          <div class="row1">
+            <span class="tag">六大场景</span>
+            <span class="head-txt">短周期方向先出实证，强监管方向长期布局</span>
+          </div>
+          <div class="chips">
+            <span class="chip">报告撰写</span>
+            <span class="chip">技术转移</span>
+            <span class="chip">设备管理</span>
+            <span class="chip">视觉合规</span>
+            <span class="chip">培训生成</span>
+            <span class="chip">QC 放行</span>
+          </div>
+          <div class="body-txt">逐项形成落地方案 · 场景可独立立项、可组合推进</div>
+        </div>
+      </div>
+
+      <div class="arrows"><i></i><i></i><i></i></div>
+
+      <div class="layer l1">
+        <div class="no"><b>01</b><span>FOUNDATION</span></div>
+        <div class="content">
+          <div class="row1">
+            <span class="tag">数据与平台底座</span>
+            <span class="head-txt">数据打通 · 知识图谱 · 算力与合规框架</span>
+          </div>
+          <div class="body-txt">MES / QMS / LIMS / EAM 数据贯通 · 专家经验结构化 · GxP 验证路径</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 右：配图 + 推进机制 -->
+    <div class="right">
+      <div class="visual">
+        <img src="assets/smart_factory.png" alt="智能工厂" />
+        <div class="cap">医药工业 4.0：数据驱动的智能工厂</div>
+      </div>
+
+      <div class="mech-h">
+        <b>推进机制</b>
+        <i></i>
+      </div>
+
+      <div class="mech">
+        <div class="mcard">
+          <span class="n">01</span>
+          <span class="t">
+            <b>自主主导 + 组合外采</b>
+            <span>底座与知识资产自建自持；算法、工具按场景择优组合</span>
+          </span>
+        </div>
+        <div class="mcard">
+          <span class="n">02</span>
+          <span class="t">
+            <b>双轨并行：快赢 + 长跑</b>
+            <span>短周期方向季度出实证；强监管方向按合规节奏推进</span>
+          </span>
+        </div>
+        <div class="mcard">
+          <span class="n">03</span>
+          <span class="t">
+            <b>单点突破：设备预测性维护</b>
+            <span>以动力站关键设备切入，跑通数据到决策完整闭环</span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 里程碑 -->
+  <div class="miles">
+    <div class="mile m1">
+      <div class="yr">2026 H2</div>
+      <div class="h">底座启动 · 试点验证</div>
+      <div class="d">数据打通与场景 PoC 并行推进</div>
+    </div>
+    <div class="mile m2">
+      <div class="yr">2027</div>
+      <div class="h">规模复制 · 组合成型</div>
+      <div class="d">成熟场景跨厂区复制，供应商组合定型</div>
+    </div>
+    <div class="mile m3">
+      <div class="yr">2028+</div>
+      <div class="h">生产力重塑 · 对外赋能</div>
+      <div class="d">AI 原生运营模式 + 客户端价值输出</div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span>www.asymchem.com.cn</span>
+    <span>Stock Code: 002821.SZ / 6821.HK</span>
+    <span class="sp"></span>
+    <span>Confidential | 保密文件</span>
+  </div>
+</div>
+
+</body>
+</html>
