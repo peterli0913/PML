@@ -7,152 +7,131 @@
 <style>
   :root{
     --navy:#00366A; --navy-deep:#00224A; --blue:#2E5FA0; --blue-lt:#5B8FD4;
-    --orange:#FF7E3D; --orange-lt:#FFA872;
-    --txt:#404040; --sub:#6B7A90; --line:#D5DFEE; --tint:#F7FAFE; --pale:#E4EEFB;
+    --orange:#FF7E3D; --orange-lt:#FFB184;
+    --txt:#404040; --sub:#606E84; --line:#D8E1EF; --tint:#F7FAFE;
+    --pale:#E4EEFB; --pale2:#C9DAF2;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   body{
     font-family:"PingFang SC","Microsoft YaHei","Source Han Sans CN",sans-serif;
-    background:#e9edf4; color:var(--txt); line-height:1.6;
-    -webkit-font-smoothing:antialiased; padding:24px 16px 40px;
+    background:#e9edf4; color:var(--txt); line-height:1.55;
+    -webkit-font-smoothing:antialiased; padding:26px 16px 44px;
   }
   /* ===== 16:9 幻灯片画布 ===== */
   .slide{
-    width:1100px; max-width:100%; aspect-ratio:16/9;
-    margin:0 auto; background:#fff; position:relative;
-    border-radius:6px; overflow:hidden;
-    box-shadow:0 18px 50px rgba(0,34,74,.18);
+    width:1180px; max-width:100%; aspect-ratio:16/9;
+    margin:0 auto; background:#fff; position:relative; overflow:hidden;
+    border-radius:5px; box-shadow:0 20px 54px rgba(0,34,74,.2);
     display:flex; flex-direction:column;
-    padding:2.2% 3.4% 0;
+    padding:2.4% 3.8% 0;
   }
-  .slide::after{ /* 底部深蓝条（与原 PPT 一致） */
-    content:''; position:absolute; left:0; right:0; bottom:0; height:1.35%;
-    background:linear-gradient(90deg,var(--navy-deep),var(--blue));
+  /* 底部深蓝条（与原 PPT 一致：占高度 3.6%） */
+  .slide::after{
+    content:''; position:absolute; left:0; right:0; bottom:0; height:3.6%;
+    background:linear-gradient(90deg,#1C2661,#2A5A96);
   }
-  /* ===== 头部：LOGO + 标题 ===== */
-  .head{display:flex; align-items:flex-start; justify-content:space-between; gap:20px;}
-  .logo{display:flex; align-items:center; gap:8px; flex-shrink:0;}
-  .logo svg{width:30px;height:30px;}
-  .logo .name{font-size:22px; font-weight:800; letter-spacing:2px; color:var(--navy);}
-  h1{
-    font-size:clamp(15px,1.72vw,20px); font-weight:800; color:var(--navy);
-    text-align:right; line-height:1.35; padding-top:2px;
-  }
+  /* ===== 头部 ===== */
+  .head{display:flex; align-items:center; justify-content:space-between; gap:22px; min-height:7.5%;}
+  .logo{display:flex; align-items:center; gap:9px; flex-shrink:0;}
+  .logo svg{width:clamp(22px,2.4vw,30px);height:clamp(22px,2.4vw,30px);}
+  .logo .name{font-size:clamp(16px,1.9vw,23px); font-weight:800; letter-spacing:2.5px; color:#1A2A5E;}
+  h1{font-size:clamp(14px,1.66vw,19.5px); font-weight:800; color:var(--navy); text-align:right; line-height:1.35;}
+
   /* ===== 战略主张条 ===== */
   .claim{
-    margin-top:1.5%;
-    background:linear-gradient(90deg,var(--navy) 0%,#3E74B8 100%);
-    border-radius:3px; padding:.9% 1.6%;
+    margin-top:1.1%; background:linear-gradient(90deg,var(--navy),#3E74B8);
+    border-radius:2px; padding:.85% 1.9%;
     display:flex; align-items:center; justify-content:space-between; gap:14px;
   }
-  .claim .main{
-    color:#fff; font-weight:700; font-size:clamp(11px,1.22vw,14px); letter-spacing:.5px;
-    display:flex; align-items:center; gap:.6em; flex-wrap:wrap;
-  }
-  .claim .main i{color:var(--orange-lt); font-style:normal; font-weight:700;}
-  .claim .en{
-    color:#9EC2EC; font-size:clamp(7px,.76vw,8.5px); font-weight:700;
-    letter-spacing:1.4px; white-space:nowrap;
-  }
-  /* ===== 主体两栏 ===== */
-  .body{display:flex; gap:2%; margin-top:1.5%; flex:1; min-height:0;}
-  .left{width:56%; display:flex; flex-direction:column; gap:1.4%;}
-  .right{width:42%; display:flex; flex-direction:column;}
+  .claim .main{color:#fff; font-weight:700; font-size:clamp(10px,1.2vw,13px); letter-spacing:.4px;
+    display:flex; align-items:center; gap:.75em; white-space:nowrap;}
+  .claim .main i{color:var(--orange-lt); font-style:normal;}
+  .claim .en{color:#9EC2EC; font-size:clamp(6px,.72vw,8px); font-weight:700; letter-spacing:1.3px; white-space:nowrap;}
 
-  /* --- 三层架构 --- */
-  .layer{
-    position:relative; border-radius:3px; overflow:hidden;
-    flex:1; display:flex; min-height:0;
+  /* ===== 通用：层横条 ===== */
+  .band{display:flex; align-items:stretch; border-radius:2px; overflow:hidden; margin-top:1.5%;}
+  .band.top{background:linear-gradient(90deg,#FF7E3D,#FFB184);}
+  .band.base{background:linear-gradient(90deg,#00224A,#2A5A96);}
+  .band .no{
+    width:5.9%; background:#fff; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:0px; flex-shrink:0; padding:.5% 0;
   }
-  .layer.l3{background:linear-gradient(90deg,#FF7E3D,#FFA872);}
-  .layer.l2{background:linear-gradient(90deg,#2E5FA0,#5B8FD4);}
-  .layer.l1{background:linear-gradient(90deg,#00366A,#1E4E86);}
-  .layer .no{
-    width:11.4%; background:#fff; display:flex; flex-direction:column;
-    align-items:center; justify-content:center; gap:1px; flex-shrink:0;
+  .band .no b{font-family:Arial; font-weight:800; font-size:clamp(11px,1.42vw,16px);}
+  .band.top .no b{color:var(--orange);} .band.base .no b{color:var(--navy);}
+  .band .no span{font-family:Arial; font-weight:700; font-size:clamp(3.6px,.46vw,5px); color:#8A94A6; letter-spacing:.4px;}
+  .band .con{flex:1; padding:.85% 1.6%; display:flex; flex-direction:column; justify-content:center; gap:2px; min-width:0;}
+  .band .r1{display:flex; align-items:baseline; gap:1.6em; flex-wrap:nowrap;}
+  .band .tag{color:#fff; font-weight:800; font-size:clamp(9.5px,1.14vw,12.5px); white-space:nowrap;}
+  .band .lead{font-weight:700; font-size:clamp(7px,.86vw,9.2px); white-space:nowrap;}
+  .band.top .lead{color:#FFF2EA;} .band.base .lead{color:var(--pale);}
+  .band .sub{font-size:clamp(6.2px,.75vw,8px);}
+  .band.top .sub{color:#FFECE0;} .band.base .sub{color:var(--pale2);}
+
+  /* ===== 场景层标识条 ===== */
+  .sc-band{display:flex; align-items:stretch; border-radius:2px; overflow:hidden;
+    background:linear-gradient(90deg,#00366A,#4A7CBF); margin-top:1.5%;}
+  .sc-band .no{width:5.9%; background:#fff; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .sc-band .no b{font-family:Arial; font-weight:800; color:var(--blue); font-size:clamp(10px,1.28vw,14px);}
+  .sc-band .con{flex:1; padding:.6% 1.6%; display:flex; align-items:center; gap:2.2em; min-width:0;}
+  .sc-band .tag{color:#fff; font-weight:800; font-size:clamp(9px,1.1vw,12px); white-space:nowrap;}
+  .sc-band .sub{color:var(--pale); font-size:clamp(6.2px,.75vw,8px); white-space:nowrap; overflow:hidden;}
+
+  /* ===== 六大场景卡片 ===== */
+  .cards{display:grid; grid-template-columns:repeat(6,1fr); gap:.62%; margin-top:1.1%; flex:1; min-height:0;}
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius:2px;
+    display:flex; flex-direction:column; align-items:center;
+    padding:0 3.5% 3.5%; position:relative; overflow:hidden; min-width:0;
   }
-  .layer .no b{font-size:clamp(13px,1.55vw,18px); font-weight:800; font-family:Arial;}
-  .layer.l3 .no b{color:#FF7E3D;} .layer.l2 .no b{color:#2E5FA0;} .layer.l1 .no b{color:#00366A;}
-  .layer .no span{font-size:clamp(4.5px,.5vw,5.6px); font-weight:700; color:var(--sub); letter-spacing:.6px;}
-  .layer .content{flex:1; padding:1.6% 2.4%; display:flex; flex-direction:column; justify-content:center; gap:3px; min-width:0;}
-  .layer .row1{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;}
-  .layer .tag{color:#fff; font-weight:800; font-size:clamp(10px,1.14vw,12.5px); white-space:nowrap;}
-  .layer .head-txt{color:var(--pale); font-size:clamp(6.5px,.76vw,8.4px); font-weight:600;}
-  .layer .body-txt{color:#CFDEF4; font-size:clamp(6.2px,.72vw,8px);}
-  /* 六大场景标签 */
-  .chips{display:flex; gap:5px; flex-wrap:wrap; margin-top:2px;}
-  .chip{
-    background:#fff; color:#2E5FA0; font-weight:700;
-    font-size:clamp(6px,.7vw,7.8px); padding:2.5px 7px; border-radius:99px;
-    white-space:nowrap; box-shadow:0 1px 3px rgba(0,34,74,.12);
+  .card .bar{position:absolute; left:0; right:0; top:0; height:4px;}
+  .card .circ{
+    width:clamp(19px,2.1vw,26px); height:clamp(19px,2.1vw,26px); border-radius:50%;
+    display:flex; align-items:center; justify-content:center; color:#fff;
+    font-family:Arial; font-weight:800; font-size:clamp(6.5px,.78vw,8.6px);
+    margin-top:11%; flex-shrink:0;
   }
-  /* 层间箭头 */
-  .arrows{display:flex; justify-content:space-around; padding:0 14%; height:0; position:relative;}
-  .arrows i{
-    position:relative; top:-3px; width:0;height:0;
-    border-left:4px solid transparent; border-right:4px solid transparent;
-    border-bottom:5px solid #B9CBE6;
+  .card .nm{font-weight:800; font-size:clamp(8.5px,1.04vw,11.5px); margin-top:6%; text-align:center; white-space:nowrap;}
+  .card .hr{width:34%; height:1.5px; background:var(--line); margin:6% 0 5%;}
+  .card .ds{color:var(--sub); font-size:clamp(5.6px,.66vw,7.3px); text-align:center; line-height:1.45; flex:1;}
+  .card .val{
+    width:100%; text-align:center; font-weight:800; border-radius:99px;
+    font-size:clamp(5.4px,.63vw,7px); padding:3.5% 2%; margin-top:auto; white-space:nowrap;
   }
 
-  /* --- 右栏：配图 --- */
-  .visual{
-    position:relative; border:1px solid var(--line); border-radius:3px;
-    overflow:hidden; height:22%; flex-shrink:0;
-  }
-  .visual img{width:100%; height:100%; object-fit:cover; opacity:.62;}
-  .visual .cap{
-    position:absolute; left:0; right:0; bottom:0;
-    background:linear-gradient(90deg,var(--navy),#2E5FA0);
-    color:#fff; font-size:clamp(6.5px,.8vw,8.6px); font-weight:700;
-    padding:3px 8px;
-  }
-  /* --- 右栏：推进机制 --- */
-  .mech-h{margin-top:4.2%; display:flex; flex-direction:column; gap:5px;}
-  .mech-h b{font-size:clamp(10px,1.14vw,12px); color:var(--navy); font-weight:800;}
-  .mech-h i{width:44px; height:2px; background:var(--orange); display:block;}
-  .mech{display:flex; flex-direction:column; gap:2.6%; margin-top:3.4%; flex:1; min-height:0;}
-  .mcard{
-    background:var(--tint); border:1px solid var(--line); border-left:3.5px solid var(--blue);
-    border-radius:2px; padding:1.9% 2.4% 1.9% 2%;
-    display:flex; gap:8px; align-items:flex-start; flex:1; min-height:0;
-  }
-  .mcard .n{color:var(--orange); font-family:Arial; font-weight:800; font-size:clamp(7.5px,.9vw,9.5px); flex-shrink:0; padding-top:1px;}
-  .mcard .t b{display:block; color:var(--navy); font-weight:800; font-size:clamp(7.5px,.86vw,9px); line-height:1.35;}
-  .mcard .t span{display:block; color:var(--sub); font-size:clamp(6.2px,.68vw,7.4px); line-height:1.4; margin-top:2px;}
+  /* ===== 层间上行箭头 ===== */
+  .arrows{display:flex; justify-content:space-evenly; padding:0 16%; height:0; position:relative; z-index:2;}
+  .arrows i{position:relative; top:1px; width:0;height:0;
+    border-left:5px solid transparent; border-right:5px solid transparent; border-bottom:6px solid #B4C7E4;}
 
-  /* ===== 底部里程碑 ===== */
-  .miles{margin-top:1.6%; padding-bottom:2.6%; border-top:1px solid var(--line); display:flex;}
-  .mile{flex:1; padding-top:1.4%; position:relative; padding-right:12px;}
-  .mile::before{
-    content:''; position:absolute; top:-5px; left:0; width:9px; height:9px; border-radius:50%;
-  }
+  /* ===== 里程碑 ===== */
+  .miles{margin-top:2.2%; border-top:1.5px solid var(--line); display:flex; padding-bottom:4.6%;}
+  .mile{flex:1; padding-top:1.5%; padding-right:14px; position:relative;}
+  .mile::before{content:''; position:absolute; top:-5.5px; left:0; width:10px; height:10px; border-radius:50%;}
   .mile.m1::before{background:var(--navy);} .mile.m2::before{background:var(--blue);} .mile.m3::before{background:var(--orange);}
-  .mile .yr{font-family:Arial; font-weight:800; font-size:clamp(9px,1.06vw,11.5px); margin-left:16px;}
+  .mile .yr{margin-left:17px; font-family:Arial; font-weight:800; font-size:clamp(8.5px,1.02vw,11px);}
   .mile.m1 .yr{color:var(--navy);} .mile.m2 .yr{color:var(--blue);} .mile.m3 .yr{color:var(--orange);}
-  .mile .h{margin-left:16px; margin-top:3px; font-weight:800; color:var(--navy); font-size:clamp(7.6px,.88vw,9.5px);}
-  .mile .d{margin-left:16px; margin-top:2px; color:var(--sub); font-size:clamp(6.2px,.7vw,7.6px);}
+  .mile .h{margin-left:17px; margin-top:2px; font-weight:800; color:var(--navy); font-size:clamp(7.4px,.9vw,9.6px);}
+  .mile .d{margin-left:17px; margin-top:1px; color:var(--sub); font-size:clamp(6px,.72vw,7.7px);}
 
-  /* ===== 页脚 ===== */
+  /* ===== 页脚（在蓝条内垂直居中） ===== */
   .foot{
-    position:absolute; left:0; right:0; bottom:0; height:1.35%;
-    display:flex; align-items:center; gap:18px; padding:0 1.2%;
-    color:#fff; font-size:6.5px; font-family:Arial; z-index:2; letter-spacing:.3px;
+    position:absolute; left:0; right:0; bottom:0; height:3.6%; z-index:3;
+    display:flex; align-items:center; padding:0 1.4%; gap:22px;
+    color:#fff; font-family:Arial; font-size:clamp(5.2px,.62vw,6.8px); letter-spacing:.3px;
   }
   .foot .sp{flex:1;}
-  @media print{
-    body{background:#fff;padding:0;}
-    .slide{box-shadow:none;border-radius:0;width:100%;}
-  }
+  @media print{ body{background:#fff;padding:0;} .slide{box-shadow:none;border-radius:0;width:100%;} }
 </style>
 </head>
 <body>
-
 <div class="slide">
+
   <!-- 头部 -->
   <div class="head">
     <div class="logo">
       <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M22 4 L9 9 L5 20 L13 28 L25 25 L28 13 Z" stroke="#00366A" stroke-width="2.6" fill="none" stroke-linejoin="round"/>
+        <path d="M22.5 3.5 L9 8.5 L4.6 20 L13 28.5 L25.4 25.4 L28.4 12.6 Z"
+              stroke="#1A2A5E" stroke-width="2.8" fill="none" stroke-linejoin="round"/>
       </svg>
       <span class="name">ASYMCHEM</span>
     </div>
@@ -161,97 +140,88 @@
 
   <!-- 战略主张 -->
   <div class="claim">
-    <div class="main">
-      数据筑基 <i>→</i> 场景验证 <i>→</i> 组合赋能 <i>→</i> 生产力重塑
-    </div>
+    <div class="main">数据筑基 <i>→</i> 场景验证 <i>→</i> 组合赋能 <i>→</i> 生产力重塑</div>
     <div class="en">ASYMCHEM AI STRATEGY 2026</div>
   </div>
 
-  <!-- 主体 -->
-  <div class="body">
-    <!-- 左：三层架构 -->
-    <div class="left">
-      <div class="layer l3">
-        <div class="no"><b>03</b><span>VALUE</span></div>
-        <div class="content">
-          <div class="row1">
-            <span class="tag">生产力重塑</span>
-            <span class="head-txt">AI 原生的生产运营模式</span>
-          </div>
-          <div class="body-txt">人机协同新分工 · 决策链路自动化 · 组织能力升级</div>
-        </div>
-      </div>
-
-      <div class="arrows"><i></i><i></i><i></i></div>
-
-      <div class="layer l2">
-        <div class="no"><b>02</b><span>SCENARIO</span></div>
-        <div class="content">
-          <div class="row1">
-            <span class="tag">六大场景</span>
-            <span class="head-txt">短周期方向先出实证，强监管方向长期布局</span>
-          </div>
-          <div class="chips">
-            <span class="chip">报告撰写</span>
-            <span class="chip">技术转移</span>
-            <span class="chip">设备管理</span>
-            <span class="chip">视觉合规</span>
-            <span class="chip">培训生成</span>
-            <span class="chip">QC 放行</span>
-          </div>
-          <div class="body-txt">逐项形成落地方案 · 场景可独立立项、可组合推进</div>
-        </div>
-      </div>
-
-      <div class="arrows"><i></i><i></i><i></i></div>
-
-      <div class="layer l1">
-        <div class="no"><b>01</b><span>FOUNDATION</span></div>
-        <div class="content">
-          <div class="row1">
-            <span class="tag">数据与平台底座</span>
-            <span class="head-txt">数据打通 · 知识图谱 · 算力与合规框架</span>
-          </div>
-          <div class="body-txt">MES / QMS / LIMS / EAM 数据贯通 · 专家经验结构化 · GxP 验证路径</div>
-        </div>
-      </div>
+  <!-- 03 生产力重塑 -->
+  <div class="band top">
+    <div class="no"><b>03</b><span>VALUE</span></div>
+    <div class="con">
+      <div class="r1"><span class="tag">生产力重塑</span><span class="lead">AI 原生的生产运营模式</span></div>
+      <div class="sub">人机协同新分工 · 决策链路自动化 · 知识资产可复用 · 组织能力升级</div>
     </div>
+  </div>
+  <div class="arrows"><i></i><i></i><i></i></div>
 
-    <!-- 右：配图 + 推进机制 -->
-    <div class="right">
-      <div class="visual">
-        <img src="assets/smart_factory.png" alt="智能工厂" />
-        <div class="cap">医药工业 4.0：数据驱动的智能工厂</div>
-      </div>
+  <!-- 02 六大场景 -->
+  <div class="sc-band">
+    <div class="no"><b>02</b></div>
+    <div class="con">
+      <span class="tag">六大 AI 应用场景</span>
+      <span class="sub">短周期方向先出实证，强监管方向长期布局 · 逐项形成落地方案，可独立立项、可组合推进</span>
+    </div>
+  </div>
 
-      <div class="mech-h">
-        <b>推进机制</b>
-        <i></i>
-      </div>
+  <div class="cards">
+    <div class="card">
+      <div class="bar" style="background:#00366A"></div>
+      <div class="circ" style="background:#00366A">01</div>
+      <div class="nm" style="color:#00366A">报告撰写</div>
+      <div class="hr"></div>
+      <div class="ds">Campaign / MOR / APR<br>多源数据自动汇编成稿</div>
+      <div class="val" style="background:#E6EBF1;color:#00366A">工时 -50~70%</div>
+    </div>
+    <div class="card">
+      <div class="bar" style="background:#11507F"></div>
+      <div class="circ" style="background:#11507F">02</div>
+      <div class="nm" style="color:#11507F">技术转移</div>
+      <div class="hr"></div>
+      <div class="ds">工艺包审查 + 放大风险<br>识别，历史经验结构化</div>
+      <div class="val" style="background:#E7ECF1;color:#11507F">NPI 周期 -30%</div>
+    </div>
+    <div class="card">
+      <div class="bar" style="background:#2E5FA0"></div>
+      <div class="circ" style="background:#2E5FA0">03</div>
+      <div class="nm" style="color:#2E5FA0">设备管理</div>
+      <div class="hr"></div>
+      <div class="ds">点检 / 备件 / 预测维护 /<br>验证 / 故障调查 五合一</div>
+      <div class="val" style="background:#E9EEF5;color:#2E5FA0">非计划停机 -40%</div>
+    </div>
+    <div class="card">
+      <div class="bar" style="background:#1187A8"></div>
+      <div class="circ" style="background:#1187A8">04</div>
+      <div class="nm" style="color:#1187A8">视觉合规</div>
+      <div class="hr"></div>
+      <div class="ds">车间视频流实时识别<br>SOP 关键动作执行偏差</div>
+      <div class="val" style="background:#E7F2F5;color:#1187A8">巡检替代 30~50%</div>
+    </div>
+    <div class="card">
+      <div class="bar" style="background:#C86A2E"></div>
+      <div class="circ" style="background:#C86A2E">05</div>
+      <div class="nm" style="color:#C86A2E">培训生成</div>
+      <div class="hr"></div>
+      <div class="ds">SOP 一键生成数字人<br>讲解视频与配套考核</div>
+      <div class="val" style="background:#F7EDE6;color:#C86A2E">2 周 → 1 天</div>
+    </div>
+    <div class="card">
+      <div class="bar" style="background:#FF7E3D"></div>
+      <div class="circ" style="background:#FF7E3D">06</div>
+      <div class="nm" style="color:#FF7E3D">QC 放行</div>
+      <div class="hr"></div>
+      <div class="ds">批次质量预测 + 报告<br>起草，BDCT 能力升级</div>
+      <div class="val" style="background:#FDEFE7;color:#FF7E3D">放行加速 · 风险前置</div>
+    </div>
+  </div>
 
-      <div class="mech">
-        <div class="mcard">
-          <span class="n">01</span>
-          <span class="t">
-            <b>自主主导 + 组合外采</b>
-            <span>底座与知识资产自建自持；算法、工具按场景择优组合</span>
-          </span>
-        </div>
-        <div class="mcard">
-          <span class="n">02</span>
-          <span class="t">
-            <b>双轨并行：快赢 + 长跑</b>
-            <span>短周期方向季度出实证；强监管方向按合规节奏推进</span>
-          </span>
-        </div>
-        <div class="mcard">
-          <span class="n">03</span>
-          <span class="t">
-            <b>单点突破：设备预测性维护</b>
-            <span>以动力站关键设备切入，跑通数据到决策完整闭环</span>
-          </span>
-        </div>
-      </div>
+  <div class="arrows"><i></i><i></i><i></i></div>
+
+  <!-- 01 数据与平台底座 -->
+  <div class="band base">
+    <div class="no"><b>01</b><span>FOUNDATION</span></div>
+    <div class="con">
+      <div class="r1"><span class="tag">数据与平台底座</span><span class="lead">数据打通 · 知识图谱 · 算力与合规框架</span></div>
+      <div class="sub">MES / QMS / LIMS / EAM 跨系统贯通 · 专家经验与故障案例结构化 · GxP 验证路径与客户数据隔离</div>
     </div>
   </div>
 
@@ -265,12 +235,12 @@
     <div class="mile m2">
       <div class="yr">2027</div>
       <div class="h">规模复制 · 组合成型</div>
-      <div class="d">成熟场景跨厂区复制，供应商组合定型</div>
+      <div class="d">成熟场景跨厂区复制，能力沉淀</div>
     </div>
     <div class="mile m3">
       <div class="yr">2028+</div>
       <div class="h">生产力重塑 · 对外赋能</div>
-      <div class="d">AI 原生运营模式 + 客户端价值输出</div>
+      <div class="d">AI 原生运营 + 客户端价值输出</div>
     </div>
   </div>
 
@@ -281,6 +251,5 @@
     <span>Confidential | 保密文件</span>
   </div>
 </div>
-
 </body>
 </html>
