@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>凯莱英 · AI 赋能生产三条主线 · 2–3 年实操推进方案</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "HarmonyOS Sans SC", "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
+    color: #0f1f3d;
+    background: #f3f5fa;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  .topbar {
+    position: sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 10px 28px;
+    background: rgba(15,31,61,.96); color: #fff;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar .brand { font-weight:700; letter-spacing:.5px; font-size:14px;}
+  .topbar .brand .badge {
+    display:inline-block; padding:2px 8px; margin-left:8px;
+    background:#ff7e3d; color:#fff; border-radius:4px; font-size:11px; font-weight:600;
+  }
+  .topbar nav a {
+    color:#cdd6e8; font-size:12px; text-decoration:none;
+    margin: 0 5px; padding:6px 7px; border-radius:6px;
+  }
+  .topbar nav a:hover { background:#1d2f55; color:#fff; }
+  .topbar .modeswitch {
+    font-size:12px; cursor:pointer; padding:6px 12px;
+    border:1px solid #3b507e; color:#cdd6e8; border-radius:6px;
+    background:transparent;
+  }
+  .topbar .modeswitch:hover { background:#1d2f55; }
+
+  main { max-width: 1240px; margin: 0 auto; padding: 0 24px 80px; }
+  section.slide {
+    background:#fff;
+    border-radius: 14px;
+    padding: 44px 52px 50px;
+    margin: 28px 0;
+    box-shadow: 0 6px 24px rgba(15,31,61,.07);
+    position: relative;
+    min-height: 540px;
+  }
+  section.slide.cover {
+    background: linear-gradient(135deg, #0f1f3d 0%, #1f3870 55%, #2a4d9c 100%);
+    color:#fff;
+  }
+  section.slide h2.kicker {
+    color:#ff7e3d; font-size: 13px; font-weight:700; letter-spacing: 3px;
+    margin: 0 0 6px; text-transform: uppercase;
+  }
+  section.slide h1 {
+    font-size: 28px; margin: 0 0 14px; font-weight:700;
+    border-left: 5px solid #ff7e3d; padding-left: 14px; line-height: 1.25;
+  }
+  section.slide.cover h1 { border:none; padding:0; font-size: 40px; line-height: 1.2;}
+  section.slide.cover .subtitle { font-size:17px; opacity:.88; margin-top:18px; max-width: 820px;}
+  section.slide.cover .meta { margin-top: 48px; font-size:13px; opacity:.78; }
+  section.slide.cover .meta div { margin: 4px 0;}
+  section.slide .lead { font-size: 15.5px; color:#3a4d72; margin: 0 0 22px; max-width: 980px;}
+
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 22px;}
+  .grid-3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px;}
+  .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px;}
+
+  .card {
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px;
+    padding: 18px 20px;
+  }
+  .card.accent { background: #fff7f1; border-color:#ffd8be;}
+  .card.danger { background: #fef2f2; border-color:#fecaca;}
+  .card.success { background: #f0fdf4; border-color:#bbf7d0;}
+  .card.navy {
+    background: linear-gradient(160deg,#0f1f3d,#1f3870);
+    color:#fff; border:none;
+  }
+  .card .num {
+    font-size: 30px; font-weight:800; color:#0f1f3d; line-height: 1.1;
+  }
+  .card.accent .num, .card.navy .num { color:#ff7e3d; }
+  .card .label { font-size:13px; color:#5b6a8a; margin-top:4px;}
+  .card.navy .label { color:#9aabd6; }
+  .card .desc { font-size:13px; color:#3a4d72; margin-top:10px; line-height:1.55;}
+  .card.navy .desc { color:#cdd6e8; }
+  .card h3 { margin:0 0 8px; font-size:16px; }
+
+  table.kly { width:100%; border-collapse: collapse; font-size: 13.5px; }
+  table.kly th, table.kly td {
+    padding: 10px 12px; text-align:left;
+    border-bottom: 1px solid #e6ebf5; vertical-align: top;
+  }
+  table.kly thead th {
+    background:#0f1f3d; color:#fff; font-weight:600; font-size:12.5px;
+    letter-spacing:.4px;
+  }
+  table.kly tbody tr:nth-child(even) { background:#f7f9fc; }
+  .pill {
+    display:inline-block; padding:2px 9px; border-radius:99px; font-size:11.5px; font-weight:600;
+  }
+  .pill.ok    { background:#dcfce7; color:#166534; }
+  .pill.mid   { background:#fef9c3; color:#854d0e; }
+  .pill.warn  { background:#fee2e2; color:#991b1b; }
+  .pill.info  { background:#dbeafe; color:#1e3a8a; }
+
+  ul.bul { padding-left: 0; list-style:none; margin: 8px 0;}
+  ul.bul li { padding: 6px 0 6px 22px; position:relative; font-size:14px;}
+  ul.bul li:before {
+    content:""; position:absolute; left:4px; top:14px; width:8px; height:8px;
+    background:#ff7e3d; border-radius:2px; transform:rotate(45deg);
+  }
+  ul.bul.tight li { padding: 3px 0 3px 22px; font-size:13.5px; }
+  ul.bul.tight li:before { top:12px; }
+
+  .tag {
+    display:inline-block; padding:3px 10px; font-size:12px; border-radius:99px;
+    background:#e7eefb; color:#1e40af; font-weight:600; margin: 2px 4px 2px 0;
+  }
+  .tag.warn { background:#fef3c7; color:#92400e;}
+  .tag.danger { background:#fee2e2; color:#991b1b;}
+  .tag.ok { background:#dcfce7; color:#166534;}
+  .tag.orange { background:#ffedd5; color:#c2410c;}
+
+  .roadmap { display:grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top:8px;}
+  .roadmap.six { grid-template-columns: repeat(6, 1fr); }
+  .roadmap .stage {
+    background:#fff; border:1px solid #e3e8f2; border-radius:10px;
+    padding: 14px 12px; position: relative;
+  }
+  .roadmap .stage:before {
+    content:""; position:absolute; top: 50%; right:-7px; width:12px; height:12px;
+    background:#ff7e3d; border-radius: 50%; transform: translateY(-50%);
+    border: 3px solid #fff; box-shadow: 0 0 0 1px #ffaa7a; z-index:2;
+  }
+  .roadmap .stage:last-child:before { display:none;}
+  .roadmap .stage .month { font-size: 12px; color:#ff7e3d; font-weight:700;}
+  .roadmap .stage .ttl { font-size: 13.5px; font-weight:700; margin: 4px 0; }
+  .roadmap .stage .det { font-size: 12px; color:#5b6a8a; line-height:1.45;}
+
+  .flow {
+    display:flex; gap:8px; align-items:stretch; flex-wrap:wrap; margin: 12px 0 6px;
+  }
+  .flow .box {
+    flex:1; min-width:120px; background:#f7f9fc; border:1px solid #e3e8f2;
+    border-radius:10px; padding:12px 14px; text-align:center;
+  }
+  .flow .box strong { display:block; font-size:13.5px; margin-bottom:4px;}
+  .flow .box span { font-size:12px; color:#5b6a8a;}
+  .flow .arr {
+    display:flex; align-items:center; color:#ff7e3d; font-weight:800; font-size:18px;
+    padding: 0 2px;
+  }
+
+  .check-grid { display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px;}
+  .check-item {
+    display:flex; gap:10px; align-items:flex-start;
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:10px; padding:12px 14px;
+  }
+  .check-item .n {
+    width:26px; height:26px; border-radius:8px; background:#0f1f3d; color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:700; flex-shrink:0;
+  }
+  .check-item .t { font-size:13.5px; font-weight:700; }
+  .check-item .d { font-size:12.5px; color:#5b6a8a; margin-top:2px;}
+
+  .raci td.r { background:#fff7f1; font-weight:700; color:#c2410c;}
+  .raci td.a { background:#e7eefb; font-weight:700; color:#1e40af;}
+  .raci td.c { background:#f0fdf4; }
+  .raci td.i { color:#7a89a8; }
+
+  .gantt { margin-top: 14px; }
+  .gantt-row { display:grid; grid-template-columns: 180px 1fr; gap:10px; margin-bottom:8px; align-items:center;}
+  .gantt-label { font-size:13px; font-weight:600; color:#0f1f3d;}
+  .gantt-track {
+    position:relative; height:28px; background:#eef2f8; border-radius:8px; overflow:hidden;
+  }
+  .gantt-bar {
+    position:absolute; top:3px; bottom:3px; border-radius:6px;
+    color:#fff; font-size:11px; font-weight:600; display:flex; align-items:center;
+    padding:0 8px; white-space:nowrap; overflow:hidden;
+  }
+  .gantt-months {
+    display:grid; grid-template-columns: repeat(12, 1fr); margin: 0 0 8px 190px;
+    font-size:11px; color:#7a89a8; text-align:center;
+  }
+
+  .footnote { font-size: 11.5px; color:#7a89a8; margin-top: 14px; line-height: 1.5;}
+  .callout {
+    margin-top: 16px; padding: 14px 16px; border-left: 4px solid #ff7e3d;
+    background:#fff7f1; border-radius: 0 10px 10px 0; font-size:13.5px; color:#3a4d72;
+  }
+
+  body.deck main { padding: 0; max-width: none;}
+  body.deck section.slide {
+    margin: 0; min-height: 100vh; border-radius: 0;
+    display: none; padding: 56px 72px 56px;
+  }
+  body.deck section.slide.active { display:block; }
+  body.deck .deck-nav { display:flex !important;}
+  .deck-nav {
+    display:none;
+    position: fixed; bottom: 18px; right: 18px; z-index: 60;
+    background: rgba(15,31,61,.92); padding: 6px 10px; border-radius: 999px;
+    color:#fff; font-size: 12.5px; gap: 8px; align-items:center;
+  }
+  .deck-nav button {
+    background: transparent; border: none; color:#fff; cursor:pointer;
+    padding: 4px 10px; border-radius: 6px; font-weight: 600;
+  }
+  .deck-nav button:hover { background: rgba(255,255,255,.1);}
+  .deck-nav .pages { font-variant-numeric: tabular-nums; opacity: .8;}
+
+  @media (max-width: 980px){
+    .grid-2, .grid-3, .grid-4, .roadmap, .roadmap.six, .check-grid { grid-template-columns: 1fr;}
+    section.slide { padding: 28px 22px;}
+    .topbar nav { display:none;}
+    .gantt-row { grid-template-columns: 1fr;}
+    .gantt-months { margin-left:0;}
+  }
+  @media print {
+    .topbar, .deck-nav { display:none !important;}
+    section.slide { box-shadow:none; page-break-after: always; margin: 0; border-radius: 0;}
+    body { background:#fff;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    凯莱英 · AI 赋能生产
+    <span class="badge">三条主线 · 2–3 年实操方案</span>
+  </div>
+  <nav>
+    <a href="#cover">封面</a>
+    <a href="#s01">定位</a>
+    <a href="#s02">思路</a>
+    <a href="#s03">三条主线</a>
+    <a href="#s04">数据底座</a>
+    <a href="#s05">软硬件</a>
+    <a href="#s06">人员</a>
+    <a href="#s07">资源</a>
+    <a href="#s08">节点</a>
+    <a href="#s09">治理</a>
+    <a href="#s10">启动</a>
+  </nav>
+  <button class="modeswitch" onclick="toggleDeck()">幻灯模式</button>
+</header>
+
+<main>
+
+<!-- ================= COVER ================= -->
+<section class="slide cover" id="cover">
+  <h2 class="kicker" style="color:#ff9b6b;">ASYMCHEM · AI IN PRODUCTION</h2>
+  <h1>AI 赋能生产三条主线<br/>2–3 年实操推进方案</h1>
+  <div class="subtitle">
+    围绕上层指示的三条主线——<strong style="color:#ffd0b0;">① 视频巡检</strong>、<strong style="color:#ffd0b0;">② 研发→生产技术转移辅助</strong>、
+    <strong style="color:#ffd0b0;">③ 生产数据预测并指导生产</strong>——给出可立项、可分工、可验收的整体推进方案。
+    目标不是“堆概念”，而是在 2–3 年周期内形成<strong style="color:#fff;">可复用的数据底座 + 可落地的试点成果 + 可复制的运营机制</strong>。
+  </div>
+  <div class="grid-3" style="margin-top:36px;">
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:16px 18px;">
+      <div style="font-size:12px;color:#9aabd6;letter-spacing:1px;">TRACK 01</div>
+      <div style="font-size:18px;font-weight:700;margin-top:4px;">视频巡检</div>
+      <div style="font-size:13px;color:#cdd6e8;margin-top:6px;">CCTV + 边缘 AI · 合规动作监测 · 辅助人工巡检</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:16px 18px;">
+      <div style="font-size:12px;color:#9aabd6;letter-spacing:1px;">TRACK 02</div>
+      <div style="font-size:18px;font-weight:700;margin-top:4px;">技术转移辅助</div>
+      <div style="font-size:13px;color:#cdd6e8;margin-top:6px;">知识结构化 · 放大风险审查 · 资深签字闭环</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:16px 18px;">
+      <div style="font-size:12px;color:#9aabd6;letter-spacing:1px;">TRACK 03</div>
+      <div style="font-size:18px;font-weight:700;margin-top:4px;">生产预测指导</div>
+      <div style="font-size:13px;color:#cdd6e8;margin-top:6px;">工艺/质量/设备预测 · 指导排产与参数窗口</div>
+    </div>
+  </div>
+  <div class="meta">
+    <div>文档定位：向领导汇报 / 向业务与 IT 交底 / 可直接拆立项与 RACI</div>
+    <div>原则：一条底座、三条主线、分阶段验收；AI 始终“辅助”而非“替代签字/巡检”</div>
+    <div>版本：V1.0 · 内部讨论稿</div>
+  </div>
+</section>
+
+<!-- ================= PART 01 ================= -->
+<section class="slide" id="s01">
+  <h2 class="kicker">PART 01 · 上级要求与总体定位</h2>
+  <h1>不追求两年“全面智能化”，追求“有成效的可验证进展”</h1>
+  <p class="lead">
+    上层已明确：即使按 2–3 年周期推进，也必须在 AI 事业上形成<strong>较有成效</strong>的进展。落地口径应收敛为：
+    <strong>选对场景 → 打通底座 → 跑通闭环 → 形成可复制能力</strong>，而不是同时铺开过多方向。
+  </p>
+  <div class="grid-3">
+    <div class="card accent">
+      <div class="num">3</div>
+      <div class="label">领导圈定主线</div>
+      <div class="desc">视频巡检 / 技转辅助 / 生产预测指导。其他方向（报告起草、培训视频等）可作为共用底座的旁路收益，不抢主线资源。</div>
+    </div>
+    <div class="card">
+      <div class="num">1</div>
+      <div class="label">共用底座优先</div>
+      <div class="desc">三条主线共享数据中间层、主数据、客户隔离与 AI 平台。底座不立，主线各自重建，投入会翻倍。</div>
+    </div>
+    <div class="card success">
+      <div class="num">2–3<span style="font-size:16px;">年</span></div>
+      <div class="label">成效验收窗口</div>
+      <div class="desc">Y1 出试点闭环与可演示成果；Y2 出可复制能力与运营机制；Y3 形成规模化覆盖与组织能力沉淀。</div>
+    </div>
+  </div>
+
+  <h3 style="margin:26px 0 10px;font-size:16px;">三条主线的“成效”怎么定义（避免空泛）</h3>
+  <table class="kly">
+    <thead>
+      <tr><th style="width:18%;">主线</th><th style="width:28%;">Y1 可见成效</th><th style="width:28%;">Y2 可见成效</th><th>Y3 可见成效</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>① 视频巡检</strong></td>
+        <td>1 车间 × 5 关键动作 PoC；误报可控；告警进巡检流程</td>
+        <td>3+ 车间试点；替代部分人工巡检频次；培训闭环建立</td>
+        <td>主力 GMP 车间覆盖；形成 SOP 动作字典与运营编制</td>
+      </tr>
+      <tr>
+        <td><strong>② 技转辅助</strong></td>
+        <td>分类体系 + 20–50 项目结构化；检索可用</td>
+        <td>2–3 个新项目 AI 辅助审查；资深对照评估</td>
+        <td>主力反应类型常态化使用；新人上手周期缩短可量化</td>
+      </tr>
+      <tr>
+        <td><strong>③ 生产预测</strong></td>
+        <td>1 产线/单元：质量或设备预测可跑；指导建议进班前会</td>
+        <td>多单元扩展；预测驱动维护/放行/参数窗口</td>
+        <td>形成“数据→预测→动作→复盘”标准作业</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <strong>定位原则：</strong>三条主线全部定位为“辅助决策 / 辅助巡检 / 辅助审查”。GMP 签字权、放行权、巡检责任仍在人；AI 产出必须可追溯、可复核、可关闭。
+  </div>
+</section>
+
+<!-- ================= PART 02 ================= -->
+<section class="slide" id="s02">
+  <h2 class="kicker">PART 02 · 整体思路</h2>
+  <h1>“底座先行 + 三线并行 + 波次验收”，用机制保证 2–3 年不断档</h1>
+  <p class="lead">
+    不要把三条主线拆成三个互不相关的供应商项目。正确打法是：
+    <strong>先立“基础设施与数据底座”为 0 号工程</strong>，再按主线成熟度分波次推进；每 90 天有可验收节点，避免“两年后才知道有没有用”。
+  </p>
+
+  <div class="flow">
+    <div class="box"><strong>0 号工程</strong><span>数据底座 / 主数据<br/>客户隔离 / AI 平台</span></div>
+    <div class="arr">→</div>
+    <div class="box"><strong>主线① 快闭环</strong><span>视频巡检<br/>软启动→PoC→Pilot</span></div>
+    <div class="arr">→</div>
+    <div class="box"><strong>主线③ 中期见效</strong><span>生产预测指导<br/>继承 DH1/工艺数据</span></div>
+    <div class="arr">→</div>
+    <div class="box"><strong>主线② 长期资产</strong><span>技转知识工程<br/>先结构化再上 AI</span></div>
+  </div>
+
+  <div class="grid-2" style="margin-top:18px;">
+    <div class="card">
+      <h3>推进逻辑（为什么这样排）</h3>
+      <ul class="bul tight">
+        <li><strong>① 视频巡检</strong>：硬件基础相对现成（CCTV），但组织/合规风险最大 → <strong>先沟通后技术</strong>，适合做“可见闭环”。</li>
+        <li><strong>③ 生产预测</strong>：可继承 DH1 PdM、IP.21/DCS/LIMS 基础 → 适合做“可量化业务价值”。</li>
+        <li><strong>② 技转辅助</strong>：价值大但前置知识工程重 → 必须<strong>先结构化再模型</strong>，按 IP 资产建设推进。</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h3>三条不可破的纪律</h3>
+      <ul class="bul tight">
+        <li><strong>共用底座</strong>：批号 / 项目 / 设备 / 客户隔离一次建好，三线复用。</li>
+        <li><strong>场景收敛</strong>：每条主线 PoC 只做一个“最小可验收闭环”，禁止一上来全覆盖。</li>
+        <li><strong>人在环路</strong>：告警必有确认；技转建议必有资深签字；预测建议必有班组采纳/拒绝记录。</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:22px 0 8px;font-size:16px;">三年总图（按季度看）</h3>
+  <table class="kly">
+    <thead><tr><th>阶段</th><th>时间窗</th><th>核心任务</th><th>领导可见产出</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><span class="pill info">奠基期</span></td>
+        <td>Y1 Q1–Q2</td>
+        <td>0 号工程启动；主线①软启动+PoC；主线③选点；主线②体系设计</td>
+        <td>数据盘点报告、PoC 演示、立项包</td>
+      </tr>
+      <tr>
+        <td><span class="pill mid">闭环期</span></td>
+        <td>Y1 Q3–Y2 Q2</td>
+        <td>三条主线各自跑通“数据→模型→动作→复盘”</td>
+        <td>试点 KPI、流程改造、运营手册</td>
+      </tr>
+      <tr>
+        <td><span class="pill ok">扩展期</span></td>
+        <td>Y2 Q3–Y3</td>
+        <td>从试点车间/反应/产线扩展到主力范围；编制固化</td>
+        <td>复制清单、ROI 复盘、能力评估</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ================= PART 03 ================= -->
+<section class="slide" id="s03">
+  <h2 class="kicker">PART 03 · 三条主线边界与实操定义</h2>
+  <h1>先把“做什么 / 不做什么”钉死，避免项目膨胀</h1>
+
+  <div class="grid-3">
+    <div class="card navy">
+      <div class="label">TRACK 01</div>
+      <h3 style="color:#fff;margin-top:6px;">视频巡检</h3>
+      <div class="desc">
+        <strong style="color:#ffd0b0;">要做：</strong>关键操作区 CCTV 流 → 边缘推理 → 违规/缺失动作告警 → 巡检员确认 → 培训反馈。<br/><br/>
+        <strong style="color:#ffd0b0;">不做：</strong>PoC 不做实名识别、不做精细手部微操作、不做“AI 替代巡检员”对外表述。
+      </div>
+    </div>
+    <div class="card navy">
+      <div class="label">TRACK 02</div>
+      <h3 style="color:#fff;margin-top:6px;">技转辅助</h3>
+      <div class="desc">
+        <strong style="color:#ffd0b0;">要做：</strong>历史项目结构化 → RAG 检索同类经验 → 放大风险矩阵初稿 → Aspen/CFD 机理叠加 → 资深签字。<br/><br/>
+        <strong style="color:#ffd0b0;">不做：</strong>不做新化学反应发明；不做无资深复核的自动放行；客户间不共享具体 CPP/CQA 数值。
+      </div>
+    </div>
+    <div class="card navy">
+      <div class="label">TRACK 03</div>
+      <h3 style="color:#fff;margin-top:6px;">生产预测指导</h3>
+      <div class="desc">
+        <strong style="color:#ffd0b0;">要做：</strong>用生产/质检/设备数据预测质量风险、设备健康、关键参数漂移，并输出可执行建议（维护窗口、取样加严、参数回调）。<br/><br/>
+        <strong style="color:#ffd0b0;">不做：</strong>不做无解释的黑盒自动改 DCS 设定；不做跨客户数据混训导致泄密。
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:22px 0 8px;font-size:16px;">每条主线的“最小可验收闭环”（MVP）</h3>
+  <table class="kly">
+    <thead>
+      <tr><th>主线</th><th>输入</th><th>系统动作</th><th>人的动作</th><th>验收口径（建议）</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>① 视频巡检</strong></td>
+        <td>1 车间关键点位视频流 + 5 个 SOP 动作字典</td>
+        <td>实时识别缺失/违规 → 告警工单</td>
+        <td>巡检员 15 分钟内确认真/误报</td>
+        <td>误报率 ≤10%；告警闭环率 ≥90%；员工沟通无重大阻力</td>
+      </tr>
+      <tr>
+        <td><strong>② 技转辅助</strong></td>
+        <td>3 类主力反应 × 历史项目包 + 设备能力库</td>
+        <td>相似案例检索 + 风险矩阵初稿</td>
+        <td>资深工程师复核签字</td>
+        <td>结构化项目 ≥20；检索命中可用；初稿一次可用率 ≥60%</td>
+      </tr>
+      <tr>
+        <td><strong>③ 生产预测</strong></td>
+        <td>选定单元：IP.21/DCS + LIMS/EBR +（可选）振动传感</td>
+        <td>质量/健康分数 + 提前量预警 + 建议动作</td>
+        <td>班组长采纳/拒绝并回填结果</td>
+        <td>提前预警有效率可复盘；建议采纳有记录；无自动写设定值</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="footnote">注：验收阈值可按试点车间再校准；上表用于立项与阶段门禁，避免“做了很多功能却无法证明有用”。</p>
+</section>
+
+<!-- ================= PART 04 ================= -->
+<section class="slide" id="s04">
+  <h2 class="kicker">PART 04 · 需要打通的数据底座</h2>
+  <h1>三条主线共用一层“可查询、可隔离、可追溯”的数据中间层</h1>
+  <p class="lead">
+    底座不是“再建一个大湖”，而是把业务真正要用的系统数据<strong>按主数据对齐、按客户隔离、按批号可追溯</strong>地接出来。
+    建议作为<strong>独立 0 号项目</strong>由 IT 主责、业务配合。
+  </p>
+
+  <div class="grid-4">
+    <div class="card success"><div class="num" style="font-size:22px;color:#166534;">B1</div><div class="label">系统取数层</div><div class="desc">IP.21 / DCS / MES·EBR / LIMS / QMS / EAM / SAP / CCTV</div></div>
+    <div class="card success"><div class="num" style="font-size:22px;color:#166534;">B2</div><div class="label">主数据对齐</div><div class="desc">批号 · 项目号 · 设备号 · 物料 · 人员岗位 · 客户编码</div></div>
+    <div class="card success"><div class="num" style="font-size:22px;color:#166534;">B3</div><div class="label">客户隔离</div><div class="desc">租户/权限/脱敏规则；只学规律不泄参数</div></div>
+    <div class="card success"><div class="num" style="font-size:22px;color:#166534;">B4</div><div class="label">AI 平台层</div><div class="desc">特征库 · 模型注册 · 推理服务 · 审计日志</div></div>
+  </div>
+
+  <h3 style="margin:22px 0 8px;font-size:16px;">主线 × 数据源依赖矩阵（打通优先级）</h3>
+  <table class="kly">
+    <thead>
+      <tr>
+        <th>数据源</th>
+        <th>① 视频巡检</th>
+        <th>② 技转辅助</th>
+        <th>③ 生产预测</th>
+        <th>建议优先级</th>
+        <th>典型字段/对象</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>CCTV / NVR</strong></td>
+        <td><span class="pill ok">必须</span></td>
+        <td><span class="pill info">可选</span></td>
+        <td>—</td>
+        <td>P0</td>
+        <td>点位、时间戳、区域、录像索引（边缘侧）</td>
+      </tr>
+      <tr>
+        <td><strong>IP.21 / DCS / SCADA</strong></td>
+        <td>—</td>
+        <td><span class="pill mid">重要</span></td>
+        <td><span class="pill ok">必须</span></td>
+        <td>P0</td>
+        <td>T/P/流量/搅拌/设定值/报警；秒~分钟级</td>
+      </tr>
+      <tr>
+        <td><strong>MES / EBR</strong></td>
+        <td><span class="pill mid">重要</span></td>
+        <td><span class="pill ok">必须</span></td>
+        <td><span class="pill ok">必须</span></td>
+        <td>P0</td>
+        <td>批号、步骤、偏差、投料、人员、设备占用</td>
+      </tr>
+      <tr>
+        <td><strong>LIMS / QC</strong></td>
+        <td>—</td>
+        <td><span class="pill mid">重要</span></td>
+        <td><span class="pill ok">必须</span></td>
+        <td>P0</td>
+        <td>CQA、中间体结果、放行状态、取样时间</td>
+      </tr>
+      <tr>
+        <td><strong>QMS / 偏差 / CAPA</strong></td>
+        <td><span class="pill mid">重要</span></td>
+        <td><span class="pill mid">重要</span></td>
+        <td><span class="pill mid">重要</span></td>
+        <td>P1</td>
+        <td>偏差类型、根因、纠正措施、复发标记</td>
+      </tr>
+      <tr>
+        <td><strong>EAM / CMMS</strong></td>
+        <td>—</td>
+        <td><span class="pill info">可选</span></td>
+        <td><span class="pill ok">必须</span></td>
+        <td>P1</td>
+        <td>工单、故障码、备件、维护历史、验证状态</td>
+      </tr>
+      <tr>
+        <td><strong>工艺/技转文档库</strong></td>
+        <td><span class="pill info">SOP 动作</span></td>
+        <td><span class="pill ok">必须</span></td>
+        <td><span class="pill mid">重要</span></td>
+        <td>P0（技转）</td>
+        <td>TPP/CPP、放大报告、风险评审、设备能力、会议纪要</td>
+      </tr>
+      <tr>
+        <td><strong>SAP / 计划</strong></td>
+        <td>—</td>
+        <td><span class="pill info">可选</span></td>
+        <td><span class="pill mid">重要</span></td>
+        <td>P2</td>
+        <td>订单、交期、物料批次、成本（指导生产用）</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:18px;">
+    <div class="card">
+      <h3>必须先完成的 6 项数据治理</h3>
+      <ul class="bul tight">
+        <li>统一<strong>批号 / 项目号 / 设备号</strong>映射表（跨系统 Join 的钥匙）</li>
+        <li>明确<strong>客户隔离策略</strong>（权限、脱敏、训练语料边界）</li>
+        <li>定义<strong>黄金时段对齐</strong>（工艺事件时间 vs 质检时间 vs 设备时间）</li>
+        <li>建立<strong>标签字典</strong>（动作类、故障类、偏差类、反应类型）</li>
+        <li>规定<strong>留存与审计</strong>（视频、模型输入输出、人工确认）</li>
+        <li>输出<strong>字段级数据目录</strong>（谁拥有、谁可写、刷新频率、质量责任人）</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h3>实操建议：前 8 周只做“能支撑试点”的底座</h3>
+      <ul class="bul tight">
+        <li>不要等“全公司数据湖”建成再开主线。</li>
+        <li>按试点对象倒推：① 只要点位流+动作标签；② 只要选定反应的历史包；③ 只要选定单元的时序+质检。</li>
+        <li>先打通 <strong>80% 高频字段</strong>，剩余 20% 允许人工补录并标记来源。</li>
+        <li>每周发布一次“数据就绪度看板”（绿/黄/红）。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PART 05 ================= -->
+<section class="slide" id="s05">
+  <h2 class="kicker">PART 05 · 需要建设的软硬件基础</h2>
+  <h1>硬件补短板、软件建闭环；优先边缘与可审计，不上“黑盒上云”</h1>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>硬件侧（按主线）</h3>
+      <table class="kly">
+        <thead><tr><th>类别</th><th>建设内容</th><th>备注</th></tr></thead>
+        <tbody>
+          <tr><td><strong>摄像头</strong></td><td>关键操作区盲点补点；部分低清点位升级</td><td>现有海康为主，优先利旧</td></tr>
+          <tr><td><strong>边缘节点</strong></td><td>车间侧推理服务器（GPU/NPU）</td><td>视频<strong>不出厂/不上公有云</strong></td></tr>
+          <tr><td><strong>传感补齐</strong></td><td>关键动设备振动/电流/温度（按 PdM 范围）</td><td>继承 DH1 评估经验</td></tr>
+          <tr><td><strong>网络与存储</strong></td><td>视频专网/VLAN；告警短视频本地存档</td><td>留存时长由 QA/法务定</td></tr>
+          <tr><td><strong>算力</strong></td><td>训练/微调用 GPU（可集中）；推理可边缘</td><td>技转/预测与巡检分流</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h3>软件侧（共用 + 专项）</h3>
+      <table class="kly">
+        <thead><tr><th>层级</th><th>建设内容</th><th>服务对象</th></tr></thead>
+        <tbody>
+          <tr><td><strong>数据中间层</strong></td><td>ETL/API、特征库、主数据服务</td><td>三线共用</td></tr>
+          <tr><td><strong>AI 平台</strong></td><td>模型注册、版本、A/B、监控、审计</td><td>三线共用</td></tr>
+          <tr><td><strong>巡检应用</strong></td><td>动作字典、告警台、确认闭环、报表</td><td>主线①</td></tr>
+          <tr><td><strong>技转工作台</strong></td><td>知识库、检索、风险矩阵、签字流</td><td>主线②</td></tr>
+          <tr><td><strong>预测指导台</strong></td><td>健康/质量分数、建议卡、班组回填</td><td>主线③</td></tr>
+          <tr><td><strong>集成</strong></td><td>与 EAM 工单、巡检 APP、MES 事件对接</td><td>形成动作</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3 style="margin:20px 0 8px;font-size:16px;">推荐技术路线（务实版）</h3>
+  <div class="grid-3">
+    <div class="card accent">
+      <h3>① 视频巡检</h3>
+      <ul class="bul tight">
+        <li>PoC：优先兼容现有 CCTV 生态的成熟方案做通</li>
+        <li>边缘推理 + 本地短视频存证</li>
+        <li>Pilot 阶段评估开源/自研降本可行性</li>
+        <li>与巡检 SOP、培训系统打通</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h3>② 技转辅助</h3>
+      <ul class="bul tight">
+        <li>核心知识库与引擎应归属凯莱英 IP</li>
+        <li>OCR/LLM 半自动结构化 + 人工校验</li>
+        <li>RAG 检索 + 机理模型（Aspen/CFD）叠加</li>
+        <li>可引入短期方法论咨询，但不绑定数据</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h3>③ 生产预测</h3>
+      <ul class="bul tight">
+        <li>时序/多变量模型 + 可解释特征</li>
+        <li>质量预测与设备 PdM 分模块，同一底座</li>
+        <li>输出“建议动作卡”，禁止直连改设定</li>
+        <li>与班前会/维护计划/取样策略联动</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <strong>合规硬约束：</strong>视频与客户工艺相关影像本地处理；模型训练语料分级；所有 AI 输出保留输入摘要、版本号、人工确认结果，满足审计抽查。
+  </div>
+</section>
+
+<!-- ================= PART 06 ================= -->
+<section class="slide" id="s06">
+  <h2 class="kicker">PART 06 · 统筹推动需要的专业人员与知识</h2>
+  <h1>不是“招几个算法就行”，而是业务+数据+AI+合规的联合编制</h1>
+  <p class="lead">建议按“核心小队常驻 + 业务专家兼职承诺 + 外部能力按阶段采购”组织。人员不到位，再好的方案也会停在 PPT。</p>
+
+  <table class="kly">
+    <thead>
+      <tr><th style="width:16%;">角色</th><th style="width:14%;">编制建议</th><th style="width:28%;">核心职责</th><th style="width:22%;">必备知识</th><th>投入方式</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>业务 Sponsor</strong></td>
+        <td>1 人（领导层）</td>
+        <td>目标拍板、跨部门扯皮裁决、阶段门禁</td>
+        <td>生产/质量优先级</td>
+        <td>月度决策会</td>
+      </tr>
+      <tr>
+        <td><strong>项目总监 / PMO</strong></td>
+        <td>1 人专职</td>
+        <td>三线统筹、里程碑、风险、汇报材料</td>
+        <td>制药数字化项目治理</td>
+        <td>全职</td>
+      </tr>
+      <tr>
+        <td><strong>数据产品经理</strong></td>
+        <td>1 人专职</td>
+        <td>数据目录、字段优先级、就绪度看板</td>
+        <td>MES/LIMS/DCS 业务语义</td>
+        <td>全职（0 号工程核心）</td>
+      </tr>
+      <tr>
+        <td><strong>IT 集成工程师</strong></td>
+        <td>2–3 人</td>
+        <td>接口、中间层、权限、部署</td>
+        <td>API/ETL、OT-IT、网络安全</td>
+        <td>全职</td>
+      </tr>
+      <tr>
+        <td><strong>AI/算法工程师</strong></td>
+        <td>2–4 人（可分阶段）</td>
+        <td>CV / 时序预测 / RAG；模型监控</td>
+        <td>工业 CV、时序、LLM+RAG、MLOps</td>
+        <td>全职或核心外包+内控</td>
+      </tr>
+      <tr>
+        <td><strong>QA / 合规</strong></td>
+        <td>0.5–1 人当量</td>
+        <td>用途定位、CSV/验证边界、留存策略</td>
+        <td>GMP、数据完整性、AI 辅助边界</td>
+        <td>关键节点强参与</td>
+      </tr>
+      <tr>
+        <td><strong>法务 / 信息安全</strong></td>
+        <td>兼职</td>
+        <td>客户合同、视频合规、出域控制</td>
+        <td>商业秘密、隐私、合同条款</td>
+        <td>立项前与扩展前必审</td>
+      </tr>
+      <tr>
+        <td><strong>HR / 工会对接</strong></td>
+        <td>兼职（主线①）</td>
+        <td>员工沟通、定位话术、接受度管理</td>
+        <td>用工沟通、伦理边界</td>
+        <td>软启动期高强度</td>
+      </tr>
+      <tr>
+        <td><strong>工艺 / 技转资深</strong></td>
+        <td>3–5 人兼职</td>
+        <td>知识结构化、风险点标注、签字复核</td>
+        <td>放大、反应工程、设备能力</td>
+        <td><strong>每周固定 4h</strong> 写进绩效</td>
+      </tr>
+      <tr>
+        <td><strong>生产 / 巡检 / 设备</strong></td>
+        <td>各 1 名业务 Owner</td>
+        <td>场景定义、标签、闭环流程改造</td>
+        <td>现场 SOP、班组运作</td>
+        <td>试点车间绑定</td>
+      </tr>
+      <tr>
+        <td><strong>文档结构化专员</strong></td>
+        <td>1–2 人（主线②）</td>
+        <td>历史项目入库、质检、标签</td>
+        <td>工艺文档阅读 + 工具操作</td>
+        <td>12 个月专项</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:16px;">
+    <div class="card">
+      <h3>必须补齐的组织知识（培训包）</h3>
+      <ul class="bul tight">
+        <li>业务侧：如何写标签、如何确认告警、如何拒绝/采纳建议</li>
+        <li>IT 侧：OT 数据时序对齐、客户隔离实现、模型审计</li>
+        <li>QA 侧：AI 辅助在验证/变更/偏差中的定位话术与记录要求</li>
+        <li>管理层：阶段门禁看什么（就绪度、闭环率、误报、采纳率）</li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <h3>最容易失败的人员缺口</h3>
+      <ul class="bul tight">
+        <li>有算法、无<strong>懂批记录语义</strong>的数据产品经理</li>
+        <li>有系统、无<strong>资深工艺固定排期</strong>（技转必然空转）</li>
+        <li>有摄像头、无<strong>HR/工会前置沟通</strong>（巡检必然受阻）</li>
+        <li>有模型、无<strong>班组回填纪律</strong>（预测无法迭代）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PART 07 ================= -->
+<section class="slide" id="s07">
+  <h2 class="kicker">PART 07 · 需要哪些配合与资源投入</h2>
+  <h1>资源按“底座 + 三线”打包，配合按 RACI 写死</h1>
+
+  <h3 style="margin:0 0 8px;font-size:16px;">跨部门配合（RACI 摘要）</h3>
+  <table class="kly raci">
+    <thead>
+      <tr>
+        <th>事项</th>
+        <th>生产</th>
+        <th>QA</th>
+        <th>工艺/技转</th>
+        <th>设备/EHS</th>
+        <th>IT</th>
+        <th>HR/法务</th>
+        <th>Sponsor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>0 号数据底座</td>
+        <td class="c">C</td><td class="c">C</td><td class="c">C</td><td class="c">C</td><td class="r">R</td><td class="c">C</td><td class="a">A</td>
+      </tr>
+      <tr>
+        <td>① 视频巡检软启动</td>
+        <td class="c">C</td><td class="c">C</td><td class="i">I</td><td class="c">C</td><td class="c">C</td><td class="r">R</td><td class="a">A</td>
+      </tr>
+      <tr>
+        <td>① PoC 部署与优化</td>
+        <td class="c">C</td><td class="c">C</td><td class="i">I</td><td class="c">C</td><td class="r">R</td><td class="c">C</td><td class="a">A</td>
+      </tr>
+      <tr>
+        <td>② 知识结构化</td>
+        <td class="c">C</td><td class="c">C</td><td class="r">R</td><td class="i">I</td><td class="c">C</td><td class="i">I</td><td class="a">A</td>
+      </tr>
+      <tr>
+        <td>② AI 审查工作台</td>
+        <td class="c">C</td><td class="c">C</td><td class="a">A/C</td><td class="i">I</td><td class="r">R</td><td class="c">C</td><td class="i">I</td>
+      </tr>
+      <tr>
+        <td>③ 预测模型与指导台</td>
+        <td class="a">A/C</td><td class="c">C</td><td class="c">C</td><td class="c">C</td><td class="r">R</td><td class="i">I</td><td class="i">I</td>
+      </tr>
+      <tr>
+        <td>阶段门禁验收</td>
+        <td class="c">C</td><td class="c">C</td><td class="c">C</td><td class="c">C</td><td class="c">C</td><td class="c">C</td><td class="a">A</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="footnote">R=执行负责 · A=审批拍板 · C=配合 · I=知会。联合负责事项必须在 Kickoff 书面确认 Owner，避免“双方都管=没人管”。</p>
+
+  <div class="grid-2" style="margin-top:16px;">
+    <div class="card">
+      <h3>资源投入结构（规划口径）</h3>
+      <ul class="bul tight">
+        <li><strong>人力：</strong>核心小队 6–10 人当量；资深工艺兼职承诺；试点车间业务 Owner。</li>
+        <li><strong>软硬件：</strong>边缘节点、关键传感补点、算力、存储、软件许可/开发。</li>
+        <li><strong>外部：</strong>CV PoC 供应商；可选短期结构化方法论咨询；机理仿真工具支持。</li>
+        <li><strong>运营：</strong>标签与确认工时、培训、变更沟通、客户告知材料。</li>
+      </ul>
+      <div class="desc" style="margin-top:10px;font-size:12.5px;color:#5b6a8a;">
+        金额级建议在立项包中按试点范围做三档预算（保守/基准/加速），本文不预设具体总包数字，避免脱离现场报价。
+      </div>
+    </div>
+    <div class="card accent">
+      <h3>必须向上申请的“非金钱资源”</h3>
+      <ul class="bul tight">
+        <li><strong>试点车间授权</strong>：用哪个车间、哪些点位、哪些批可试</li>
+        <li><strong>资深排期</strong>：技转知识贡献写进绩效与奖金机制</li>
+        <li><strong>流程改造权</strong>：告警进巡检、建议进班前会</li>
+        <li><strong>客户沟通窗口</strong>：必要时由商务/质量统一口径</li>
+        <li><strong>90 天门禁</strong>：Sponsor 按时出席，该停则停、该扩则扩</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:18px 0 8px;font-size:16px;">投入节奏建议（避免前期烧完）</h3>
+  <div class="roadmap">
+    <div class="stage"><div class="month">奠基</div><div class="ttl">底座 + 软启动</div><div class="det">接口与主数据<br/>沟通与合规<br/>小范围 PoC 预算</div></div>
+    <div class="stage"><div class="month">验证</div><div class="ttl">三线 MVP</div><div class="det">按验收口径投<br/>未达标不扩预算</div></div>
+    <div class="stage"><div class="month">固化</div><div class="ttl">流程与编制</div><div class="det">运营手册<br/>岗位职责入编</div></div>
+    <div class="stage"><div class="month">扩展</div><div class="ttl">复制到主力范围</div><div class="det">按复制清单投<br/>边际成本下降</div></div>
+    <div class="stage"><div class="month">优化</div><div class="ttl">降本与自研评估</div><div class="det">供应商依赖下降<br/>IP 沉淀</div></div>
+  </div>
+</section>
+
+<!-- ================= PART 08 ================= -->
+<section class="slide" id="s08">
+  <h2 class="kicker">PART 08 · 实际推动的重点节点事项</h2>
+  <h1>用“阶段门禁”管进度：每道门有产出物、有通过标准、有停/扩决策</h1>
+
+  <div class="gantt-months">
+    <div>M1</div><div>M2</div><div>M3</div><div>M4</div><div>M5</div><div>M6</div>
+    <div>M7</div><div>M8</div><div>M9</div><div>M10</div><div>M11</div><div>M12</div>
+  </div>
+  <div class="gantt">
+    <div class="gantt-row">
+      <div class="gantt-label">0 号 · 数据底座</div>
+      <div class="gantt-track"><div class="gantt-bar" style="left:0%;width:50%;background:#10b981;">接入+主数据+隔离 (M1-M6)</div></div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">① 视频巡检</div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="left:0%;width:12%;background:#f59e0b;">软启动</div>
+        <div class="gantt-bar" style="left:12%;width:30%;background:#ff7e3d;">PoC</div>
+        <div class="gantt-bar" style="left:42%;width:25%;background:#ea580c;">Pilot</div>
+        <div class="gantt-bar" style="left:67%;width:33%;background:#9a3412;">扩展准备</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">③ 生产预测</div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="left:8%;width:17%;background:#38bdf8;">选点</div>
+        <div class="gantt-bar" style="left:25%;width:33%;background:#0284c7;">MVP 模型</div>
+        <div class="gantt-bar" style="left:58%;width:42%;background:#075985;">指导闭环</div>
+      </div>
+    </div>
+    <div class="gantt-row">
+      <div class="gantt-label">② 技转辅助</div>
+      <div class="gantt-track">
+        <div class="gantt-bar" style="left:0%;width:25%;background:#a78bfa;">体系设计</div>
+        <div class="gantt-bar" style="left:25%;width:75%;background:#7c3aed;">知识结构化（持续）</div>
+      </div>
+    </div>
+  </div>
+  <p class="footnote">Y1 重点把 ①③ 做成可见闭环；② 在 Y1 完成体系与结构化蓄水，Y2 上 AI 审查试点。技转不要“先上模型后补数据”。</p>
+
+  <h3 style="margin:18px 0 8px;font-size:16px;">关键节点清单（可直接进项目管理）</h3>
+  <table class="kly">
+    <thead>
+      <tr><th style="width:10%;">门禁</th><th style="width:12%;">时间</th><th style="width:28%;">必须完成事项</th><th style="width:28%;">产出物</th><th>通过标准</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>G0</strong></td>
+        <td>启动周</td>
+        <td>Sponsor 确认三线范围；任命 PMO；试点对象提名</td>
+        <td>立项一页纸 + RACI</td>
+        <td>范围签字；不扩第四条主线</td>
+      </tr>
+      <tr>
+        <td><strong>G1</strong></td>
+        <td>M1 末</td>
+        <td>数据盘点；接口可行性；① 员工/合规软启动结论</td>
+        <td>数据就绪度报告；沟通纪要</td>
+        <td>P0 数据路径清晰；① 允许进 PoC</td>
+      </tr>
+      <tr>
+        <td><strong>G2</strong></td>
+        <td>M3</td>
+        <td>底座最小可用；② 分类体系与 schema；③ 选点冻结</td>
+        <td>数据目录 V1；技转分类法；预测选点书</td>
+        <td>试点 Join 跑通；选点不再摇摆</td>
+      </tr>
+      <tr>
+        <td><strong>G3</strong></td>
+        <td>M5–M6</td>
+        <td>① PoC 验收；③ MVP 模型可演示；② 首批项目入库</td>
+        <td>PoC 报告；模型卡；结构化样本集</td>
+        <td>① 误报≤阈值；③ 有解释与建议卡；② ≥20 项目</td>
+      </tr>
+      <tr>
+        <td><strong>G4</strong></td>
+        <td>M8–M9</td>
+        <td>① Pilot 流程改造；③ 班组回填纪律；② 检索工作台</td>
+        <td>SOP 修订稿；运营周报；检索评测</td>
+        <td>闭环率达标；建议有采纳记录</td>
+      </tr>
+      <tr>
+        <td><strong>G5</strong></td>
+        <td>M11–M12</td>
+        <td>Y1 复盘；Y2 扩展清单与预算；编制固化建议</td>
+        <td>年终成效包；复制 Playbook</td>
+        <td>三线各有可量化证据；明确扩/停</td>
+      </tr>
+      <tr>
+        <td><strong>G6</strong></td>
+        <td>Y2 H1</td>
+        <td>① 多车间；③ 多单元；② 真实新项目辅助</td>
+        <td>对照评估报告</td>
+        <td>资深认可“省时间/降风险”</td>
+      </tr>
+      <tr>
+        <td><strong>G7</strong></td>
+        <td>Y2–Y3</td>
+        <td>规模化覆盖；降本（自研/复用）；组织能力评估</td>
+        <td>能力成熟度报告</td>
+        <td>离开供应商也能运维迭代</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ================= PART 08b detail nodes ================= -->
+<section class="slide" id="s08b">
+  <h2 class="kicker">PART 08B · 分主线操作细节（现场怎么推）</h2>
+  <h1>把“节点”拆到可派工的动作级</h1>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>① 视频巡检 · 动作包</h3>
+      <ul class="bul tight">
+        <li>Week 1–4：HR/工会非正式沟通；员工代表访谈；QA/法务用途定位</li>
+        <li>确定 1 车间 × 5 个最简单可判定动作（如穿戴、区域入侵、关键步骤缺失）</li>
+        <li>点位清单：视野、光照、遮挡、补点预算</li>
+        <li>边缘节点上架；仅本地推理</li>
+        <li>告警台 + 15 分钟确认 SLA</li>
+        <li>误报样本每周复盘；动作字典迭代</li>
+        <li>客户告知材料（如涉及）预审</li>
+        <li>Pilot：接入巡检路线，统计“可减少的无效巡检频次”</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>② 技转辅助 · 动作包</h3>
+      <ul class="bul tight">
+        <li>M1–M3：反应类型/风险点/设备能力库 schema</li>
+        <li>锁定 3 类主力反应 + 5 种主流反应器</li>
+        <li>资深每周 4h：访谈+标注，写入绩效</li>
+        <li>招/派文档结构化专员；OCR+LLM 半自动</li>
+        <li>每月入库 5–10 个项目；质量抽检</li>
+        <li>M9+：RAG 检索上线；风险矩阵初稿</li>
+        <li>机理叠加（传热/传质/放大判据）接口</li>
+        <li>新项目试点：AI 初稿 → 资深对照 → 差额学习</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>③ 生产预测 · 动作包</h3>
+      <ul class="bul tight">
+        <li>选点：优先“数据齐、痛点清、动作可落地”的单元</li>
+        <li>冻结标签：不合格/偏差/故障停机的定义与时间窗</li>
+        <li>打通 IP.21 + LIMS + EBR（+ EAM）</li>
+        <li>先做可解释基线模型，再上复杂模型</li>
+        <li>输出建议卡：提前量、依据特征、建议动作、责任岗</li>
+        <li>班前会试用；采纳/拒绝必填原因</li>
+        <li>与维护窗口、加严取样、参数回调联动（人工执行）</li>
+        <li>每 4 周模型复盘：漂移、误报、漏报</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>现场推进口诀：</strong>先闭环、后精度；先单点、后复制；先辅助、后自动化。任何“自动改工艺设定 / 替代签字”都不在本阶段范围。
+  </div>
+</section>
+
+<!-- ================= PART 09 ================= -->
+<section class="slide" id="s09">
+  <h2 class="kicker">PART 09 · 治理机制与风险控制</h2>
+  <h1>用治理保证 2–3 年“持续有进展”，而不是项目虎头蛇尾</h1>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>建议治理节奏</h3>
+      <ul class="bul tight">
+        <li><strong>周会（运营）：</strong>数据就绪度、误报/采纳、阻塞项（PMO 主持）</li>
+        <li><strong>双周（技术）：</strong>模型/接口/安全评审</li>
+        <li><strong>月度（Sponsor）：</strong>KPI 与资源裁决</li>
+        <li><strong>季度门禁：</strong>按 G1–G7 停/扩/转向</li>
+        <li><strong>变更控制：</strong>范围变更必须书面，禁止静默加需求</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>建议看的运营 KPI（少而硬）</h3>
+      <ul class="bul tight">
+        <li>① 误报率、告警闭环时长、员工投诉/接受度</li>
+        <li>② 结构化入库数、检索可用率、资深工时兑现率</li>
+        <li>③ 预警有效率、建议采纳率、因建议避免的损失事件数</li>
+        <li>底座：P0 接口可用率、主数据冲突数、审计抽查通过率</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin:18px 0 8px;font-size:16px;">主要风险与控制（按严重度）</h3>
+  <table class="kly">
+    <thead><tr><th style="width:22%;">风险</th><th style="width:30%;">表现</th><th>控制</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>① 员工/组织接受度</strong>（巡检）</td>
+        <td>项目被抵制或暗中不配合</td>
+        <td>软启动前置；定位“辅助”；员工代表参与设计；权限最小化</td>
+      </tr>
+      <tr>
+        <td><strong>② 资深不投入</strong>（技转）</td>
+        <td>知识库空转，模型无料</td>
+        <td>绩效绑定；署名与激励；AI 不替代签字</td>
+      </tr>
+      <tr>
+        <td><strong>③ 数据接不通 / 对不齐</strong></td>
+        <td>模型无法训练或不可信</td>
+        <td>0 号工程独立立项；就绪度看板；80/20 策略</td>
+      </tr>
+      <tr>
+        <td><strong>④ 客户保密与合同</strong></td>
+        <td>审计风险、合同违约</td>
+        <td>隔离策略；边缘本地；合同附件明确内部辅助</td>
+      </tr>
+      <tr>
+        <td><strong>⑤ 场景膨胀</strong></td>
+        <td>两年做完一半功能、零闭环</td>
+        <td>MVP 门禁；未达标不扩展；PMO 控范围</td>
+      </tr>
+      <tr>
+        <td><strong>⑥ 供应商绑定</strong></td>
+        <td>数据/模型不可迁移</td>
+        <td>合同约定 IP 与导出；核心知识库自建；分阶段降依赖</td>
+      </tr>
+      <tr>
+        <td><strong>⑦ 监管表述过猛</strong></td>
+        <td>“AI 替代”引发质疑</td>
+        <td>对外统一“辅助”；保留人工 SOP 与签字</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ================= PART 10 ================= -->
+<section class="slide" id="s10">
+  <h2 class="kicker">PART 10 · 近 90 天启动清单（立刻可执行）</h2>
+  <h1>从“方案”进入“派工”：未来 12 周只做这些事</h1>
+
+  <div class="check-grid">
+    <div class="check-item"><div class="n">1</div><div><div class="t">成立三线联合小队</div><div class="d">任命 PMO、数据产品经理、三线业务 Owner；明确 Sponsor 月度会。</div></div>
+    <div class="check-item"><div class="n">2</div><div><div class="t">冻结试点对象</div><div class="d">① 车间与 5 动作；② 3 类反应；③ 1 个预测单元。书面确认后两周内不改。</div></div>
+    <div class="check-item"><div class="n">3</div><div><div class="t">启动 0 号数据盘点</div><div class="d">IT 输出 IP.21/MES/LIMS/EAM/CCTV 接口现状：有无 API、延迟、权限、历史深度。</div></div>
+    <div class="check-item"><div class="n">4</div><div><div class="t">① 软启动沟通</div><div class="d">HR+工会+员工代表；QA/法务用途与留存策略；形成“是否进 PoC”结论。</div></div>
+    <div class="check-item"><div class="n">5</div><div><div class="t">② 体系设计工作坊</div><div class="d">反应分类、风险点字典、设备能力库字段；资深每周 4h 承诺签字。</div></div>
+    <div class="check-item"><div class="n">6</div><div><div class="t">③ 标签与基线</div><div class="d">定义质量/故障标签；拉通 3–6 个月历史样本；先出基线规则/模型。</div></div>
+    <div class="check-item"><div class="n">7</div><div><div class="t">合规与客户边界评审</div><div class="d">视频出域禁令、训练语料边界、客户告知模板预审。</div></div>
+    <div class="check-item"><div class="n">8</div><div><div class="t">形成立项包</div><div class="d">目标、范围、预算三档、RACI、G0–G3 门禁、采购策略；提请决策。</div></div>
+  </div>
+
+  <div class="grid-3" style="margin-top:18px;">
+    <div class="card accent">
+      <div class="num" style="font-size:22px;">30 天</div>
+      <div class="label">看得到的产出</div>
+      <div class="desc">RACI、试点冻结、数据盘点初稿、软启动沟通纪要、技转 schema 草案。</div>
+    </div>
+    <div class="card accent">
+      <div class="num" style="font-size:22px;">60 天</div>
+      <div class="label">看得到的产出</div>
+      <div class="desc">P0 接口通路演示；① PoC 环境就绪；③ 基线模型笔记本；② 首批结构化样本。</div>
+    </div>
+    <div class="card accent">
+      <div class="num" style="font-size:22px;">90 天</div>
+      <div class="label">看得到的产出</div>
+      <div class="desc">G2/G3 门禁材料；① 首轮误报数据；③ 建议卡进班组试用；立项预算确认。</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>给领导的一句话：</strong>用 90 天证明“组织推得动、数据接得通、场景闭得上”；用 2–3 年把三条主线做成凯莱英可复用的生产 AI 能力，而不是一次性项目。
+  </div>
+</section>
+
+<!-- ================= APPENDIX ================= -->
+<section class="slide" id="appendix">
+  <h2 class="kicker">APPENDIX · 一页纸决策摘要</h2>
+  <h1>提请确认的 6 件事</h1>
+  <div class="grid-2">
+    <div class="card accent">
+      <h3>1. 范围确认</h3>
+      <p class="desc">未来 2–3 年 AI 生产主线是否就收敛为：视频巡检 / 技转辅助 / 生产预测指导？其他方向仅作底座旁路？</p>
+    </div>
+    <div class="card accent">
+      <h3>2. 0 号工程立项</h3>
+      <p class="desc">是否同意将数据底座（取数、主数据、隔离、AI 平台）作为独立项目由 IT 主责推进？</p>
+    </div>
+    <div class="card accent">
+      <h3>3. 试点对象授权</h3>
+      <p class="desc">是否授权 PMO 在 2 周内冻结：1 个巡检车间、3 类技转反应、1 个预测单元？</p>
+    </div>
+    <div class="card accent">
+      <h3>4. 人员承诺</h3>
+      <p class="desc">是否同意核心小队编制 + 资深工艺每周 4 小时知识贡献写入绩效？</p>
+    </div>
+    <div class="card accent">
+      <h3>5. 定位与对外口径</h3>
+      <p class="desc">是否统一对外表述为“AI 辅助”，保留人工巡检与资深签字，不宣称替代？</p>
+    </div>
+    <div class="card accent">
+      <h3>6. 门禁机制</h3>
+      <p class="desc">是否同意按 G0–G7 季度/阶段门禁停扩，未达标不追加扩展预算？</p>
+    </div>
+  </div>
+  <p class="footnote" style="margin-top:20px;">
+    本方案承接既有方向规划中的可复用结论（视觉合规、技转放大、设备/生产数据预测），并按上层最新三条主线重新编排为可执行推进包。
+    具体供应商选型、精确预算与车间名单需在 G1 数据盘点与现场勘察后固化。
+  </p>
+</section>
+
+</main>
+
+<div class="deck-nav">
+  <button onclick="prevSlide()">上一页</button>
+  <span class="pages"><span id="pageNo">1</span> / <span id="pageTotal">1</span></span>
+  <button onclick="nextSlide()">下一页</button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('section.slide'));
+  let idx = 0;
+  function show(i){
+    if (!document.body.classList.contains('deck')) return;
+    idx = (i + slides.length) % slides.length;
+    slides.forEach((s,n)=> s.classList.toggle('active', n===idx));
+    document.getElementById('pageNo').textContent = idx+1;
+    document.getElementById('pageTotal').textContent = slides.length;
+  }
+  function nextSlide(){ show(idx+1); }
+  function prevSlide(){ show(idx-1); }
+  function toggleDeck(){
+    document.body.classList.toggle('deck');
+    if (document.body.classList.contains('deck')) show(idx);
+  }
+  document.addEventListener('keydown', (e)=>{
+    if (!document.body.classList.contains('deck')) return;
+    if (e.key==='ArrowRight' || e.key==='PageDown') nextSlide();
+    if (e.key==='ArrowLeft' || e.key==='PageUp') prevSlide();
+    if (e.key==='Escape'){ document.body.classList.remove('deck'); }
+  });
+  document.getElementById('pageTotal').textContent = slides.length;
+</script>
+</body>
+</html>
