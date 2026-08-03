@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>凯莱英 · AI 赋能生产三条主线 · 2–3 年实操推进方案 V1.1</title>
+<title>凯莱英 · AI 赋能生产推进方案</title>
 <style>
   * { box-sizing: border-box; }
   html, body { margin:0; padding:0; }
@@ -254,21 +254,18 @@
 <header class="topbar">
   <div class="brand">
     凯莱英 · AI 赋能生产
-    <span class="badge">三条主线 · V1.1 实操方案</span>
+    <span class="badge">AI 赋能生产</span>
   </div>
   <nav>
     <a href="#cover">封面</a>
-    <a href="#s01">定位</a>
+    <a href="#s01">能力</a>
     <a href="#s02">思路</a>
-    <a href="#s03">主线</a>
+    <a href="#s03">边界</a>
     <a href="#sc1">场景①</a>
     <a href="#sc2">场景②</a>
     <a href="#sc3">场景③</a>
     <a href="#s04">数据</a>
     <a href="#s05">软硬件</a>
-    <a href="#s06">人员</a>
-    <a href="#s08">节点</a>
-    <a href="#s10">启动</a>
   </nav>
   <button class="modeswitch" onclick="toggleDeck()">幻灯模式</button>
 </header>
@@ -277,105 +274,80 @@
 
 <!-- ================= COVER ================= -->
 <section class="slide cover" id="cover">
-  <h2 class="kicker" style="color:#ff9b6b;">ASYMCHEM · AI IN PRODUCTION · V1.1</h2>
-  <h1>AI 赋能生产三条主线<br/>2–3 年实操推进方案</h1>
-  <div class="subtitle">
-    上层指示收口为三条主线。本版把每条主线明确到<strong style="color:#fff;">子能力 + 应用场景 + 现场做法 + 软硬件细节</strong>，便于立项拆分与跨部门派工。
-  </div>
-  <div class="grid-3" style="margin-top:32px;">
+  <h2 class="kicker" style="color:#ff9b6b;">ASYMCHEM · AI IN PRODUCTION</h2>
+  <h1>AI 赋能生产推进方案</h1>
+  <div class="subtitle">子能力 + 应用场景 + 现场做法 + 软硬件细节</div>
+  <div class="grid-3" style="margin-top:40px;">
     <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:16px 18px;">
-      <div style="font-size:12px;color:#9aabd6;">TRACK 01 · 现场感知与合规</div>
+      <div style="font-size:12px;color:#9aabd6;">TRACK 01</div>
       <div style="font-size:17px;font-weight:700;margin-top:4px;">视频巡检 + 电子点检</div>
-      <div style="font-size:12.5px;color:#cdd6e8;margin-top:6px;">CCTV 合规监测 · 动态点检任务 · 拍照异常识别 · 告警闭环</div>
+      <div style="font-size:12.5px;color:#cdd6e8;margin-top:6px;">合规监测 · 动态点检 · 异常识别 · 告警闭环</div>
     </div>
     <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:16px 18px;">
-      <div style="font-size:12px;color:#9aabd6;">TRACK 02 · 知识与审查</div>
-      <div style="font-size:17px;font-weight:700;margin-top:4px;">技转辅助 · 放大 · AI 复核</div>
-      <div style="font-size:12.5px;color:#cdd6e8;margin-top:6px;">放大建议 · 工艺审查 · AI 复核清单 · 资深签字</div>
+      <div style="font-size:12px;color:#9aabd6;">TRACK 02</div>
+      <div style="font-size:17px;font-weight:700;margin-top:4px;">技转辅助 · AI 复核</div>
+      <div style="font-size:12.5px;color:#cdd6e8;margin-top:6px;">放大建议 · 工艺审查 · 复核清单</div>
     </div>
     <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:16px 18px;">
-      <div style="font-size:12px;color:#9aabd6;">TRACK 03 · 预测与指导</div>
+      <div style="font-size:12px;color:#9aabd6;">TRACK 03</div>
       <div style="font-size:17px;font-weight:700;margin-top:4px;">生产预测指导</div>
       <div style="font-size:12.5px;color:#cdd6e8;margin-top:6px;">AI 报告 · QC 预测 · 失误预测 · 黄金参数</div>
     </div>
-  </div>
-  <div class="meta">
-    <div>原则：一条底座、三条主线、分阶段验收；AI 始终“辅助”而非“替代签字 / 巡检 / 放行”</div>
-    <div>版本：V1.1 · 扩展子能力与场景做法 · 内部讨论稿</div>
   </div>
 </section>
 
 <!-- ================= PART 01 ================= -->
 <section class="slide" id="s01">
-  <h2 class="kicker">PART 01 · 总体定位与子能力地图</h2>
-  <h1>三条主线不是三个口号，而是 10 个子能力的组合推进包</h1>
-  <p class="lead">2–3 年目标不是“全面智能化”，而是每条主线形成<strong>可演示、可验收、可复制</strong>的闭环。子能力允许分波次上线，但必须挂在同一底座上。</p>
+  <h2 class="kicker">PART 01 · 能力架构</h2>
+  <h1>三条主线、统一底座、分波次形成可复用能力</h1>
 
   <table class="kly">
     <thead>
-      <tr><th style="width:14%;">主线</th><th style="width:18%;">子能力</th><th style="width:34%;">业务价值一句话</th><th>Y1 目标形态</th></tr>
+      <tr><th style="width:16%;">主线</th><th style="width:20%;">子能力</th><th>业务价值</th></tr>
     </thead>
     <tbody>
-      <tr><td rowspan="2"><strong>① 现场感知</strong></td><td>视频巡检</td><td>关键操作区 7×24 辅助监测，补人工巡检盲区</td><td>1 车间 × 5 动作 PoC 闭环</td></tr>
-      <tr><td>电子点检</td><td>动态任务 + 拍照识别 + 趋势预警，减少漏检与纸质空转</td><td>1 动力站/车间点检 AI 化</td></tr>
-      <tr><td rowspan="3"><strong>② 技转与复核</strong></td><td>放大建议</td><td>同类项目经验 + 机理约束，给出参数/设备/风险建议</td><td>3 类反应可检索可建议</td></tr>
-      <tr><td>工艺审查</td><td>自动生成风险矩阵与审查要点初稿</td><td>审查工作台可用</td></tr>
-      <tr><td>AI 复核</td><td>对照历史偏差/SOP/相似批，提示遗漏与不一致</td><td>复核清单 + 资深确认</td></tr>
-      <tr><td rowspan="5"><strong>③ 预测指导</strong></td><td>AI 报告撰写</td><td>Campaign / MOR 等机械汇编交给 AI，工程师定稿</td><td>Campaign 试点起草</td></tr>
-      <tr><td>QC 结果预测</td><td>批中/批末预测 CQA，提前干预或加速准备放行</td><td>1 项目 × 3 CQA</td></tr>
-      <tr><td>失误/偏差预测</td><td>识别高风险步骤与参数漂移，降低人为/过程失误</td><td>选定单元预警试用</td></tr>
-      <tr><td>黄金参数</td><td>沉淀高成功批次参数窗口，指导设定与监控</td><td>1 工艺黄金带上线</td></tr>
-      <tr><td>设备健康（可选）</td><td>继承 DH1 PdM，服务维护窗口与生产排程</td><td>与预测指导台联动</td></tr>
+      <tr><td rowspan="2"><strong>① 现场感知</strong></td><td>视频巡检</td><td>关键操作区持续辅助监测，补人工巡检盲区</td></tr>
+      <tr><td>电子点检</td><td>动态任务 + 拍照识别 + 趋势预警，降低漏检与无效点检</td></tr>
+      <tr><td rowspan="3"><strong>② 技转与复核</strong></td><td>放大建议</td><td>同类经验与机理约束结合，输出参数 / 设备 / 风险建议</td></tr>
+      <tr><td>工艺审查</td><td>生成风险矩阵与审查要点初稿，提升审查效率与一致性</td></tr>
+      <tr><td>AI 复核</td><td>对照 SOP / 历史偏差 / 相似批，提示遗漏与不一致</td></tr>
+      <tr><td rowspan="5"><strong>③ 预测指导</strong></td><td>AI 报告撰写</td><td>Campaign / MOR 等机械汇编由 AI 起草，工程师定稿</td></tr>
+      <tr><td>QC 结果预测</td><td>批中 / 批末预测 CQA，支撑提前干预与放行准备</td></tr>
+      <tr><td>失误 / 偏差预测</td><td>识别高风险步骤与参数漂移，降低过程失误</td></tr>
+      <tr><td>黄金参数</td><td>沉淀高成功批次参数窗口，指导设定与监控</td></tr>
+      <tr><td>设备健康（可选）</td><td>设备健康评估服务维护窗口与生产排程</td></tr>
     </tbody>
   </table>
-  <div class="callout"><strong>定位原则：</strong>AI 产出 = 建议 / 草稿 / 告警 / 复核提示；GMP 签字、放行、巡检责任仍在人。所有输出必须可追溯来源与模型版本。</div>
+  <div class="callout"><strong>定位：</strong>AI 输出为建议 / 草稿 / 告警 / 复核提示；签字、放行、巡检责任仍在人；输出可追溯来源与模型版本。</div>
 </section>
 
 <!-- ================= PART 02 ================= -->
 <section class="slide" id="s02">
   <h2 class="kicker">PART 02 · 整体思路</h2>
-  <h1>“底座先行 + 三线并行 + 子能力波次上线”</h1>
+  <h1>底座先行 · 三线并行 · 子能力波次上线</h1>
   <div class="flow">
-    <div class="box"><strong>0 号工程</strong><span>数据底座 / 主数据<br/>客户隔离 / AI 平台</span></div>
+    <div class="box"><strong>数据与平台底座</strong><span>主数据 / 客户隔离<br/>取数中间层 / AI 平台</span></div>
     <div class="arr">→</div>
-    <div class="box"><strong>① 感知闭环</strong><span>视频巡检 + 电子点检<br/>先可见、快闭环</span></div>
+    <div class="box"><strong>① 感知闭环</strong><span>视频巡检 + 电子点检<br/>可见、可告警、可处置</span></div>
     <div class="arr">→</div>
-    <div class="box"><strong>③ 指导闭环</strong><span>报告 / QC / 失误<br/>黄金参数进班组</span></div>
+    <div class="box"><strong>③ 指导闭环</strong><span>报告 / QC / 失误预测<br/>黄金参数进班组</span></div>
     <div class="arr">→</div>
-    <div class="box"><strong>② 知识闭环</strong><span>放大 / 审查 / 复核<br/>先结构化再 AI</span></div>
+    <div class="box"><strong>② 知识闭环</strong><span>放大 / 审查 / 复核<br/>先结构化再模型</span></div>
   </div>
-  <div class="grid-2" style="margin-top:16px;">
-    <div class="card">
-      <h3>为什么这样排</h3>
-      <ul class="bul tight">
-        <li><strong>①</strong>：CCTV/点检基础相对现成，组织风险大 → 软启动后做“看得见的闭环”。</li>
-        <li><strong>③</strong>：可快速产生工时节省（报告）与可量化风险收益（QC/失误/黄金参数）。</li>
-        <li><strong>②</strong>：价值最大但知识工程最重 → 长期 IP 资产建设，不能急着上模型。</li>
-      </ul>
-    </div>
-    <div class="card accent">
-      <h3>三条纪律</h3>
-      <ul class="bul tight">
-        <li>共用底座：批号/项目/设备/客户隔离一次建好。</li>
-        <li>场景收敛：每个子能力先做一个最小闭环，禁止一上来全覆盖。</li>
-        <li>人在环路：告警必确认；审查/复核必资深签字；预测建议必有采纳/拒绝记录。</li>
-      </ul>
-    </div>
+  <div class="card" style="margin-top:20px;">
+    <ul class="bul tight">
+      <li><strong>① 现场感知：</strong>现场系统基础相对齐备，优先形成可观察、可闭环的辅助能力。</li>
+      <li><strong>③ 预测指导：</strong>报告起草可快速释放工时；QC / 失误 / 黄金参数可形成可量化业务收益。</li>
+      <li><strong>② 技转复核：</strong>知识工程前置投入重，按长期能力资产建设，结构化到位后再上模型。</li>
+      <li><strong>共性约束：</strong>共用底座；子能力先做最小闭环；告警、审查、预测建议均保留人工确认。</li>
+    </ul>
   </div>
-  <table class="kly" style="margin-top:16px;">
-    <thead><tr><th>阶段</th><th>时间</th><th>核心任务</th><th>领导可见产出</th></tr></thead>
-    <tbody>
-      <tr><td><span class="pill info">奠基期</span></td><td>Y1 Q1–Q2</td><td>0 号工程；①软启动+PoC；③报告/QC 选点；②体系设计</td><td>数据盘点、PoC 演示、立项包</td></tr>
-      <tr><td><span class="pill mid">闭环期</span></td><td>Y1 Q3–Y2 Q2</td><td>子能力各自跑通“数据→模型→动作→复盘”</td><td>试点 KPI、流程改造、运营手册</td></tr>
-      <tr><td><span class="pill ok">扩展期</span></td><td>Y2 Q3–Y3</td><td>从试点扩展到主力范围；编制固化；降供应商依赖</td><td>复制清单、ROI 复盘、能力成熟度</td></tr>
-    </tbody>
-  </table>
 </section>
 
 <!-- ================= PART 03 ================= -->
 <section class="slide" id="s03">
-  <h2 class="kicker">PART 03 · 三条主线边界（做什么 / 不做什么）</h2>
-  <h1>先钉死范围，避免项目膨胀成“大而全”</h1>
+  <h2 class="kicker">PART 03 · 主线边界</h2>
+  <h1>避免项目膨胀成“大而全”</h1>
   <div class="grid-3">
     <div class="card navy">
       <div class="label">TRACK 01</div>
@@ -402,14 +374,14 @@
       </div>
     </div>
   </div>
-  <h3 style="margin:18px 0 8px;font-size:15.5px;">最小可验收闭环（MVP）</h3>
+  <h3 style="margin:18px 0 8px;font-size:15.5px;">最小可验收闭环</h3>
   <table class="kly">
     <thead><tr><th>子能力</th><th>输入</th><th>系统动作</th><th>人的动作</th><th>验收口径</th></tr></thead>
     <tbody>
       <tr><td><strong>视频巡检</strong></td><td>1 车间点位流 + 5 动作字典</td><td>违规/缺失告警</td><td>15 分钟内确认</td><td>误报≤10%；闭环率≥90%</td></tr>
       <tr><td><strong>电子点检</strong></td><td>设备点检项 + 历史 + 可选传感</td><td>动态任务 + 拍照识别</td><td>点检员执行/复核</td><td>漏检下降；异常识别可用</td></tr>
       <tr><td><strong>放大/审查/复核</strong></td><td>3 类反应历史包 + 设备能力库</td><td>建议+风险矩阵+复核清单</td><td>资深签字</td><td>≥20 项目入库；初稿可用≥60%</td></tr>
-      <tr><td><strong>AI 报告</strong></td><td>MES/LIMS/QMS/IP.21 字段</td><td>按模板生成草稿+引用</td><td>工程师定稿</td><td>工时节省≥40%；来源可点</td></tr>
+      <tr><td><strong>AI 报告</strong></td><td>EBR / LIMS / QMS / DCS 字段</td><td>按模板生成草稿+引用</td><td>工程师定稿</td><td>工时节省≥40%；来源可点</td></tr>
       <tr><td><strong>QC/失误/黄金参数</strong></td><td>工艺时序+质检+偏差标签</td><td>预测/预警/参数窗口</td><td>班组采纳回填</td><td>有解释；有采纳记录；无自动改设定</td></tr>
     </tbody>
   </table>
@@ -417,8 +389,8 @@
 
 <!-- ================= SCENE 01 ================= -->
 <section class="slide" id="sc1">
-  <h2 class="kicker">SCENE 01 · 主线① 应用场景与现场做法</h2>
-  <h1>视频巡检 + 电子点检：从“人走了就是盲区”到“感知—告警—处置”</h1>
+  <h2 class="kicker">SCENE 01 · 现场感知</h2>
+  <h1>视频巡检 + 电子点检</h1>
 
   <div class="grid-2">
     <div class="card accent">
@@ -438,7 +410,7 @@
       <ul class="bul tight">
         <li><strong>触发：</strong>每日/每班点检计划；或 DCS/振动异常升高时动态加检</li>
         <li><strong>系统动作：</strong>推送“今日必检清单 + 重点关注项”；点检员拍照/填数后 AI 识别渗漏、表计异常、外观缺陷；趋势异常自动升工单</li>
-        <li><strong>人的动作：</strong>按路径点检 → 确认 AI 提示 → 异常转 EAM 工单 → 维修回填</li>
+        <li><strong>人的动作：</strong>按路径点检 → 确认 AI 提示 → 异常转 CMMS 工单 → 维修回填</li>
         <li><strong>与视频协同：</strong>同一设备台账；点检异常可调阅相关摄像头时段；维护窗口可同步降低该区域误报阈值</li>
       </ul>
     </div>
@@ -457,13 +429,13 @@
     <div class="step-n">3</div>
     <div><div class="step-t">班后：复盘与沉淀</div><div class="step-d">统计漏检、误报、重复告警点位；更新动作字典/点检项；高频问题转培训或 SOP 修订建议。</div></div>
   </div>
-  <div class="callout"><strong>关键话术：</strong>系统是“辅助巡检员/点检员提高覆盖率”，不是监控个人绩效工具。权限最小化，短视频仅事件相关片段留存。</div>
+  <div class="callout">系统定位为辅助提升覆盖率，而非个人监控工具；权限最小化，短视频仅保留事件相关片段。</div>
 </section>
 
 <!-- ================= SCENE 02 ================= -->
 <section class="slide" id="sc2">
-  <h2 class="kicker">SCENE 02 · 主线② 应用场景与现场做法</h2>
-  <h1>放大建议 + 工艺审查 + AI 复核：让“老法师经验”变成可复用能力</h1>
+  <h2 class="kicker">SCENE 02 · 技转与复核</h2>
+  <h1>放大建议 · 工艺审查 · AI 复核</h1>
 
   <div class="grid-3">
     <div class="card">
@@ -519,10 +491,10 @@
       </ul>
     </div>
     <div class="card danger">
-      <h3>落地前置条件（做不到就别急着上 AI）</h3>
+      <h3>落地前置条件</h3>
       <ul class="bul tight">
         <li>反应类型 / 风险点 / 设备能力库 schema 先定</li>
-        <li>资深每周固定 4 小时知识贡献写进绩效</li>
+        <li>资深工艺专家固定参与知识沉淀与规则确认</li>
         <li>客户隔离：只学规律，不串具体参数</li>
         <li>机理约束（Aspen/经验放大判据）必须叠加，纯文本 RAG 不够</li>
       </ul>
@@ -532,8 +504,8 @@
 
 <!-- ================= SCENE 03 ================= -->
 <section class="slide" id="sc3">
-  <h2 class="kicker">SCENE 03 · 主线③ 应用场景与现场做法（上）</h2>
-  <h1>AI 报告撰写 + QC 结果预测：把“汇编”和“事后才知道”变成可提前动作</h1>
+  <h2 class="kicker">SCENE 03 · 预测与指导（上）</h2>
+  <h1>AI 报告撰写 · QC 结果预测</h1>
 
   <div class="grid-2">
     <div class="card accent">
@@ -541,7 +513,7 @@
       <p class="desc"><strong>使用者：</strong>工艺 / 生产技术 / QA。报告是对外交付与对内沉淀双重身份。</p>
       <ul class="bul tight">
         <li><strong>触发：</strong>Campaign 结束 / 月末 MOR 节点，一键“生成草稿”</li>
-        <li><strong>取数：</strong>MES·EBR 批摘要、LIMS 结果与趋势、QMS 偏差/变更、IP.21 关键参数窗口、SAP 产量交期（按报告类型）</li>
+        <li><strong>取数：</strong>EBR 批摘要、LIMS 结果与趋势、QMS 偏差/变更、DCS 关键参数窗口、SAP 产量交期（按报告类型）</li>
         <li><strong>AI 动作：</strong>按公司模板生成章节；每段附数据引用；异常段高亮并给候选表述</li>
         <li><strong>人的动作：</strong>工程师按章节审核 → 改写结论性段落 → 签字发布</li>
         <li><strong>推进顺序：</strong>先 Campaign → 再 MOR / 偏差总结 → APR 与客户定制报告后置</li>
@@ -574,8 +546,8 @@
 </section>
 
 <section class="slide" id="sc3b">
-  <h2 class="kicker">SCENE 03B · 主线③ 应用场景与现场做法（下）</h2>
-  <h1>失误预测 + 黄金参数：把经验窗口变成班组可执行的指导</h1>
+  <h2 class="kicker">SCENE 03B · 预测与指导（下）</h2>
+  <h1>失误预测 · 黄金参数</h1>
 
   <div class="grid-2">
     <div class="card">
@@ -614,96 +586,84 @@
     <div class="step-n">晚</div>
     <div><div class="step-t">复盘：命中率与窗口迭代</div><div class="step-d">统计预警命中、建议采纳效果；工艺周会决定是否更新黄金参数版本；报告草稿自动预生成待写章节。</div></div>
   </div>
-  <div class="callout"><strong>四件事必须一起做才叫“指导生产”：</strong>QC 预测看见质量风险 → 失误预测看见人为/过程风险 → 黄金参数给出怎么打 → 报告把结果沉淀为可审计知识。</div>
 </section>
 
 <!-- ================= PART 04 DATA ================= -->
 <section class="slide" id="s04">
-  <h2 class="kicker">PART 04 · 需要打通的数据底座</h2>
-  <h1>按子能力倒推取数，而不是先挖一个“大湖”</h1>
+  <h2 class="kicker">PART 04 · 数据底座</h2>
+  <h1>跨系统贯通 · 主数据对齐 · 客户隔离</h1>
   <div class="grid-4">
-    <div class="card success"><div class="num" style="font-size:20px;color:#166534;">B1</div><div class="label">系统取数层</div><div class="desc">CCTV · EAM点检 · IP.21/DCS · MES/EBR · LIMS · QMS · SAP · 文档库</div></div>
-    <div class="card success"><div class="num" style="font-size:20px;color:#166534;">B2</div><div class="label">主数据对齐</div><div class="desc">批号·项目·设备·物料·岗位·客户·点位·点检项</div></div>
-    <div class="card success"><div class="num" style="font-size:20px;color:#166534;">B3</div><div class="label">客户隔离</div><div class="desc">权限/脱敏/训练边界；视频本地；参数不串客户</div></div>
-    <div class="card success"><div class="num" style="font-size:20px;color:#166534;">B4</div><div class="label">AI 平台</div><div class="desc">特征库·模型注册·提示词/模板版本·审计日志</div></div>
+    <div class="card success"><div class="num" style="font-size:20px;color:#166534;">B1</div><div class="label">系统取数层</div><div class="desc">CCTV · CMMS 点检 · DCS · EBR · LIMS · QMS · SAP · 文档库</div></div>
+    <div class="card success"><div class="num" style="font-size:20px;color:#166534;">B2</div><div class="label">主数据对齐</div><div class="desc">批号 · 项目 · 设备 · 物料 · 岗位 · 客户 · 点位 · 点检项</div></div>
+    <div class="card success"><div class="num" style="font-size:20px;color:#166534;">B3</div><div class="label">客户隔离</div><div class="desc">权限 / 脱敏 / 训练边界；视频本地；参数不串客户</div></div>
+    <div class="card success"><div class="num" style="font-size:20px;color:#166534;">B4</div><div class="label">AI 平台</div><div class="desc">特征库 · 模型注册 · 模板版本 · 审计日志</div></div>
   </div>
   <table class="kly" style="margin-top:14px;">
     <thead>
       <tr><th>数据源</th><th>①巡检</th><th>①点检</th><th>②技转复核</th><th>③报告</th><th>③QC/失误/黄金</th><th>优先级</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>CCTV/NVR</strong></td><td><span class="pill ok">必须</span></td><td><span class="pill info">协同</span></td><td>—</td><td>—</td><td>—</td><td>P0</td></tr>
-      <tr><td><strong>EAM/点检 APP</strong></td><td><span class="pill info">工单</span></td><td><span class="pill ok">必须</span></td><td>—</td><td>—</td><td><span class="pill mid">设备</span></td><td>P0</td></tr>
-      <tr><td><strong>IP.21/DCS</strong></td><td>—</td><td><span class="pill mid">趋势</span></td><td><span class="pill mid">重要</span></td><td><span class="pill mid">重要</span></td><td><span class="pill ok">必须</span></td><td>P0</td></tr>
-      <tr><td><strong>MES/EBR</strong></td><td><span class="pill mid">步骤</span></td><td><span class="pill info">关联</span></td><td><span class="pill ok">必须</span></td><td><span class="pill ok">必须</span></td><td><span class="pill ok">必须</span></td><td>P0</td></tr>
-      <tr><td><strong>LIMS/QC</strong></td><td>—</td><td>—</td><td><span class="pill mid">重要</span></td><td><span class="pill ok">必须</span></td><td><span class="pill ok">必须</span></td><td>P0</td></tr>
-      <tr><td><strong>QMS 偏差/变更</strong></td><td><span class="pill mid">重要</span></td><td><span class="pill info">故障</span></td><td><span class="pill ok">必须</span></td><td><span class="pill ok">必须</span></td><td><span class="pill ok">必须</span></td><td>P0/P1</td></tr>
-      <tr><td><strong>技转/工艺文档</strong></td><td><span class="pill info">SOP动作</span></td><td><span class="pill info">点检SOP</span></td><td><span class="pill ok">必须</span></td><td><span class="pill mid">模板</span></td><td><span class="pill mid">规格</span></td><td>P0</td></tr>
-      <tr><td><strong>SAP/计划</strong></td><td>—</td><td><span class="pill info">备件</span></td><td><span class="pill info">可选</span></td><td><span class="pill mid">产量</span></td><td><span class="pill mid">排产</span></td><td>P2</td></tr>
+      <tr><td><strong>CCTV / NVR</strong></td><td><span class="pill ok">必须</span></td><td><span class="pill info">协同</span></td><td>—</td><td>—</td><td>—</td><td>P0</td></tr>
+      <tr><td><strong>CMMS / 点检 APP</strong></td><td><span class="pill info">工单</span></td><td><span class="pill ok">必须</span></td><td>—</td><td>—</td><td><span class="pill mid">设备</span></td><td>P0</td></tr>
+      <tr><td><strong>DCS / SCADA</strong></td><td>—</td><td><span class="pill mid">趋势</span></td><td><span class="pill mid">重要</span></td><td><span class="pill mid">重要</span></td><td><span class="pill ok">必须</span></td><td>P0</td></tr>
+      <tr><td><strong>EBR</strong></td><td><span class="pill mid">步骤</span></td><td><span class="pill info">关联</span></td><td><span class="pill ok">必须</span></td><td><span class="pill ok">必须</span></td><td><span class="pill ok">必须</span></td><td>P0</td></tr>
+      <tr><td><strong>LIMS / QC</strong></td><td>—</td><td>—</td><td><span class="pill mid">重要</span></td><td><span class="pill ok">必须</span></td><td><span class="pill ok">必须</span></td><td>P0</td></tr>
+      <tr><td><strong>QMS 偏差 / 变更</strong></td><td><span class="pill mid">重要</span></td><td><span class="pill info">故障</span></td><td><span class="pill ok">必须</span></td><td><span class="pill ok">必须</span></td><td><span class="pill ok">必须</span></td><td>P0/P1</td></tr>
+      <tr><td><strong>技转 / 工艺文档</strong></td><td><span class="pill info">SOP动作</span></td><td><span class="pill info">点检SOP</span></td><td><span class="pill ok">必须</span></td><td><span class="pill mid">模板</span></td><td><span class="pill mid">规格</span></td><td>P0</td></tr>
+      <tr><td><strong>SAP / 计划</strong></td><td>—</td><td><span class="pill info">备件</span></td><td><span class="pill info">可选</span></td><td><span class="pill mid">产量</span></td><td><span class="pill mid">排产</span></td><td>P2</td></tr>
     </tbody>
   </table>
-  <div class="grid-2" style="margin-top:14px;">
-    <div class="card">
-      <h3>必须先完成的治理项</h3>
-      <ul class="bul tight">
-        <li>批号/项目/设备/点位/点检项映射表</li>
-        <li>客户隔离与视频留存策略（QA+法务）</li>
-        <li>工艺事件时间 vs 质检时间对齐对齐规则</li>
-        <li>标签字典：动作类、点检异常类、反应类型、偏差类、CQA</li>
-        <li>AI 输入输出审计：谁看了、哪版模型、人如何裁定</li>
-      </ul>
-    </div>
-    <div class="card accent">
-      <h3>前 8 周只做“支撑试点”的底座</h3>
-      <ul class="bul tight">
-        <li>①：点位流 + 动作/点检标签即可开 PoC</li>
-        <li>②：选定 3 类反应历史包先结构化</li>
-        <li>③：选定 1 个 Campaign 项目字段 + 1 个 QC 预测单元</li>
-        <li>80% 高频字段先通，20% 允许人工补录并标记来源</li>
-      </ul>
-    </div>
+  <div class="card" style="margin-top:14px;">
+    <h3>治理要点</h3>
+    <ul class="bul tight">
+      <li>批号 / 项目 / 设备 / 点位 / 点检项映射表</li>
+      <li>客户隔离与视频留存策略（QA + 法务）</li>
+      <li>工艺事件时间与质检时间对齐规则</li>
+      <li>标签字典：动作类、点检异常类、反应类型、偏差类、CQA</li>
+      <li>AI 输入输出审计：访问、模型版本、人工裁定</li>
+    </ul>
   </div>
 </section>
 
 <!-- ================= PART 05 HW/SW detailed ================= -->
 <section class="slide" id="s05">
-  <h2 class="kicker">PART 05 · 软硬件基础（细节版 · 上）</h2>
-  <h1>按“感知层 → 边缘/接入层 → 平台层 → 应用层 → 集成层”建设</h1>
+  <h2 class="kicker">PART 05 · 软硬件基础（上）</h2>
+  <h1>感知层 → 边缘 / 接入层 → 平台层 → 应用层 → 集成层</h1>
 
   <div class="hw-layer">
     <div class="hd">L1 感知与现场硬件 <span>主线①为主，③部分复用</span></div>
     <div class="bd">
       <table class="kly">
-        <thead><tr><th style="width:16%;">组件</th><th style="width:34%;">建设内容（做到什么粒度）</th><th style="width:25%;">规格/要点</th><th>责任</th></tr></thead>
+        <thead><tr><th style="width:18%;">组件</th><th style="width:42%;">建设内容</th><th>规格 / 要点</th></tr></thead>
         <tbody>
-          <tr><td><strong>摄像头</strong></td><td>关键操作区覆盖评估；盲点补点；低清/强逆光点位升级；与点位主数据绑定（车间-房间-设备-用途）</td><td>优先利旧海康；关键点建议 ≥1080p、合适焦距；补光/防雾按洁净区要求</td><td>工程+IT</td></tr>
-          <tr><td><strong>边缘推理盒/服务器</strong></td><td>车间侧部署 GPU/NPU 节点；视频解码+模型推理+短视频截取；管理口与业务网隔离</td><td>按并发路数选型（如先 8–16 路）；本地存储事件片段；<strong>不上公有云</strong></td><td>IT</td></tr>
-          <tr><td><strong>点检终端</strong></td><td>工业手机/平板 + 扫码（设备位号）；离线缓存；拍照分辨率与水印（时间/设备/人员）</td><td>防爆/洁净区准入型号需提前清单化</td><td>设备+IT</td></tr>
-          <tr><td><strong>传感补齐</strong></td><td>关键动设备振动/电流/温度（服务点检动态加检与健康提示）</td><td>继承 DH1 评估口径；先关键机泵小集合</td><td>设备</td></tr>
-          <tr><td><strong>网络与存储</strong></td><td>视频 VLAN/专网；NTP 统一授时；事件短视频与点检图片对象存储；备份与生命周期策略</td><td>授时误差影响对齐；留存天数 QA/法务定</td><td>IT+QA</td></tr>
+          <tr><td><strong>摄像头</strong></td><td>关键操作区覆盖评估；盲点补点；低清 / 强逆光点位升级；点位主数据绑定（车间-房间-设备-用途）</td><td>优先利旧；关键点建议 ≥1080p；补光 / 防雾按洁净区要求</td></tr>
+          <tr><td><strong>边缘推理节点</strong></td><td>车间侧 GPU / NPU；视频解码 + 模型推理 + 短视频截取；管理口与业务网隔离</td><td>按并发路数选型；本地存储事件片段；不上公有云</td></tr>
+          <tr><td><strong>点检终端</strong></td><td>工业手机 / 平板 + 扫码（设备位号）；离线缓存；拍照水印（时间 / 设备 / 人员）</td><td>防爆 / 洁净区准入型号清单化</td></tr>
+          <tr><td><strong>传感补齐</strong></td><td>关键动设备振动 / 电流 / 温度，服务动态加检与健康提示</td><td>先关键机泵小集合</td></tr>
+          <tr><td><strong>网络与存储</strong></td><td>视频 VLAN / 专网；NTP 统一授时；事件短视频与点检图片对象存储；生命周期策略</td><td>授时影响对齐；留存天数由 QA / 法务确定</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
   <div class="hw-layer">
-    <div class="hd">L2 数据接入与中间层软件 <span>0 号工程核心</span></div>
+    <div class="hd">L2 数据接入与中间层 <span>底座核心</span></div>
     <div class="bd">
       <div class="grid-2">
         <div>
           <ul class="bul tight">
-            <li><strong>OT 采集：</strong>IP.21/DCS 标签清单、采样频率、坏值处理、单位统一</li>
-            <li><strong>IT 接口：</strong>MES/EBR、LIMS、QMS、EAM、SAP 的 API/DB/文件接口适配</li>
-            <li><strong>视频接入：</strong>RTSP/SDK → 边缘网关；点位与权限目录</li>
-            <li><strong>主数据服务：</strong>批号/设备/项目/客户/点检项 ID 映射与冲突检测</li>
+            <li><strong>OT 采集：</strong>DCS 标签清单、采样频率、坏值处理、单位统一</li>
+            <li><strong>IT 接口：</strong>EBR、LIMS、QMS、CMMS、SAP 的 API / DB / 文件适配</li>
+            <li><strong>视频接入：</strong>RTSP / SDK → 边缘网关；点位与权限目录</li>
+            <li><strong>主数据服务：</strong>批号 / 设备 / 项目 / 客户 / 点检项映射与冲突检测</li>
           </ul>
         </div>
         <div>
           <ul class="bul tight">
-            <li><strong>特征库：</strong>批级特征、步骤级特征、设备健康特征、文本切片索引</li>
-            <li><strong>质量监控：</strong>接口延迟、空值率、时间对齐失败率看板</li>
-            <li><strong>安全：</strong>账号体系对接 AD/SSO；客户租户隔离；脱敏规则引擎</li>
-            <li><strong>审计总线：</strong>所有 AI 请求/响应/人工裁定落库</li>
+            <li><strong>特征库：</strong>批级 / 步骤级 / 设备健康特征、文本切片索引</li>
+            <li><strong>质量监控：</strong>接口延迟、空值率、时间对齐失败率</li>
+            <li><strong>安全：</strong>SSO / 租户隔离 / 脱敏规则</li>
+            <li><strong>审计总线：</strong>AI 请求、响应、人工裁定落库</li>
           </ul>
         </div>
       </div>
@@ -712,8 +672,8 @@
 </section>
 
 <section class="slide" id="s05b">
-  <h2 class="kicker">PART 05B · 软硬件基础（细节版 · 下）</h2>
-  <h1>AI 平台与三线应用软件：能上线、能审计、能集成到现有工作台</h1>
+  <h2 class="kicker">PART 05B · 软硬件基础（下）</h2>
+  <h1>AI 平台 · 业务应用 · 系统集成</h1>
 
   <div class="hw-layer">
     <div class="hd">L3 AI 平台（三线共用）</div>
@@ -721,19 +681,19 @@
       <table class="kly">
         <thead><tr><th>模块</th><th>能力</th><th>服务对象</th></tr></thead>
         <tbody>
-          <tr><td><strong>CV 推理服务</strong></td><td>动作/穿戴/区域模型；误报样本回流训练；版本灰度</td><td>① 视频巡检</td></tr>
-          <tr><td><strong>视觉质检（点检）</strong></td><td>渗漏/表计/外观缺陷分类；与点检项编码绑定</td><td>① 电子点检</td></tr>
-          <tr><td><strong>LLM + RAG</strong></td><td>文档解析、切片、检索、模板生成、复核清单；引用回溯</td><td>② 技转/复核；③ 报告</td></tr>
-          <tr><td><strong>时序/多变量模型</strong></td><td>QC 预测、失误风险、黄金参数带、可选 PdM</td><td>③ 指导生产</td></tr>
-          <tr><td><strong>MLOps</strong></td><td>模型注册、指标监控、漂移告警、回滚；提示词/模板版本管理</td><td>全部</td></tr>
-          <tr><td><strong>算力</strong></td><td>训练/微调查中式 GPU；推理：视频边缘化，文本/时序可中心</td><td>全部</td></tr>
+          <tr><td><strong>CV 推理服务</strong></td><td>动作 / 穿戴 / 区域模型；误报回流；版本灰度</td><td>① 视频巡检</td></tr>
+          <tr><td><strong>点检视觉识别</strong></td><td>渗漏 / 表计 / 外观缺陷分类；与点检项编码绑定</td><td>① 电子点检</td></tr>
+          <tr><td><strong>LLM + RAG</strong></td><td>文档解析、检索、模板生成、复核清单；引用回溯</td><td>② 技转复核；③ 报告</td></tr>
+          <tr><td><strong>时序 / 多变量模型</strong></td><td>QC 预测、失误风险、黄金参数带、可选设备健康</td><td>③ 指导生产</td></tr>
+          <tr><td><strong>MLOps</strong></td><td>模型注册、指标监控、漂移告警、回滚；模板版本管理</td><td>全部</td></tr>
+          <tr><td><strong>算力</strong></td><td>训练集中式 GPU；视频推理边缘化；文本 / 时序可中心化</td><td>全部</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
   <div class="hw-layer">
-    <div class="hd">L4 业务应用软件（人对着干活的界面）</div>
+    <div class="hd">L4 业务应用软件</div>
     <div class="bd">
       <div class="grid-3">
         <div class="card">
@@ -753,17 +713,17 @@
             <li>放大建议工作区</li>
             <li>风险矩阵编辑</li>
             <li>AI 复核清单（勾选闭环）</li>
-            <li>资深/QA 电子签字流</li>
+            <li>资深 / QA 电子签字流</li>
           </ul>
         </div>
         <div class="card">
           <h3>③ 生产指导台</h3>
           <ul class="bul tight">
-            <li>报告生成器（Campaign/MOR）</li>
+            <li>报告生成器（Campaign / MOR）</li>
             <li>LIMS 内嵌 QC 预测卡</li>
             <li>步骤风险与防护建议</li>
             <li>黄金参数卡与偏离提示</li>
-            <li>班组采纳/拒绝回填</li>
+            <li>班组采纳 / 拒绝回填</li>
           </ul>
         </div>
       </div>
@@ -771,257 +731,20 @@
   </div>
 
   <div class="hw-layer">
-    <div class="hd">L5 与现有系统集成（没有集成就不算落地）</div>
+    <div class="hd">L5 与现有系统集成</div>
     <div class="bd">
       <table class="kly">
         <thead><tr><th>集成对象</th><th>集成内容</th><th>验收样子</th></tr></thead>
         <tbody>
-          <tr><td>EAM/CMMS</td><td>点检异常/视频关联设备 → 自动或半自动工单</td><td>工单带设备号、照片、建议优先级</td></tr>
-          <tr><td>巡检 SOP/培训</td><td>高频违规动作 → 培训任务</td><td>培训记录可回溯到告警类型</td></tr>
-          <tr><td>LIMS/批监控</td><td>嵌入 QC 预测与黄金参数</td><td>QC/工艺在原系统可见，不另开孤岛</td></tr>
+          <tr><td>CMMS</td><td>点检异常 / 视频关联设备 → 半自动工单</td><td>工单带设备号、照片、建议优先级</td></tr>
+          <tr><td>巡检 SOP / 培训</td><td>高频违规动作 → 培训任务</td><td>培训记录可回溯到告警类型</td></tr>
+          <tr><td>LIMS / 批监控</td><td>嵌入 QC 预测与黄金参数</td><td>在原工作台可见，不另建孤岛</td></tr>
           <tr><td>QMS</td><td>报告引用偏差；复核提示未关闭项</td><td>引用 ID 可跳转</td></tr>
-          <tr><td>文档/电子签名</td><td>技转包、报告、复核清单受控发布</td><td>版本+签名+审计齐全</td></tr>
+          <tr><td>文档 / 电子签名</td><td>技转包、报告、复核清单受控发布</td><td>版本 + 签名 + 审计齐全</td></tr>
         </tbody>
       </table>
     </div>
   </div>
-  <div class="callout"><strong>技术路线务实约束：</strong>① PoC 优先兼容现有 CCTV 生态；② 核心知识库与复核规则归属凯莱英 IP；③ 预测输出建议卡，禁止直连改 DCS 设定；④ 全链路可审计。</div>
-</section>
-
-<!-- ================= PART 06 PEOPLE ================= -->
-<section class="slide" id="s06">
-  <h2 class="kicker">PART 06 · 专业人员、知识与配合资源</h2>
-  <h1>核心小队常驻 + 业务专家兼职承诺 + 外部能力按阶段采购</h1>
-  <table class="kly">
-    <thead><tr><th>角色</th><th>编制</th><th>关键职责（相对 V1.0 增补）</th><th>投入</th></tr></thead>
-    <tbody>
-      <tr><td><strong>Sponsor / PMO</strong></td><td>1+1</td><td>三线门禁、范围控制、跨部门裁决</td><td>决策会 / 全职</td></tr>
-      <tr><td><strong>数据产品经理</strong></td><td>1</td><td>字段优先级、标签字典、就绪度看板</td><td>全职</td></tr>
-      <tr><td><strong>IT 集成</strong></td><td>2–3</td><td>OT/IT/视频/点检接口、权限、部署</td><td>全职</td></tr>
-      <tr><td><strong>AI 工程</strong></td><td>2–4</td><td>CV、点检视觉、RAG/复核、时序预测、MLOps</td><td>全职/核心外包</td></tr>
-      <tr><td><strong>QA/合规/法务</strong></td><td>兼</td><td>辅助边界、视频留存、客户合同、报告审计</td><td>门禁强参与</td></tr>
-      <tr><td><strong>HR/工会</strong></td><td>兼</td><td>① 软启动沟通与接受度</td><td>前 6 周高强度</td></tr>
-      <tr><td><strong>工艺/技转资深</strong></td><td>3–5 兼</td><td>放大知识、审查规则、复核标准、黄金参数认定</td><td>每周≥4h 绩效化</td></tr>
-      <tr><td><strong>生产/巡检/点检 Owner</strong></td><td>各 1</td><td>动作字典、点检项、班组回填纪律</td><td>试点绑定</td></tr>
-      <tr><td><strong>QC Owner</strong></td><td>1 兼</td><td>CQA 定义、预测对照、LIMS 嵌入验收</td><td>③ 全程</td></tr>
-      <tr><td><strong>报告 Owner</strong></td><td>1 兼</td><td>Campaign/MOR 模板、定稿标准</td><td>③ 全程</td></tr>
-      <tr><td><strong>文档结构化专员</strong></td><td>1–2</td><td>历史项目入库与质检</td><td>12 个月专项</td></tr>
-    </tbody>
-  </table>
-  <div class="grid-2" style="margin-top:14px;">
-    <div class="card">
-      <h3>配合与非金钱资源（必须向上要）</h3>
-      <ul class="bul tight">
-        <li>试点车间/动力站授权与点位施工窗口</li>
-        <li>资深排期与知识贡献激励</li>
-        <li>流程改造权：告警进巡检、预测进班前会、复核进受控流</li>
-        <li>客户沟通统一口径窗口</li>
-        <li>90 天门禁：该停则停、该扩则扩</li>
-      </ul>
-    </div>
-    <div class="card accent">
-      <h3>RACI 摘要（易扯皮点）</h3>
-      <ul class="bul tight">
-        <li>0 号底座：IT=R，Sponsor=A，业务=C</li>
-        <li>① 软启动：HR/法务=R，Sponsor=A</li>
-        <li>② 知识结构化：工艺技转=R，IT=C</li>
-        <li>② AI 复核规则：QA+工艺=A/C，IT=R（实现）</li>
-        <li>③ 报告/QC/黄金参数：业务 Owner=A，IT/AI=R</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- ================= PART 08 NODES ================= -->
-<section class="slide" id="s08">
-  <h2 class="kicker">PART 08 · 重点节点与门禁</h2>
-  <h1>子能力波次上线：每道门有产出物和停/扩标准</h1>
-  <div class="gantt-months">
-    <div>M1</div><div>M2</div><div>M3</div><div>M4</div><div>M5</div><div>M6</div>
-    <div>M7</div><div>M8</div><div>M9</div><div>M10</div><div>M11</div><div>M12</div>
-  </div>
-  <div class="gantt">
-    <div class="gantt-row"><div class="gantt-label">0 号底座</div><div class="gantt-track"><div class="gantt-bar" style="left:0%;width:50%;background:#10b981;">接入+主数据+隔离</div></div></div>
-    <div class="gantt-row"><div class="gantt-label">① 视频巡检</div><div class="gantt-track">
-      <div class="gantt-bar" style="left:0%;width:12%;background:#f59e0b;">软启动</div>
-      <div class="gantt-bar" style="left:12%;width:30%;background:#ff7e3d;">PoC</div>
-      <div class="gantt-bar" style="left:42%;width:33%;background:#ea580c;">Pilot</div>
-    </div></div>
-    <div class="gantt-row"><div class="gantt-label">① 电子点检</div><div class="gantt-track">
-      <div class="gantt-bar" style="left:16%;width:34%;background:#fb923c;">动态任务+拍照AI</div>
-      <div class="gantt-bar" style="left:50%;width:42%;background:#c2410c;">多车间复制</div>
-    </div></div>
-    <div class="gantt-row"><div class="gantt-label">③ 报告撰写</div><div class="gantt-track">
-      <div class="gantt-bar" style="left:16%;width:25%;background:#38bdf8;">Campaign PoC</div>
-      <div class="gantt-bar" style="left:41%;width:34%;background:#0284c7;">+MOR</div>
-    </div></div>
-    <div class="gantt-row"><div class="gantt-label">③ QC/失误/黄金</div><div class="gantt-track">
-      <div class="gantt-bar" style="left:25%;width:33%;background:#0ea5e9;">MVP</div>
-      <div class="gantt-bar" style="left:58%;width:42%;background:#075985;">班组闭环</div>
-    </div></div>
-    <div class="gantt-row"><div class="gantt-label">② 放大/审查/复核</div><div class="gantt-track">
-      <div class="gantt-bar" style="left:0%;width:25%;background:#a78bfa;">体系</div>
-      <div class="gantt-bar" style="left:25%;width:50%;background:#7c3aed;">结构化</div>
-      <div class="gantt-bar" style="left:58%;width:42%;background:#5b21b6;">工作台+复核</div>
-    </div></div>
-  </div>
-
-  <table class="kly" style="margin-top:14px;">
-    <thead><tr><th>门禁</th><th>时间</th><th>必须完成</th><th>通过标准</th></tr></thead>
-    <tbody>
-      <tr><td><strong>G0</strong></td><td>启动周</td><td>子能力地图确认；PMO；试点提名</td><td>范围签字，不平行铺开无关大项</td></tr>
-      <tr><td><strong>G1</strong></td><td>M1 末</td><td>数据盘点；①软启动结论；点检/视频点位清单</td><td>允许①进 PoC；P0 路径清晰</td></tr>
-      <tr><td><strong>G2</strong></td><td>M3</td><td>底座最小可用；② schema；③ 报告与预测选点冻结</td><td>Join 跑通；选点不摇摆</td></tr>
-      <tr><td><strong>G3</strong></td><td>M5–M6</td><td>①视频 PoC；①点检试点；③ Campaign 草稿；②入库≥20</td><td>误报/可用率达阈值；草稿带来源</td></tr>
-      <tr><td><strong>G4</strong></td><td>M8–M9</td><td>①流程改造；③ QC 预测卡+黄金参数试用；②审查/复核台</td><td>班组有采纳记录；复核清单进受控流</td></tr>
-      <tr><td><strong>G5</strong></td><td>M12</td><td>Y1 复盘；Y2 复制清单；编制建议</td><td>每子能力有量化证据</td></tr>
-      <tr><td><strong>G6–G7</strong></td><td>Y2–Y3</td><td>多车间/多项目扩展；AI 复核与黄金参数常态化；降依赖</td><td>可脱离供应商运维迭代</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<section class="slide" id="s08b">
-  <h2 class="kicker">PART 08B · 分主线派工动作包</h2>
-  <h1>把节点拆到可派工的动作级</h1>
-  <div class="grid-3">
-    <div class="card">
-      <h3>① 巡检 + 点检</h3>
-      <ul class="bul tight">
-        <li>W1–4：HR/工会/员工代表沟通；QA 法务定留存</li>
-        <li>冻结 1 车间 5 动作 + 1 点检区域设备清单</li>
-        <li>点位勘察：视野/光照/补点预算</li>
-        <li>边缘节点上架；点检 APP 对接 EAM</li>
-        <li>告警 15 分钟 SLA；误报周复盘</li>
-        <li>动态点检规则：按健康度/季节加检</li>
-        <li>Pilot：巡检路线改造 + 培训闭环</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>② 放大 / 审查 / 复核</h3>
-      <ul class="bul tight">
-        <li>M1–3：分类法与设备能力 schema</li>
-        <li>锁定 3 类反应 + 5 种反应器</li>
-        <li>资深每周 4h；结构化专员到位</li>
-        <li>每月入库 5–10 项目</li>
-        <li>放大建议与风险矩阵工作台</li>
-        <li>配置 AI 复核规则库（规格/SOP/偏差）</li>
-        <li>新项目：建议→审查→复核→签字试点</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>③ 报告 / QC / 失误 / 黄金</h3>
-      <ul class="bul tight">
-        <li>冻结 1 个 Campaign 模板与字段字典</li>
-        <li>打通 MES/LIMS/QMS/IP.21 取数</li>
-        <li>Campaign 草稿 PoC（带来源）</li>
-        <li>选 1 项目 3 个 CQA 做回测</li>
-        <li>定义失误标签与步骤风险特征</li>
-        <li>构建黄金参数 V1 并班前会试用</li>
-        <li>采纳/拒绝回填纪律；每 4 周复盘</li>
-        <li>再扩 MOR；APR 后置</li>
-      </ul>
-    </div>
-  </div>
-  <div class="callout"><strong>口诀：</strong>先闭环、后精度；先单点、后复制；先辅助、后自动化。任何“自动改设定 / 替代检测或签字”都不在本阶段。</div>
-</section>
-
-<!-- ================= PART 09 ================= -->
-<section class="slide" id="s09">
-  <h2 class="kicker">PART 09 · 治理与风险</h2>
-  <h1>用门禁和 KPI 保证 2–3 年不断档</h1>
-  <div class="grid-2">
-    <div class="card">
-      <h3>治理节奏</h3>
-      <ul class="bul tight">
-        <li>周会：就绪度、误报、采纳、阻塞</li>
-        <li>双周：模型/接口/安全评审</li>
-        <li>月度 Sponsor：资源与范围裁决</li>
-        <li>季度门禁：停 / 扩 / 转向</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>少而硬的 KPI</h3>
-      <ul class="bul tight">
-        <li>① 误报率、闭环时长、点检漏检率、接受度</li>
-        <li>② 入库数、建议采用率、复核问题命中率、资深工时兑现</li>
-        <li>③ 报告工时节省、QC 预测可用率、预警命中、黄金参数采纳</li>
-        <li>底座：P0 接口可用率、审计抽查通过率</li>
-      </ul>
-    </div>
-  </div>
-  <table class="kly" style="margin-top:12px;">
-    <thead><tr><th>风险</th><th>表现</th><th>控制</th></tr></thead>
-    <tbody>
-      <tr><td>员工接受度（巡检）</td><td>抵制或不配合确认</td><td>软启动；辅助定位；权限最小化</td></tr>
-      <tr><td>点检形式化</td><td>只扫码拍照应付</td><td>动态任务+识别抽检+与工单联动</td></tr>
-      <tr><td>资深不投入（技转）</td><td>复核规则空心</td><td>绩效绑定；署名激励；不替代签字</td></tr>
-      <tr><td>报告幻觉/无来源</td><td>不可审计</td><td>强制引用；禁无依据结论段自动定稿</td></tr>
-      <tr><td>QC 预测被误读为放行</td><td>合规风险</td><td>界面明确“预测≠放行”；实测为准</td></tr>
-      <tr><td>黄金参数越权改设定</td><td>变更失控</td><td>只建议；改设定走变更/权限</td></tr>
-      <tr><td>客户保密</td><td>串数据/视频泄密</td><td>隔离、边缘本地、合同附件</td></tr>
-      <tr><td>场景膨胀</td><td>两年无闭环</td><td>MVP 门禁；未达标不扩展</td></tr>
-    </tbody>
-  </table>
-</section>
-
-<!-- ================= PART 10 ================= -->
-<section class="slide" id="s10">
-  <h2 class="kicker">PART 10 · 近 90 天启动清单</h2>
-  <h1>从方案进入派工：未来 12 周只做这些</h1>
-  <div class="check-grid">
-    <div class="check-item"><div class="n">1</div><div><div class="t">确认子能力地图</div><div class="d">①含电子点检；②含放大/审查/AI复核；③含报告/QC/失误/黄金参数。</div></div>
-    <div class="check-item"><div class="n">2</div><div><div class="t">成立联合小队</div><div class="d">PMO、数据产品、IT、AI；三线业务 Owner（含 QC/报告/点检）。</div></div>
-    <div class="check-item"><div class="n">3</div><div><div class="t">冻结试点对象</div><div class="d">1 巡检车间+5 动作；1 点检区域；3 类反应；1 个 Campaign 项目；1 个 QC/黄金参数单元。</div></div>
-    <div class="check-item"><div class="n">4</div><div><div class="t">0 号数据盘点</div><div class="d">CCTV/EAM/IP.21/MES/LIMS/QMS 接口现状与历史深度。</div></div>
-    <div class="check-item"><div class="n">5</div><div><div class="t">① 软启动 + 点位勘察</div><div class="d">沟通结论；边缘与补点预算粗估；点检终端型号清单。</div></div>
-    <div class="check-item"><div class="n">6</div><div><div class="t">② 体系工作坊</div><div class="d">schema + 复核规则初稿；资深 4h 承诺签字。</div></div>
-    <div class="check-item"><div class="n">7</div><div><div class="t">③ 模板与标签</div><div class="d">Campaign 字段字典；CQA/失误标签；黄金参数候选批集。</div></div>
-    <div class="check-item"><div class="n">8</div><div><div class="t">形成立项包</div><div class="d">范围、三档预算、RACI、G0–G3、软硬件 BOM 初稿，提请决策。</div></div>
-  </div>
-  <div class="grid-3" style="margin-top:16px;">
-    <div class="card accent"><div class="num" style="font-size:20px;">30 天</div><div class="label">产出</div><div class="desc">子能力确认、试点冻结、盘点初稿、软启动纪要、schema/模板草案、软硬件清单 V0。</div></div>
-    <div class="card accent"><div class="num" style="font-size:20px;">60 天</div><div class="label">产出</div><div class="desc">P0 通路演示；①环境就绪；点检 APP 联调；Campaign 取数样例；QC 回测笔记本。</div></div>
-    <div class="card accent"><div class="num" style="font-size:20px;">90 天</div><div class="label">产出</div><div class="desc">①首轮误报数据；点检动态任务试用；Campaign 草稿样张；黄金参数 V0；立项预算确认。</div></div>
-  </div>
-</section>
-
-<!-- ================= APPENDIX ================= -->
-<section class="slide" id="appendix">
-  <h2 class="kicker">APPENDIX · 提请确认</h2>
-  <h1>请领导确认的 7 件事</h1>
-  <div class="grid-2">
-    <div class="card accent">
-      <h3>1. 主线范围</h3>
-      <p class="desc">① = 视频巡检 + 电子点检；② = 放大建议 + 工艺审查 + AI 复核；③ = AI 报告（Campaign/MOR 等）+ QC 预测 + 失误预测 + 黄金参数。是否按此收敛？</p>
-    </div>
-    <div class="card accent">
-      <h3>2. 0 号工程</h3>
-      <p class="desc">数据底座（取数、主数据、隔离、AI 平台）是否独立立项，IT 主责？</p>
-    </div>
-    <div class="card accent">
-      <h3>3. 试点冻结授权</h3>
-      <p class="desc">是否授权 2 周内冻结：1 巡检车间、1 点检区域、3 类反应、1 个 Campaign 项目、1 个 QC/黄金参数单元？</p>
-    </div>
-    <div class="card accent">
-      <h3>4. 人员承诺</h3>
-      <p class="desc">核心小队编制 + 资深每周 4 小时知识/复核规则贡献是否写入绩效？</p>
-    </div>
-    <div class="card accent">
-      <h3>5. 对外口径</h3>
-      <p class="desc">统一“AI 辅助”；不替代巡检/点检/QC 检测/签字放行。是否确认？</p>
-    </div>
-    <div class="card accent">
-      <h3>6. 门禁机制</h3>
-      <p class="desc">按 G0–G7 停扩；未达标不追加扩展预算。是否确认？</p>
-    </div>
-    <div class="card accent" style="grid-column: span 2;">
-      <h3>7. 软硬件原则</h3>
-      <p class="desc">视频边缘本地处理不上公有云；核心知识库与复核规则归属凯莱英；预测/黄金参数只出建议卡，不直连改 DCS。是否作为建设硬约束？</p>
-    </div>
-  </div>
-  <p class="footnote" style="margin-top:18px;">
-    V1.1 在 V1.0 基础上扩展子能力与场景做法，并细化软硬件分层（L1–L5）。具体供应商选型、精确预算与车间名单在 G1 盘点与现场勘察后固化。
-  </p>
 </section>
 
 </main>
