@@ -398,14 +398,14 @@
       <p class="desc"><strong>典型现场：</strong>称量间 / 投料区 / 洁净走廊更衣节点 / 废弃物暂存口等关键操作区。</p>
       <ul class="bul tight">
         <li><strong>触发：</strong>摄像头持续取流，边缘 AI 按动作字典实时推理</li>
-        <li><strong>识别对象（PoC 先做简单项）：</strong>未按规定穿戴、禁入区域闯入、关键步骤长时间缺失、通道堵塞等</li>
+        <li><strong>识别对象：</strong>未按规定穿戴、禁入区域闯入、关键步骤长时间缺失、通道堵塞等</li>
         <li><strong>系统动作：</strong>弹告警 + 截取 10–30 秒短视频存证 + 生成巡检待办</li>
         <li><strong>人的动作：</strong>巡检员确认真/误报 → 现场纠正或开偏差 → 培训部回收高频误操作做复训</li>
         <li><strong>日清：</strong>班组长看“告警闭环率 / 误报 Top”；QA 抽查存证与处置记录</li>
       </ul>
     </div>
     <div class="card accent">
-      <h3>场景 B · 设备电子点检（含 AI 层）</h3>
+      <h3>场景 B · 设备电子点检</h3>
       <p class="desc"><strong>典型现场：</strong>动力站泵/风机/冷机；生产反应器附属设备；公用工程关键机泵。</p>
       <ul class="bul tight">
         <li><strong>触发：</strong>每日/每班点检计划；或 DCS/振动异常升高时动态加检</li>
@@ -416,7 +416,7 @@
     </div>
   </div>
 
-  <h3 style="margin:16px 0 8px;font-size:15.5px;">现场一天怎么跑（做法）</h3>
+  <h3 style="margin:16px 0 8px;font-size:15.5px;">班组运行机制</h3>
   <div class="scene-step">
     <div class="step-n">1</div>
     <div><div class="step-t">班前：任务与风险预置</div><div class="step-d">点检 APP 下发动态任务；巡检看板显示昨夜未闭环告警；班组长分配责任人。</div></div>
@@ -467,7 +467,7 @@
     </div>
   </div>
 
-  <h3 style="margin:16px 0 8px;font-size:15.5px;">标准作业流（做法）</h3>
+  <h3 style="margin:16px 0 8px;font-size:15.5px;">标准作业流</h3>
   <div class="flow">
     <div class="box"><strong>1. 收包</strong><span>项目文档入库<br/>结构化校验</span></div>
     <div class="arr">→</div>
@@ -481,7 +481,7 @@
   </div>
   <div class="grid-2" style="margin-top:14px;">
     <div class="card success">
-      <h3>AI 复核“查什么”（清单示例）</h3>
+      <h3>AI 复核清单</h3>
       <ul class="bul tight">
         <li>关键参数是否落在历史成功黄金带 / 注册规格内</li>
         <li>步骤顺序、取样点、IPC 是否与现行 SOP 一致</li>
@@ -520,7 +520,7 @@
       </ul>
     </div>
     <div class="card accent">
-      <h3>场景 G · QC 结果预测（非替代检测）</h3>
+      <h3>场景 G · QC 结果预测</h3>
       <p class="desc"><strong>使用者：</strong>QC / 工艺 / 生产。目标是提前看见风险，不是取消实验室。</p>
       <ul class="bul tight">
         <li><strong>触发：</strong>批进行到设定里程碑（如关键步骤完成 / 批末）</li>
@@ -532,7 +532,7 @@
     </div>
   </div>
 
-  <h3 style="margin:16px 0 8px;font-size:15.5px;">Campaign 草稿生成做法（逐步）</h3>
+  <h3 style="margin:16px 0 8px;font-size:15.5px;">Campaign 草稿生成流程</h3>
   <table class="kly">
     <thead><tr><th>步骤</th><th>系统</th><th>工程师</th><th>质量要求</th></tr></thead>
     <tbody>
@@ -573,7 +573,7 @@
     </div>
   </div>
 
-  <h3 style="margin:16px 0 8px;font-size:15.5px;">班组侧一日闭环（做法）</h3>
+  <h3 style="margin:16px 0 8px;font-size:15.5px;">班组一日闭环</h3>
   <div class="scene-step">
     <div class="step-n">早</div>
     <div><div class="step-t">班前会：风险 + 黄金参数</div><div class="step-d">播报本班高风险步骤、设备健康提示、本批黄金参数卡；确认双人复核点。</div></div>
