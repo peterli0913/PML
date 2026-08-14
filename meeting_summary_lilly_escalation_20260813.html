@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lilly 升级沟通会 · 会议纪要与客户诉求分析（2026-08-13）</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "HarmonyOS Sans SC", "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
+    color: #0f1f3d; background: #f3f5fa;
+    -webkit-font-smoothing: antialiased; line-height: 1.65;
+  }
+  .topbar {
+    position: sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 10px 28px; background: rgba(15,31,61,.96); color: #fff;
+    backdrop-filter: blur(8px); box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar .brand { font-weight:700; letter-spacing:.5px; font-size:14px;}
+  .topbar .brand .badge {
+    display:inline-block; padding:2px 8px; margin-left:8px;
+    background:#ff7e3d; color:#fff; border-radius:4px; font-size:11px; font-weight:600;
+  }
+  .topbar nav a {
+    color:#cdd6e8; font-size:11.5px; text-decoration:none;
+    margin: 0 4px; padding:5px 6px; border-radius:6px;
+  }
+  .topbar nav a:hover { background:#1d2f55; color:#fff; }
+  .topbar .modeswitch {
+    font-size:12px; cursor:pointer; padding:6px 12px;
+    border:1px solid #3b507e; color:#cdd6e8; border-radius:6px; background:transparent;
+  }
+  .topbar .modeswitch:hover { background:#1d2f55; }
+
+  main { max-width: 1240px; margin: 0 auto; padding: 0 24px 80px; }
+  section.slide {
+    background:#fff; border-radius: 14px; padding: 42px 50px 46px;
+    margin: 26px 0; box-shadow: 0 6px 24px rgba(15,31,61,.07);
+    position: relative; min-height: 520px;
+  }
+  section.slide.cover {
+    background: linear-gradient(135deg, #0f1f3d 0%, #1f3870 55%, #2a4d9c 100%); color:#fff;
+  }
+  section.slide h2.kicker {
+    color:#ff7e3d; font-size: 12.5px; font-weight:700; letter-spacing: 3px;
+    margin: 0 0 6px; text-transform: uppercase;
+  }
+  section.slide h1 {
+    font-size: 25px; margin: 0 0 14px; font-weight:700;
+    border-left: 5px solid #ff7e3d; padding-left: 14px; line-height: 1.28;
+  }
+  section.slide.cover h1 { border:none; padding:0; font-size: 36px; line-height: 1.22;}
+  section.slide.cover .subtitle { font-size:16px; opacity:.9; margin-top:16px; max-width: 900px;}
+  section.slide.cover .meta { margin-top: 34px; font-size:13px; opacity:.8; }
+  section.slide.cover .meta div { margin: 4px 0;}
+  section.slide .lead { font-size: 15px; color:#3a4d72; margin: 0 0 18px; max-width: 1000px;}
+
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 18px;}
+  .grid-3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;}
+  .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px;}
+
+  .card { background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px; padding: 16px 18px; }
+  .card.accent { background: #fff7f1; border-color:#ffd8be;}
+  .card.danger { background: #fef2f2; border-color:#fecaca;}
+  .card.success { background: #f0fdf4; border-color:#bbf7d0;}
+  .card.warn { background:#fffbeb; border-color:#fde68a;}
+  .card.navy { background: linear-gradient(160deg,#0f1f3d,#1f3870); color:#fff; border:none;}
+  .card h3 { margin:0 0 8px; font-size:15.5px; }
+  .card.navy h3 { color:#fff; }
+  .card .num { font-size: 26px; font-weight:800; color:#0f1f3d; line-height: 1.1;}
+  .card.accent .num, .card.navy .num { color:#ff7e3d; }
+  .card .label { font-size:12.5px; color:#5b6a8a; margin-top:4px;}
+  .card.navy .label { color:#9aabd6; }
+  .card .desc { font-size:13px; color:#3a4d72; margin-top:8px; line-height:1.6;}
+  .card.navy .desc { color:#cdd6e8; }
+
+  table.kly { width:100%; border-collapse: collapse; font-size: 13px; }
+  table.kly th, table.kly td {
+    padding: 9px 11px; text-align:left;
+    border-bottom: 1px solid #e6ebf5; vertical-align: top;
+  }
+  table.kly thead th {
+    background:#0f1f3d; color:#fff; font-weight:600; font-size:12px; letter-spacing:.3px;
+  }
+  table.kly tbody tr:nth-child(even) { background:#f7f9fc; }
+  table.kly td.en { font-size:12.5px; color:#3a4d72; }
+
+  .pill { display:inline-block; padding:2px 8px; border-radius:99px; font-size:11px; font-weight:600;}
+  .pill.ok    { background:#dcfce7; color:#166534; }
+  .pill.mid   { background:#fef9c3; color:#854d0e; }
+  .pill.warn  { background:#fee2e2; color:#991b1b; }
+  .pill.info  { background:#dbeafe; color:#1e3a8a; }
+  .pill.red   { background:#dc2626; color:#fff; }
+  .pill.amber { background:#f59e0b; color:#fff; }
+
+  ul.bul { padding-left: 0; list-style:none; margin: 6px 0;}
+  ul.bul li { padding: 5px 0 5px 22px; position:relative; font-size:13.5px;}
+  ul.bul li:before {
+    content:""; position:absolute; left:4px; top:13px; width:7px; height:7px;
+    background:#ff7e3d; border-radius:2px; transform:rotate(45deg);
+  }
+  ul.bul.tight li { padding: 3px 0 3px 22px; font-size:13px; }
+  ul.bul.tight li:before { top:11px; }
+
+  .quote {
+    margin: 10px 0; padding: 12px 16px; background:#f8fafc;
+    border-left: 3px solid #94a3b8; border-radius: 0 8px 8px 0;
+    font-size:13px; color:#334155; font-style: italic;
+  }
+  .quote .zh { display:block; font-style:normal; color:#0f1f3d; margin-top:6px; font-size:13px;}
+
+  .callout {
+    margin-top: 14px; padding: 12px 14px; border-left: 4px solid #ff7e3d;
+    background:#fff7f1; border-radius: 0 10px 10px 0; font-size:13.5px; color:#3a4d72;
+  }
+  .callout.red { border-left-color:#dc2626; background:#fef2f2; }
+
+  .judge { display:grid; grid-template-columns: 96px 1fr; gap:10px; margin-bottom:10px;}
+  .judge .k {
+    background:#0f1f3d; color:#fff; border-radius:8px; font-size:12px; font-weight:700;
+    display:flex; align-items:center; justify-content:center; padding:6px;
+  }
+  .judge .k.b { background:#475569; }
+  .judge .k.c { background:#b45309; }
+  .judge .v { font-size:13.5px; color:#3a4d72; }
+
+  .verify { color:#b45309; font-weight:600; font-size:12px; }
+
+  .footnote { font-size: 11.5px; color:#7a89a8; margin-top: 12px; line-height: 1.55;}
+
+  body.deck main { padding: 0; max-width: none;}
+  body.deck section.slide {
+    margin: 0; min-height: 100vh; border-radius: 0; display: none; padding: 46px 62px;
+  }
+  body.deck section.slide.active { display:block; }
+  body.deck .deck-nav { display:flex !important;}
+  .deck-nav {
+    display:none; position: fixed; bottom: 18px; right: 18px; z-index: 60;
+    background: rgba(15,31,61,.92); padding: 6px 10px; border-radius: 999px;
+    color:#fff; font-size: 12.5px; gap: 8px; align-items:center;
+  }
+  .deck-nav button {
+    background: transparent; border: none; color:#fff; cursor:pointer;
+    padding: 4px 10px; border-radius: 6px; font-weight: 600;
+  }
+  .deck-nav button:hover { background: rgba(255,255,255,.1);}
+  .deck-nav .pages { font-variant-numeric: tabular-nums; opacity: .8;}
+
+  @media (max-width: 980px){
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr;}
+    section.slide { padding: 26px 20px;}
+    .topbar nav { display:none;}
+    .judge { grid-template-columns: 1fr;}
+  }
+  @media print {
+    .topbar, .deck-nav { display:none !important;}
+    section.slide { box-shadow:none; page-break-after: always; margin: 0; border-radius: 0;}
+    body { background:#fff;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    凯莱英 · 客户会议纪要
+    <span class="badge">Lilly 升级沟通会 · 2026-08-13</span>
+  </div>
+  <nav>
+    <a href="#cover">封面</a>
+    <a href="#s01">会议概况</a>
+    <a href="#s02">评分卡</a>
+    <a href="#s03">问题清单</a>
+    <a href="#s04">客户诉求</a>
+    <a href="#s05">我方回应</a>
+    <a href="#s06">态度分析</a>
+    <a href="#s07">意图判断</a>
+    <a href="#s08">风险</a>
+    <a href="#s09">应对建议</a>
+    <a href="#s10">待核实</a>
+  </nav>
+  <button class="modeswitch" onclick="toggleDeck()">幻灯模式</button>
+</header>
+
+<main>
+
+<!-- ================= COVER ================= -->
+<section class="slide cover" id="cover">
+  <h2 class="kicker" style="color:#ff9b6b;">MEETING MINUTES &amp; CLIENT INTENT ANALYSIS</h2>
+  <h1>Lilly 多项目升级沟通会<br/>会议纪要与客户诉求 / 态度分析</h1>
+  <div class="subtitle">
+    客户由 API External Manufacturing 与 Small Molecule Design &amp; Development 两条线联合发起，
+    以评分卡形式集中反馈近期多起升级事项，并要求我方就<strong style="color:#fff;">根本原因</strong>提交书面回应后再联合评审。
+  </div>
+  <div class="grid-4" style="margin-top:34px;">
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;">
+      <div style="font-size:11.5px;color:#9aabd6;">会议性质</div>
+      <div style="font-size:15px;font-weight:700;margin-top:4px;">客户主动升级</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;">
+      <div style="font-size:11.5px;color:#9aabd6;">评分结果</div>
+      <div style="font-size:15px;font-weight:700;margin-top:4px;">2 红 2 黄</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;">
+      <div style="font-size:11.5px;color:#9aabd6;">核心要求</div>
+      <div style="font-size:15px;font-weight:700;margin-top:4px;">书面根因分析</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;">
+      <div style="font-size:11.5px;color:#9aabd6;">下次沟通</div>
+      <div style="font-size:15px;font-weight:700;margin-top:4px;">本周三线上评审</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PART 01 ================= -->
+<section class="slide" id="s01">
+  <h2 class="kicker">PART 01 · 会议概况</h2>
+  <h1>由客户高层临时召集的跨组织升级会，非例行 IPT 会议</h1>
+
+  <table class="kly">
+    <tbody>
+      <tr><td style="width:16%;"><strong>时间</strong></td><td>2026 年 8 月 13 日（会议时长约 52 分钟；线上会议）</td></tr>
+      <tr><td><strong>形式</strong></td><td>Microsoft Teams 线上会议，会议名 “Asymchem/Lilly”，参会人数 23 人；客户方共享评分卡幻灯片</td></tr>
+      <tr><td><strong>客户参会组织</strong></td><td>
+        <strong>APIEM</strong>（API External Manufacturing，外部制造 / 商业化侧）<br/>
+        <strong>SMDD</strong>（Small Molecule Design &amp; Development，小分子研发侧）<br/>
+        另有客户方 ACM 条线领导层主持开场与收口
+      </td></tr>
+      <tr><td><strong>我方参会</strong></td><td>项目 / 技术转移 / 生产 / 质量 / BD 相关人员及领导层（会中由项目负责人与领导分别回应）</td></tr>
+      <tr><td><strong>会议语言</strong></td><td>正式议题全程英文；中文部分为我方会前会后内部讨论与领导总结</td></tr>
+      <tr><td><strong>涉及项目</strong></td><td><strong>GG917</strong>（含 GG-917 RS 批次）、<strong>LAARA</strong>；两者均处 PPQ 前关键窗口</td></tr>
+      <tr><td><strong>会议定性</strong></td><td>客户明确表示是因为“制造与开发两条线同时出现多起升级事项”而<strong>紧急召集</strong>，目的是把问题一次性摊开并要求共同回到正轨</td></tr>
+    </tbody>
+  </table>
+
+  <div class="quote">
+    “there are multiple escalations that have been happening across both manufacturing and development programs … I want to make sure we can get together and look at what’s occurring and how can we work together to improve in the right direction.”
+    <span class="zh">客户开场即定调：这是跨制造与开发两条线的多起升级事项汇总，目的是共同纠偏，而非单点追责。</span>
+  </div>
+
+  <div class="callout">
+    <strong>会议结构：</strong>客户按评分卡四个维度依次陈述（Safety → Quality/Medicine → Reliable Supply of Medicine → Foundation People/Relationship），
+    每个维度先给正面事实、再列问题，最后由领导收口提出书面回应与复盘要求。
+  </div>
+</section>
+
+<!-- ================= PART 02 ================= -->
+<section class="slide" id="s02">
+  <h2 class="kicker">PART 02 · 客户评分卡</h2>
+  <h1>四个维度中，质量与稳定供应两项判为红色</h1>
+  <p class="lead">以下为客户共享幻灯片（API External Manufacturing，Company Confidential）原文要点，按 APIEM / SMDD 两侧分列。</p>
+
+  <table class="kly">
+    <thead>
+      <tr>
+        <th style="width:13%;">维度</th>
+        <th style="width:37%;">APIEM 侧反馈</th>
+        <th style="width:37%;">SMDD 侧反馈</th>
+        <th style="width:8%;">评级</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Safety</strong><br/>安全</td>
+        <td class="en">
+          · Charge practice on the floor – dust exposure and response<br/>
+          · Materials management flow created both safety and quality risks, addressed through CAPAs<br/>
+          · HAZOP completion in progress for PV, not full scale batch
+        </td>
+        <td class="en">—</td>
+        <td><span class="pill amber">黄</span></td>
+      </tr>
+      <tr>
+        <td><strong>Quality /<br/>Medicine</strong><br/>质量</td>
+        <td class="en">
+          · Major data integrity deviation<br/>
+          · 24+ OOAs during method validation execution<br/>
+          · Root cause investigation insufficient<br/>
+          · Late / insufficient MOR and PAR deliverables driving significant Lilly rework — feedback not translated across similar documents<br/>
+          · Heightened PPQ oversight, onsite QC support and Sr. Leadership escalation
+        </td>
+        <td class="en">
+          · Significant recycle and repeat of analysis of information from DIR due to inaccuracies<br/>
+          · Improve turnaround time with investigations and share MS and UV results in a timely manner (screenshots with appropriate annotations)
+        </td>
+        <td><span class="pill red">红</span></td>
+      </tr>
+      <tr>
+        <td><strong>Reliable Supply<br/>of Medicine</strong><br/>稳定供应</td>
+        <td class="en">
+          · Successful completion of full scale non-saleable batches<br/>
+          · GG917 Purification Demo delayed ~1 month: Cat 3/4 piping non-compliance in Grade C/D areas<br/>
+          · GG917 / LAARA method transfer delays; high risk to LAARA (21 Aug–4 Sep) and GG917 (25 Aug) PPQ starts<br/>
+          · LAARA tech transfer issues: RRT 1.26 impurity and particulate ingress, up to 14% Step 2 yield loss (11 kg)<br/>
+          · Workload compression（“hockey stick”）ahead of PPQ limits accurate planning<br/>
+          · Reactive equipment changes (pre-chill tank, resin filter resizing, agitation mod) squeeze documentation timelines
+        </td>
+        <td class="en">
+          · Some PAR studies not executed as they were planned by SMDD (e.g. fragment builds)<br/>
+          · Errors and inaccurate information in technical reports<br/>
+          · Need to share more details of analytical work on development methods (sample prep, method conditions, etc.)<br/>
+          · Successful production of 5 RS batches for GG-917, highly efficient turnaround on method validation<br/>
+          · Slower than normal delivery / completion of RS campaign deliverables (stability protocol and packaging)
+        </td>
+        <td><span class="pill red">红</span></td>
+      </tr>
+      <tr>
+        <td><strong>Foundation<br/>People /<br/>Relationship</strong><br/>关系基础</td>
+        <td class="en">
+          · Site hosted multiple Lilly visits successfully with open communication<br/>
+          · PIP relationship — maintain appropriate channels of communication<br/>
+          · Enhanced governance via ad-hoc joint working sessions and unplanned on-site support
+        </td>
+        <td class="en">
+          · Technical concerns have not been promptly flagged and shared with development teams<br/>
+          · Slides need to be shared a day before JPT meetings, lots of last-minute drop-ins that should be highlighted<br/>
+          · Responsiveness on technical feedback has slowed in several areas (e.g. purification)
+        </td>
+        <td><span class="pill amber">黄</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="footnote">
+    评级色块按客户幻灯片右侧 Ranking 列取色判定；APIEM 与 SMDD 分列反映客户内部两个组织各自打分。
+    部分英文表述为幻灯片原文转录，个别缩写（PIP / DIR / PAR / RS）沿用客户用法。
+  </p>
+</section>
+
+<!-- ================= PART 03 ================= -->
+<section class="slide" id="s03">
+  <h2 class="kicker">PART 03 · 问题归类</h2>
+  <h1>表面是多起独立事件，客户认定是四类系统性问题</h1>
+
+  <div class="grid-2">
+    <div class="card danger">
+      <h3>① 根因分析不到位（客户第一关切）</h3>
+      <ul class="bul tight">
+        <li>调查深度不足，同类问题反复出现</li>
+        <li>反馈未横向推广到相似文件与流程</li>
+        <li>客户反复强调“不是加人能解决的”</li>
+        <li>Major data integrity deviation 与 24+ OOA 被并列提出，指向体系而非偶发</li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <h3>② 技术问题未及时上报</h3>
+      <ul class="bul tight">
+        <li>GG917 粗品杂质水平升高未提前告知客户</li>
+        <li>客户表示我方在被问到后“略过”了该问题</li>
+        <li>关键数据临会前才提供，客户无时间评审</li>
+        <li>方法细节（取样制备、方法条件）披露不足</li>
+      </ul>
+    </div>
+    <div class="card warn">
+      <h3>③ 计划与执行的可预测性</h3>
+      <ul class="bul tight">
+        <li>PPQ 前工作量集中（“hockey stick”），计划失准</li>
+        <li>被动式设备变更挤压文件时间</li>
+        <li>GG917 纯化 Demo 因洁净区管路合规问题延约 1 个月</li>
+        <li>方法转移延迟，直接威胁两个 PPQ 启动窗口</li>
+      </ul>
+    </div>
+    <div class="card warn">
+      <h3>④ 协作机制与响应速度</h3>
+      <ul class="bul tight">
+        <li>JPT 会议材料未提前一天提供</li>
+        <li>PPQ 准备期整体响应变慢</li>
+        <li>调查结论与 MS / UV 数据回传不及时</li>
+        <li>部分 PAR 研究未按 SMDD 计划执行</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout red">
+    <strong>关键定性：</strong>客户把①②归为“体系与文化”问题，把③④归为“执行与治理”问题。
+    对我方而言，①②比③④更难辩解，也是决定客户信心的关键。
+  </div>
+</section>
+
+<!-- ================= PART 04 ================= -->
+<section class="slide" id="s04">
+  <h2 class="kicker">PART 04 · 客户明确诉求</h2>
+  <h1>要的是书面根因 + 联合评审，而不是承诺和加人</h1>
+
+  <table class="kly">
+    <thead><tr><th style="width:6%;">#</th><th style="width:28%;">客户要求</th><th style="width:34%;">原话依据</th><th>对我方含义</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><strong>逐项书面回应评分卡，并给出已识别的根本原因</strong></td>
+        <td class="en">“Respond to each of these components … the identified underlying cause … if you wanna respond in writing, that would be great.”</td>
+        <td>需按四维度逐条对应，不能笼统答复</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>书面回应后与客户线上联合评审</strong></td>
+        <td class="en">“come together and review it with you online so we can … have a healthy discussion … further on Wednesday.”</td>
+        <td>本周三需具备可讨论的材料</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>用根因替代堆人</strong></td>
+        <td class="en">“it’s not just throwing the number of people at the problem to solve it.”</td>
+        <td>报“已增加人力”不构成有效答复</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><strong>建立可持续的作业严谨性</strong></td>
+        <td class="en">“my biggest concern … is that we don’t have a sustainable practice.” / “Rigor.”</td>
+        <td>需给出机制性措施，不是一次性补救</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><strong>Right first time：不得以速度牺牲质量</strong></td>
+        <td class="en">“we can’t be so fast that we miss things … right first time.”</td>
+        <td>进度承诺须与质量口径一致</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><strong>问题即时上报，不必等有答案</strong></td>
+        <td class="en">“we don’t need all the answers to be determined before you share the information … we just want to know.”</td>
+        <td>降低上报门槛，先报事实</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><strong>提高信息透明度与提前量</strong></td>
+        <td class="en">“Slides need to be shared a day before JPT meetings … a little more transparency there would be helpful.”</td>
+        <td>会议材料与数据须提前一天</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td><strong>自我诊断而非等客户派人</strong></td>
+        <td class="en">“help us diagnose and understand what is the thing you need help with … rather than us continuing to send a stream of people.”</td>
+        <td>需主动提出需要客户支持的具体点</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>时间口径：</strong>客户开场即表示不要求当场答复（“I do not expect Asymchem to come with response immediately”），
+    但收口时明确落到<strong>本周三</strong>做进一步讨论。即“给缓冲，但不给拖延”。
+  </div>
+</section>
+
+<!-- ================= PART 05 ================= -->
+<section class="slide" id="s05">
+  <h2 class="kicker">PART 05 · 我方现场回应</h2>
+  <h1>承认问题、承诺资源与提前沟通，但尚未给出根因</h1>
+
+  <div class="grid-2">
+    <div class="card success">
+      <h3>已表达到位的部分</h3>
+      <ul class="bul tight">
+        <li>明确表示已知悉问题，会前几日已内部开会并已采取行动</li>
+        <li>确认两个项目为最高优先级，理解其对客户供应链的重要性</li>
+        <li>就前期执行造成的延误与困扰致歉</li>
+        <li>领导层承诺后续时间节点</li>
+        <li>项目负责人承诺逐项推进、闭环</li>
+        <li>承诺通过团队负责人与主管尽早向客户传递产品 / 技术信息</li>
+        <li>承诺与 BD 团队保持沟通，主动披露问题与风险</li>
+        <li>提出以面对面 / 视频方式继续沟通</li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <h3>本次未能满足客户期待的部分</h3>
+      <ul class="bul tight">
+        <li><strong>未给出任何一条具体根本原因</strong>，回应集中在态度与资源</li>
+        <li>对“为什么多起问题同时发生”这一问题未作解释</li>
+        <li>未说明反馈横向推广机制（同类文件为何未同步修正）</li>
+        <li>未针对 GG917 杂质未上报事件作事实澄清</li>
+        <li>未提出需要客户配合的具体事项</li>
+        <li>英文表达不够聚焦，部分回应客户需要复述确认</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="quote">
+    “Is any of this a surprise to you? Or is the Asymchem team feeling this on a day-to-day basis, and you’re working through this already?”
+    <span class="zh">客户直接测试我方管理层是否已掌握现场真实情况；并补充“如果这些对团队是意外，我会有些失望”。这是本次会议对我方管理有效性的最直接质询。</span>
+  </div>
+
+  <div class="callout">
+    <strong>会后内部共识（中文段落）：</strong>领导判断本次会议实质是客户把近期意见“统一打包传递给我方高层”；
+    并已布置：重新梳理合同口径、明确生产与工艺 / 开发的责任边界、落实资源但避免单纯堆人、由技术负责人先与客户对口拉齐。
+  </div>
+</section>
+
+<!-- ================= PART 06 ================= -->
+<section class="slide" id="s06">
+  <h2 class="kicker">PART 06 · 客户语气与态度分析</h2>
+  <h1>专业、克制、协作导向，但底线已明确划出</h1>
+
+  <div class="grid-3">
+    <div class="card">
+      <h3>语气特征</h3>
+      <ul class="bul tight">
+        <li>先给正面事实再提问题，标准评分卡口吻</li>
+        <li>不点名、不指责个人，聚焦体系</li>
+        <li>反复使用 “work together / partnership”</li>
+        <li>无威胁性措辞，但用“信心”“失望”表达压力</li>
+        <li>要求书面化、可评审、可追溯</li>
+      </ul>
+    </div>
+    <div class="card warn">
+      <h3>压力信号（升级迹象）</h3>
+      <ul class="bul tight">
+        <li>由高层<strong>临时召集</strong>，非例行会议</li>
+        <li>两个组织<strong>同时</strong>提交负面评分</li>
+        <li>已启动 Sr. Leadership escalation 与加强 PPQ 监管</li>
+        <li>已派驻现场 QC 支持与非计划性到场支持</li>
+        <li>要求书面根因 + 联合评审，明确时间点</li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <h3>最重的一句话</h3>
+      <div class="desc">
+        客户表示：这两个项目对其当前极为关键；在根本原因被理解并纠偏之前，
+        会影响其<strong>后续把新项目 / 新订单交给我方的信心</strong>（至少从开发侧角度）。
+      </div>
+      <div class="desc" style="margin-top:8px;">
+        这是本次会议唯一带商业后果的表述，应作为向上汇报的核心结论。
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:18px 0 8px;font-size:15.5px;">态度定位</h3>
+  <table class="kly">
+    <thead><tr><th style="width:18%;">维度</th><th style="width:26%;">判断</th><th>依据</th></tr></thead>
+    <tbody>
+      <tr><td>合作意愿</td><td><span class="pill ok">仍然明确愿意合作</span></td><td>多次强调共同解决、愿意提供支持、希望“partnership can grow”</td></tr>
+      <tr><td>对我方能力</td><td><span class="pill mid">质疑执行严谨性</span></td><td>“sustainable practice”“rigor”“right first time”均指向体系而非能力上限</td></tr>
+      <tr><td>对我方透明度</td><td><span class="pill warn">明显不满</span></td><td>杂质未提前告知、临会数据、方法细节不足、响应变慢</td></tr>
+      <tr><td>对我方管理层</td><td><span class="pill mid">在验证是否知情</span></td><td>直接询问“这些对你们是意外吗”，并预设“若是意外会失望”</td></tr>
+      <tr><td>商业倾向</td><td><span class="pill warn">附条件观察期</span></td><td>后续项目投放信心与本次根因结论挂钩</td></tr>
+      <tr><td>升级路径</td><td><span class="pill info">仍在双方内部</span></td><td>未提及合同、审计、质量协议追责或第三方介入</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ================= PART 07 ================= -->
+<section class="slide" id="s07">
+  <h2 class="kicker">PART 07 · 客户真实意图判断</h2>
+  <h1>三层意图：保交付、要机制、评估未来是否加大投放</h1>
+
+  <div class="judge">
+    <div class="k">我的判断</div>
+    <div class="v">
+      客户本次的首要目的<strong>不是追责，而是保住两个 PPQ 窗口</strong>；第二目的是逼出机制性改进以降低其自身返工与监管风险；
+      第三层才是评估我方是否值得继续承接其新项目。会议由高层召集、两条线同时发声、要求书面根因，都是为达成第二目的服务的施压手段。
+      同时，客户内部 APIEM 与 SMDD 之间事前协同并不充分，本次会议也带有“客户内部意见统一后一次性对外传达”的性质。
+    </div>
+  </div>
+  <div class="judge">
+    <div class="k b">我的依据</div>
+    <div class="v">
+      ① 客户全程未提合同、质量协议追责或更换供应商；<br/>
+      ② 反复强调根因、可持续性、共同诊断，且明确拒绝“加人”式答复；<br/>
+      ③ 明确把“后续项目投放信心”与根因结论绑定，说明商业决策尚未作出；<br/>
+      ④ 每个维度都先给正面事实（全规模非销售批成功、GG-917 五个 RS 批次、现场接待良好），说明整体关系未破裂；<br/>
+      ⑤ 我方领导会后即观察到客户两条线“各讲各的、最后统一给我们”，与评分卡 APIEM / SMDD 分列结构一致。
+    </div>
+  </div>
+  <div class="judge">
+    <div class="k c">我的不确定性</div>
+    <div class="v">
+      ① 客户是否已在内部启动供应商风险评级调整，会上无信息；<br/>
+      ② “影响未来项目投放信心”是个人表态还是已成组织口径，无法判断；<br/>
+      ③ 录音转写在英文段落存在识别误差，个别措辞的强弱程度需以客户书面材料为准；<br/>
+      ④ 9 月中旬客户来访是否与本次升级直接挂钩，会中未明确，需向 BD / 项目组确认。
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>可利用的有利信号：</strong>客户主动说“不需要等你们有答案才告知”，并愿意共同定位问题——
+    这实际上给了我方一个低成本重建信任的入口：<strong>先把已知事实和不确定项如实摊开</strong>，比拿出完美方案更符合客户当下期待。
+  </div>
+</section>
+
+<!-- ================= PART 08 ================= -->
+<section class="slide" id="s08">
+  <h2 class="kicker">PART 08 · 风险判断</h2>
+  <h1>近期风险在 PPQ 窗口，中期风险在新项目投放</h1>
+
+  <table class="kly">
+    <thead><tr><th style="width:18%;">风险</th><th style="width:12%;">时间窗</th><th style="width:12%;">严重度</th><th>说明与关联事项</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>LAARA / GG917 PPQ 启动延期</strong></td>
+        <td>8 月下旬</td>
+        <td><span class="pill warn">高</span></td>
+        <td>客户已判定为 high risk；方法转移延迟与设备变更是直接原因</td>
+      </tr>
+      <tr>
+        <td><strong>洁净区管路合规</strong></td>
+        <td>即时</td>
+        <td><span class="pill warn">高</span></td>
+        <td>Cat 3/4 管路在 C/D 级区不合规已致纯化 Demo 延约 1 个月；内部反映管路多为定制、现货紧张、部分需借料，仍在按“从后道工序往前”优先级评估</td>
+      </tr>
+      <tr>
+        <td><strong>数据完整性偏差后续</strong></td>
+        <td>持续</td>
+        <td><span class="pill warn">高</span></td>
+        <td>已触发客户加强 PPQ 监管与高层升级，后续可能延伸到审计关注</td>
+      </tr>
+      <tr>
+        <td><strong>客户返工成本累积</strong></td>
+        <td>持续</td>
+        <td><span class="pill mid">中</span></td>
+        <td>MOR / PAR 交付晚且质量不足造成客户显著返工，是关系恶化的主要来源</td>
+      </tr>
+      <tr>
+        <td><strong>新项目投放放缓</strong></td>
+        <td>3–6 个月</td>
+        <td><span class="pill mid">中高</span></td>
+        <td>客户已将其与根因结论挂钩，属可逆但需实绩证明</td>
+      </tr>
+      <tr>
+        <td><strong>人力与项目管理承载</strong></td>
+        <td>持续</td>
+        <td><span class="pill mid">中</span></td>
+        <td>内部讨论反映工艺与项目管理岗位缺口、人员被抽调，与“计划失准 / 响应变慢”直接相关</td>
+      </tr>
+      <tr>
+        <td><strong>9 月中旬客户来访</strong></td>
+        <td>9 月中</td>
+        <td><span class="pill mid">中</span></td>
+        <td>内部已视为硬节点；若管路与 PPQ 准备未到位，将放大负面印象</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ================= PART 09 ================= -->
+<section class="slide" id="s09">
+  <h2 class="kicker">PART 09 · 应对建议</h2>
+  <h1>本周三之前必须交出“可被评审的根因材料”</h1>
+
+  <div class="grid-2">
+    <div class="card accent">
+      <h3>一、书面回应的写法（决定成败）</h3>
+      <ul class="bul tight">
+        <li>严格<strong>按客户评分卡逐条对应</strong>，一条不漏、编号一致</li>
+        <li>每条给：事实经过 → 直接原因 → 根本原因 → 已采取措施 → 机制性措施 → 责任人 → 时间点</li>
+        <li>把多起事件<strong>归并为 3–4 个共性根因</strong>并明确说出（如计划编制方式、跨文件反馈闭环缺失、上报门槛过高、变更控制被动）</li>
+        <li>不能出现“已增加人员投入”作为主要措施</li>
+        <li>对确实尚未查清的项，标注“调查中 + 预计完成时间”，不含糊</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h3>二、必须立刻做的动作（不等书面）</h3>
+      <ul class="bul tight">
+        <li>GG917 杂质事件<strong>单独出一页事实时间线</strong>，说明当时为何未上报</li>
+        <li>建立<strong>技术问题即时通报规则</strong>：发现即报，不等结论，指定双方对口人</li>
+        <li>JPT 会议材料<strong>提前 24 小时</strong>发送，形成硬性纪律</li>
+        <li>管路合规按“最紧急工序优先”排序，锁定可交付日期后主动告知客户</li>
+        <li>把“反馈横向推广”落成动作：同类文件清单 + 复核责任人</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:16px;">
+    <div class="card">
+      <h3>三、会议策略</h3>
+      <ul class="bul tight">
+        <li>周三会由<strong>我方主讲根因</strong>，不做逐条辩解</li>
+        <li>开场先明确回答“这些对我们不是意外”，并给出我方自查发现的额外问题——主动暴露可显著加分</li>
+        <li>提出需要客户配合的 2–3 项具体事项（如方法细节交接口径、变更评估前置时间），回应其“help us diagnose”的要求</li>
+        <li>英文材料先行、口头简洁；关键结论用书面固定，避免现场语言损耗</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>四、内部支撑</h3>
+      <ul class="bul tight">
+        <li>明确生产 / 工艺 / 分析 / QA 的责任边界与升级路径</li>
+        <li>补齐工艺与项目管理人员缺口，避免抽调造成响应下滑</li>
+        <li>重新梳理合同与质量协议中关于交付与变更的约定口径</li>
+        <li>把 PPQ 前工作量前移，消除“hockey stick”式集中</li>
+        <li>为 9 月中旬客户来访预设整改证据包</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout red">
+    <strong>最需要避免的三件事：</strong>只承诺不给根因；用增加人力作为答复主体；把问题解释为客户理解偏差。
+    这三者都会直接命中客户已表达的反感点。
+  </div>
+</section>
+
+<!-- ================= PART 10 ================= -->
+<section class="slide" id="s10">
+  <h2 class="kicker">PART 10 · 待核实事项</h2>
+  <h1>本纪要基于录音转写与客户幻灯片整理，以下需与参会人确认</h1>
+
+  <table class="kly">
+    <thead><tr><th style="width:8%;">#</th><th style="width:34%;">待核实项</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>下次会议确切时间与出席范围</td><td>转写中出现“Wednesday”与“next week”两种表述，需以客户会议邀请为准 <span class="verify">需核实</span></td></tr>
+      <tr><td>2</td><td>书面回应的提交形式与截止时间</td><td>客户表示“respond in writing”后线上共同评审，未见明确格式要求 <span class="verify">需核实</span></td></tr>
+      <tr><td>3</td><td>“影响未来项目投放信心”的原话与层级</td><td>英文转写不完整，建议由参会人回忆或向客户求证书面版本 <span class="verify">需核实</span></td></tr>
+      <tr><td>4</td><td>两个 PPQ 启动日期的当前口径</td><td>幻灯片为 LAARA 8 月 21 日–9 月 4 日、GG917 8 月 25 日；需与我方最新排程比对是否已变更 <span class="verify">需核实</span></td></tr>
+      <tr><td>5</td><td>客户参会人名单与职务</td><td>屏幕可见 Steven Thomas Ewing、Steven Benner，其余需从会议邀请获取 <span class="verify">需核实</span></td></tr>
+      <tr><td>6</td><td>SMDD / APIEM 组织全称与对口人</td><td>影响后续对口沟通渠道设置 <span class="verify">需核实</span></td></tr>
+      <tr><td>7</td><td>9 月中旬客户来访性质</td><td>内部讨论提及，会中未明确是否为本次升级的跟进访问 <span class="verify">需核实</span></td></tr>
+      <tr><td>8</td><td>数据完整性偏差的调查状态</td><td>需确认是否已关闭、是否已向客户提交调查报告 <span class="verify">需核实</span></td></tr>
+    </tbody>
+  </table>
+
+  <p class="footnote">
+    资料来源：2026-08-13 会议录音（约 52 分钟）及其文字转写；客户共享幻灯片照片（API External Manufacturing，Company Confidential）。
+    英文段落为客户陈述原文转录，转写存在识别误差，关键措辞以客户书面材料为准；中文段落为我方内部讨论与领导总结，已剔除与议题无关内容。
+  </p>
+</section>
+
+</main>
+
+<div class="deck-nav">
+  <button onclick="prevSlide()">上一页</button>
+  <span class="pages"><span id="pageNo">1</span> / <span id="pageTotal">1</span></span>
+  <button onclick="nextSlide()">下一页</button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('section.slide'));
+  let idx = 0;
+  function show(i){
+    if (!document.body.classList.contains('deck')) return;
+    idx = (i + slides.length) % slides.length;
+    slides.forEach((s,n)=> s.classList.toggle('active', n===idx));
+    document.getElementById('pageNo').textContent = idx+1;
+    document.getElementById('pageTotal').textContent = slides.length;
+  }
+  function nextSlide(){ show(idx+1); }
+  function prevSlide(){ show(idx-1); }
+  function toggleDeck(){
+    document.body.classList.toggle('deck');
+    if (document.body.classList.contains('deck')) show(idx);
+  }
+  document.addEventListener('keydown', (e)=>{
+    if (!document.body.classList.contains('deck')) return;
+    if (e.key==='ArrowRight' || e.key==='PageDown') nextSlide();
+    if (e.key==='ArrowLeft' || e.key==='PageUp') prevSlide();
+    if (e.key==='Escape'){ document.body.classList.remove('deck'); }
+  });
+  document.getElementById('pageTotal').textContent = slides.length;
+</script>
+</body>
+</html>
