@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>凯莱英 · AI 辅助生产牵头推进计划</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "HarmonyOS Sans SC", "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
+    color: #0f1f3d; background: #f3f5fa;
+    -webkit-font-smoothing: antialiased; line-height: 1.65;
+  }
+  .topbar {
+    position: sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 10px 28px; background: rgba(15,31,61,.96); color: #fff;
+    backdrop-filter: blur(8px); box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar .brand { font-weight:700; letter-spacing:.5px; font-size:14px;}
+  .topbar .brand .badge {
+    display:inline-block; padding:2px 8px; margin-left:8px;
+    background:#ff7e3d; color:#fff; border-radius:4px; font-size:11px; font-weight:600;
+  }
+  .topbar nav a {
+    color:#cdd6e8; font-size:11.5px; text-decoration:none;
+    margin: 0 4px; padding:5px 6px; border-radius:6px;
+  }
+  .topbar nav a:hover { background:#1d2f55; color:#fff; }
+  .topbar .modeswitch {
+    font-size:12px; cursor:pointer; padding:6px 12px;
+    border:1px solid #3b507e; color:#cdd6e8; border-radius:6px; background:transparent;
+  }
+  .topbar .modeswitch:hover { background:#1d2f55; }
+
+  main { max-width: 1260px; margin: 0 auto; padding: 0 24px 80px; }
+  section.slide {
+    background:#fff; border-radius: 14px; padding: 42px 50px 46px;
+    margin: 26px 0; box-shadow: 0 6px 24px rgba(15,31,61,.07);
+    position: relative; min-height: 520px;
+  }
+  section.slide.cover {
+    background: linear-gradient(135deg, #0f1f3d 0%, #1f3870 55%, #2a4d9c 100%); color:#fff;
+  }
+  section.slide h2.kicker {
+    color:#ff7e3d; font-size: 12.5px; font-weight:700; letter-spacing: 3px;
+    margin: 0 0 6px; text-transform: uppercase;
+  }
+  section.slide h1 {
+    font-size: 25px; margin: 0 0 14px; font-weight:700;
+    border-left: 5px solid #ff7e3d; padding-left: 14px; line-height: 1.28;
+  }
+  section.slide.cover h1 { border:none; padding:0; font-size: 36px; line-height: 1.22;}
+  section.slide.cover .subtitle { font-size:16px; opacity:.9; margin-top:16px; max-width: 900px;}
+  section.slide .lead { font-size: 15px; color:#3a4d72; margin: 0 0 18px; max-width: 1020px;}
+  section.slide h3.sub {
+    font-size: 15.5px; margin: 20px 0 8px; color:#0f1f3d; font-weight:700;
+  }
+
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 18px;}
+  .grid-3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px;}
+  .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px;}
+
+  .card { background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px; padding: 16px 18px; }
+  .card.accent { background: #fff7f1; border-color:#ffd8be;}
+  .card.danger { background: #fef2f2; border-color:#fecaca;}
+  .card.success { background: #f0fdf4; border-color:#bbf7d0;}
+  .card.warn { background:#fffbeb; border-color:#fde68a;}
+  .card.navy { background: linear-gradient(160deg,#0f1f3d,#1f3870); color:#fff; border:none;}
+  .card h3 { margin:0 0 8px; font-size:15.5px; }
+  .card.navy h3 { color:#fff; }
+  .card .num { font-size: 26px; font-weight:800; color:#0f1f3d; line-height: 1.1;}
+  .card.accent .num, .card.navy .num { color:#ff7e3d; }
+  .card .label { font-size:12.5px; color:#5b6a8a; margin-top:4px;}
+  .card.navy .label { color:#9aabd6; }
+  .card .desc { font-size:13px; color:#3a4d72; margin-top:8px; line-height:1.6;}
+  .card.navy .desc { color:#cdd6e8; }
+
+  table.kly { width:100%; border-collapse: collapse; font-size: 12.8px; }
+  table.kly th, table.kly td {
+    padding: 9px 11px; text-align:left;
+    border-bottom: 1px solid #e6ebf5; vertical-align: top;
+  }
+  table.kly thead th {
+    background:#0f1f3d; color:#fff; font-weight:600; font-size:12px; letter-spacing:.3px;
+  }
+  table.kly tbody tr:nth-child(even) { background:#f7f9fc; }
+  table.kly td.nd { font-weight:700; color:#0f1f3d; white-space:nowrap; }
+
+  .pill { display:inline-block; padding:2px 8px; border-radius:99px; font-size:11px; font-weight:600;}
+  .pill.ok    { background:#dcfce7; color:#166534; }
+  .pill.mid   { background:#fef9c3; color:#854d0e; }
+  .pill.warn  { background:#fee2e2; color:#991b1b; }
+  .pill.info  { background:#dbeafe; color:#1e3a8a; }
+  .pill.new   { background:#ede9fe; color:#5b21b6; }
+
+  ul.bul { padding-left: 0; list-style:none; margin: 6px 0;}
+  ul.bul li { padding: 5px 0 5px 22px; position:relative; font-size:13.5px;}
+  ul.bul li:before {
+    content:""; position:absolute; left:4px; top:13px; width:7px; height:7px;
+    background:#ff7e3d; border-radius:2px; transform:rotate(45deg);
+  }
+  ul.bul.tight li { padding: 3px 0 3px 22px; font-size:13px; }
+  ul.bul.tight li:before { top:11px; }
+
+  .node {
+    border:1px solid #e3e8f2; border-radius:12px; overflow:hidden; margin-bottom:16px;
+  }
+  .node .hd {
+    background:#0f1f3d; color:#fff; padding:10px 16px;
+    display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  }
+  .node .hd .tag {
+    background:#ff7e3d; color:#fff; font-size:11.5px; font-weight:700;
+    padding:2px 9px; border-radius:5px;
+  }
+  .node .hd .ttl { font-size:14.5px; font-weight:700; }
+  .node .hd .when { font-size:11.5px; color:#9aabd6; margin-left:auto; }
+  .node .bd { padding: 14px 16px; background:#fbfcfe; }
+  .node .row { display:grid; grid-template-columns: 92px 1fr; gap:12px; margin-bottom:9px; }
+  .node .row:last-child { margin-bottom:0; }
+  .node .row .k {
+    font-size:12px; font-weight:700; color:#c2410c; padding-top:2px;
+  }
+  .node .row .v { font-size:13px; color:#3a4d72; }
+  .node .row .v ul { margin:0; padding-left:18px; }
+  .node .row .v li { margin-bottom:3px; }
+
+  .flow { display:flex; gap:6px; align-items:stretch; flex-wrap:wrap; margin: 10px 0 6px; }
+  .flow .box {
+    flex:1; min-width:104px; background:#f7f9fc; border:1px solid #e3e8f2;
+    border-radius:10px; padding:10px 11px; text-align:center;
+  }
+  .flow .box strong { display:block; font-size:12.5px; margin-bottom:3px;}
+  .flow .box span { font-size:11.5px; color:#5b6a8a;}
+  .flow .arr { display:flex; align-items:center; color:#ff7e3d; font-weight:800; font-size:16px; }
+
+  .callout {
+    margin-top: 14px; padding: 12px 14px; border-left: 4px solid #ff7e3d;
+    background:#fff7f1; border-radius: 0 10px 10px 0; font-size:13.5px; color:#3a4d72;
+  }
+  .callout.red { border-left-color:#dc2626; background:#fef2f2; }
+  .callout.green { border-left-color:#16a34a; background:#f0fdf4; }
+
+  .verify { color:#b45309; font-weight:600; font-size:11.5px; }
+  .footnote { font-size: 11.5px; color:#7a89a8; margin-top: 12px; line-height: 1.55;}
+
+  body.deck main { padding: 0; max-width: none;}
+  body.deck section.slide {
+    margin: 0; min-height: 100vh; border-radius: 0; display: none; padding: 46px 62px;
+  }
+  body.deck section.slide.active { display:block; }
+  body.deck .deck-nav { display:flex !important;}
+  .deck-nav {
+    display:none; position: fixed; bottom: 18px; right: 18px; z-index: 60;
+    background: rgba(15,31,61,.92); padding: 6px 10px; border-radius: 999px;
+    color:#fff; font-size: 12.5px; gap: 8px; align-items:center;
+  }
+  .deck-nav button {
+    background: transparent; border: none; color:#fff; cursor:pointer;
+    padding: 4px 10px; border-radius: 6px; font-weight: 600;
+  }
+  .deck-nav button:hover { background: rgba(255,255,255,.1);}
+  .deck-nav .pages { font-variant-numeric: tabular-nums; opacity: .8;}
+
+  @media (max-width: 980px){
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr;}
+    section.slide { padding: 26px 20px;}
+    .topbar nav { display:none;}
+    .node .row { grid-template-columns: 1fr; }
+  }
+  @media print {
+    .topbar, .deck-nav { display:none !important;}
+    section.slide { box-shadow:none; page-break-after: always; margin: 0; border-radius: 0;}
+    body { background:#fff;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    凯莱英 · AI 辅助生产
+    <span class="badge">牵头推进计划</span>
+  </div>
+  <nav>
+    <a href="#cover">封面</a>
+    <a href="#s01">前提</a>
+    <a href="#s02">总体打法</a>
+    <a href="#s03">节点 M0–M2</a>
+    <a href="#s04">节点 M3</a>
+    <a href="#s05">供应商</a>
+    <a href="#s06">节点 M4–M5</a>
+    <a href="#s07">节点 M6–M7</a>
+    <a href="#s08">推动方法</a>
+    <a href="#s09">运行机制</a>
+    <a href="#s10">收益与能力</a>
+    <a href="#s11">风险止损</a>
+  </nav>
+  <button class="modeswitch" onclick="toggleDeck()">幻灯模式</button>
+</header>
+
+<main>
+
+<!-- ================= COVER ================= -->
+<section class="slide cover" id="cover">
+  <h2 class="kicker" style="color:#ff9b6b;">ASYMCHEM · AI IN PRODUCTION · LEADING PLAN</h2>
+  <h1>AI 辅助生产牵头推进计划</h1>
+  <div class="subtitle">
+    在生产部门<strong style="color:#fff;">不新增工时</strong>的前提下，用 18 个月把 AI 辅助生产从个人推动转为岗位运行。
+    每个节点明确做法、达成效果、所需资源、沉淀能力与预期收益。
+  </div>
+  <div class="grid-4" style="margin-top:36px;">
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;">
+      <div style="font-size:11.5px;color:#9aabd6;">核心约束</div>
+      <div style="font-size:15px;font-weight:700;margin-top:4px;">生产无余力</div>
+      <div style="font-size:12px;color:#cdd6e8;margin-top:5px;">只能挂靠既有工作</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;">
+      <div style="font-size:11.5px;color:#9aabd6;">牵头定位</div>
+      <div style="font-size:15px;font-weight:700;margin-top:4px;">代劳而非派活</div>
+      <div style="font-size:12px;color:#cdd6e8;margin-top:5px;">业务只出判断与验收</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;">
+      <div style="font-size:11.5px;color:#9aabd6;">推进节奏</div>
+      <div style="font-size:15px;font-weight:700;margin-top:4px;">月月有实物</div>
+      <div style="font-size:12px;color:#cdd6e8;margin-top:5px;">拒绝半年憋大招</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;">
+      <div style="font-size:11.5px;color:#9aabd6;">外部杠杆</div>
+      <div style="font-size:15px;font-weight:700;margin-top:4px;">供应商售前</div>
+      <div style="font-size:12px;color:#cdd6e8;margin-top:5px;">零成本能力探底</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PART 01 ================= -->
+<section class="slide" id="s01">
+  <h2 class="kicker">PART 01 · 推进前提</h2>
+  <h1>决定成败的不是选哪个场景，而是牵头人有没有机制授权</h1>
+  <p class="lead">
+    生产部门任务重、无专职人力，这是给定条件，不是需要解决的问题。方案必须建立在这个条件之上：
+    <strong>所有额外工作由牵头人承担，业务部门只贡献不可替代的判断</strong>。
+  </p>
+
+  <div class="grid-2">
+    <div class="card danger">
+      <h3>如果按常规做法推，必然失败</h3>
+      <ul class="bul tight">
+        <li>成立项目组 → 无人有时间参会，两个月后自然停摆</li>
+        <li>要求业务部门填表调研 → 表格质量差或不返回</li>
+        <li>先立项招标 → 采购周期长，业务先失去耐心</li>
+        <li>做大而全的规划 → 高层看不到实物，资源不会追加</li>
+        <li>靠人情逐个求配合 → 牵头人被消耗，且不可持续</li>
+      </ul>
+    </div>
+    <div class="card success">
+      <h3>本方案的五条设计原则</h3>
+      <ul class="bul tight">
+        <li><strong>零增量工时：</strong>AI 只插进既有流程，不产生新任务、新记录、新会议</li>
+        <li><strong>牵头人代劳：</strong>取数、对接、整理、写材料全由牵头人做</li>
+        <li><strong>机制先行：</strong>先拿到汇报窗口、联络员名单、数据权限</li>
+        <li><strong>外部借力：</strong>用供应商售前资源完成能力探底与首轮验证</li>
+        <li><strong>可见性优先：</strong>宁要每月一个小实物，不要半年一份大报告</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">业务部门投入上限（写进方案，主动承诺）</h3>
+  <table class="kly">
+    <thead><tr><th style="width:16%;">角色</th><th style="width:18%;">投入上限</th><th style="width:32%;">只做这些事</th><th>绝不要求他们做</th></tr></thead>
+    <tbody>
+      <tr><td class="nd">车间主任 / 主管</td><td>每月 1 小时</td><td>确认场景是否值得做、试点结论是否认可</td><td>写材料、取数据、跟供应商</td></tr>
+      <tr><td class="nd">工艺 / 技术</td><td>每周 ≤1 小时</td><td>判断 AI 输出对不对、指出错在哪</td><td>整理训练数据、配置系统</td></tr>
+      <tr><td class="nd">一线操作 / 点检</td><td>每次 ≤5 分钟</td><td>在既有操作里点"确认 / 不对"</td><td>额外填表、单独培训占班</td></tr>
+      <tr><td class="nd">QA / QC</td><td>关键节点各 1 小时</td><td>划合规边界、确认留痕要求</td><td>参与日常试点运行</td></tr>
+      <tr><td class="nd">IT</td><td>集中 3–5 天</td><td>开只读权限、说明接口可行性</td><td>承担业务侧场景定义</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    这张表是推动的核心工具。<strong>先把"要你多少时间"讲清楚且讲得很低，配合意愿会显著上升</strong>；
+    含糊其辞地说"需要大家支持"，是最容易被拒绝的说法。
+  </div>
+</section>
+
+<!-- ================= PART 02 ================= -->
+<section class="slide" id="s02">
+  <h2 class="kicker">PART 02 · 总体打法</h2>
+  <h1>先立机制、再摸底、借外力探底、挂靠试点、固化扩散</h1>
+
+  <div class="flow">
+    <div class="box"><strong>M0 立机制</strong><span>授权 / 联络员<br/>数据权限</span></div>
+    <div class="arr">→</div>
+    <div class="box"><strong>M1–M2 摸底</strong><span>场景池<br/>数据就绪度</span></div>
+    <div class="arr">→</div>
+    <div class="box"><strong>M3 借外力</strong><span>供应商探底<br/>技术开放日</span></div>
+    <div class="arr">→</div>
+    <div class="box"><strong>M4–M5 试点</strong><span>挂靠式跑通<br/>两个场景</span></div>
+    <div class="arr">→</div>
+    <div class="box"><strong>M6 量化</strong><span>工时对比<br/>汇报成果</span></div>
+    <div class="arr">→</div>
+    <div class="box"><strong>M7 固化</strong><span>SOP / 联络员<br/>复制扩散</span></div>
+  </div>
+
+  <h3 class="sub">时间与投入分布</h3>
+  <table class="kly">
+    <thead>
+      <tr><th style="width:14%;">阶段</th><th style="width:12%;">周期</th><th style="width:22%;">牵头人投入</th><th style="width:20%;">业务投入</th><th style="width:14%;">资金</th><th>阶段产出</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="nd">M0 立机制</td><td>第 1 月</td><td>3 天</td><td>高层 30 分钟决策</td>
+        <td><span class="pill ok">零</span></td><td>推进机制批复、联络员名单</td>
+      </tr>
+      <tr>
+        <td class="nd">M1 场景摸底</td><td>第 1–2 月</td><td>10–15 天</td><td>分散共约 10 小时</td>
+        <td><span class="pill ok">零</span></td><td>场景池与工时底账</td>
+      </tr>
+      <tr>
+        <td class="nd">M2 数据盘点</td><td>第 2–3 月</td><td>5 天</td><td>IT 3–5 天</td>
+        <td><span class="pill ok">零</span></td><td>数据就绪度看板</td>
+      </tr>
+      <tr>
+        <td class="nd">M3 供应商探底</td><td>第 3–4 月</td><td>6–8 天</td><td>半天听会</td>
+        <td><span class="pill ok">零</span></td><td>供应商画像、比价基线</td>
+      </tr>
+      <tr>
+        <td class="nd">M4 选点立项</td><td>第 4–5 月</td><td>5 天</td><td>1 小时决策</td>
+        <td><span class="pill mid">小额</span></td><td>两份一页立项书</td>
+      </tr>
+      <tr>
+        <td class="nd">M5 挂靠试点</td><td>第 5–9 月</td><td>常态 30%</td><td>每人每周 ≤2 小时</td>
+        <td><span class="pill mid">小额 PoC</span></td><td>两个跑通的闭环</td>
+      </tr>
+      <tr>
+        <td class="nd">M6 收益量化</td><td>第 9–10 月</td><td>5 天</td><td>各 1 小时确认</td>
+        <td><span class="pill ok">零</span></td><td>可采信的收益数据</td>
+      </tr>
+      <tr>
+        <td class="nd">M7 固化扩散</td><td>第 10–18 月</td><td>常态 30%</td><td>联络员日常</td>
+        <td><span class="pill info">按扩展申请</span></td><td>SOP、培训包、复制清单</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="footnote">资金列刻意在前四个月保持为零：机制、摸底与供应商探底都不需要预算，可先于任何采购流程启动，避免因预算审批而停滞。</p>
+</section>
+
+<!-- ================= PART 03 · M0-M2 ================= -->
+<section class="slide" id="s03">
+  <h2 class="kicker">PART 03 · 节点 M0–M2</h2>
+  <h1>用三个月把"个人在推"变成"公司在推"且底账清楚</h1>
+
+  <div class="node">
+    <div class="hd"><span class="tag">M0</span><span class="ttl">机制授权</span><span class="when">第 1 个月 · 牵头人 3 天</span></div>
+    <div class="bd">
+      <div class="row"><div class="k">做法</div><div class="v">
+        <ul>
+          <li>向集团生产高层提交<strong>一页《AI 辅助生产推进机制建议》</strong>，只申请三件不花钱的事</li>
+          <li><strong>① 固定汇报窗口：</strong>在现有生产季度例会中占 15 分钟固定议题，月度提交一页进展纸</li>
+          <li><strong>② 虚拟联络员名单：</strong>各车间与相关部门各指定 1 名兼职联络员，写入本职职责说明，不新增编制</li>
+          <li><strong>③ 数据调阅授权：</strong>DCS、EBR、LIMS、QMS、CMMS、SAP 的只读查询权限与文档库访问权</li>
+          <li>材料中主动写明业务部门投入上限（见 PART 01 表），把"不占你时间"作为承诺前置</li>
+        </ul>
+      </div></div>
+      <div class="row"><div class="k">达成效果</div><div class="v">后续找任何部门配合都有正式依据，牵头人不再靠人情推动；高层获得固定的进展可见性</div></div>
+      <div class="row"><div class="k">所需资源</div><div class="v">牵头人 3 个工作日撰写；高层一次 30 分钟决策；无预算</div></div>
+      <div class="row"><div class="k">沉淀能力</div><div class="v">跨部门协调的正式抓手；牵头角色被组织承认</div></div>
+      <div class="row"><div class="k">预期收益</div><div class="v">消除最大的隐性成本——反复求人与重复解释；这一步不做，后续所有节点的推进成本都会翻倍</div></div>
+    </div>
+  </div>
+
+  <div class="node">
+    <div class="hd"><span class="tag">M1</span><span class="ttl">场景摸底</span><span class="when">第 1–2 个月 · 牵头人 10–15 天</span></div>
+    <div class="bd">
+      <div class="row"><div class="k">做法</div><div class="v">
+        <ul>
+          <li><strong>不开调研大会、不发调查表。</strong>改为一对一访谈 15–20 人，每人 30 分钟，牵头人上门到车间</li>
+          <li>对象：车间主任、工艺工程师、设备工程师、QA、QC、生产计划、培训</li>
+          <li><strong>问法是关键：</strong>不问"你想要什么 AI"，而问"上周哪件重复性工作最占时间、一次多久、一个月几次、谁在做"</li>
+          <li>每条场景当场记录四项：年工时估算、涉及哪些系统、数据是否现成、是否需要改流程</li>
+          <li>访谈结束时问一句"这件事如果 AI 先出个草稿，你愿意试吗"，用于识别内部盟友</li>
+        </ul>
+      </div></div>
+      <div class="row"><div class="k">达成效果</div><div class="v">形成 20–30 条<strong>按年工时排序</strong>的场景池，而非按热度或供应商话术排序</div></div>
+      <div class="row"><div class="k">所需资源</div><div class="v">牵头人 10–15 个工作日；被访者合计约 10 小时且完全分散；无预算</div></div>
+      <div class="row"><div class="k">沉淀能力</div><div class="v">公司唯一一份"AI 场景—工时"底账；牵头人对现场真实痛点的第一手认知</div></div>
+      <div class="row"><div class="k">预期收益</div><div class="v">后续所有立项、供应商谈判、收益测算都以此为基准；直接避免选错方向造成的整轮返工</div></div>
+    </div>
+  </div>
+
+  <div class="node">
+    <div class="hd"><span class="tag">M2</span><span class="ttl">数据就绪度盘点</span><span class="when">第 2–3 个月 · 与 M1 并行</span></div>
+    <div class="bd">
+      <div class="row"><div class="k">做法</div><div class="v">
+        <ul>
+          <li>带着 M1 的场景池找 IT，<strong>逐系统</strong>确认：有无接口、权限如何开、历史数据多深、刷新频率、字段完整度</li>
+          <li>做成红黄绿看板：绿=现在就能取、黄=需开发但可行、红=数据不存在或不可用</li>
+          <li>把"红"的场景直接从近期候选中移出，并在汇报中说明原因</li>
+        </ul>
+      </div></div>
+      <div class="row"><div class="k">达成效果</div><div class="v">明确区分"缺数据做不了"与"有数据可以做"，为选点提供硬约束</div></div>
+      <div class="row"><div class="k">所需资源</div><div class="v">IT 1 人配合 3–5 天；牵头人 5 天；无预算</div></div>
+      <div class="row"><div class="k">沉淀能力</div><div class="v">对自身数据资产的清晰认知，也是未来任何数字化项目的公共资产</div></div>
+      <div class="row"><div class="k">预期收益</div><div class="v">把"AI 做不成"的原因提前定位到数据层面，避免事后在业务与 IT 之间扯皮</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PART 04 · M3 ================= -->
+<section class="slide" id="s04">
+  <h2 class="kicker">PART 04 · 节点 M3</h2>
+  <h1>用供应商售前资源完成零成本能力探底</h1>
+  <p class="lead">
+    这是资源受限条件下最大的杠杆。供应商为争取订单，愿意在售前阶段免费投入方案、案例与可行性分析。
+    <strong>关键是定位为技术交流而非采购，既拿到价值又不触发冗长流程与内部阻力</strong>。
+  </p>
+
+  <div class="node">
+    <div class="hd"><span class="tag">M3</span><span class="ttl">供应商能力探底</span><span class="when">第 3–4 个月 · 牵头人 6–8 天</span></div>
+    <div class="bd">
+      <div class="row"><div class="k">做法</div><div class="v">
+        <ul>
+          <li><strong>第 1 周：</strong>按场景分类，每类筛 3–5 家（清单见下页）；通过官网、行业展会名录、同行推荐、已有合作方转介建立联系</li>
+          <li><strong>第 2 周：</strong>统一发出<strong>《场景需求说明》</strong>（1–2 页，不含商业信息），要求对方书面回四项：<br/>
+            ① 制药或化工同类场景的落地案例（要求可核实）<br/>
+            ② 实现该场景需要我方提供哪些数据、什么格式、多长历史<br/>
+            ③ 从启动到看到效果的最短周期<br/>
+            ④ 是否可做免费或小额 PoC，范围如何界定</li>
+          <li><strong>第 3–4 周：</strong>组织<strong>"AI 技术交流开放日"</strong>——一天内安排 3–4 家连续宣讲，每家 60 分钟含问答；业务部门只需派人听半天，且可选择只听与自己相关的时段</li>
+          <li>全程明确对外口径为技术交流与信息收集，不承诺采购、不进入招标流程</li>
+          <li>会后由牵头人出一份<strong>供应商对比矩阵</strong>：能力、案例真实性、数据要求、周期、报价区间、绑定风险</li>
+        </ul>
+      </div></div>
+      <div class="row"><div class="k">达成效果</div><div class="v">
+        零成本获得三样东西：行业最佳实践认知、精确的数据要求清单、后续谈判的比价基线。
+        同时开放日本身就是一次<strong>低成本的内部动员</strong>——业务部门看到同行已经在做，态度会明显变化
+      </div></div>
+      <div class="row"><div class="k">所需资源</div><div class="v">牵头人 6–8 天；业务部门半天；会议室与接待，无预算</div></div>
+      <div class="row"><div class="k">沉淀能力</div><div class="v">供应商画像与技术判断力；牵头人对技术可行性的独立判断，不再依赖单一供应商叙述</div></div>
+      <div class="row"><div class="k">预期收益</div><div class="v">
+        避免被单一供应商牵引方向；后续 PoC 与采购具备议价能力；数据要求清单直接反哺 M2 的盘点结果
+      </div></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>操作要点：</strong>《场景需求说明》只描述业务问题与期望输出，<strong>不透露工艺参数、客户名称、批次数据</strong>。
+    涉及客户信息的场景在此阶段一律用脱敏描述，必要时先请 QA 与法务过一遍口径。
+  </div>
+</section>
+
+<!-- ================= PART 05 · 供应商清单 ================= -->
+<section class="slide" id="s05">
+  <h2 class="kicker">PART 05 · 供应商参考清单</h2>
+  <h1>按场景分类接触，避免让一家供应商定义全部方向</h1>
+
+  <table class="kly">
+    <thead>
+      <tr><th style="width:16%;">场景方向</th><th style="width:30%;">国内代表性供应商</th><th style="width:26%;">接触目的</th><th>状态</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="nd">视觉巡检 / 操作合规</td>
+        <td>海康威视、大华股份、商汤科技、旷视科技</td>
+        <td>现有摄像头生态兼容性、边缘推理方案、洁净区落地案例</td>
+        <td><span class="pill new">待接触</span></td>
+      </tr>
+      <tr>
+        <td class="nd">设备预测性维护</td>
+        <td>杭州和利时、安徽信力共擎、容知日新、天泽智云</td>
+        <td>振动 / 电流监测方案、动设备健康模型、传感补点成本</td>
+        <td><span class="pill ok">前两家已有方案</span></td>
+      </tr>
+      <tr>
+        <td class="nd">电子点检</td>
+        <td>点检类 SaaS（钉钉生态 / 专业点检厂商）、CMMS 现有供应商</td>
+        <td>动态任务推荐、拍照异常识别、与 CMMS 工单打通</td>
+        <td><span class="pill new">待接触</span></td>
+      </tr>
+      <tr>
+        <td class="nd">生产数据分析 / 工艺优化</td>
+        <td>中控技术、智现未来、蓝卓</td>
+        <td>时序建模能力、工艺参数窗口分析、跨行业迁移可行性</td>
+        <td><span class="pill ok">智现未来已评估</span></td>
+      </tr>
+      <tr>
+        <td class="nd">报告与知识类大模型</td>
+        <td>阿里通义、智谱、DeepSeek 及其私有化集成商</td>
+        <td>私有化部署方案、文档解析与引用回溯、数据不出域</td>
+        <td><span class="pill new">待接触</span></td>
+      </tr>
+      <tr>
+        <td class="nd">规划与实施咨询</td>
+        <td>埃森哲、中国医药工业信息中心及行业咨询机构</td>
+        <td>方法论、行业对标、实施路径；限定范围采购</td>
+        <td><span class="pill ok">埃森哲已评估</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:18px;">
+    <div class="card accent">
+      <h3>接触与筛选的四条纪律</h3>
+      <ul class="bul tight">
+        <li><strong>每类至少 3 家</strong>，防止单一叙事主导判断</li>
+        <li><strong>案例必须可核实</strong>：要求给出可联系的同行客户或公开资料，拒绝只看 PPT</li>
+        <li><strong>先问数据要求</strong>：供应商越早讲清要什么数据，越可信；只谈效果不谈数据的要警惕</li>
+        <li><strong>核心资产归属写清</strong>：知识库、模型、标注数据须归凯莱英，可导出、可迁移</li>
+      </ul>
+    </div>
+    <div class="card warn">
+      <h3>制药场景的特殊问法</h3>
+      <ul class="bul tight">
+        <li>是否理解 GMP 下"AI 只能辅助、不能替代签字放行"的边界</li>
+        <li>能否支持数据完整性要求：输入输出留痕、模型版本可追溯</li>
+        <li>视频与工艺数据能否<strong>完全本地处理、不出厂</strong></li>
+        <li>多客户隔离如何实现，能否证明参数不跨客户串用</li>
+        <li>是否配合客户审计时提供技术说明材料</li>
+      </ul>
+    </div>
+  </div>
+  <p class="footnote">
+    上表除标注"已评估 / 已有方案"外，其余均为按行业代表性列出的接触候选，
+    <span class="verify">其制药 GMP 场景的实际案例与数据合规能力需在 M3 阶段逐家核实</span>，不宜在汇报中直接引用为已验证能力。
+  </p>
+</section>
+
+<!-- ================= PART 06 · M4-M5 ================= -->
+<section class="slide" id="s06">
+  <h2 class="kicker">PART 06 · 节点 M4–M5</h2>
+  <h1>挂靠式试点：不新增任务、不新增记录、不新增会议</h1>
+
+  <div class="node">
+    <div class="hd"><span class="tag">M4</span><span class="ttl">选点与立项</span><span class="when">第 4–5 个月 · 牵头人 5 天</span></div>
+    <div class="bd">
+      <div class="row"><div class="k">做法</div><div class="v">
+        <ul>
+          <li>从场景池按<strong>四条硬标准</strong>筛选，四条全满足才可入选：<br/>
+            ① 生产部门零增量工时　② 数据已就绪（M2 判绿）　③ 三个月内能看到实物　④ 失败无合规风险</li>
+          <li><strong>只选两个</strong>，一个快赢、一个有分量：
+            <ul>
+              <li><strong>快赢型：</strong>文档与报告起草类——本来就要写的 Campaign 报告、月度运行报告、偏差总结、点检记录汇总。AI 出草稿，人改定稿，流程一步不变</li>
+              <li><strong>有分量型：</strong>电子点检 AI 化 或 单点视觉巡检——挂在本来就要做的点检与巡检上，只增加"AI 先给提示"这一个动作</li>
+            </ul>
+          </li>
+          <li>每个场景写<strong>一页立项书</strong>：现状耗时、AI 介入点、谁判断、三个月验收标准、失败判定条件</li>
+          <li>PoC 预算控制在无需上会的额度内先跑；若供应商愿做免费 PoC 则优先</li>
+        </ul>
+      </div></div>
+      <div class="row"><div class="k">达成效果</div><div class="v">两份可直接执行的一页立项书，范围明确到"改哪一步、谁点确认"</div></div>
+      <div class="row"><div class="k">所需资源</div><div class="v">牵头人 5 天；业务负责人 1 小时决策；小额 PoC 预算</div></div>
+      <div class="row"><div class="k">沉淀能力</div><div class="v">场景可行性判断标准，可复用于后续所有选点</div></div>
+      <div class="row"><div class="k">预期收益</div><div class="v">第一次让高层看到实物而非规划；快赢型场景通常在两个月内即可产生可展示的草稿样张</div></div>
+    </div>
+  </div>
+
+  <div class="node">
+    <div class="hd"><span class="tag">M5</span><span class="ttl">挂靠式试点运行</span><span class="when">第 5–9 个月 · 牵头人常态投入</span></div>
+    <div class="bd">
+      <div class="row"><div class="k">做法</div><div class="v">
+        <ul>
+          <li><strong>三条挂靠原则贯穿全程：</strong><br/>
+            <strong>不新增任务</strong>——AI 只在既有流程里插一个"先出草稿 / 先给提示"的动作<br/>
+            <strong>不新增记录</strong>——试点台账、问题清单、复盘材料全部由牵头人代填<br/>
+            <strong>不新增会议</strong>——搭车现有班前会与周会，每次占用不超过 10 分钟</li>
+          <li>牵头人承担：数据准备与脱敏、供应商协调、结果整理、材料撰写、问题跟催、异常兜底</li>
+          <li>业务侧只做两件事：<strong>判断 AI 输出对不对、指出错在哪</strong>。反馈方式做到最轻——在既有界面点"可用 / 不可用"，或口头告知由牵头人记录</li>
+          <li>每 4 周一次 30 分钟复盘，搭车现有例会；复盘只看三件事：用了几次、省了多少、错在哪</li>
+          <li>建立<strong>误报与错误样本回收</strong>机制，作为下一轮迭代输入</li>
+        </ul>
+      </div></div>
+      <div class="row"><div class="k">达成效果</div><div class="v">跑通"数据 → AI 输出 → 人判断 → 结果回填"的完整闭环，且业务部门未感到额外负担</div></div>
+      <div class="row"><div class="k">所需资源</div><div class="v">牵头人约 30% 常态精力；业务每人每周 ≤2 小时；小额 PoC 费用；IT 按需支持</div></div>
+      <div class="row"><div class="k">沉淀能力</div><div class="v">内部第一批会用 AI 工具的业务人员；一套可复制的试点运行方法；真实的失败经验</div></div>
+      <div class="row"><div class="k">预期收益</div><div class="v">
+        文档类场景通常可减少可观的机械汇编工时；点检与巡检类可提升覆盖率并减少漏检。
+        更重要的收益是<strong>态度转变</strong>——用过一次的人比听过十次汇报的人更愿意继续
+      </div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PART 07 · M6-M7 ================= -->
+<section class="slide" id="s07">
+  <h2 class="kicker">PART 07 · 节点 M6–M7</h2>
+  <h1>把成果量化成可汇报的数字，再从个人推动转为岗位运行</h1>
+
+  <div class="node">
+    <div class="hd"><span class="tag">M6</span><span class="ttl">收益量化与汇报</span><span class="when">第 9–10 个月 · 牵头人 5 天</span></div>
+    <div class="bd">
+      <div class="row"><div class="k">做法</div><div class="v">
+        <ul>
+          <li>用<strong>最简单可采信的口径</strong>：同一件事的 before / after 耗时对比，取 5–10 个真实样本取中位数</li>
+          <li>三层数据依次呈现：<strong>单次节省 → 年化折算 → 附使用者原话评价</strong>。原话比数字更有说服力</li>
+          <li>主动列出<strong>没做成的部分与原因</strong>，这会显著提高整份汇报的可信度</li>
+          <li>形成一页《试点成果与下一步资源申请》，把扩展范围与所需资源一次讲清</li>
+        </ul>
+      </div></div>
+      <div class="row"><div class="k">达成效果</div><div class="v">把"感觉有点用"变成可以写进汇报与预算申请的量化结论</div></div>
+      <div class="row"><div class="k">所需资源</div><div class="v">牵头人 5 天；相关人员各 1 小时确认数据；无预算</div></div>
+      <div class="row"><div class="k">沉淀能力</div><div class="v">收益测算方法，后续每个场景可直接套用</div></div>
+      <div class="row"><div class="k">预期收益</div><div class="v">获得下一轮资源与编制的依据；这是从"试点"走向"常态投入"的唯一通道</div></div>
+    </div>
+  </div>
+
+  <div class="node">
+    <div class="hd"><span class="tag">M7</span><span class="ttl">固化与扩散</span><span class="when">第 10–18 个月 · 常态推进</span></div>
+    <div class="bd">
+      <div class="row"><div class="k">做法</div><div class="v">
+        <ul>
+          <li><strong>SOP 化：</strong>把跑通的动作写进现有作业文件，AI 步骤成为流程的一部分而非附加项</li>
+          <li><strong>培训包：</strong>做成 15 分钟短培训，嵌入现有岗前与年度培训，不单独占班</li>
+          <li><strong>岗位职责：</strong>把"AI 工具使用与反馈"写进相关岗位说明，脱离对牵头人的依赖</li>
+          <li><strong>联络员网络：</strong>每车间培养 1 名 AI 联络员，由 M5 试点中表现积极者担任，给予署名与内部认可</li>
+          <li><strong>复制清单：</strong>输出"哪些场景可以照搬、需要什么条件、预计多久"的清单，供其他厂区直接使用</li>
+        </ul>
+      </div></div>
+      <div class="row"><div class="k">达成效果</div><div class="v">从"试点靠牵头人盯"转为"日常靠岗位跑"，牵头人可以把精力移到新场景</div></div>
+      <div class="row"><div class="k">所需资源</div><div class="v">牵头人约 30% 精力；培训与文控按现有流程；扩展预算按 M6 结论申请</div></div>
+      <div class="row"><div class="k">沉淀能力</div><div class="v">组织级能力：有人会用、有文件可依、有清单可复制</div></div>
+      <div class="row"><div class="k">预期收益</div><div class="v">边际成本显著下降；后续每新增一个场景或厂区的投入远低于第一个</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PART 08 · 推动方法 ================= -->
+<section class="slide" id="s08">
+  <h2 class="kicker">PART 08 · 推动方法</h2>
+  <h1>阻力不在技术，在"这事会不会给我添麻烦"</h1>
+
+  <h3 class="sub">生产部门的四种真实顾虑与对应设计</h3>
+  <table class="kly">
+    <thead><tr><th style="width:16%;">顾虑</th><th style="width:28%;">实际表现</th><th>方案中的对应设计</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="nd">怕加活</td>
+        <td>口头支持、实际不排期；派最闲的人应付</td>
+        <td>前置书面承诺投入上限；所有额外工作由牵头人代劳；不新增任务、记录与会议</td>
+      </tr>
+      <tr>
+        <td class="nd">怕背责</td>
+        <td>不愿在文件上签字确认，怕日后被追</td>
+        <td>试点定位为"辅助工具评估"，不改变现有签字与放行责任；失败判定条件事前写清并由牵头人承担结论</td>
+      </tr>
+      <tr>
+        <td class="nd">怕出错被追</td>
+        <td>担心 AI 出错影响批次或引发偏差</td>
+        <td>只选失败无合规风险的场景起步；AI 输出一律作为草稿或提示，人工判断为最终依据</td>
+      </tr>
+      <tr>
+        <td class="nd">怕被替代</td>
+        <td>抵触情绪、消极配合、传播负面预期</td>
+        <td>对外统一表述为"减少机械劳动、辅助判断"；让积极者成为联络员并获得署名与认可</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">八条推动手法</h3>
+  <div class="grid-2">
+    <div class="card">
+      <ul class="bul tight">
+        <li><strong>不空手找人。</strong>每次接触都带半成品——已填好的表、已跑出的样张、已整理好的对比。让对方只需说"行"或"不行"</li>
+        <li><strong>单点突破。</strong>先找 1–2 个有痛点、有话语权、愿意试的盟友做成一个，再横向复制。不要一开始就要求全面配合</li>
+        <li><strong>成果归业务。</strong>汇报让业务部门讲，署名给业务负责人，牵头人退到幕后。这是让第二个部门主动找你的唯一办法</li>
+        <li><strong>借势而非造势。</strong>四个天然时机：高层关注期、客户审计前、偏差或事故复盘后、新员工入职培训期</li>
+      </ul>
+    </div>
+    <div class="card">
+      <ul class="bul tight">
+        <li><strong>用供应商的人做我们的活。</strong>售前阶段的方案、数据梳理、可行性分析都可外部承担</li>
+        <li><strong>拿实物推动，不靠开会推动。</strong>一份真实的 AI 草稿样张，胜过三次动员会</li>
+        <li><strong>把话说小。</strong>不说"推行 AI 转型"，说"这份报告让 AI 先起个草，你改";目标越小越容易被接受</li>
+        <li><strong>止损纪律。</strong>连续两个月无实质进展的场景直接换掉，不硬扛。换场景不是失败，硬扛才是</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout green">
+    <strong>最关键的一条：</strong>牵头人的价值不体现在推动多少部门，而体现在<strong>让配合的人觉得省事</strong>。
+    第一个试点让业务部门觉得"比原来轻松了"，后面的推进会自然发生；第一个试点让人觉得"又多一件事"，机制授权也救不回来。
+  </div>
+</section>
+
+<!-- ================= PART 09 · 运行机制 ================= -->
+<section class="slide" id="s09">
+  <h2 class="kicker">PART 09 · 运行机制</h2>
+  <h1>用固定节奏保证"慢但一直有进展"</h1>
+
+  <div class="grid-2">
+    <div class="card accent">
+      <h3>汇报节奏（对上）</h3>
+      <table class="kly" style="margin-top:6px;">
+        <thead><tr><th style="width:24%;">频次</th><th style="width:26%;">形式</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td class="nd">每月</td><td>一页进展纸</td><td>固定四栏：做了什么 / 看到什么 / 卡在哪 / 下月做什么</td></tr>
+          <tr><td class="nd">每季</td><td>例会 15 分钟</td><td>阶段成果 + 实物演示 + 需要决策的事项</td></tr>
+          <tr><td class="nd">每半年</td><td>专项复盘</td><td>收益量化、供应商评估、下阶段资源申请</td></tr>
+        </tbody>
+      </table>
+      <div class="desc" style="margin-top:10px;">
+        一页进展纸的价值在于<strong>让高层始终知道这事没停</strong>。即使某月只完成了访谈，也照常提交——
+        进展可见性本身就是资源持续投入的前提。
+      </div>
+    </div>
+    <div class="card">
+      <h3>工作节奏（对内）</h3>
+      <table class="kly" style="margin-top:6px;">
+        <thead><tr><th style="width:24%;">频次</th><th style="width:26%;">形式</th><th>内容</th></tr></thead>
+        <tbody>
+          <tr><td class="nd">每周</td><td>牵头人自查</td><td>试点使用次数、卡点、需协调事项</td></tr>
+          <tr><td class="nd">每 4 周</td><td>搭车例会 30 分钟</td><td>用了几次 / 省了多少 / 错在哪</td></tr>
+          <tr><td class="nd">按需</td><td>联络员单点沟通</td><td>不开集体会，逐个 10 分钟解决</td></tr>
+        </tbody>
+      </table>
+      <div class="desc" style="margin-top:10px;">
+        所有内部沟通都<strong>避免召集集体会议</strong>。逐个 10 分钟的沟通总耗时更长，但对业务部门的打断成本最低，
+        实际推进效率反而更高。
+      </div>
+    </div>
+  </div>
+
+  <h3 class="sub">每月一页进展纸的模板</h3>
+  <table class="kly">
+    <thead><tr><th style="width:22%;">栏目</th><th style="width:38%;">写法要求</th><th>示例</th></tr></thead>
+    <tbody>
+      <tr><td class="nd">本月做了什么</td><td>只写完成的动作，不写"推进中"</td><td>完成 12 人访谈；收到 4 家供应商书面回复</td></tr>
+      <tr><td class="nd">看到什么</td><td>一条最有价值的发现，带数据</td><td>报告类机械汇编占资深工程师约三成工时</td></tr>
+      <tr><td class="nd">卡在哪</td><td>明确写出需要高层解决的事，不含糊</td><td>某系统只读权限未开，需 IT 负责人协调</td></tr>
+      <tr><td class="nd">下月做什么</td><td>不超过三条，可验证</td><td>组织技术交流开放日；输出场景池排序</td></tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <strong>"卡在哪"这一栏不要空着。</strong>牵头人最容易犯的错是把问题自己扛下来，结果高层以为一切顺利，
+    到需要资源时才发现推不动。每月主动暴露一个真实卡点，是保持高层参与度的有效方式。
+  </div>
+</section>
+
+<!-- ================= PART 10 · 收益与能力 ================= -->
+<section class="slide" id="s10">
+  <h2 class="kicker">PART 10 · 收益与能力</h2>
+  <h1>短期收益在工时，长期收益在能力与话语权</h1>
+
+  <h3 class="sub">分层收益</h3>
+  <table class="kly">
+    <thead>
+      <tr><th style="width:14%;">层级</th><th style="width:26%;">收益内容</th><th style="width:24%;">可见时点</th><th>如何证明</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="nd"><span class="pill ok">直接</span></td>
+        <td>机械汇编与重复劳动工时下降</td>
+        <td>试点 2–3 个月内</td>
+        <td>同一件事 before / after 耗时对比，5–10 个真实样本</td>
+      </tr>
+      <tr>
+        <td class="nd"><span class="pill ok">直接</span></td>
+        <td>点检与巡检覆盖率提升、漏检下降</td>
+        <td>试点 3–4 个月内</td>
+        <td>覆盖点位数与异常发现数的前后对比</td>
+      </tr>
+      <tr>
+        <td class="nd"><span class="pill mid">间接</span></td>
+        <td>文件与报告质量一致性提升、返工减少</td>
+        <td>6–9 个月</td>
+        <td>返工次数、客户或内部反馈意见条数</td>
+      </tr>
+      <tr>
+        <td class="nd"><span class="pill mid">间接</span></td>
+        <td>问题发现与响应提前，降低偏差与损失风险</td>
+        <td>9–12 个月</td>
+        <td>提前预警的事件数与假设避免的损失，需保守估算</td>
+      </tr>
+      <tr>
+        <td class="nd"><span class="pill info">战略</span></td>
+        <td>面向客户审计与商务谈判的数字化能力证明</td>
+        <td>12 个月以上</td>
+        <td>可展示的系统、SOP、案例包</td>
+      </tr>
+      <tr>
+        <td class="nd"><span class="pill info">战略</span></td>
+        <td>数据资产与知识资产沉淀，形成公司自有能力</td>
+        <td>持续</td>
+        <td>数据目录、知识库规模、内部会用的人数</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">能力提升（三个层面）</h3>
+  <div class="grid-3">
+    <div class="card">
+      <h3>牵头人</h3>
+      <ul class="bul tight">
+        <li>跨部门推动与资源整合</li>
+        <li>技术方案独立判断力</li>
+        <li>供应商评估与议价</li>
+        <li>收益量化与向上汇报</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>业务团队</h3>
+      <ul class="bul tight">
+        <li>会用 AI 工具完成本职工作</li>
+        <li>能判断 AI 输出可用性</li>
+        <li>能提出下一个值得做的场景</li>
+        <li>联络员成为扩散节点</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>组织</h3>
+      <ul class="bul tight">
+        <li>数据就绪度清晰、权限可控</li>
+        <li>AI 应用有 SOP 与培训可依</li>
+        <li>合规边界与留痕要求明确</li>
+        <li>形成可复制的推进方法</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <strong>收益表述纪律：</strong>对高层只报<strong>能拿出样本的直接收益</strong>，间接与战略收益作为趋势说明，
+    不做无依据的年化放大。一次夸大的收益测算，会让后续所有汇报的可信度归零。
+  </div>
+</section>
+
+<!-- ================= PART 11 · 风险止损 ================= -->
+<section class="slide" id="s11">
+  <h2 class="kicker">PART 11 · 风险与止损</h2>
+  <h1>预设失败情形与退出条件，避免牵头人被长期消耗</h1>
+
+  <table class="kly">
+    <thead><tr><th style="width:20%;">风险</th><th style="width:26%;">早期信号</th><th style="width:30%;">应对</th><th>止损线</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="nd">机制授权拿不到</td>
+        <td>M0 材料提交后无明确批复，仅口头鼓励</td>
+        <td>降低申请规模，只争取数据权限与一个试点车间；用单点成果反向争取机制</td>
+        <td>两个月内无任何书面支持，则收缩为单场景自主推进</td>
+      </tr>
+      <tr>
+        <td class="nd">业务部门消极配合</td>
+        <td>访谈约不上、试点反馈不返回</td>
+        <td>换部门不换方案；优先做已识别盟友所在车间</td>
+        <td>同一部门连续两个月零反馈即更换试点对象</td>
+      </tr>
+      <tr>
+        <td class="nd">数据取不出来</td>
+        <td>M2 盘点大面积判红</td>
+        <td>改选不依赖系统取数的场景（如文档类可用现有文件直接起步）</td>
+        <td>候选场景绿灯少于三个，则优先做数据治理而非 AI</td>
+      </tr>
+      <tr>
+        <td class="nd">供应商无实质案例</td>
+        <td>只讲通用能力、回避数据要求与制药案例</td>
+        <td>扩大接触面；转向自建加通用大模型的轻量路线</td>
+        <td>同一场景三家均无可核实案例，则该场景延后</td>
+      </tr>
+      <tr>
+        <td class="nd">试点效果不达预期</td>
+        <td>使用频次持续偏低、人工返工比例高</td>
+        <td>缩小场景范围而非放弃；先做最标准化的子任务</td>
+        <td>连续两个月无实质进展即换场景，并如实汇报</td>
+      </tr>
+      <tr>
+        <td class="nd">牵头人被过度消耗</td>
+        <td>本职工作受影响、长期加班兜底</td>
+        <td>把代劳工作标准化并逐步移交联络员；向高层申请明确精力占比</td>
+        <td>投入超出可承受范围时，主动收缩场景数量至一个</td>
+      </tr>
+      <tr>
+        <td class="nd">合规质疑</td>
+        <td>QA 对留痕或用途定位提出异议</td>
+        <td>立即暂停该场景，先完成用途定位与留痕方案再恢复</td>
+        <td>合规问题一律优先于进度，不带疑问推进</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:16px;">
+    <div class="card success">
+      <h3>近 30 天可立即启动的动作</h3>
+      <ul class="bul tight">
+        <li>撰写并提交一页《推进机制建议》，明确只要三件不花钱的事</li>
+        <li>拟定 15–20 人访谈名单与 30 分钟访谈提纲</li>
+        <li>启动前 5 场访谈，同步识别内部盟友</li>
+        <li>与 IT 约一次沟通，说明后续数据盘点范围</li>
+        <li>草拟《场景需求说明》模板，为 M3 供应商接触备料</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h3>请高层支持的三件事</h3>
+      <ul class="bul tight">
+        <li><strong>固定汇报窗口：</strong>季度例会 15 分钟固定议题 + 月度一页进展纸</li>
+        <li><strong>联络员名单：</strong>各车间与相关部门各 1 名兼职，写入本职职责，不新增编制</li>
+        <li><strong>数据只读授权：</strong>相关业务系统查询权限与文档库访问权</li>
+      </ul>
+      <div class="desc" style="margin-top:8px;">
+        三件事均不涉及预算与编制，是当前阶段唯一需要的外部支持。
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="deck-nav">
+  <button onclick="prevSlide()">上一页</button>
+  <span class="pages"><span id="pageNo">1</span> / <span id="pageTotal">1</span></span>
+  <button onclick="nextSlide()">下一页</button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('section.slide'));
+  let idx = 0;
+  function show(i){
+    if (!document.body.classList.contains('deck')) return;
+    idx = (i + slides.length) % slides.length;
+    slides.forEach((s,n)=> s.classList.toggle('active', n===idx));
+    document.getElementById('pageNo').textContent = idx+1;
+    document.getElementById('pageTotal').textContent = slides.length;
+  }
+  function nextSlide(){ show(idx+1); }
+  function prevSlide(){ show(idx-1); }
+  function toggleDeck(){
+    document.body.classList.toggle('deck');
+    if (document.body.classList.contains('deck')) show(idx);
+  }
+  document.addEventListener('keydown', (e)=>{
+    if (!document.body.classList.contains('deck')) return;
+    if (e.key==='ArrowRight' || e.key==='PageDown') nextSlide();
+    if (e.key==='ArrowLeft' || e.key==='PageUp') prevSlide();
+    if (e.key==='Escape'){ document.body.classList.remove('deck'); }
+  });
+  document.getElementById('pageTotal').textContent = slides.length;
+</script>
+</body>
+</html>
