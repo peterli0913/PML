@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Machine Learning for Production at Asymchem — Discussion Material</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    font-family: "Segoe UI", "Helvetica Neue", "PingFang SC", "Microsoft YaHei",
+                 "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
+    color: #0f1f3d; background: #f3f5fa;
+    -webkit-font-smoothing: antialiased; line-height: 1.6;
+  }
+  .topbar {
+    position: sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 10px 26px; background: rgba(15,31,61,.96); color: #fff;
+    backdrop-filter: blur(8px); box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar .brand { font-weight:700; letter-spacing:.4px; font-size:13.5px;}
+  .topbar .brand .badge {
+    display:inline-block; padding:2px 8px; margin-left:8px;
+    background:#ff7e3d; color:#fff; border-radius:4px; font-size:11px; font-weight:600;
+  }
+  .topbar nav a {
+    color:#cdd6e8; font-size:11px; text-decoration:none;
+    margin: 0 3px; padding:5px 6px; border-radius:6px;
+  }
+  .topbar nav a:hover { background:#1d2f55; color:#fff; }
+  .topbar .btns { display:flex; gap:8px; }
+  .topbar button {
+    font-size:11.5px; cursor:pointer; padding:6px 11px;
+    border:1px solid #3b507e; color:#cdd6e8; border-radius:6px; background:transparent;
+  }
+  .topbar button:hover { background:#1d2f55; }
+  .topbar button.on { background:#ff7e3d; border-color:#ff7e3d; color:#fff; }
+
+  main { max-width: 1280px; margin: 0 auto; padding: 0 24px 80px; }
+  section.slide {
+    background:#fff; border-radius: 14px; padding: 40px 48px 44px;
+    margin: 24px 0; box-shadow: 0 6px 24px rgba(15,31,61,.07);
+    position: relative; min-height: 500px;
+  }
+  section.slide.cover {
+    background: linear-gradient(135deg, #0f1f3d 0%, #1f3870 55%, #2a4d9c 100%); color:#fff;
+  }
+  section.slide h2.kicker {
+    color:#ff7e3d; font-size: 12px; font-weight:700; letter-spacing: 2.5px;
+    margin: 0 0 6px; text-transform: uppercase;
+  }
+  section.slide h1 {
+    font-size: 24px; margin: 0 0 6px; font-weight:700;
+    border-left: 5px solid #ff7e3d; padding-left: 13px; line-height: 1.3;
+  }
+  section.slide.cover h1 { border:none; padding:0; font-size: 33px; line-height: 1.24;}
+  section.slide h1 + .cn.h1cn {
+    font-size: 14.5px; color:#5b6a8a; margin: 0 0 16px; padding-left: 18px;
+  }
+
+  /* bilingual */
+  .cn { color:#5b6a8a; }
+  .cn-block {
+    font-size: 12.5px; color:#5b6a8a; margin-top: 5px;
+    padding-left: 10px; border-left: 2px solid #dde3ee; line-height:1.6;
+  }
+  body.en-only .cn, body.en-only .cn-block { display:none !important; }
+
+  .lead { font-size: 14.5px; color:#3a4d72; margin: 0 0 16px; max-width: 1020px;}
+
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 18px;}
+  .grid-3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;}
+  .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 13px;}
+
+  .card { background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px; padding: 15px 17px; }
+  .card.accent { background: #fff7f1; border-color:#ffd8be;}
+  .card.danger { background: #fef2f2; border-color:#fecaca;}
+  .card.success { background: #f0fdf4; border-color:#bbf7d0;}
+  .card.warn { background:#fffbeb; border-color:#fde68a;}
+  .card.navy { background: linear-gradient(160deg,#0f1f3d,#1f3870); color:#fff; border:none;}
+  .card.navy .cn, .card.navy .cn-block { color:#9aabd6; border-left-color:#3b507e; }
+  .card h3 { margin:0 0 7px; font-size:14.5px; }
+  .card.navy h3 { color:#fff; }
+  .card .desc { font-size:12.8px; color:#3a4d72; margin-top:6px; line-height:1.6;}
+  .card.navy .desc { color:#cdd6e8; }
+
+  table.kly { width:100%; border-collapse: collapse; font-size: 12.5px; }
+  table.kly th, table.kly td {
+    padding: 8px 10px; text-align:left;
+    border-bottom: 1px solid #e6ebf5; vertical-align: top;
+  }
+  table.kly thead th {
+    background:#0f1f3d; color:#fff; font-weight:600; font-size:11.5px; letter-spacing:.3px;
+  }
+  table.kly tbody tr:nth-child(even) { background:#f7f9fc; }
+  table.kly td.nd { font-weight:700; color:#0f1f3d; }
+  table.kly .cn-block { font-size:11.5px; margin-top:3px; padding-left:8px; }
+
+  .pill { display:inline-block; padding:2px 8px; border-radius:99px; font-size:10.5px; font-weight:600;}
+  .pill.ok    { background:#dcfce7; color:#166534; }
+  .pill.mid   { background:#fef9c3; color:#854d0e; }
+  .pill.warn  { background:#fee2e2; color:#991b1b; }
+  .pill.info  { background:#dbeafe; color:#1e3a8a; }
+  .pill.ml    { background:#ede9fe; color:#5b21b6; }
+  .pill.eng   { background:#e2e8f0; color:#334155; }
+
+  ul.bul { padding-left: 0; list-style:none; margin: 5px 0;}
+  ul.bul li { padding: 4px 0 4px 20px; position:relative; font-size:13px;}
+  ul.bul li:before {
+    content:""; position:absolute; left:3px; top:12px; width:6px; height:6px;
+    background:#ff7e3d; border-radius:2px; transform:rotate(45deg);
+  }
+  ul.bul.tight li { padding: 3px 0 3px 20px; font-size:12.5px; }
+  ul.bul.tight li:before { top:11px; }
+
+  code, .mono {
+    font-family: "SF Mono", Consolas, "Liberation Mono", monospace;
+    font-size: 11.8px; background:#eef2f8; padding:1px 5px; border-radius:4px;
+    color:#1e3a8a;
+  }
+  .formula {
+    background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px;
+    padding:9px 13px; margin:8px 0; font-family:"SF Mono",Consolas,monospace;
+    font-size:12.2px; color:#1e293b; overflow-x:auto;
+  }
+
+  /* problem block */
+  .prob { border:1px solid #e3e8f2; border-radius:12px; overflow:hidden; margin-bottom:15px; }
+  .prob .hd {
+    background:#0f1f3d; color:#fff; padding:9px 15px;
+    display:flex; align-items:center; gap:11px; flex-wrap:wrap;
+  }
+  .prob .hd .tag {
+    background:#ff7e3d; color:#fff; font-size:11px; font-weight:700;
+    padding:2px 8px; border-radius:5px;
+  }
+  .prob .hd .ttl { font-size:14px; font-weight:700; }
+  .prob .hd .ttl .cn { color:#9aabd6; font-weight:500; font-size:12px; margin-left:6px; }
+  .prob .bd { padding: 13px 15px; background:#fbfcfe; }
+  .prob .r { display:grid; grid-template-columns: 108px 1fr; gap:11px; margin-bottom:8px; }
+  .prob .r:last-child { margin-bottom:0; }
+  .prob .r .k { font-size:11.5px; font-weight:700; color:#c2410c; padding-top:2px; }
+  .prob .r .k .cn { display:block; color:#94a3b8; font-weight:500; font-size:10.5px; }
+  .prob .r .v { font-size:12.8px; color:#3a4d72; }
+  .prob .r .v ul { margin:0; padding-left:16px; }
+  .prob .r .v li { margin-bottom:3px; }
+
+  .qbox {
+    background:#fff7f1; border:1px solid #ffd8be; border-radius:10px;
+    padding:11px 14px; margin-top:9px;
+  }
+  .qbox .qlead { font-size:11.5px; font-weight:700; color:#c2410c; letter-spacing:.5px; }
+  .qbox .qtxt { font-size:13px; color:#3a4d72; margin-top:4px; font-style:italic; }
+
+  .callout {
+    margin-top: 13px; padding: 11px 14px; border-left: 4px solid #ff7e3d;
+    background:#fff7f1; border-radius: 0 10px 10px 0; font-size:13px; color:#3a4d72;
+  }
+  .callout.red { border-left-color:#dc2626; background:#fef2f2; }
+  .callout.blue { border-left-color:#2563eb; background:#eff6ff; }
+
+  .qlist { counter-reset: qq; }
+  .qlist .q {
+    display:grid; grid-template-columns: 30px 1fr; gap:11px;
+    padding: 11px 0; border-bottom:1px dashed #e3e8f2;
+  }
+  .qlist .q:last-child { border:none; }
+  .qlist .q .n {
+    counter-increment: qq; width:26px; height:26px; border-radius:8px;
+    background:#0f1f3d; color:#ff7e3d; display:flex; align-items:center;
+    justify-content:center; font-weight:800; font-size:12px;
+  }
+  .qlist .q .n:before { content: counter(qq); }
+  .qlist .q .t { font-size:13.3px; font-weight:600; color:#0f1f3d; }
+  .qlist .q .why { font-size:12.3px; color:#5b6a8a; margin-top:3px; }
+
+  .footnote { font-size: 11px; color:#7a89a8; margin-top: 12px; line-height: 1.55;}
+
+  body.deck main { padding: 0; max-width: none;}
+  body.deck section.slide {
+    margin: 0; min-height: 100vh; border-radius: 0; display: none; padding: 42px 58px;
+  }
+  body.deck section.slide.active { display:block; }
+  body.deck .deck-nav { display:flex !important;}
+  .deck-nav {
+    display:none; position: fixed; bottom: 16px; right: 16px; z-index: 60;
+    background: rgba(15,31,61,.92); padding: 6px 10px; border-radius: 999px;
+    color:#fff; font-size: 12px; gap: 7px; align-items:center;
+  }
+  .deck-nav button {
+    background: transparent; border: none; color:#fff; cursor:pointer;
+    padding: 4px 9px; border-radius: 6px; font-weight: 600;
+  }
+  .deck-nav button:hover { background: rgba(255,255,255,.1);}
+  .deck-nav .pages { font-variant-numeric: tabular-nums; opacity: .8;}
+
+  @media (max-width: 1000px){
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr;}
+    section.slide { padding: 24px 18px;}
+    .topbar nav { display:none;}
+    .prob .r { grid-template-columns: 1fr; }
+  }
+  @media print {
+    .topbar, .deck-nav { display:none !important;}
+    section.slide { box-shadow:none; page-break-after: always; margin: 0; border-radius: 0;}
+    body { background:#fff;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    Asymchem · Production AI
+    <span class="badge">ML Discussion · Sep 2026</span>
+  </div>
+  <nav>
+    <a href="#cover">Cover</a>
+    <a href="#s01">Context</a>
+    <a href="#s02">Scope</a>
+    <a href="#s03">P1 CQA</a>
+    <a href="#s04">P2 Region</a>
+    <a href="#s05">P3 Scale-up</a>
+    <a href="#s06">P4 Deviation</a>
+    <a href="#s07">Data</a>
+    <a href="#s08">Constraints</a>
+    <a href="#s09">Methods</a>
+    <a href="#s10">Questions</a>
+    <a href="#s11">Next</a>
+  </nav>
+  <div class="btns">
+    <button id="langBtn" onclick="cycleLang()">EN + 中文</button>
+    <button onclick="toggleDeck()">Slides</button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ COVER ============ -->
+<section class="slide cover" id="cover">
+  <h2 class="kicker" style="color:#ff9b6b;">ASYMCHEM · DISCUSSION MATERIAL</h2>
+  <h1>Machine Learning for Production<br/>Problems, Data Reality, and Where I'd Value Your View</h1>
+  <div class="en-txt" style="font-size:15.5px;opacity:.9;margin-top:15px;max-width:880px;">
+    This is not a project proposal. It is a structured list of the production problems we are considering,
+    how I would currently formulate them as learning problems, and the points where I am genuinely unsure.
+  </div>
+  <div class="cn" style="font-size:13px;color:#b9c6e0;margin-top:11px;max-width:880px;">
+    本材料不是项目方案，而是把我们正在考虑的生产问题、我目前对其学习问题形式的理解，
+    以及我自己没有把握的地方，整理成可讨论的清单。
+  </div>
+  <div class="grid-4" style="margin-top:32px;">
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:13px 15px;">
+      <div style="font-size:11px;color:#9aabd6;">SETTING</div>
+      <div style="font-size:14px;font-weight:700;margin-top:4px;">CDMO, multi-client</div>
+      <div class="cn" style="font-size:11.5px;color:#b9c6e0;margin-top:3px;">多客户受托生产</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:13px 15px;">
+      <div style="font-size:11px;color:#9aabd6;">DATA SCALE</div>
+      <div style="font-size:14px;font-weight:700;margin-top:4px;">Tens of batches / project</div>
+      <div class="cn" style="font-size:11.5px;color:#b9c6e0;margin-top:3px;">每项目数十批</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:13px 15px;">
+      <div style="font-size:11px;color:#9aabd6;">HARD LIMIT</div>
+      <div style="font-size:14px;font-weight:700;margin-top:4px;">No cross-client pooling</div>
+      <div class="cn" style="font-size:11.5px;color:#b9c6e0;margin-top:3px;">客户间数据不可合并</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:13px 15px;">
+      <div style="font-size:11px;color:#9aabd6;">ASSET</div>
+      <div style="font-size:14px;font-weight:700;margin-top:4px;">Strong mechanistic models</div>
+      <div class="cn" style="font-size:11.5px;color:#b9c6e0;margin-top:3px;">机理模型基础较好</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 CONTEXT ============ -->
+<section class="slide" id="s01">
+  <h2 class="kicker">01 · Setting</h2>
+  <h1>Why a CDMO is a different ML environment from a fixed-product plant</h1>
+  <div class="cn h1cn">受托生产与固定产品工厂的建模环境差别很大，这决定了哪些方法可行</div>
+
+  <p class="lead en-txt">
+    Most industrial ML case studies assume one product, one line, years of data. Almost none of that holds here.
+    I think getting this calibration right matters more than the choice of algorithm.
+  </p>
+  <div class="cn-block">
+    多数工业 AI 案例假设单一产品、单一产线、多年数据；我们几乎都不满足。
+    我认为把这个前提讲清楚，比选哪个算法更重要。
+  </div>
+
+  <table class="kly" style="margin-top:16px;">
+    <thead>
+      <tr>
+        <th style="width:20%;">Dimension<div class="cn-block">维度</div></th>
+        <th style="width:38%;">Typical process-industry assumption<div class="cn-block">常规流程工业假设</div></th>
+        <th>Our situation<div class="cn-block">我们的情况</div></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="nd">Product<div class="cn-block">产品</div></td>
+        <td>One product, stable for years</td>
+        <td>New molecule per project; portfolio turns over continuously<div class="cn-block">每个项目一个新分子，组合持续更替</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Sample size<div class="cn-block">样本量</div></td>
+        <td>Thousands of batches or continuous operation</td>
+        <td>Typically tens of batches before a project ends or moves<div class="cn-block">通常数十批，项目即结束或转移</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Data sharing<div class="cn-block">数据共享</div></td>
+        <td>All data poolable internally</td>
+        <td>Client process data cannot be pooled across clients<div class="cn-block">客户工艺数据不可跨客户合并使用</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Failure examples<div class="cn-block">失败样本</div></td>
+        <td>Enough failures to train on</td>
+        <td>Failures are rare, costly, and precious — severe class imbalance<div class="cn-block">失败罕见且代价高，类别极不平衡</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Parameter variation<div class="cn-block">参数变异</div></td>
+        <td>Some natural excitation of the input space</td>
+        <td>Operators hold setpoints tightly; input space barely explored<div class="cn-block">按设定点严格操作，输入空间几乎未被激励</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Deployment freedom<div class="cn-block">部署自由度</div></td>
+        <td>Closed-loop control acceptable</td>
+        <td>GMP: advisory only, human decides, full traceability required<div class="cn-block">GMP 下只能建议，人工决策，全程可追溯</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Prior knowledge<div class="cn-block">先验知识</div></td>
+        <td>Often weak / black-box process</td>
+        <td>Strong — kinetics, thermodynamics, transport, process simulation<div class="cn-block">较强——动力学、热力学、传递、流程模拟</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout blue">
+    <strong class="en-txt">My read:</strong>
+    <span class="en-txt">the last two rows are the interesting ones. The regulatory constraint pushes us toward
+    calibrated uncertainty and interpretability rather than raw accuracy; the strong prior knowledge pushes us
+    toward hybrid rather than purely data-driven models. Both are choices I'd like to sanity-check with you.</span>
+    <div class="cn-block">
+      我的判断：最后两行最关键。监管约束把我们推向"可标定的不确定度 + 可解释"，而非单纯追求精度；
+      机理基础较强则把我们推向混合建模而非纯数据驱动。这两点想请你判断是否成立。
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 SCOPE ============ -->
+<section class="slide" id="s02">
+  <h2 class="kicker">02 · Scope</h2>
+  <h1>Ten candidate applications, but only four are genuinely ML problems</h1>
+  <div class="cn h1cn">十个候选应用中，真正属于机器学习问题的只有四个</div>
+
+  <p class="lead en-txt">
+    Our internal scope covers three tracks. I have deliberately separated what is mainly an engineering
+    or integration job from what actually needs a modelling decision — so we can spend our time on the latter.
+  </p>
+  <div class="cn-block">
+    内部范围分三条主线。我刻意区分了"主要是工程与集成工作"和"真正需要建模决策"的部分，
+    以便把讨论时间花在后者。
+  </div>
+
+  <table class="kly" style="margin-top:16px;">
+    <thead>
+      <tr>
+        <th style="width:16%;">Track<div class="cn-block">主线</div></th>
+        <th style="width:22%;">Application<div class="cn-block">应用</div></th>
+        <th style="width:14%;">Nature<div class="cn-block">性质</div></th>
+        <th>Comment<div class="cn-block">说明</div></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="nd" rowspan="2">Shop-floor sensing<div class="cn-block">现场感知</div></td>
+        <td>Video inspection of operations</td>
+        <td><span class="pill eng">Engineering</span></td>
+        <td>Mature CV; effort is in camera coverage, edge deployment and false-alarm management<div class="cn-block">视觉技术成熟，难点在点位覆盖、边缘部署与误报治理</div></td>
+      </tr>
+      <tr>
+        <td>Equipment routine inspection</td>
+        <td><span class="pill eng">Engineering</span></td>
+        <td>Image classification plus workflow; low modelling novelty<div class="cn-block">图像分类加流程，建模新意不大</div></td>
+      </tr>
+      <tr>
+        <td class="nd" rowspan="3">Tech transfer<div class="cn-block">技术转移</div></td>
+        <td><strong>Scale-up prediction</strong></td>
+        <td><span class="pill ml">ML · P3</span></td>
+        <td>Physics-dominated, very few events per project — hardest of the four<div class="cn-block">物理机理主导、每项目事件极少，四者中最难</div></td>
+      </tr>
+      <tr>
+        <td>Process review assistance</td>
+        <td><span class="pill eng">Retrieval</span></td>
+        <td>Retrieval over historical project documents; useful but not a learning problem<div class="cn-block">历史项目文档检索，有价值但非学习问题</div></td>
+      </tr>
+      <tr>
+        <td>Document cross-checking</td>
+        <td><span class="pill eng">Rules + LLM</span></td>
+        <td>Consistency checks against specifications and prior records<div class="cn-block">与规格及历史记录的一致性核查</div></td>
+      </tr>
+      <tr>
+        <td class="nd" rowspan="5">Prediction &amp; guidance<div class="cn-block">预测与指导</div></td>
+        <td><strong>Batch CQA prediction</strong></td>
+        <td><span class="pill ml">ML · P1</span></td>
+        <td>Closest to a classical supervised problem; small-n is the core issue<div class="cn-block">最接近经典监督学习，核心困难是小样本</div></td>
+      </tr>
+      <tr>
+        <td><strong>Robust operating region</strong></td>
+        <td><span class="pill ml">ML · P2</span></td>
+        <td>Almost no negative examples and little input excitation<div class="cn-block">几乎没有负样本，输入激励不足</div></td>
+      </tr>
+      <tr>
+        <td><strong>Deviation risk prediction</strong></td>
+        <td><span class="pill ml">ML · P4</span></td>
+        <td>Rare-event problem with mixed human and process causes<div class="cn-block">稀有事件，人为与过程原因混杂</div></td>
+      </tr>
+      <tr>
+        <td>Technical report drafting</td>
+        <td><span class="pill eng">LLM</span></td>
+        <td>Template filling with traceable citations; mostly data plumbing<div class="cn-block">模板填充加引用回溯，主要是数据管道工作</div></td>
+      </tr>
+      <tr>
+        <td>Equipment health / RUL</td>
+        <td><span class="pill info">Standard</span></td>
+        <td>Well-established methods and vendors; kept separate from the four above<div class="cn-block">方法与供应商成熟，与上述四题分开处理</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <span class="en-txt">For Monday I'd like to focus on <strong>P1–P4</strong>. If you think I have mis-assigned
+    any of these — for example that scale-up is hopeless at our data scale, or that report drafting hides a real
+    learning problem — that alone would be a useful outcome.</span>
+    <div class="cn-block">
+      周一建议集中在 P1–P4。如果你认为我把某一项归错了——比如放大预测在我们的数据量下根本做不了，
+      或报告起草其实隐含真实的学习问题——这个结论本身就很有价值。
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 P1 ============ -->
+<section class="slide" id="s03">
+  <h2 class="kicker">03 · Problem P1</h2>
+  <h1>Batch quality-attribute prediction before the analytical result arrives</h1>
+  <div class="cn h1cn">在分析结果出来之前预测批次质量属性</div>
+
+  <div class="prob">
+    <div class="hd">
+      <span class="tag">P1</span>
+      <span class="ttl">Predict CQAs from process trajectory <span class="cn">由工艺轨迹预测关键质量属性</span></span>
+    </div>
+    <div class="bd">
+      <div class="r"><div class="k">Motivation<span class="cn">业务动因</span></div><div class="v">
+        Analytical results arrive days after the batch finishes. By then the only options are rework, downgrade
+        or disposal. A usable prediction at an intermediate step would allow intervention while the batch is still live.
+        <div class="cn-block">检测结果在批次结束后数天才出，届时只能返工、降级或报废。若能在中间步骤给出可用预测，就还有干预机会。</div>
+      </div></div>
+      <div class="r"><div class="k">Formulation<span class="cn">问题形式</span></div><div class="v">
+        Per batch <span class="mono">i</span> of project <span class="mono">p</span>, predict CQA vector
+        <span class="mono">y</span> (assay, named impurities, water content, particle attributes) from
+        process trajectory <span class="mono">X(t)</span>, raw-material certificate attributes
+        <span class="mono">z</span>, equipment identity and in-process control results.
+        <div class="formula">y&#770;<sub>ip</sub> = f( X<sub>ip</sub>(t ≤ τ), z<sub>ip</sub>, e<sub>ip</sub> ) &nbsp;&nbsp;plus an interval, not a point</div>
+        Two framings are possible: regression on CQA values, or direct estimation of
+        <span class="mono">P(out of specification)</span>. I lean to regression with a calibrated interval,
+        because the specification limit is known and can be applied afterwards.
+        <div class="cn-block">
+          两种形式：直接回归 CQA 值，或估计超标概率。我倾向回归加可标定区间——规格限已知，可事后套用。
+        </div>
+      </div></div>
+      <div class="r"><div class="k">Data<span class="cn">数据</span></div><div class="v">
+        <ul>
+          <li>Process trajectories from DCS: temperature, pressure, agitation, addition rate, jacket duty — seconds to minutes resolution</li>
+          <li>Electronic batch records: step timings, actual charges, operator actions, in-process results</li>
+          <li>Raw-material certificates: assay and impurity profile of incoming materials</li>
+          <li>Laboratory results as labels, at batch granularity</li>
+        </ul>
+        <div class="cn-block">
+          DCS 工艺轨迹（秒至分钟级）、电子批记录（步骤时间、实际投料、操作、中控结果）、
+          原料 COA（含量与杂质谱）、实验室结果作为批次级标签。
+        </div>
+      </div></div>
+      <div class="r"><div class="k">Difficulties<span class="cn">主要困难</span></div><div class="v">
+        <ul>
+          <li><strong>Small n.</strong> Tens of batches per project, so per-project models are weak and pooling needs a transferable representation</li>
+          <li><strong>Label granularity mismatch.</strong> Features are time series; labels are one value per batch</li>
+          <li><strong>Trajectory misalignment.</strong> Variable step durations; batches are not time-comparable without warping or phase segmentation</li>
+          <li><strong>Extreme imbalance.</strong> Nearly all historical batches pass specification</li>
+          <li><strong>Cold start.</strong> A new project has no batches at all when the first prediction is wanted</li>
+        </ul>
+        <div class="cn-block">
+          小样本；特征是时序而标签是批次级；轨迹时长不一需对齐或分段；历史批次几乎全部合格；
+          新项目首批时无任何历史。
+        </div>
+      </div></div>
+      <div class="r"><div class="k">Candidates<span class="cn">候选方法</span></div><div class="v">
+        Phase-based trajectory summarisation (per unit operation: duration, integral, extremum, ramp rate, deviation
+        from setpoint) feeding regularised linear models or gradient boosting; hierarchical Bayesian models with
+        partial pooling across projects; Gaussian processes where calibrated uncertainty matters more than accuracy;
+        conformal prediction as a distribution-free wrapper to obtain guaranteed coverage.
+        <div class="cn-block">
+          按单元操作做轨迹特征汇总（时长、积分、极值、升温速率、偏离设定点程度）后接正则化回归或梯度提升；
+          跨项目部分汇聚的分层贝叶斯；需要可标定不确定度时用高斯过程；用共形预测获得无分布假设的覆盖保证。
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="qbox">
+    <div class="qlead">QUESTION FOR YOU <span class="cn" style="font-weight:500;">请你判断</span></div>
+    <div class="qtxt en-txt">
+      At roughly 30–50 batches per project, is cross-project pooling with a chemistry-aware representation
+      actually better than a simple per-project model — or does the heterogeneity between molecules destroy the benefit?
+    </div>
+    <div class="cn-block">
+      在每项目约 30–50 批的量级下，用"含化学信息的表示"做跨项目汇聚，是否真的优于简单的单项目模型？
+      还是分子间异质性会把好处抵消掉？
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 P2 ============ -->
+<section class="slide" id="s04">
+  <h2 class="kicker">04 · Problem P2</h2>
+  <h1>Finding a robust sub-region inside an already-approved parameter range</h1>
+  <div class="cn h1cn">在已批准的参数范围内寻找更稳健的子区间</div>
+
+  <div class="prob">
+    <div class="hd">
+      <span class="tag">P2</span>
+      <span class="ttl">Data-driven robust operating region <span class="cn">数据驱动的稳健操作区间</span></span>
+    </div>
+    <div class="bd">
+      <div class="r"><div class="k">Motivation<span class="cn">业务动因</span></div><div class="v">
+        Registered ranges are wide because they were justified conservatively. Experienced operators know that within
+        that range some settings run more smoothly than others, but this is tacit. We want to state it explicitly
+        and monitor against it.
+        <div class="cn-block">
+          注册范围通常偏宽（当初论证保守）。有经验的操作者知道范围内某些设定更稳，但属隐性知识。
+          我们希望把它显式化并用于监控。
+        </div>
+      </div></div>
+      <div class="r"><div class="k">Formulation<span class="cn">问题形式</span></div><div class="v">
+        Estimate the set of critical process parameter settings for which the probability that all quality attributes
+        stay within specification exceeds a threshold, constrained to lie inside the approved range.
+        <div class="formula">R = { u ∈ U<sub>approved</sub> : P( y(u) ∈ S ) ≥ 1 − α }</div>
+        This is essentially a data-driven version of the design space concept, but estimated from routine
+        manufacturing records rather than designed experiments.
+        <div class="cn-block">
+          即估计"使全部质量属性合格概率不低于阈值"的参数集合，且必须落在已批准范围内。
+          本质上是数据驱动的设计空间，但用常规生产记录而非设计实验来估计。
+        </div>
+      </div></div>
+      <div class="r"><div class="k">Difficulties<span class="cn">主要困难</span></div><div class="v">
+        <ul>
+          <li><strong>One-class data.</strong> Almost all historical batches are in specification, so there is little signal about where the boundary is</li>
+          <li><strong>Almost no input excitation.</strong> Operators hold setpoints tightly, so the achieved parameter cloud is a small blob, not a spread</li>
+          <li><strong>Confounding.</strong> Parameter drift correlates with equipment, campaign, season and operator crew</li>
+          <li><strong>Causality.</strong> A region that correlates with good outcomes is not necessarily the cause of them</li>
+          <li><strong>Deliberate perturbation is expensive</strong> and generally not acceptable on commercial batches</li>
+        </ul>
+        <div class="cn-block">
+          近似单类数据、输入几乎无激励、参数漂移与设备/批次活动/季节/班组混杂、相关不等于因果、
+          在商业批上刻意扰动成本高且通常不被接受。
+        </div>
+      </div></div>
+      <div class="r"><div class="k">Candidates<span class="cn">候选方法</span></div><div class="v">
+        Quantile regression on the margin to specification rather than on the attribute itself; density-ratio or
+        one-class approaches to describe the achieved region; Bayesian estimation of the probability surface with
+        development-scale designed experiments used as a prior; Bayesian optimisation or active learning only where
+        experimentation is permitted, which in practice means development and pilot scale rather than commercial.
+        <div class="cn-block">
+          对"距规格的余量"做分位数回归而非直接回归属性；用密度比或单类方法刻画已实现区域；
+          以研发阶段的设计实验作为先验，对合格概率曲面做贝叶斯估计；
+          仅在允许实验的环节（研发与中试，而非商业批）使用贝叶斯优化或主动学习。
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="qbox">
+    <div class="qlead">QUESTION FOR YOU <span class="cn" style="font-weight:500;">请你判断</span></div>
+    <div class="qtxt en-txt">
+      This is the problem where I think your side has the advantage: could development-scale designed experiments
+      be structured so that they serve as an informative prior for the commercial-scale probability surface —
+      rather than being used only to justify the registered range?
+    </div>
+    <div class="cn-block">
+      这题我认为你们研发侧更有优势：能否把研发阶段的设计实验组织成"可作为商业规模合格概率曲面先验"的形式，
+      而不是只用于论证注册范围？
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 P3 ============ -->
+<section class="slide" id="s05">
+  <h2 class="kicker">05 · Problem P3</h2>
+  <h1>Predicting what changes on scale-up — the hybrid modelling case</h1>
+  <div class="cn h1cn">预测放大过程中会发生什么变化——混合建模的典型场景</div>
+
+  <div class="prob">
+    <div class="hd">
+      <span class="tag">P3</span>
+      <span class="ttl">Scale-up outcome and failure-mode prediction <span class="cn">放大结果与失效模式预测</span></span>
+    </div>
+    <div class="bd">
+      <div class="r"><div class="k">Motivation<span class="cn">业务动因</span></div><div class="v">
+        Recurring pattern: a route performs well at laboratory or pilot scale, then at commercial scale an
+        unexpected impurity appears, or yield drops in a specific step. The knowledge of why tends to sit with a few
+        senior engineers and is not reliably reused across projects.
+        <div class="cn-block">
+          反复出现的情形：路线在实验室或中试表现良好，放大后出现预期外杂质或某步收率下降。
+          原因认知集中在少数资深工程师身上，难以跨项目稳定复用。
+        </div>
+      </div></div>
+      <div class="r"><div class="k">Formulation<span class="cn">问题形式</span></div><div class="v">
+        Rather than predicting absolute outcomes, predict the <em>change</em> from small to large scale as a function
+        of scale-dependent physical quantities and equipment capability.
+        <div class="formula">Δy = g( reaction class, rate-limiting regime, mixing time, heat-removal capacity, addition rate per volume, surface-to-volume ratio, ... )</div>
+        Alternatively as classification over known failure modes: impurity formation from local hot spots, mixing-limited
+        selectivity loss, extended hold time effects, solids handling and filtration behaviour.
+        <div class="cn-block">
+          不预测绝对结果，而是把"从小试到大规模的变化量"建模为与尺度相关的物理量及设备能力的函数；
+          或对已知失效模式做分类：局部过热生成杂质、混合受限导致选择性下降、保持时间延长的影响、固体处理与过滤行为。
+        </div>
+      </div></div>
+      <div class="r"><div class="k">Difficulties<span class="cn">主要困难</span></div><div class="v">
+        <ul>
+          <li><strong>Physics dominates</strong> and the relevant regime differs by chemistry, so a single data-driven model is unlikely to generalise</li>
+          <li><strong>One or two scale-up events per project</strong> — the effective sample size is the number of projects, not batches</li>
+          <li><strong>Historical records are unstructured</strong> — reports and review minutes rather than tabulated outcomes</li>
+          <li><strong>Client isolation bites hardest here</strong>, because the useful signal is exactly the process detail we cannot pool</li>
+        </ul>
+        <div class="cn-block">
+          物理机理主导且主控机制随化学体系而变；每项目仅一两次放大事件，有效样本量是项目数而非批次数；
+          历史记录多为报告与评审纪要等非结构化形式；客户隔离在此题影响最大，因为有用信号恰是不可合并的工艺细节。
+        </div>
+      </div></div>
+      <div class="r"><div class="k">Candidates<span class="cn">候选方法</span></div><div class="v">
+        Compute mechanistic quantities first — mixing time, Damköhler-type ratios, heat-removal margin, characteristic
+        times — and use those as features so that learning happens in a physically meaningful, dimensionless space.
+        Then either learn a correction to the mechanistic prediction, or learn failure-mode risk at the level of
+        reaction class and limiting regime, which is the abstraction level that can legitimately be shared across clients.
+        <div class="cn-block">
+          先算机理量（混合时间、Damköhler 类比值、移热余量、特征时间），以其作为特征，
+          使学习发生在有物理意义的无量纲空间；再选择"对机理预测学残差修正"，
+          或在"反应类型 + 主控机制"层面学习失效风险——这一抽象层级是可以合法跨客户共享的。
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="qbox">
+    <div class="qlead">QUESTION FOR YOU <span class="cn" style="font-weight:500;">请你判断</span></div>
+    <div class="qtxt en-txt">
+      Is a cross-project model at the level of reaction class and rate-limiting regime realistic, or is scale-up
+      fundamentally case-by-case such that the honest deliverable is a well-structured knowledge base with
+      mechanistic calculators, and not a predictive model at all?
+    </div>
+    <div class="cn-block">
+      在"反应类型 + 主控机制"层面建跨项目模型现实吗？还是放大本质上只能逐案处理，
+      诚实的交付物应该是"结构化知识库 + 机理计算工具"，而根本不是预测模型？
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 P4 ============ -->
+<section class="slide" id="s06">
+  <h2 class="kicker">06 · Problem P4</h2>
+  <h1>Flagging which step of an upcoming batch carries elevated risk</h1>
+  <div class="cn h1cn">识别即将执行的批次中哪一步风险偏高</div>
+
+  <div class="prob">
+    <div class="hd">
+      <span class="tag">P4</span>
+      <span class="ttl">Deviation and process-failure risk<span class="cn">偏差与过程失效风险</span></span>
+    </div>
+    <div class="bd">
+      <div class="r"><div class="k">Motivation<span class="cn">业务动因</span></div><div class="v">
+        Deviations are currently investigated after the fact. If we could indicate before a shift which steps are
+        most likely to go wrong, the response is cheap and non-invasive: add a second check, slow the addition,
+        have a senior engineer present, increase sampling.
+        <div class="cn-block">
+          目前偏差都是事后调查。若能在班前指出哪些步骤最可能出问题，
+          应对手段成本很低且非侵入：增加复核、放慢加料、安排资深工程师在场、加严取样。
+        </div>
+      </div></div>
+      <div class="r"><div class="k">Formulation<span class="cn">问题形式</span></div><div class="v">
+        Two variants. Offline: step-level risk scoring before execution from static context — step type, crew
+        experience, equipment status, campaign position, historical deviation rate for that step.
+        Online: anomaly detection on the running trajectory against the envelope of historically successful batches.
+        <div class="cn-block">
+          两种形式。离线：执行前按静态上下文对步骤打风险分（步骤类型、班组经验、设备状态、
+          在批次活动中的位置、该步历史偏差率）。在线：将运行中的轨迹与历史成功批次的包络做异常检测。
+        </div>
+      </div></div>
+      <div class="r"><div class="k">Difficulties<span class="cn">主要困难</span></div><div class="v">
+        <ul>
+          <li><strong>Rare events</strong> with inconsistent labelling granularity in deviation records</li>
+          <li><strong>Mixed causes</strong> — human error, equipment condition and process sensitivity are entangled</li>
+          <li><strong>Sensitivity of use.</strong> Anything that looks like scoring individual staff is unacceptable, so features must stay at role or process level</li>
+          <li><strong>Self-defeating success.</strong> If the warning works, the event does not occur, which complicates evaluation</li>
+        </ul>
+        <div class="cn-block">
+          稀有事件且偏差记录的标注粒度不一致；人为、设备与工艺敏感性原因混杂；
+          任何看起来像给个人打分的做法都不可接受，特征须停留在岗位或过程层面；
+          预警成功则事件不发生，评估口径需特别设计。
+        </div>
+      </div></div>
+      <div class="r"><div class="k">Candidates<span class="cn">候选方法</span></div><div class="v">
+        Multivariate statistical process control on batch trajectories — principal component or partial least squares
+        models of the successful-batch envelope, with dynamic time warping for alignment. This is the established
+        pharmaceutical approach, works at modest sample size, and is far easier to explain to quality assurance than
+        a modern black-box alternative.
+        <div class="cn-block">
+          对批次轨迹做多变量统计过程控制——用主成分或偏最小二乘刻画成功批包络，配合动态时间规整对齐。
+          这是制药行业成熟做法，在样本量有限时可用，且比现代黑箱方法更容易向质量部门解释。
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="qbox">
+    <div class="qlead">QUESTION FOR YOU <span class="cn" style="font-weight:500;">请你判断</span></div>
+    <div class="qtxt en-txt">
+      Honest question rather than a rhetorical one: at our sample sizes, does modern machine learning actually
+      outperform well-implemented partial least squares and multivariate control charts on this class of problem —
+      and if not, should we deliberately start there?
+    </div>
+    <div class="cn-block">
+      这是真问题不是设问：在我们的样本量下，现代机器学习在这类问题上真的优于实现良好的
+      偏最小二乘与多变量控制图吗？如果不是，我们是否应该刻意从后者开始？
+    </div>
+  </div>
+</section>
+
+<!-- ============ 07 DATA ============ -->
+<section class="slide" id="s07">
+  <h2 class="kicker">07 · Data reality</h2>
+  <h1>What exists, at what granularity, and what is genuinely usable</h1>
+  <div class="cn h1cn">现有数据、粒度，以及真正可用的部分</div>
+
+  <table class="kly">
+    <thead>
+      <tr>
+        <th style="width:16%;">Source<div class="cn-block">来源</div></th>
+        <th style="width:17%;">Content<div class="cn-block">内容</div></th>
+        <th style="width:14%;">Granularity<div class="cn-block">粒度</div></th>
+        <th style="width:14%;">Serves<div class="cn-block">服务问题</div></th>
+        <th>Main caveat<div class="cn-block">主要问题</div></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="nd">DCS / SCADA</td>
+        <td>Temperature, pressure, agitation, flows, jacket duty, alarms</td>
+        <td>Seconds to minutes</td>
+        <td>P1, P2, P4</td>
+        <td>Tag naming not harmonised across units; time base must be reconciled with laboratory timestamps<div class="cn-block">位号命名跨单元不统一；时间基准需与实验室时间对齐</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Electronic batch records</td>
+        <td>Step sequence and timings, actual charges, operator actions, in-process controls</td>
+        <td>Step / event</td>
+        <td>P1, P3, P4</td>
+        <td>Semi-structured; free-text comments carry information that is hard to extract reliably<div class="cn-block">半结构化，自由文本含信息但难以稳定抽取</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Laboratory results</td>
+        <td>Quality attributes, impurity profiles, in-process results</td>
+        <td>Sample / batch</td>
+        <td>P1, P2</td>
+        <td>These are the labels; sample timing and method version must be tracked<div class="cn-block">作为标签；取样时间与方法版本必须可追踪</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Raw-material certificates</td>
+        <td>Incoming assay and impurity profile, supplier and lot</td>
+        <td>Lot</td>
+        <td>P1, P3</td>
+        <td>Often only summary values rather than full profiles; digitisation incomplete<div class="cn-block">常仅有汇总值而非完整谱图，数字化不完整</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Deviation and change records</td>
+        <td>Event description, root cause, corrective action</td>
+        <td>Event</td>
+        <td>P4</td>
+        <td>Labelling granularity varies by author; root-cause fields are inconsistent<div class="cn-block">标注粒度因撰写人而异，根因字段不一致</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Development and transfer documents</td>
+        <td>Route description, parameter ranges, scale-up reports, review minutes</td>
+        <td>Project</td>
+        <td>P2, P3</td>
+        <td>Unstructured; the main prerequisite work for P3 is turning these into tabulated form<div class="cn-block">非结构化；P3 的主要前置工作就是把它们结构化</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Equipment records</td>
+        <td>Maintenance history, capability data, qualification status</td>
+        <td>Asset</td>
+        <td>P3, P4</td>
+        <td>Capability parameters relevant to scale-up are often not recorded in usable form<div class="cn-block">与放大相关的设备能力参数常未以可用形式记录</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout red">
+    <span class="en-txt"><strong>Confidentiality.</strong> Client process data cannot leave its authorised scope, and
+    cannot be pooled across clients. For our discussion I would work with the <em>structure</em> of the data —
+    schemas, granularity, sample sizes — and with anonymised or synthetic examples. Anything involving actual client
+    parameters would need prior agreement internally.</span>
+    <div class="cn-block">
+      保密说明：客户工艺数据不得超出授权范围，且不可跨客户合并。本次讨论我会以数据的"结构"
+      （表结构、粒度、样本量）以及脱敏或合成示例为基础；涉及客户真实参数的内容需事先取得内部同意。
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 CONSTRAINTS ============ -->
+<section class="slide" id="s08">
+  <h2 class="kicker">08 · Constraints</h2>
+  <h1>Five constraints that should drive the method choice</h1>
+  <div class="cn h1cn">应当主导方法选择的五项约束</div>
+
+  <div class="grid-2">
+    <div class="card danger">
+      <h3>1 · Small effective sample size</h3>
+      <div class="desc en-txt">
+        Tens of batches per project, and for scale-up questions the effective unit is the project, not the batch.
+        This argues for strong priors, partial pooling and parsimonious models over high-capacity ones.
+      </div>
+      <div class="cn-block">
+        每项目数十批；放大类问题的有效单位是项目而非批次。
+        这支持使用强先验、部分汇聚与低复杂度模型，而非高容量模型。
+      </div>
+    </div>
+    <div class="card danger">
+      <h3>2 · Cold start on every new molecule</h3>
+      <div class="desc en-txt">
+        Prediction is most valuable exactly when we have no history for that molecule. Any useful approach must
+        transfer from past projects through a representation that is chemically meaningful rather than project-specific.
+      </div>
+      <div class="cn-block">
+        预测最有价值的时点恰恰是该分子尚无历史数据时。
+        任何可用方法都必须通过"有化学含义而非项目专属"的表示，从历史项目迁移过来。
+      </div>
+    </div>
+    <div class="card warn">
+      <h3>3 · No pooling across clients</h3>
+      <div class="desc en-txt">
+        We may learn generalisable relationships but must not transfer specific process parameters between clients.
+        The practical question is which abstraction level is both legitimate to share and still informative —
+        reaction class and limiting regime look like candidates.
+      </div>
+      <div class="cn-block">
+        可以学习可泛化的规律，但不得在客户之间迁移具体工艺参数。
+        实际问题是"哪一抽象层级既可合法共享又仍然有信息量"——反应类型与主控机制看起来是候选。
+      </div>
+    </div>
+    <div class="card warn">
+      <h3>4 · Advisory-only deployment</h3>
+      <div class="desc en-txt">
+        Under good manufacturing practice the model cannot change setpoints or release material. Output is a draft,
+        a prompt or a flag; a person decides. Consequences: calibrated uncertainty matters more than point accuracy,
+        and inputs, model version and the human decision must all be recorded.
+      </div>
+      <div class="cn-block">
+        GMP 下模型不能修改设定值或放行物料，输出只能是草稿、提示或标记，由人决策。
+        由此：可标定的不确定度比点预测精度更重要；输入、模型版本与人工裁定都必须留痕。
+      </div>
+    </div>
+    <div class="card success" style="grid-column: span 2;">
+      <h3>5 · Mechanistic knowledge is available — and I think under-used</h3>
+      <div class="desc en-txt">
+        Unlike many industrial settings we are not starting from a black box. Kinetics, thermodynamics, transport
+        correlations and process simulation are all in routine use. That makes hybrid formulations natural: compute
+        physically meaningful quantities, learn in that space, or learn a correction to a mechanistic prediction.
+        My working assumption is that this is the single largest advantage we have, and the place where your
+        combination of chemistry and machine learning is most useful to us.
+      </div>
+      <div class="cn-block">
+        与许多工业场景不同，我们不是从黑箱开始——动力学、热力学、传递关联式与流程模拟都在常规使用。
+        这使混合建模成为自然选择：先算出有物理意义的量并在该空间中学习，或对机理预测学习修正项。
+        我的工作假设是：这是我们最大的优势，也是你"化学 + 机器学习"的组合对我们最有价值的地方。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 METHODS ============ -->
+<section class="slide" id="s09">
+  <h2 class="kicker">09 · Methodological directions</h2>
+  <h1>Five directions I would like to pressure-test with you</h1>
+  <div class="cn h1cn">希望与你一起验证的五个方法方向</div>
+
+  <table class="kly">
+    <thead>
+      <tr>
+        <th style="width:19%;">Direction<div class="cn-block">方向</div></th>
+        <th style="width:27%;">Why it fits our constraints<div class="cn-block">为何契合我们的约束</div></th>
+        <th style="width:12%;">Serves<div class="cn-block">服务问题</div></th>
+        <th>What I am unsure about<div class="cn-block">我不确定之处</div></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="nd">Hybrid mechanistic and data-driven modelling</td>
+        <td>Uses our strongest asset; reduces the amount that must be learned from data; stays interpretable</td>
+        <td>P1, P3</td>
+        <td>Whether residual correction on a mechanistic baseline, or mechanistic features into a learner, works better at our scale<div class="cn-block">在我们的数据量下，是"对机理基线学残差"还是"把机理量作为特征"更有效</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Hierarchical Bayesian partial pooling</td>
+        <td>Designed for many small groups; borrows strength across projects without asserting they are identical</td>
+        <td>P1, P2</td>
+        <td>How to define the grouping — by reaction class, unit operation, or equipment train — and whether it survives client isolation review<div class="cn-block">分组如何定义（反应类型 / 单元操作 / 设备系列），以及能否通过客户隔离审查</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Calibrated uncertainty: Gaussian processes and conformal prediction</td>
+        <td>Regulated use needs intervals a reviewer can trust; conformal gives coverage guarantees with weak assumptions</td>
+        <td>P1, P2</td>
+        <td>Whether conformal intervals remain narrow enough to be operationally useful at n in the tens<div class="cn-block">在数十样本量下，共形区间是否还能窄到有实际操作价值</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Chemistry-aware representation of a new project</td>
+        <td>The only route out of the cold-start problem; also the legitimate abstraction level for sharing</td>
+        <td>P1, P3</td>
+        <td>Which representation actually transfers — reaction fingerprints, computed descriptors, a curated reaction taxonomy, or something learned<div class="cn-block">哪种表示真能迁移——反应指纹、计算描述符、人工整理的反应分类法，还是学习得到的表示</div></td>
+      </tr>
+      <tr>
+        <td class="nd">Design of experiments, Bayesian optimisation and active learning</td>
+        <td>Addresses the lack of input excitation at its root, by generating informative data rather than mining uninformative data</td>
+        <td>P2, P3</td>
+        <td>Where it can legitimately run — my assumption is development and pilot scale only, with commercial batches remaining observational<div class="cn-block">可在何处合法实施——我的假设是仅限研发与中试，商业批保持观察性</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <span class="en-txt">I have deliberately not listed deep architectures. With sample sizes in the tens and a
+    requirement to explain every output to quality assurance, I cannot currently construct an argument for them —
+    but I would rather hear that I am wrong than proceed on an untested assumption.</span>
+    <div class="cn-block">
+      我刻意没有列入深度网络架构。在样本量仅数十、且每个输出都需向质量部门解释的前提下，
+      我目前构造不出支持它们的论证——但如果我判断有误，我更希望现在听到。
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10 QUESTIONS ============ -->
+<section class="slide" id="s10">
+  <h2 class="kicker">10 · Questions</h2>
+  <h1>What I would most like your view on</h1>
+  <div class="cn h1cn">最希望听到你判断的问题</div>
+
+  <p class="lead en-txt">
+    Ordered by how much a clear answer would change what we do next. I would rather leave with three
+    firm opinions than ten polite ones.
+  </p>
+  <div class="cn-block">
+    按"明确答案对下一步影响程度"排序。我宁愿带走三个明确意见，也不要十个客套意见。
+  </div>
+
+  <div class="qlist" style="margin-top:14px;">
+    <div class="q">
+      <div class="n"></div>
+      <div>
+        <div class="t en-txt">At tens of batches per project, where is the realistic ceiling — which of P1 to P4 is achievable, and which should I stop presenting as feasible?</div>
+        <div class="cn-block">在每项目数十批的量级下，现实上限在哪里——P1 到 P4 哪些可行，哪些我应该停止当作可行来汇报？</div>
+      </div>
+    </div>
+    <div class="q">
+      <div class="n"></div>
+      <div>
+        <div class="t en-txt">Is pooling across projects worth the effort, and if so what representation of a new molecule or route actually transfers?</div>
+        <div class="cn-block">跨项目汇聚值得做吗？若值得，对新分子或新路线用哪种表示才真能迁移？</div>
+      </div>
+    </div>
+    <div class="q">
+      <div class="n"></div>
+      <div>
+        <div class="t en-txt">For the robust-operating-region problem, can development-scale designed experiments be structured to serve as a prior for commercial scale?</div>
+        <div class="cn-block">对稳健操作区间问题，研发阶段的设计实验能否组织成可作为商业规模先验的形式？</div>
+      </div>
+    </div>
+    <div class="q">
+      <div class="n"></div>
+      <div>
+        <div class="t en-txt">Hybrid or purely data-driven — at our data scale, is the effort of building mechanistic features repaid?</div>
+        <div class="cn-block">混合建模还是纯数据驱动——在我们的数据量下，构建机理特征的投入能否回本？</div>
+      </div>
+    </div>
+    <div class="q">
+      <div class="n"></div>
+      <div>
+        <div class="t en-txt">Does modern machine learning genuinely beat well-implemented partial least squares and multivariate control charts here?</div>
+        <div class="cn-block">在这类问题上，现代机器学习真的优于实现良好的偏最小二乘与多变量控制图吗？</div>
+      </div>
+    </div>
+    <div class="q">
+      <div class="n"></div>
+      <div>
+        <div class="t en-txt">For calibrated uncertainty under regulatory scrutiny, what would you actually use — and would conformal intervals stay useful at our sample sizes?</div>
+        <div class="cn-block">在监管审视下要给出可标定的不确定度，你实际会选什么方法？共形区间在我们的样本量下还有用吗？</div>
+      </div>
+    </div>
+    <div class="q">
+      <div class="n"></div>
+      <div>
+        <div class="t en-txt">Given the no-cross-client-pooling rule, which abstraction level is both shareable and still informative in your judgement?</div>
+        <div class="cn-block">在不可跨客户合并的前提下，你认为哪一抽象层级既可共享又仍有信息量？</div>
+      </div>
+    </div>
+    <div class="q">
+      <div class="n"></div>
+      <div>
+        <div class="t en-txt">If you had to pick one problem to attempt first as a retrospective study on existing data, which would it be and why?</div>
+        <div class="cn-block">如果只能先用现有数据做一个回溯性研究，你会选哪个问题，为什么？</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11 NEXT ============ -->
+<section class="slide" id="s11">
+  <h2 class="kicker">11 · Ways to work together</h2>
+  <h1>Low-commitment options, in increasing order of effort</h1>
+  <div class="cn h1cn">按投入递增排列的几种低承诺协作方式</div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3>A · Review and redirect</h3>
+      <div class="desc en-txt">
+        You review the problem list and tell me which formulations are sound, which are naive, and what I have
+        missed. No data involved, no commitment beyond the conversation.
+      </div>
+      <div class="cn-block">
+        你审阅问题清单，指出哪些形式成立、哪些过于天真、我遗漏了什么。不涉及数据，除本次讨论外无额外承诺。
+      </div>
+    </div>
+    <div class="card">
+      <h3>B · Advise on representation</h3>
+      <div class="desc en-txt">
+        Specifically on how to represent a molecule, route and reaction class so that learning can transfer across
+        projects. This is the piece I am least equipped to judge and it blocks several of the problems.
+      </div>
+      <div class="cn-block">
+        专门就"如何表示分子、路线与反应类型以便跨项目迁移"给建议。
+        这是我最没有判断能力、却卡住多个问题的一环。
+      </div>
+    </div>
+    <div class="card success">
+      <h3>C · Retrospective study on one problem</h3>
+      <div class="desc en-txt">
+        Pick one problem, use only historical records, and backtest. Zero operational and zero compliance risk
+        because nothing touches a live batch. This is the option I would argue for.
+      </div>
+      <div class="cn-block">
+        选一个问题，仅用历史记录做回溯验证。不触及在产批次，因此无运行风险与合规风险。
+        这是我倾向主张的选项。
+      </div>
+    </div>
+    <div class="card">
+      <h3>D · Joint design of experiments at development scale</h3>
+      <div class="desc en-txt">
+        Longer term: structure development-stage experiments so that they serve both their regulatory purpose and
+        as informative data for commercial-scale models. Requires coordination beyond the two of us.
+      </div>
+      <div class="cn-block">
+        更长期：把研发阶段实验组织成既满足注册用途、又能为商业规模模型提供信息的形式。
+        需要我们两人之外的协调。
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:20px 0 8px;font-size:15px;">
+    <span class="en-txt">What I will bring to the meeting</span>
+    <span class="cn" style="font-size:12.5px;font-weight:500;">　会前我会准备的材料</span>
+  </h3>
+  <div class="grid-3">
+    <div class="card accent">
+      <h3 style="font-size:13.5px;">Data schemas</h3>
+      <div class="desc en-txt" style="font-size:12.3px;">Table structures, granularity and indicative sample sizes for each source — no client values.</div>
+      <div class="cn-block">各数据源的表结构、粒度与样本量量级，不含客户数值。</div>
+    </div>
+    <div class="card accent">
+      <h3 style="font-size:13.5px;">One worked example</h3>
+      <div class="desc en-txt" style="font-size:12.3px;">An anonymised batch trajectory with its quality result, to make the alignment and aggregation problem concrete.</div>
+      <div class="cn-block">一个脱敏的批次轨迹及其质量结果，用于把对齐与聚合问题讲具体。</div>
+    </div>
+    <div class="card accent">
+      <h3 style="font-size:13.5px;">Constraint sheet</h3>
+      <div class="desc en-txt" style="font-size:12.3px;">What can and cannot be shared, and what would need internal agreement first.</div>
+      <div class="cn-block">可共享与不可共享的界限，以及哪些需先取得内部同意。</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <span class="en-txt"><strong>Outcome I am aiming for:</strong> a short written note we both agree on, saying
+    which one or two problems are worth a retrospective study, what representation to try, and what would count as
+    a negative result. A clear negative is as useful to me as a positive one.</span>
+    <div class="cn-block">
+      期望的会议结果：一份我们都认可的简短书面结论——哪一两个问题值得做回溯研究、尝试哪种表示、
+      以及什么算作阴性结果。对我而言，明确的阴性结论与阳性结论同样有价值。
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="deck-nav">
+  <button onclick="prevSlide()">Prev</button>
+  <span class="pages"><span id="pageNo">1</span> / <span id="pageTotal">1</span></span>
+  <button onclick="nextSlide()">Next</button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('section.slide'));
+  let idx = 0;
+  function show(i){
+    if (!document.body.classList.contains('deck')) return;
+    idx = (i + slides.length) % slides.length;
+    slides.forEach((s,n)=> s.classList.toggle('active', n===idx));
+    document.getElementById('pageNo').textContent = idx+1;
+    document.getElementById('pageTotal').textContent = slides.length;
+  }
+  function nextSlide(){ show(idx+1); }
+  function prevSlide(){ show(idx-1); }
+  function toggleDeck(){
+    document.body.classList.toggle('deck');
+    if (document.body.classList.contains('deck')) show(idx);
+  }
+
+  const modes = [
+    { cls: '',        label: 'EN + 中文' },
+    { cls: 'en-only', label: 'English only' }
+  ];
+  let mode = 0;
+  function cycleLang(){
+    document.body.classList.remove('en-only');
+    mode = (mode + 1) % modes.length;
+    if (modes[mode].cls) document.body.classList.add(modes[mode].cls);
+    document.getElementById('langBtn').textContent = modes[mode].label;
+    document.getElementById('langBtn').classList.toggle('on', mode !== 0);
+  }
+
+  document.addEventListener('keydown', (e)=>{
+    if (!document.body.classList.contains('deck')) return;
+    if (e.key==='ArrowRight' || e.key==='PageDown') nextSlide();
+    if (e.key==='ArrowLeft' || e.key==='PageUp') prevSlide();
+    if (e.key==='Escape'){ document.body.classList.remove('deck'); }
+  });
+  document.getElementById('pageTotal').textContent = slides.length;
+</script>
+</body>
+</html>
