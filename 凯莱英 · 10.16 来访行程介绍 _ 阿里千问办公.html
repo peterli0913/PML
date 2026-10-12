@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)https://54pjhhu3.qwenwork.host/ -->
+<html lang="zh-CN" class="js"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script>var __mr='footer',__md='54pjhhu3.qwenwork.host';document.addEventListener('DOMContentLoaded', function () {
+  var BAR_HEIGHT = 48;
+
+  // --- detect page theme ---
+  var isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  // fallback: sample body/html background color
+  if (!isDark) {
+    try {
+      var sample = getComputedStyle(document.body).backgroundColor;
+      if (sample === 'rgba(0, 0, 0, 0)' || sample === 'transparent') {
+        sample = getComputedStyle(document.documentElement).backgroundColor;
+      }
+      if (sample && sample !== 'rgba(0, 0, 0, 0)' && sample !== 'transparent') {
+        var m = sample.match(/\d+/g);
+        if (m) {
+          var brightness = (parseInt(m[0]) * 299 + parseInt(m[1]) * 587 + parseInt(m[2]) * 114) / 1000;
+          isDark = brightness < 128;
+        }
+      }
+    } catch (e) {}
+  }
+
+  // --- shared CSS (always injected into <head>) ---
+  var SHARED_CSS = '<style>' +
+    '@keyframes mulepage-svg-glow-dark{0%,100%{color:#ffffff}50%{color:#3b82f6}}' +
+    '@keyframes mulepage-svg-glow-light{0%,100%{color:#000000}50%{color:#3b82f6}}' +
+    '.mulepage-anim-dark{animation:mulepage-svg-glow-dark 2.5s ease-in-out infinite}' +
+    '.mulepage-anim-light{animation:mulepage-svg-glow-light 2.5s ease-in-out infinite}' +
+    '.mulepage-close-dark{color:rgba(255,255,255,0.3);transition:color 0.2s ease}' +
+    '.mulepage-close-dark:hover{color:#ffffff}' +
+    '.mulepage-close-light{color:rgba(0,0,0,0.3);transition:color 0.2s ease}' +
+    '.mulepage-close-light:hover{color:#000000}' +
+    '#mulepage-footer-link{display:inline-flex;align-items:center;line-height:0;outline:none}' +
+    '.mulepage-footer-brand{display:inline-flex;align-items:center;box-sizing:border-box;height:32px;max-width:104px;overflow:hidden;padding:6px 12px;border-radius:999px;background:' + (isDark ? 'rgba(26,26,26,0.85)' : 'rgba(255,255,255,0.85)') + ';backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 0 0 0.5px ' + (isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)') + ',0 8px 24px -4px ' + (isDark ? 'rgba(0,0,0,0.28)' : 'rgba(0,0,0,0.07)') + ';transition:max-width 260ms cubic-bezier(0.22,1,0.36,1);will-change:max-width;white-space:nowrap}' +
+    '.mulepage-footer-brand-hint{display:inline-block;max-width:0;margin-left:0;overflow:hidden;opacity:0;color:' + (isDark ? 'rgba(255,255,255,0.72)' : 'rgba(0,0,0,0.64)') + ';font-size:14px;font-weight:400;line-height:20px;transition:max-width 260ms cubic-bezier(0.22,1,0.36,1),margin-left 260ms cubic-bezier(0.22,1,0.36,1),opacity 180ms ease-out;will-change:max-width,opacity}' +
+    '#mulepage-footer:hover .mulepage-footer-brand,#mulepage-footer:focus-within .mulepage-footer-brand{max-width:246px}' +
+    '#mulepage-footer:hover .mulepage-footer-brand-hint,#mulepage-footer:focus-within .mulepage-footer-brand-hint{max-width:126px;margin-left:8px;opacity:1}' +
+    '.mulepage-float-close{display:inline-flex;align-items:center;justify-content:center;max-width:0;margin-left:0;overflow:hidden;opacity:0;transition:max-width 0.2s ease,margin-left 0.2s ease,opacity 0.15s ease;padding:0;border:none;background:none;cursor:pointer;font-size:16px;line-height:1;font-weight:300;height:16px;will-change:max-width,opacity}' +
+    '.mulepage-float:hover .mulepage-float-close{max-width:14px;margin-left:4px;opacity:1}' +
+    '</style>';
+
+  // always inject shared CSS into <head> so it survives banner removal
+  document.head.insertAdjacentHTML('beforeend', SHARED_CSS);
+
+  // --- SVG icon (shared, rx=0 for sharp corners) ---
+  var ICON16 = '<svg width="16" height="16" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+    '<rect width="36" height="36" rx="0" fill="#FBF9F6"/><g clip-path="url(#c_top)">' +
+    '<path d="M6.387 21.732v8.895H18.762V28.5h2.32v1.16h8.121V28.5h1.16v-7.928h-1.16v-1.16h-4.64v-1.16h-1.16v-1.16h-1.16v-1.16h-1.16v-1.16h-1.16v-1.16h3.287v-1.934h3.48V9.357H16.442v3.48h-2.128V6.07h-2.32v2.127H9.674v3.48H7.547v10.055H6.387Z" fill="#000"/>' +
+    '<path d="M13.154 21.732v-4.447h1.16v-1.16h4.448v4.447h-1.16v1.16h-4.448Z" fill="#fff"/>' +
+    '<rect x="15.281" y="18.252" width="2.32" height="2.32" fill="#000"/>' +
+    '<path d="M21.082 27.34v-5.608h1.16v-1.16h5.801v1.16h1.16v5.608h-1.16V28.5h-5.801v-1.16h-1.16Z" fill="#fff"/>' +
+    '<path d="M26.883 21.732h-2.32v1.16h1.16v1.16h1.16v-2.32Z" fill="#000"/>' +
+    '<path d="M22.242 24.053v2.32h1.16v1.16h3.48v-1.16h-2.32v-1.16h-1.16v-1.16h-1.16Z" fill="#000"/>' +
+    '</g><defs><clipPath id="c_top"><rect width="24.75" height="24.75" fill="#fff" transform="translate(6 6)"/></clipPath></defs></svg>';
+
+  var ICON16_FOOT = ICON16.replace(/c_top/g, 'c_foot');
+
+  // --- 品牌标志：浅色主题使用原始深色 SVG，深色主题反相为白色。 ---
+  var brandAssetFilter = isDark ? 'filter:invert(1);' : '';
+  var BRAND_MARK = '<span style="display:inline-flex;align-items:center;gap:4px;line-height:0;">' +
+    '<img src="https://gw.alicdn.com/imgextra/i3/O1CN01KjiMsP20F9vea7rMy_!!6000000006819-55-tps-20-20.svg" alt="" width="20" height="20" style="display:block;user-select:none;' + brandAssetFilter + '" />' +
+    '<img src="https://gw.alicdn.com/imgextra/i2/O1CN01Hn0m411NLmdtyiXpF_!!6000000001554-55-tps-56-14.svg" alt="千问办公" width="56" height="14" style="display:block;user-select:none;' + brandAssetFilter + '" />' +
+    '</span>';
+  // 20 + 4 + 56 + 24 = 104px，与设计稿的 104 × 32 品牌胶囊一致。
+  var TOP_BRAND_LOGO = '<span style="display:inline-flex;align-items:center;justify-content:center;width:104px;height:32px;padding:6px 12px;box-sizing:border-box;border-radius:999px;' +
+    'background:' + (isDark ? 'rgba(255,255,255,0.12)' : '#f5f5f5') + ';">' + BRAND_MARK + '</span>';
+  // 右下角入口默认只展示品牌；悬浮或键盘聚焦时在同一胶囊中平滑展开提示语。
+  var FOOTER_BRAND_LOGO = '<span class="mulepage-footer-brand">' + BRAND_MARK +
+    '<span class="mulepage-footer-brand-hint">AI 生成，请注意核实</span></span>';
+
+  // --- banner (adapts to page theme) ---
+  var bannerBg = isDark ? '#050505' : '#ffffff';
+  var bannerBorder = isDark ? 'rgba(255,255,255,0.08)' : 'rgba(0,0,0,0.06)';
+  var bannerColor = isDark ? '#fff' : '#000';
+  var bannerDividerColor = isDark ? 'rgba(255,255,255,0.24)' : 'rgba(0,0,0,0.16)';
+  var bannerCloseClass = isDark ? 'mulepage-close-dark' : 'mulepage-close-light';
+
+  var BANNER = '<div id="mulepage-bar" dir="ltr" style="position:fixed;top:0;left:0;width:100%;height:' + BAR_HEIGHT + 'px;' +
+    'background:' + bannerBg + ';border-bottom:1px solid ' + bannerBorder + ';color:' + bannerColor + ';' +
+    'box-sizing:border-box;display:flex;align-items:center;gap:8px;padding:8px;' +
+    'font-family:\'PingFang SC\',Inter,-apple-system,BlinkMacSystemFont,\'Segoe UI\',sans-serif;' +
+    'font-size:14px;font-weight:500;line-height:20px;z-index:2147483647;">' +
+    '<span aria-hidden="true" style="flex:1 1 0;height:32px;"></span>' +
+    '<div style="display:flex;align-items:center;gap:8px;white-space:nowrap;">' +
+    '<span>由</span>' +
+    '<span id="mulepage-bar-link" role="link" tabindex="0" aria-label="打开千问办公" style="display:inline-flex;align-items:center;cursor:pointer;line-height:0;">' +
+    TOP_BRAND_LOGO + '</span>' +
+    '<span>创建</span>' +
+    '<span aria-hidden="true" style="width:1px;height:16px;margin:0 4px;background:' + bannerDividerColor + ';"></span>' +
+    '<span id="mulepage-bar-cta" role="link" tabindex="0" aria-label="用千问办公创建网站" style="display:inline-flex;align-items:center;gap:4px;padding:6px 12px;border-radius:999px;cursor:pointer;">' +
+    '<span>一句话创建你的网站</span><span aria-hidden="true" style="font-size:16px;line-height:16px;">\u2192</span></span>' +
+    '</div>' +
+    '<span style="flex:1 1 0;display:flex;justify-content:flex-end;align-items:center;">' +
+    '<button id="mulepage-bar-close" class="' + bannerCloseClass + '" aria-label="关闭千问办公品牌栏" style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;padding:8px;background:none;border:none;border-radius:999px;' +
+    'font-size:18px;cursor:pointer;line-height:16px;font-weight:300;">\u00d7</button></span>' +
+    '</div>';
+
+  // --- 右下角品牌入口 ---
+  var floatCloseColor = isDark ? 'rgba(255,255,255,0.35)' : 'rgba(0,0,0,0.3)';
+  var floatCloseHover = isDark ? '#ffffff' : '#000000';
+  var byColor = isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)';
+
+  var FOOTER = '<div id="mulepage-footer" dir="ltr" class="mulepage-float" style="position:fixed !important;bottom:16px !important;right:16px !important;z-index:2147483646;' +
+    'display:inline-flex;align-items:center;padding:0;cursor:pointer;background:transparent;border:0;box-shadow:none;' +
+    'font-family:Inter,-apple-system,BlinkMacSystemFont,\'Segoe UI\',\'Helvetica Neue\',sans-serif;">' +
+    '<span id="mulepage-footer-link" role="link" tabindex="0" aria-label="打开千问办公" style="display:inline-flex;align-items:center;line-height:0;">' +
+    FOOTER_BRAND_LOGO +
+    '</span>' +
+    '</div>';
+
+  // --- insert banner (only when mode is "all") ---
+  if (__mr === 'all') {
+    document.body.insertAdjacentHTML('afterbegin', BANNER);
+
+    // 顶栏品牌标志和行动文案均跳转至千问办公。
+    var openQwenWork = function () {
+      window.open('https://qwenwork.cn?utm_source=pages&utm_medium=banner&utm_campaign=pages_branding&utm_content=top_bar', '_blank', 'noopener');
+    };
+    var topBrandLink = document.getElementById('mulepage-bar-link');
+    var topBrandCta = document.getElementById('mulepage-bar-cta');
+    topBrandLink.addEventListener('click', openQwenWork);
+    topBrandCta.addEventListener('click', openQwenWork);
+    topBrandLink.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openQwenWork();
+      }
+    });
+    topBrandCta.addEventListener('keydown', function (event) {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openQwenWork();
+      }
+    });
+
+    // Use the QwenWork favicon only as a fallback. Preserve favicons generated
+    // by the page itself so published sites can keep their own branding.
+    var existingIcon = document.querySelector('link[rel="icon"],link[rel="shortcut icon"]');
+    if (!existingIcon) {
+      var fi = document.createElement('link');
+      fi.rel = 'icon';
+      fi.type = 'image/svg+xml';
+      fi.href = 'https://qwenwork.cn/app/favicon.svg';
+      document.head.appendChild(fi);
+    }
+
+    // push down normal-flow content (accumulate on existing padding-top)
+    var origPT = parseFloat(getComputedStyle(document.body).paddingTop) || 0;
+    document.body.style.paddingTop = (origPT + BAR_HEIGHT) + 'px';
+
+    // push down all existing position:fixed elements
+    var all = document.querySelectorAll('*');
+    var shifted = [];
+    for (var i = 0; i < all.length; i++) {
+      var el = all[i];
+      if (el.id && el.id.indexOf('mulepage') === 0) continue;
+      var cs = getComputedStyle(el);
+      if (cs.position === 'fixed') {
+        var t = parseFloat(cs.top);
+        if (isNaN(t)) t = 0;
+        el.style.top = (t + BAR_HEIGHT) + 'px';
+        shifted.push({ el: el, orig: t });
+      }
+    }
+
+    // close handler: restore everything
+    document.getElementById('mulepage-bar-close').addEventListener('click', function () {
+      document.getElementById('mulepage-bar').remove();
+      document.body.style.paddingTop = origPT + 'px';
+      for (var j = 0; j < shifted.length; j++) {
+        shifted[j].el.style.top = shifted[j].orig + 'px';
+      }
+    });
+  }
+
+  // --- insert floating widget (only when __mr is set) ---
+  if (__mr) {
+    document.body.insertAdjacentHTML('beforeend', FOOTER);
+
+    // 底部品牌标志点击后打开官网
+    var footerLink = document.getElementById('mulepage-footer-link');
+    if (footerLink) {
+      footerLink.addEventListener('click', function () {
+        window.open('https://qwenwork.cn?utm_source=pages&utm_medium=banner&utm_campaign=pages_branding&utm_content=bottom_bar', '_blank', 'noopener');
+      });
+      footerLink.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          footerLink.click();
+        }
+      });
+    }
+
+    // paid users (footer-only mode): add close button on hover
+    if (__mr === 'footer') {
+      var floatEl = document.getElementById('mulepage-footer');
+      if (floatEl) {
+        var closeBtn = document.createElement('button');
+        closeBtn.className = 'mulepage-float-close';
+        closeBtn.style.color = floatCloseColor;
+        closeBtn.textContent = '\u00d7';
+        closeBtn.addEventListener('mouseenter', function () { closeBtn.style.color = floatCloseHover; });
+        closeBtn.addEventListener('mouseleave', function () { closeBtn.style.color = floatCloseColor; });
+        closeBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          floatEl.remove();
+        });
+        floatEl.appendChild(closeBtn);
+      }
+    }
+  }
+
+  // --- inject canonical link (all users) ---
+  var canon = document.createElement('link');
+  canon.rel = 'canonical';
+  canon.href = 'https://' + location.hostname + '/';
+  document.head.appendChild(canon);
+
+  // --- inject og meta tags (all users) ---
+  var ogDomain = __md;
+  var ogTitle = document.title || ogDomain;
+  var ogTags = [
+    ['og:title', ogTitle],
+    ['og:url', 'https://' + location.hostname + '/'],
+    ['og:type', 'website'],
+    ['og:image', 'https://mule.page/og/' + ogDomain + '.webp']
+  ];
+  for (var n = 0; n < ogTags.length; n++) {
+    var existing = document.querySelector('meta[property="' + ogTags[n][0] + '"]');
+    if (existing) existing.remove();
+    var meta = document.createElement('meta');
+    meta.setAttribute('property', ogTags[n][0]);
+    meta.setAttribute('content', ogTags[n][1]);
+    document.head.appendChild(meta);
+  }
+});
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>凯莱英 · 10.16 来访行程介绍 | 阿里千问办公</title>
+<script>document.documentElement.classList.add('js');</script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+:root{
+  --orange:#FF6A00; --orange2:#FF8A3D; --green:#41D87E; --deep:#189857;
+  --ink:#0E1524; --ink2:#1B2740; --text:#39424F; --muted:#7A8496;
+  --paper:#F6F7F9; --card:#FFFFFF; --line:#E6E9EF;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans SC','PingFang SC',sans-serif;background:#E9EBEF;}
+.canvas{width:750px;max-width:100%;margin:0 auto;background:var(--paper);position:relative;overflow:hidden;}
+@media(min-width:800px){.canvas{box-shadow:0 24px 80px rgba(14,21,36,.18);}}
+.top-bar{height:6px;background:linear-gradient(90deg,var(--orange) 0%,var(--orange2) 45%,var(--green) 100%);}
+.texture{position:absolute;inset:0;opacity:.03;background-image:radial-gradient(circle at 1px 1px,var(--ink) 1px,transparent 0);background-size:42px 42px;pointer-events:none;z-index:0;}
+/* HERO */
+.hero{position:relative;min-height:600px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 50px 56px;color:#fff;overflow:hidden;background:radial-gradient(120% 90% at 82% 8%,rgba(255,106,0,.30),transparent 55%),radial-gradient(120% 90% at 12% 100%,rgba(24,152,87,.22),transparent 55%),var(--ink);}
+.brand-lock{display:flex;align-items:center;gap:11px;margin-bottom:34px;}
+.brand-lock .cn{font-family:'Noto Serif SC',serif;font-size:19px;font-weight:700;letter-spacing:4px;}
+.brand-lock .en{font-size:8.5px;letter-spacing:3px;color:rgba(255,255,255,.55);margin-top:3px;}
+.kicker{display:inline-block;font-size:11px;letter-spacing:4px;color:#FFC79A;border:1px solid rgba(255,138,61,.6);padding:7px 18px;border-radius:2px;margin-bottom:26px;}
+.hero-title{font-family:'Noto Serif SC',serif;font-size:42px;font-weight:900;letter-spacing:2px;line-height:1.28;text-align:center;}
+.hero-title em{font-style:normal;color:var(--orange2);}
+.hero-date{margin-top:20px;font-family:'Noto Serif SC',serif;font-size:17px;letter-spacing:3px;color:#EAF1F8;}
+.hero-sub{margin-top:14px;font-size:14px;letter-spacing:1px;color:rgba(234,241,248,.82);text-align:center;line-height:1.8;max-width:560px;}
+/* 动线 */
+.route{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:30px;flex-wrap:wrap;}
+.route .stop{font-size:12.5px;letter-spacing:1px;color:#EAF1F8;border:1px solid rgba(255,255,255,.22);padding:8px 14px;border-radius:2px;background:rgba(255,255,255,.04);}
+.route .ar{color:var(--orange2);font-size:15px;}
+/* 通用 */
+.content{padding:0 55px;position:relative;z-index:1;}
+.section{margin:56px 0;}
+.sec-header{display:flex;align-items:baseline;gap:14px;margin-bottom:22px;padding-bottom:12px;border-bottom:1px solid var(--line);position:relative;}
+.sec-header::after{content:'';position:absolute;left:0;bottom:-1px;width:60px;height:2px;background:linear-gradient(90deg,var(--orange),var(--green));}
+.sec-num{font-family:'Noto Serif SC',serif;font-size:26px;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--orange),var(--deep));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.sec-title{font-family:'Noto Serif SC',serif;font-size:22px;font-weight:700;color:var(--ink);letter-spacing:1.5px;}
+.sec-en{margin-left:auto;font-size:9px;letter-spacing:2px;color:#A6AEBB;}
+.lead{font-family:'Noto Serif SC',serif;font-size:16.5px;line-height:1.85;color:var(--ink2);letter-spacing:.3px;margin-bottom:24px;padding-left:15px;border-left:3px solid var(--orange);}
+.lead em{font-style:normal;color:var(--orange);font-weight:700;}
+/* 旅程概览 */
+.phases{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+.phase{background:var(--card);border:1px solid var(--line);padding:24px 20px;position:relative;}
+.phase::after{content:'';position:absolute;bottom:0;left:16%;right:16%;height:2px;background:linear-gradient(90deg,var(--orange),var(--green));}
+.phase .pt{font-size:11px;letter-spacing:1.5px;color:var(--orange);font-weight:700;margin-bottom:10px;}
+.phase h4{font-family:'Noto Serif SC',serif;font-size:17px;color:var(--ink);margin-bottom:8px;letter-spacing:.5px;}
+.phase p{font-size:12.5px;line-height:1.75;color:var(--muted);}
+/* 时间轴 */
+.timeline{position:relative;padding-left:26px;}
+.timeline::before{content:'';position:absolute;left:6px;top:8px;bottom:8px;width:1px;background:linear-gradient(180deg,var(--orange),var(--green),var(--ink));}
+.tl-item{position:relative;margin-bottom:22px;padding-left:24px;}
+.tl-item::before{content:'';position:absolute;left:-26px;top:5px;width:10px;height:10px;border:2px solid var(--orange);border-radius:50%;background:var(--paper);}
+.tl-item.key::before{background:var(--orange);box-shadow:0 0 0 4px rgba(255,106,0,.16);}
+.tl-item.trans::before{border-color:var(--green);background:var(--green);}
+.tl-time{font-size:12.5px;font-weight:700;color:var(--orange);letter-spacing:.5px;margin-bottom:4px;}
+.tl-title{font-size:16px;font-weight:700;color:var(--ink);letter-spacing:.3px;margin-bottom:4px;}
+.tl-who{font-size:12px;color:var(--muted);margin-bottom:6px;}
+.tl-you{font-size:13px;line-height:1.75;color:var(--text);text-align:justify;}
+.tl-you em{font-style:normal;color:var(--deep);font-weight:600;}
+/* 转场/午餐带 */
+.band{margin:22px 0;background:var(--card);border:1px solid var(--line);border-left:3px solid var(--green);padding:18px 22px;}
+.band .bt{font-family:'Noto Serif SC',serif;font-size:15px;color:var(--ink);margin-bottom:5px;letter-spacing:.5px;}
+.band p{font-size:13px;line-height:1.75;color:var(--text);}
+/* 实用信息卡 */
+.tips{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.tip{background:var(--card);border:1px solid var(--line);padding:20px 20px;position:relative;overflow:hidden;}
+.tip::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--orange),var(--green));}
+.tip h4{font-family:'Noto Serif SC',serif;font-size:15px;color:var(--ink);margin-bottom:8px;letter-spacing:.5px;}
+.tip p{font-size:13px;line-height:1.75;color:var(--text);text-align:justify;}
+.tip p b{color:var(--deep);}
+/* footer */
+.footer{text-align:center;padding:50px 50px 44px;position:relative;z-index:1;}
+.brand-qw{display:inline-flex;align-items:center;gap:10px;margin-bottom:18px;}
+.brand-qw .cn{font-family:'Noto Serif SC',serif;font-size:19px;font-weight:700;letter-spacing:4px;color:var(--ink);}
+.brand-qw .en{font-size:8.5px;letter-spacing:3px;color:var(--muted);}
+.footer-line{width:56px;height:1px;margin:0 auto 18px;background:linear-gradient(90deg,var(--orange),var(--green));}
+.footer-org{font-family:'Noto Serif SC',serif;font-size:15px;font-weight:600;color:var(--ink2);letter-spacing:2px;margin-bottom:8px;}
+.footer-quote{font-family:'Noto Serif SC',serif;font-size:14px;color:var(--ink2);letter-spacing:1px;line-height:2;}
+.footer-contact{margin-top:16px;font-size:12.5px;color:var(--muted);letter-spacing:1px;}
+/* 移动端 */
+@media(max-width:520px){
+  .hero{min-height:520px;padding:44px 24px;}
+  .hero-title{font-size:30px;letter-spacing:1px;}
+  .hero-date{font-size:15px;}
+  .content{padding:0 20px;}
+  .sec-en{display:none;}
+  .sec-title{font-size:19px;}
+  .phases{grid-template-columns:1fr;}
+  .tips{grid-template-columns:1fr;}
+  .lead{font-size:15px;}
+}
+.rv{opacity:1;transform:none;}
+.js .rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s ease;}
+.js .rv.in{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none;}}
+</style>
+<style>@keyframes mulepage-svg-glow-dark{0%,100%{color:#ffffff}50%{color:#3b82f6}}@keyframes mulepage-svg-glow-light{0%,100%{color:#000000}50%{color:#3b82f6}}.mulepage-anim-dark{animation:mulepage-svg-glow-dark 2.5s ease-in-out infinite}.mulepage-anim-light{animation:mulepage-svg-glow-light 2.5s ease-in-out infinite}.mulepage-close-dark{color:rgba(255,255,255,0.3);transition:color 0.2s ease}.mulepage-close-dark:hover{color:#ffffff}.mulepage-close-light{color:rgba(0,0,0,0.3);transition:color 0.2s ease}.mulepage-close-light:hover{color:#000000}#mulepage-footer-link{display:inline-flex;align-items:center;line-height:0;outline:none}.mulepage-footer-brand{display:inline-flex;align-items:center;box-sizing:border-box;height:32px;max-width:104px;overflow:hidden;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,0.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 0 0 0.5px rgba(0,0,0,0.12),0 8px 24px -4px rgba(0,0,0,0.07);transition:max-width 260ms cubic-bezier(0.22,1,0.36,1);will-change:max-width;white-space:nowrap}.mulepage-footer-brand-hint{display:inline-block;max-width:0;margin-left:0;overflow:hidden;opacity:0;color:rgba(0,0,0,0.64);font-size:14px;font-weight:400;line-height:20px;transition:max-width 260ms cubic-bezier(0.22,1,0.36,1),margin-left 260ms cubic-bezier(0.22,1,0.36,1),opacity 180ms ease-out;will-change:max-width,opacity}#mulepage-footer:hover .mulepage-footer-brand,#mulepage-footer:focus-within .mulepage-footer-brand{max-width:246px}#mulepage-footer:hover .mulepage-footer-brand-hint,#mulepage-footer:focus-within .mulepage-footer-brand-hint{max-width:126px;margin-left:8px;opacity:1}.mulepage-float-close{display:inline-flex;align-items:center;justify-content:center;max-width:0;margin-left:0;overflow:hidden;opacity:0;transition:max-width 0.2s ease,margin-left 0.2s ease,opacity 0.15s ease;padding:0;border:none;background:none;cursor:pointer;font-size:16px;line-height:1;font-weight:300;height:16px;will-change:max-width,opacity}.mulepage-float:hover .mulepage-float-close{max-width:14px;margin-left:4px;opacity:1}</style><link rel="canonical" href="https://54pjhhu3.qwenwork.host/"><meta property="og:title" content="凯莱英 · 10.16 来访行程介绍 | 阿里千问办公"><meta property="og:url" content="https://54pjhhu3.qwenwork.host/"><meta property="og:type" content="website"><meta property="og:image" content="https://mule.page/og/54pjhhu3.qwenwork.host.webp"></head>
+<body>
+<div class="canvas">
+<div class="texture"></div>
+<div class="top-bar"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="brand-lock">
+    <svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 1 L14.6 9.4 L23 12 L14.6 14.6 L12 23 L9.4 14.6 L1 12 L9.4 9.4 Z" fill="url(#g)"></path><defs><lineargradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF8A3D"></stop><stop offset="1" stop-color="#41D87E"></stop></lineargradient></defs></svg>
+    <div><div class="cn">千问办公</div><div class="en">QWENWORK · ALIBABA</div></div>
+  </div>
+  <div class="kicker">凯莱英医药集团 · 专属行程</div>
+  <div class="hero-title">AI 原生组织<br><em>战略交流日</em></div>
+  <div class="hero-date">2026.10.16（周五）· 杭州</div>
+  <div class="hero-sub">从看见阿里做 AI 的底座，到共创凯莱英自己的下一步——这一天，我们为您安排妥当。</div>
+  <div class="route">
+    <span class="stop">上午 · 阿里云谷</span><span class="ar">→</span>
+    <span class="stop">午后 · 钉钉园区</span><span class="ar">→</span>
+    <span class="stop">傍晚 · 共创与承诺</span>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- 一 一天的旅程 -->
+  <div class="section">
+    <div class="sec-header rv in">
+      <div class="sec-num">壹</div>
+      <div class="sec-title">一天的旅程</div>
+      <div class="sec-en">THE JOURNEY</div>
+    </div>
+    <div class="lead rv in">这一天只回答一个问题：<em>AI 原生这件事，凯莱英该怎么起步。</em>上午看实力，下午看落地，傍晚一起定方向。</div>
+    <div class="phases rv in">
+      <div class="phase"><div class="pt">上午 · 云谷</div><h4>看见底座</h4><p>阿里做 AI 的全栈底气，从芯片、算力到千问大模型。</p></div>
+      <div class="phase"><div class="pt">午后 · 钉钉</div><h4>看见落地</h4><p>财务、生产、医药场景，AI 怎么真正进企业干活。</p></div>
+      <div class="phase"><div class="pt">傍晚 · 共创</div><h4>定下方向</h4><p>每位高管一句话，共创出最值得先启动的三个场景。</p></div>
+    </div>
+  </div>
+
+  <!-- 二 上午 -->
+  <div class="section">
+    <div class="sec-header rv in">
+      <div class="sec-num">贰</div>
+      <div class="sec-title">上午 · 认知与参观</div>
+      <div class="sec-en">阿里云智能 · 云谷园区</div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item rv in"><div class="tl-time">09:00 — 09:10</div><div class="tl-title">抵达 · 欢迎</div><div class="tl-who">云谷园区 10 号门 · 接待组迎候</div><div class="tl-you">您将：专人门口迎接、发放访客证，<em>全程不用自己找路</em>。</div></div>
+      <div class="tl-item key rv in"><div class="tl-time">09:10 — 09:50</div><div class="tl-title">开场分享《Context is all you need —— AI 趋势发展概述》</div><div class="tl-who">赵忠 ｜ 阿里巴巴千问办公事业部 副总裁、客户成功总经理</div><div class="tl-you">您将：用 40 分钟听懂 AI 走到了哪、对医药意味着什么，为一天定调。</div></div>
+      <div class="tl-item rv"><div class="tl-time">09:50 — 10:50</div><div class="tl-title">阿里云智能 · 云谷展厅参观介绍</div><div class="tl-who">专业讲解 · 统一配备讲解耳机</div><div class="tl-you">您将：从底层芯片、算力到千问大模型，<em>亲眼看见阿里做 AI 的底座</em>。</div></div>
+      <div class="tl-item rv"><div class="tl-time">10:50 — 10:55</div><div class="tl-title">全员合影</div><div class="tl-you">留下一张团队合照。</div></div>
+    </div>
+    <div class="band rv"><div class="bt">10:55 — 11:30 · 转场前往钉钉园区</div><p>车程约 30 分钟，我方专人引导协助前往。</p></div>
+    <div class="band rv"><div class="bt">11:30 — 13:00 · 午餐 &amp; 餐叙</div><p>阿里亲橙 Park 园区简餐。换一种轻松方式，边吃边聊——如有忌口，提前告诉我们即可。</p></div>
+  </div>
+
+  <!-- 三 下午 -->
+  <div class="section">
+    <div class="sec-header rv">
+      <div class="sec-num">叁</div>
+      <div class="sec-title">下午 · 座谈与共创</div>
+      <div class="sec-en">钉钉园区 · AI officebar 会议厅</div>
+    </div>
+    <div class="timeline">
+      <div class="tl-item rv"><div class="tl-time">13:00 — 13:30</div><div class="tl-title">千问办公 AI officebar 智能硬件展厅参观讲解</div><div class="tl-who">淮东 ｜ 阿里千问办公智能硬件架构师</div><div class="tl-you">您将：上手看随身记录、现场视觉等"线下最后一公里"的 AI 硬件。</div></div>
+      <div class="tl-item rv"><div class="tl-time">13:30 — 13:40</div><div class="tl-title">开场致辞</div><div class="tl-who">易统 ｜ 阿里巴巴千问办公商业总裁</div></div>
+      <div class="tl-item key rv"><div class="tl-time">13:40 — 14:10</div><div class="tl-title">《AI 进财务：从报销对账到经营分析》</div><div class="tl-who">阿里千问办公事业部 财务专家</div><div class="tl-you">您将：从最讲"算得清"的财务切入，看 AI 如何真正落地见效。</div></div>
+      <div class="tl-item rv"><div class="tl-time">14:10 — 14:50</div><div class="tl-title">《让 AI 上班——从展厅到工位，AI 同事的一天》</div><div class="tl-who">重霖 ｜ 阿里千问办公大健康行业解决方案架构师</div><div class="tl-you">您将：看数字分身、数字员工如何进组织架构、<em>替你把活干了</em>。</div></div>
+      <div class="tl-item rv"><div class="tl-time">14:50 — 15:20</div><div class="tl-title">《AI 深入医药行业场景：情报中心、生产质检、智能报价》</div><div class="tl-who">黎崇 ｜ AI 解决方案架构师</div><div class="tl-you">您将：看 CDMO 同行已经在跑的高价值场景。</div></div>
+      <div class="tl-item trans rv"><div class="tl-time">15:20 — 15:35</div><div class="tl-title">茶歇</div><div class="tl-you">咖啡与点心，随时取用。</div></div>
+      <div class="tl-item rv"><div class="tl-time">15:35 — 16:20</div><div class="tl-title">《从工具变革到组织变革如何落地》</div><div class="tl-who">余星冰 ｜ 阿里巴巴组织变革专家</div><div class="tl-you">您将：听懂"买了工具不等于转型"，以及陪跑式落地该怎么做。</div></div>
+      <div class="tl-item key rv"><div class="tl-time">16:20 — 17:20</div><div class="tl-title">《把今天变成明天——AI 场景共创工作坊》</div><div class="tl-who">主持：余星冰</div><div class="tl-you">您将：每位高管说出"回去最想先用 AI 解决的一件事"，<em>现场共创出三个最值得先启动的场景</em>。</div></div>
+      <div class="tl-item rv"><div class="tl-time">17:20 — 17:35</div><div class="tl-title">收尾与总结</div><div class="tl-you">明确下一步与对接机制。</div></div>
+    </div>
+  </div>
+
+  <!-- 四 晚宴 -->
+  <div class="section">
+    <div class="sec-header rv">
+      <div class="sec-num">肆</div>
+      <div class="sec-title">晚宴 ·「平头哥之夜」</div>
+      <div class="sec-en">THE EVENING</div>
+    </div>
+    <div class="band rv"><div class="bt">18:30 — 21:00 · HHB 音乐酒吧</div><p>一天的高潮，留给一顿松弛的酒。HHB（Happy Honey Badger，"快乐的平头哥"）由马云创办、坐落于阿里巴巴数字生态创新园——工业风空间、哈曼音响、名人签名墙，还有"功守道""平头哥"等原创特调。借这份"敢闯"的待客之道，敬凯莱英把新药做得更快、把组织带向 AI 原生的那口气。</p></div>
+  </div>
+
+  <!-- 五 到访实用信息 -->
+  <div class="section">
+    <div class="sec-header rv">
+      <div class="sec-num">伍</div>
+      <div class="sec-title">到访实用信息</div>
+      <div class="sec-en">BEFORE YOU COME</div>
+    </div>
+    <div class="tips rv">
+      <div class="tip"><h4>到达与导航</h4><p>高德地图搜索"阿里云智能 · 云谷园区 <b>10 号门</b>"；上午云谷、下午钉钉园区，两处转场我方引导协助。</p></div>
+      <div class="tip"><h4>入园与停车</h4><p>门岗与车辆报备方式，由对接人提前发送《入园指引》；<b>VIP 车位已预留</b>。</p></div>
+      <div class="tip"><h4>着装</h4><p>商务休闲即可，一天走动较多，建议舒适的鞋。</p></div>
+      <div class="tip"><h4>专属接待</h4><p>全程专人引导、参观配讲解耳机，<b>不掉队、不落单</b>。</p></div>
+      <div class="tip"><h4>餐叙</h4><p>午餐亲橙 Park 简餐；晚宴 18:30–21:00 · HHB 音乐酒吧「平头哥之夜」；如有<b>忌口或饮食偏好</b>，请提前告知。</p></div>
+      <div class="tip"><h4>对接人</h4><p>楼远波 ｜ <b>17681802362</b><br>全程为您协调一切安排。</p></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- footer -->
+<div class="footer">
+  <div class="brand-qw">
+    <svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 1 L14.6 9.4 L23 12 L14.6 14.6 L12 23 L9.4 14.6 L1 12 L9.4 9.4 Z" fill="url(#g2)"></path><defs><lineargradient id="g2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF8A3D"></stop><stop offset="1" stop-color="#189857"></stop></lineargradient></defs></svg>
+    <div style="text-align:left;"><div class="cn">千问办公</div><div class="en">QWENWORK</div></div>
+  </div>
+  <div class="footer-line"></div>
+  <div class="footer-org">阿里巴巴千问办公事业部</div>
+  <div class="footer-quote">把这一天，变成凯莱英 AI 原生的起点。</div>
+  <div class="footer-contact">期待与您西溪畔相见 · 楼远波 17681802362</div>
+</div>
+
+</div>
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+
+<div id="mulepage-footer" dir="ltr" class="mulepage-float" style="position:fixed !important;bottom:16px !important;right:16px !important;z-index:2147483646;display:inline-flex;align-items:center;padding:0;cursor:pointer;background:transparent;border:0;box-shadow:none;font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI','Helvetica Neue',sans-serif;"><span id="mulepage-footer-link" role="link" tabindex="0" aria-label="打开千问办公" style="display:inline-flex;align-items:center;line-height:0;"><span class="mulepage-footer-brand"><span style="display:inline-flex;align-items:center;gap:4px;line-height:0;"><img src="https://gw.alicdn.com/imgextra/i3/O1CN01KjiMsP20F9vea7rMy_!!6000000006819-55-tps-20-20.svg" alt="" width="20" height="20" style="display:block;user-select:none;"><img src="https://gw.alicdn.com/imgextra/i2/O1CN01Hn0m411NLmdtyiXpF_!!6000000001554-55-tps-56-14.svg" alt="千问办公" width="56" height="14" style="display:block;user-select:none;"></span><span class="mulepage-footer-brand-hint">AI 生成，请注意核实</span></span></span><button class="mulepage-float-close" style="color: rgba(0, 0, 0, 0.3);">×</button></div></body></html>
