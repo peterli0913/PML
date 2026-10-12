@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>阿里参访行前准备手册 · 2026-10-16</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "HarmonyOS Sans SC", "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
+    color: #0f1f3d; background: #f3f5fa; -webkit-font-smoothing: antialiased; line-height: 1.65;
+  }
+  .topbar {
+    position: sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between;
+    padding: 10px 26px; background: rgba(15,31,61,.96); color: #fff; box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar .brand { font-weight:700; font-size:14px;}
+  .topbar .brand .badge { display:inline-block; padding:2px 8px; margin-left:8px; background:#ff7e3d; color:#fff; border-radius:4px; font-size:11px; font-weight:600; }
+  .topbar nav a { color:#cdd6e8; font-size:11.5px; text-decoration:none; margin: 0 3px; padding:5px 6px; border-radius:6px; }
+  .topbar nav a:hover { background:#1d2f55; color:#fff; }
+  .topbar button { font-size:12px; cursor:pointer; padding:6px 12px; border:1px solid #3b507e; color:#cdd6e8; border-radius:6px; background:transparent; }
+
+  main { max-width: 1220px; margin: 0 auto; padding: 0 22px 80px; }
+  section.slide { background:#fff; border-radius: 14px; padding: 38px 46px 42px; margin: 24px 0; box-shadow: 0 6px 24px rgba(15,31,61,.07); }
+  section.slide.cover { background: linear-gradient(135deg, #0f1f3d 0%, #1f3870 55%, #2a4d9c 100%); color:#fff; }
+  h2.kicker { color:#ff7e3d; font-size: 12.5px; font-weight:700; letter-spacing: 3px; margin: 0 0 6px; }
+  section.slide h1 { font-size: 24px; margin: 0 0 14px; font-weight:700; border-left: 5px solid #ff7e3d; padding-left: 14px; line-height: 1.3; }
+  section.slide.cover h1 { border:none; padding:0; font-size: 34px; }
+  h3.sub { font-size: 15.5px; margin: 20px 0 8px; }
+  .lead { font-size: 14.5px; color:#3a4d72; margin: 0 0 16px; max-width: 1020px; }
+
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+  .card { background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px; padding: 15px 17px; }
+  .card.accent { background:#fff7f1; border-color:#ffd8be; }
+  .card.danger { background:#fef2f2; border-color:#fecaca; }
+  .card.success { background:#f0fdf4; border-color:#bbf7d0; }
+  .card.warn { background:#fffbeb; border-color:#fde68a; }
+  .card h3 { margin:0 0 7px; font-size:15px; }
+  .card .desc { font-size:13px; color:#3a4d72; line-height:1.6; }
+
+  table.kly { width:100%; border-collapse: collapse; font-size: 12.8px; }
+  table.kly th, table.kly td { padding: 8px 10px; text-align:left; border-bottom: 1px solid #e6ebf5; vertical-align: top; }
+  table.kly thead th { background:#0f1f3d; color:#fff; font-weight:600; font-size:12px; }
+  table.kly tbody tr:nth-child(even) { background:#f7f9fc; }
+  table.kly td.nd { font-weight:700; white-space:nowrap; }
+
+  ul.bul { padding-left: 0; list-style:none; margin: 5px 0; }
+  ul.bul li { padding: 4px 0 4px 20px; position:relative; font-size:13.3px; }
+  ul.bul li:before { content:""; position:absolute; left:3px; top:12px; width:7px; height:7px; background:#ff7e3d; border-radius:2px; transform:rotate(45deg); }
+  ul.bul.tight li { padding: 2px 0 2px 20px; font-size:12.8px; }
+  ul.bul.tight li:before { top:10px; }
+
+  .pill { display:inline-block; padding:2px 8px; border-radius:99px; font-size:11px; font-weight:600; }
+  .pill.ok { background:#dcfce7; color:#166534; }
+  .pill.mid { background:#fef9c3; color:#854d0e; }
+  .pill.warn { background:#fee2e2; color:#991b1b; }
+  .pill.info { background:#dbeafe; color:#1e3a8a; }
+
+  .verify { color:#b45309; font-weight:600; font-size:11.5px; }
+  .callout { margin-top: 14px; padding: 12px 14px; border-left: 4px solid #ff7e3d; background:#fff7f1; border-radius: 0 10px 10px 0; font-size:13.5px; color:#3a4d72; }
+  .callout.blue { border-left-color:#2563eb; background:#eff6ff; }
+  .callout.red { border-left-color:#dc2626; background:#fef2f2; }
+
+  .judge { display:grid; grid-template-columns: 100px 1fr; gap:10px; margin-bottom:10px; }
+  .judge .k { background:#0f1f3d; color:#fff; border-radius:8px; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center; padding:6px; }
+  .judge .k.b { background:#475569; } .judge .k.c { background:#b45309; }
+  .judge .v { font-size:13.3px; color:#3a4d72; }
+
+  .qcard { border:1px solid #e3e8f2; border-radius:12px; overflow:hidden; margin-bottom:12px; }
+  .qcard .hd { background:#0f1f3d; color:#fff; padding:9px 15px; font-size:13.5px; font-weight:700; display:flex; gap:10px; align-items:center; }
+  .qcard .hd .t { background:#ff7e3d; font-size:11px; padding:2px 8px; border-radius:5px; }
+  .qcard .hd .w { margin-left:auto; color:#9aabd6; font-size:11.5px; font-weight:500; }
+  .qcard .bd { padding: 11px 15px; background:#fbfcfe; }
+  .qcard .bd .g { font-size:12px; font-weight:700; color:#c2410c; margin:6px 0 3px; }
+  .qcard ol { margin:0 0 4px; padding-left:20px; font-size:13px; color:#3a4d72; }
+  .qcard ol li { margin-bottom:4px; }
+
+  .footnote { font-size: 11.5px; color:#7a89a8; margin-top: 12px; line-height: 1.55; }
+
+  body.deck main { padding:0; max-width:none; }
+  body.deck section.slide { margin:0; min-height:100vh; border-radius:0; display:none; padding:44px 60px; }
+  body.deck section.slide.active { display:block; }
+  body.deck .deck-nav { display:flex !important; }
+  .deck-nav { display:none; position: fixed; bottom: 16px; right: 16px; z-index: 60; background: rgba(15,31,61,.92); padding: 6px 10px; border-radius: 999px; color:#fff; font-size: 12.5px; gap: 8px; align-items:center; }
+  .deck-nav button { background: transparent; border: none; color:#fff; cursor:pointer; padding: 4px 10px; border-radius: 6px; font-weight: 600; }
+
+  @media (max-width: 960px){
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    section.slide { padding: 24px 18px; }
+    .topbar nav { display:none; }
+    .judge { grid-template-columns: 1fr; }
+  }
+  @media print { .topbar, .deck-nav { display:none !important; } section.slide { box-shadow:none; page-break-after: always; margin:0; } }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">阿里参访 · 行前准备 <span class="badge">2026-10-16 杭州</span></div>
+  <nav>
+    <a href="#s00">结论</a><a href="#s01">角色</a><a href="#s02">阿里AI体系</a><a href="#s03">关键概念</a>
+    <a href="#s04">医药同行</a><a href="#s05">凯莱英基线</a><a href="#s06">合规边界</a><a href="#s07">思路</a>
+    <a href="#s08">问题卡</a><a href="#s09">整体做法</a><a href="#s10">判断</a>
+  </nav>
+  <button onclick="toggleDeck()">幻灯模式</button>
+</header>
+
+<main>
+
+<!-- ============ COVER ============ -->
+<section class="slide cover" id="cover">
+  <h2 class="kicker" style="color:#ff9b6b;">ALIBABA VISIT · PREPARATION BRIEF</h2>
+  <h1>阿里参访行前准备手册</h1>
+  <div style="font-size:15.5px;opacity:.9;margin-top:14px;max-width:880px;">
+    背景知识、思路判断、分环节问题卡与会前 / 会中 / 会后做法。
+    定位：生产执行副总裁助理兼 AI 随行专家。
+  </div>
+  <div class="grid-3" style="margin-top:30px;">
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;">
+      <div style="font-size:11.5px;color:#9aabd6;">10/15 周四</div>
+      <div style="font-size:15px;font-weight:700;margin-top:4px;">晚抵杭州 · 西溪</div>
+      <div style="font-size:12px;color:#cdd6e8;margin-top:4px;">会前与执行副总裁对齐</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;">
+      <div style="font-size:11.5px;color:#9aabd6;">10/16 周五</div>
+      <div style="font-size:15px;font-weight:700;margin-top:4px;">阿里全天参访</div>
+      <div style="font-size:12px;color:#cdd6e8;margin-top:4px;">展馆 · 圆桌 · 医药案例 · 两场专题</div>
+    </div>
+    <div style="background:rgba(255,255,255,.08);border-radius:12px;padding:14px 16px;">
+      <div style="font-size:11.5px;color:#9aabd6;">10/19 起</div>
+      <div style="font-size:15px;font-weight:700;margin-top:4px;">48 小时内出纪要</div>
+      <div style="font-size:12px;color:#cdd6e8;margin-top:4px;">转化为可行动清单</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 00 结论 ============ -->
+<section class="slide" id="s00">
+  <h2 class="kicker">00 · 核心结论</h2>
+  <h1>此行价值不在看展，而在把阿里的"管理 AI"与凯莱英的"生产场景"对接并划清边界</h1>
+  <div class="grid-3">
+    <div class="card accent">
+      <h3>① 阿里此行主推的是什么</h3>
+      <div class="desc">9 月 22 日云栖大会刚发布的千问办公三件套——<strong>企业上下文、数字员工、安全中心</strong>；钉钉 9.0 AI 付费版 10 月 21 日起生效。下午两场专题几乎就是这三件套的现场版，带有明确销售意图。</div>
+    </div>
+    <div class="card success">
+      <h3>② 对凯莱英最有价值的是什么</h3>
+      <div class="desc">凯莱英已在用钉钉，这是成本最低的落地入口。生产侧真正能接得住的，是<strong>生产管理中的文字与知识类工作</strong>：报告起草、会议纪要、SOP 问答、偏差检索、中英沟通。工艺建模与设备预测不是阿里强项。</div>
+    </div>
+    <div class="card danger">
+      <h3>③ 你需要守住什么</h3>
+      <div class="desc">现场<strong>不替任何方案背书、不让领导当场承诺</strong>；把"数据能否不出域、客户数据能否隔离、审计记录能否满足 GMP"这三个问题问清楚并记下原话。</div>
+    </div>
+  </div>
+  <div class="callout blue">
+    你的角色是<strong>翻译、把关、记录</strong>：把阿里的术语翻译成对凯莱英生产的含义；把营销话术与可落地能力区分开；把现场信息整理成会后可执行的下一步。
+  </div>
+</section>
+
+<!-- ============ 01 角色 ============ -->
+<section class="slide" id="s01">
+  <h2 class="kicker">01 · 角色与目标</h2>
+  <h1>同行都是各部门副总、副总裁，你要做的是"让领导问得准、听得懂、带得回"</h1>
+  <div class="grid-2">
+    <div class="card">
+      <h3>你的三重身份</h3>
+      <ul class="bul tight">
+        <li><strong>执行副总裁助理：</strong>为其准备问题卡与要点，会间隙做简短提示，不抢发言</li>
+        <li><strong>AI 随行专家：</strong>同行领导遇到术语或演示时，能当场用一句话解释"这对我们意味着什么"</li>
+        <li><strong>生产侧代表：</strong>研发、分析、化工、生产各副总关注点不同，你确保生产视角不被淹没</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h3>建议与执行副总裁对齐的三个目标</h3>
+      <ul class="bul tight">
+        <li><strong>看清：</strong>阿里在医药生产侧到底有什么已落地、可核实的东西</li>
+        <li><strong>问清：</strong>数据不出域、客户隔离、审计追溯三个合规问题的真实答案</li>
+        <li><strong>带回：</strong>一个可挂靠现有推进计划的低风险试点候选</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 class="sub">同行部门可能的关注点（帮你预判现场讨论走向）</h3>
+  <table class="kly">
+    <thead><tr><th style="width:16%;">部门</th><th style="width:42%;">可能最感兴趣</th><th>你可以补充的生产视角</th></tr></thead>
+    <tbody>
+      <tr><td class="nd">研发</td><td>文献与专利检索、实验记录整理、路线设计辅助</td><td>研发知识如何沉淀为技术转移可复用的结构化资产</td></tr>
+      <tr><td class="nd">分析</td><td>方法文件起草、数据审核、OOS / OOT 调查辅助</td><td>QC 结果预测与放行准备的衔接</td></tr>
+      <tr><td class="nd">化学工程</td><td>工艺放大经验检索、设备能力匹配</td><td>放大风险审查与 AI 复核清单</td></tr>
+      <tr><td class="nd">生产</td><td>报告起草、交接班与会议纪要、点检与巡检</td><td>这是主场；重点问"不增加一线工时"的做法</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 02 阿里 AI 体系 ============ -->
+<section class="slide" id="s02">
+  <h2 class="kicker">02 · 背景知识 A</h2>
+  <h1>阿里 AI 体系全景：模型、平台、应用三层，此行重点在应用层</h1>
+
+  <table class="kly">
+    <thead><tr><th style="width:12%;">层级</th><th style="width:24%;">产品</th><th style="width:36%;">是什么</th><th>对凯莱英的含义</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="nd">模型层</td>
+        <td>千问（Qwen）系列</td>
+        <td>阿里自研大模型，当前平台在售为 qwen3.6 / 3.7 / 3.8 系列，含推理、视觉理解；部分规格开源，可本地部署</td>
+        <td>开源版本是"数据不出厂"的备选路径；不必绑定阿里云</td>
+      </tr>
+      <tr>
+        <td class="nd">平台层</td>
+        <td>阿里云百炼（Model Studio）</td>
+        <td>模型调用与智能体开发平台：知识库检索、插件、MCP、Managed Agents、多智能体编排；可做微调与资源专享部署；也集成 DeepSeek、GLM、Kimi 等第三方模型</td>
+        <td>IT 自建应用的底座；如果做定制化场景，大概率落在这一层</td>
+      </tr>
+      <tr>
+        <td class="nd" rowspan="2">应用层</td>
+        <td>千问办公（QwenWork）</td>
+        <td>2026 年 7 月由三款智能体产品整合而成，钉钉 CEO 统一负责；9 月发布企业上下文、数字员工、协作空间、应用接入、安全中心</td>
+        <td><strong>本次参访主角</strong>，下午两场专题的核心内容</td>
+      </tr>
+      <tr>
+        <td>钉钉 9.0 AI 商业版</td>
+        <td>9 月 23 日发布，新增 AI 基础 / 高级 / 尊享 / 旗舰四档付费版，均原生接入千问办公；Agent 权限与员工权限一致；新版权益 10 月 21 日起逐步生效</td>
+        <td>凯莱英现用钉钉，<strong>可能被推荐升级版本</strong>；需事先了解我们当前版本 <span class="verify">需核实</span></td>
+      </tr>
+      <tr>
+        <td class="nd">硬件</td>
+        <td>QwenNote A2</td>
+        <td>录音转写设备，只保留文字与纪要、不保留原始音频</td>
+        <td>与会议纪要场景直接相关；"不留原始音频"对审计与保密是双刃剑</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">部署形态：这是对凯莱英最关键的一个问题</h3>
+  <div class="grid-3">
+    <div class="card">
+      <h3>公有云 SaaS</h3>
+      <div class="desc">钉钉标准版与付费版的默认形态。上手最快，但数据在阿里云。适合非 GMP、不含客户信息的内容。</div>
+    </div>
+    <div class="card">
+      <h3>专属钉钉（混合云）</h3>
+      <div class="desc">应用组件在阿里云，数据可存企业自有机房或自有云资源；面向中大型企业。<strong>不等于完全私有化</strong>。</div>
+    </div>
+    <div class="card success">
+      <h3>私有化部署</h3>
+      <div class="desc">已有公开先例：蚂蚁集团 9 月 17 日宣布千问办公以 K8s 部署于内网、支持自有模型接入、数据不出域。是否对外部客户同样提供、价格如何 <span class="verify">需核实</span>。</div>
+    </div>
+  </div>
+  <p class="footnote">以上为 2026 年 9–10 月公开信息整理；具体版本能力与价格以阿里现场介绍与书面材料为准。</p>
+</section>
+
+<!-- ============ 03 关键概念 ============ -->
+<section class="slide" id="s03">
+  <h2 class="kicker">03 · 背景知识 B</h2>
+  <h1>关键概念速查：每个术语都配一句"对凯莱英意味着什么"</h1>
+  <table class="kly">
+    <thead><tr><th style="width:15%;">术语</th><th style="width:40%;">阿里的说法</th><th>对凯莱英意味着什么</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="nd">数字员工</td>
+        <td>有名称、所属部门、负责人、岗位职责、授权范围与生命周期的 Agent 身份；可被停用，执行记录追溯到身份。口号是"进组织、定业务、担责任"</td>
+        <td>这套设计与 GMP 的<strong>人员职责、授权与审计追踪</strong>天然对齐，是和生产领导讲清楚的最好切入点；但"担责任"在 GMP 下只能由人承担</td>
+      </tr>
+      <tr>
+        <td class="nd">企业上下文</td>
+        <td>把分散在文档、群聊、业务系统（可接 SAP 等）中的信息压缩与结构化，随业务更新，按任务提供最相关部分；内置专属模型控制 Token 成本</td>
+        <td><strong>凯莱英最大的难题就在这里</strong>：信息分散在 DCS、EBR、LIMS、QMS、CMMS、SAP 与大量文档中；关键要问能否按客户项目隔离</td>
+      </tr>
+      <tr>
+        <td class="nd">Managed Agents</td>
+        <td>托管式智能体运行环境，配置模型、提示词、工具、MCP、技能与沙箱</td>
+        <td>IT 不必自建 Agent 运行环境，但需确认沙箱位置与数据流向</td>
+      </tr>
+      <tr>
+        <td class="nd">安全中心</td>
+        <td>沙箱划定边界、执行中审批与拦截高风险操作、操作记录与恢复；最小权限、敏感信息识别、全程审计</td>
+        <td>对应 GMP 的计算机化系统要求；要问审计记录能否导出、保存多久、能否防篡改</td>
+      </tr>
+      <tr>
+        <td class="nd">连接器 / MCP</td>
+        <td>让 Agent 访问企业系统的标准接口；支持 OAuth 与 API Key 认证，可设企业专属或私有市场</td>
+        <td>我们的业务系统是否有现成连接器？没有的话由谁开发、是否只读</td>
+      </tr>
+      <tr>
+        <td class="nd">BYOK / 模型策略</td>
+        <td>企业旗舰版可接入自带模型密钥，并按部门或人员限定可用模型</td>
+        <td>可以把敏感场景限定在私有部署模型上，把一般场景放在公有模型上</td>
+      </tr>
+      <tr>
+        <td class="nd">AI 原生组织</td>
+        <td>工作流程按人与 Agent 协作重新设计，而非在旧流程上加工具</td>
+        <td>GMP 下流程变更须走变更控制，"原生重塑"必然比互联网企业慢；更现实的是"挂靠既有流程"</td>
+      </tr>
+      <tr>
+        <td class="nd">人机协同 / "AI 工长"</td>
+        <td>人从重复操作员转为异常判断与流程监督者</td>
+        <td>与我们推进方案中"AI 出草稿、人判断签字"的定位一致</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 04 医药同行 ============ -->
+<section class="slide" id="s04">
+  <h2 class="kicker">04 · 背景知识 C</h2>
+  <h1>医药同行公开案例：多数在办公、营销与研发，生产 GMP 案例很少</h1>
+  <p class="lead">下午"医药同行 AI 实践全景"大概率引用这些案例。提前知道，现场可以直接追问细节，而不是被数字带走。</p>
+  <table class="kly">
+    <thead><tr><th style="width:13%;">企业</th><th style="width:12%;">类型</th><th style="width:40%;">公开内容</th><th style="width:12%;">与我们相关度</th><th>现场可追问</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="nd">信达生物</td><td>创新药</td>
+        <td>生产运营：AI 自动抓取、分析生产异常信息并用 AI 表格沉淀，三个月节约超 160 工时</td>
+        <td><span class="pill ok">最高</span></td>
+        <td>异常信息从哪些系统抓取？是否涉及 GMP 记录？如何验证？</td>
+      </tr>
+      <tr>
+        <td class="nd">药明康德</td><td>CXO 同行</td>
+        <td>钉钉称其医药方案已在药明康德落地，具体场景未公开</td>
+        <td><span class="pill ok">高</span></td>
+        <td>落地在哪些部门？是否涉及生产与质量？<span class="verify">需核实</span></td>
+      </tr>
+      <tr>
+        <td class="nd">昭衍新药</td><td>CRO</td>
+        <td>市场活动管理与线索清洗分配，每月节省约 20 人天</td>
+        <td><span class="pill mid">中</span></td>
+        <td>属营销场景，可作为非 GMP 快赢的参照</td>
+      </tr>
+      <tr>
+        <td class="nd">千金药业</td><td>传统药企</td>
+        <td>与阿里云、瓴羊共创 10 大场景，目标 2027 年 100+ 智能体，覆盖采购寻源到生产排产</td>
+        <td><span class="pill mid">中</span></td>
+        <td>"生产排产"智能体做到什么程度？是否只是建议？</td>
+      </tr>
+      <tr>
+        <td class="nd">云南白药</td><td>传统药企</td>
+        <td>"白药钉"集团数字底座，覆盖药材溯源、智能工厂、AI 辅助研发；提出 Agent 需与自动化与设备深度融合</td>
+        <td><span class="pill mid">中</span></td>
+        <td>AI 与工厂设备如何打通？是否经过 GMP 验证？</td>
+      </tr>
+      <tr>
+        <td class="nd">乐普生物</td><td>创新药</td>
+        <td>"AI 医学助理"支持销售知识查询，称 2025 年 AI 投资回报率 200%</td>
+        <td><span class="pill info">低</span></td>
+        <td>回报率的计算口径是什么？</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <strong>识别话术的三个追问：</strong>上线多久了？多少人在日常使用？效果数字是怎么算的？
+    答不上来或只给比例不给口径的，按"宣传案例"处理，不作为我方决策依据。
+  </div>
+  <p class="footnote">来源：2026 年 1 月钉钉医药行业峰会公开报道、阿里云开发者社区等。钉钉称"超六成医药企业在用钉钉"，系厂商口径。</p>
+</section>
+
+<!-- ============ 05 凯莱英基线 ============ -->
+<section class="slide" id="s05">
+  <h2 class="kicker">05 · 背景知识 D</h2>
+  <h1>随身带的凯莱英基线：我们已经做了什么、卡在哪里</h1>
+  <div class="grid-2">
+    <div class="card">
+      <h3>已有工作（可在交流中自然带出）</h3>
+      <ul class="bul tight">
+        <li>已形成生产侧 AI 三条主线：现场感知、技转与复核、预测与指导</li>
+        <li>已提交 AI 辅助生产推进机制建议（批复状态 <span class="verify">需核实</span>）</li>
+        <li>已评估多家外部方：埃森哲、智现未来；设备监测方向有和利时、信力共擎方案</li>
+        <li>已在 DH1 开展动设备预测性维护评估</li>
+        <li>与海外同事讨论了机器学习在生产中的适用边界</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h3>生产侧真实痛点（适合拿来问阿里）</h3>
+      <ul class="bul tight">
+        <li>Campaign 报告、月度运行报告等机械汇编工时大</li>
+        <li>中英混杂会议的纪要质量差：远场录音转写误差大</li>
+        <li>技术问题上报不及时、会议材料提供偏晚，客户反馈过</li>
+        <li>知识散落在文档与资深工程师经验中，跨项目难复用</li>
+        <li>数据分散在多个系统，跨系统取数困难</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout red">
+    <strong>保密红线：</strong>交流中不提客户名称、项目代号、工艺参数、具体偏差与杂质信息；举例时一律说"某客户项目""某类反应"。
+    如被要求提供样例数据，回复"会后走内部流程评估"。
+  </div>
+  <div class="callout blue">
+    <strong>会前需向 IT 确认：</strong>凯莱英当前钉钉版本与是否已开通 AI 权益；IT 是否已与阿里有接触或报价；
+    是否已有专属钉钉或混合云存储。避免现场与 IT 已有工作撞车。
+  </div>
+</section>
+
+<!-- ============ 06 合规边界 ============ -->
+<section class="slide" id="s06">
+  <h2 class="kicker">06 · 背景知识 E</h2>
+  <h1>合规边界：决定哪些场景能用公有云、哪些只能私有化或不做</h1>
+  <table class="kly">
+    <thead><tr><th style="width:22%;">要求</th><th style="width:40%;">要点</th><th>对阿里方案的检验问题</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="nd">中国 GMP《计算机化系统》附录</td>
+        <td>系统验证、权限管理、审计追踪、数据备份与可恢复</td>
+        <td>用于 GxP 相关场景时能否提供验证支持材料？</td>
+      </tr>
+      <tr>
+        <td class="nd">数据完整性（ALCOA+）</td>
+        <td>可归属、清晰、同步、原始、准确，且完整、一致、持久、可用</td>
+        <td>AI 生成内容与人工修改能否区分并留痕？"不留原始音频"是否影响原始性？</td>
+      </tr>
+      <tr>
+        <td class="nd">21 CFR Part 11 / EU GMP Annex 11</td>
+        <td>美欧客户审计会看电子记录与电子签名的合规性</td>
+        <td>审计记录能否导出、防篡改、长期保存？</td>
+      </tr>
+      <tr>
+        <td class="nd">EU GMP Annex 22（人工智能）</td>
+        <td>欧盟 2025 年发布征求意见稿：关键 GMP 应用限于静态、确定性模型，生成式模型不宜用于关键决策</td>
+        <td>直接佐证"生成式 AI 只做辅助、不做关键 GMP 决策"的定位；最终状态 <span class="verify">需核实</span></td>
+      </tr>
+      <tr>
+        <td class="nd">客户保密与合同约束</td>
+        <td>多客户工艺数据不可跨客户使用；部分合同可能限制使用外部 AI 服务</td>
+        <td>企业上下文能否按客户项目隔离？模型是否会用我方数据训练？</td>
+      </tr>
+      <tr>
+        <td class="nd">数据出境与国内监管</td>
+        <td>外资客户数据涉及跨境问题；生成式 AI 服务需符合国内管理规定</td>
+        <td>数据存储地域、是否涉及跨境传输？</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 class="sub">据此的场景分级（会上用来快速判断）</h3>
+  <div class="grid-3">
+    <div class="card success"><h3>可先用公有云</h3><div class="desc">内部管理会议纪要、通用文档起草、公开法规与指南问答、培训材料整理——不含客户信息</div></div>
+    <div class="card warn"><h3>需混合云或私有化</h3><div class="desc">SOP 与内部技术文件问答、偏差与 CAPA 文本检索、Campaign 与月度报告草稿——含内部或客户敏感信息</div></div>
+    <div class="card danger"><h3>暂不适用</h3><div class="desc">任何直接影响放行、签字、设定值的 GMP 关键决策；客户工艺参数的跨项目学习</div></div>
+  </div>
+</section>
+
+<!-- ============ 07 思路 ============ -->
+<section class="slide" id="s07">
+  <h2 class="kicker">07 · 思路与想法</h2>
+  <h1>六个判断，帮你在现场快速定位"这个东西对我们有没有用"</h1>
+  <div class="grid-2">
+    <div class="card">
+      <h3>① 分清"管理 AI"与"生产 AI"，找交集</h3>
+      <div class="desc">邀请函定位是"赋能内部管理提质增效"，阿里强项也在这里。生产侧应找交集：<strong>生产管理中的文字、会议、知识与流程工作</strong>，而不是工艺控制本身。</div>
+    </div>
+    <div class="card">
+      <h3>② 钉钉已在用，是最低成本入口</h3>
+      <div class="desc">不需要新系统、新账号、新培训，一线员工已经在钉钉里工作。符合我们"零增量工时、挂靠既有流程"的推进原则。代价是要确认版本升级成本与数据边界。</div>
+    </div>
+    <div class="card accent">
+      <h3>③ "企业上下文"是最该深挖的专题</h3>
+      <div class="desc">我们推进方案里最难的就是跨系统数据底座。阿里把这件事做成了产品，要问清楚：能接哪些系统、是否只读、能否按客户项目隔离、更新机制如何。</div>
+    </div>
+    <div class="card accent">
+      <h3>④ "数字员工"是和生产领导讲通的桥</h3>
+      <div class="desc">数字员工有岗位、负责人、授权范围、执行记录——这和 GMP 的岗位职责、授权、审计追踪是同一套语言。可以借此向同行领导说明"AI 也能像人一样被管"，但签字与放行责任仍在人。</div>
+    </div>
+    <div class="card danger">
+      <h3>⑤ 别指望阿里解决工艺与设备问题</h3>
+      <div class="desc">设备预测性维护、工艺参数预测、放大风险需要 OT 数据与机理模型，属专业厂商与自建范畴。阿里如在这方面承诺过多，要追问已落地案例。</div>
+    </div>
+    <div class="card success">
+      <h3>⑥ 最可能带回的快赢候选</h3>
+      <div class="desc">生产管理会议纪要（含中英混杂）、Campaign 与月度报告草稿、SOP 与指南问答。三者都挂靠既有工作、不改 GMP 流程，正好对应推进方案的"快赢型"试点。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 08 问题卡 ============ -->
+<section class="slide" id="s08">
+  <h2 class="kicker">08 · 分环节问题卡</h2>
+  <h1>按议程准备，标"领导"的给执行副总裁，标"自己"的由你在交流时问</h1>
+
+  <div class="qcard">
+    <div class="hd"><span class="t">上午</span>阿里巴巴展馆 + 钉钉 · 千问办公展厅<span class="w">以看为主</span></div>
+    <div class="bd">
+      <div class="g">自己</div>
+      <ol>
+        <li>展示的数字员工中，有没有制造业或医药生产现场的真实在用案例？</li>
+        <li>QwenNote 不留原始音频，企业版能否配置保留，以满足审计要求？</li>
+        <li>中英混杂、多人远场会议的转写准确度如何？能否现场试一段？</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="qcard">
+    <div class="hd"><span class="t">上午</span>管理层圆桌 · AI 时代的组织演进<span class="w">为凯莱英预留席位</span></div>
+    <div class="bd">
+      <div class="g">领导（可选用的观点与问题）</div>
+      <ol>
+        <li><strong>观点：</strong>CDMO 的 AI 原生演进有三个特殊约束——多客户数据隔离、GMP 全程可追溯、人对放行与签字负责；我们的做法是先挂靠既有流程，再逐步重塑。</li>
+        <li><strong>问题：</strong>在强监管行业，阿里看到的组织演进是从哪个职能先开始的？哪里最容易卡住？</li>
+        <li><strong>问题：</strong>管理层自身怎么用 AI？是否有高管层的使用习惯改变带动组织的实例？</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="qcard">
+    <div class="hd"><span class="t">下午</span>案例深潜 · 医药同行的 AI 实践全景<span class="w">重点识别真伪</span></div>
+    <div class="bd">
+      <div class="g">领导</div>
+      <ol>
+        <li>介绍的案例中，有哪些落在 GMP 生产与质量环节？做到什么程度？</li>
+        <li>CXO 同行的落地场景是什么？能否安排与对方交流？</li>
+      </ol>
+      <div class="g">自己</div>
+      <ol>
+        <li>每个案例：上线多久、多少人日常在用、效果数字的计算口径？</li>
+        <li>涉及 GxP 的场景，是否做过计算机化系统验证？由谁完成？</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="qcard">
+    <div class="hd"><span class="t">下午</span>专题 · 企业上下文：让 AI 真正读懂凯莱英<span class="w">本次最重要</span></div>
+    <div class="bd">
+      <div class="g">自己（可请领导开场一问，再由你跟进细节）</div>
+      <ol>
+        <li>能接入哪些类型的业务系统？是否有现成连接器？接入是否只读？</li>
+        <li>能否按客户项目做数据隔离，确保 A 客户信息不会出现在 B 客户的任务中？</li>
+        <li>企业数据是否会被用于模型训练？合同上如何约定？</li>
+        <li>数据存储在哪里？能否混合云或私有化？蚂蚁集团的私有化方案是否对外提供？</li>
+        <li>上下文更新的频率与机制？旧版本信息如何避免误用（例如已废止的 SOP）？</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="qcard">
+    <div class="hd"><span class="t">下午</span>专题 · 数字员工上岗 + 现场实测<span class="w">带任务去测</span></div>
+    <div class="bd">
+      <div class="g">自己</div>
+      <ol>
+        <li>数字员工出错时，责任如何界定？审计记录能否导出、防篡改、保存多久？</li>
+        <li>AI 生成内容与人工修改能否在文档中区分并留痕？</li>
+        <li>高风险操作的审批拦截能否按我们的审批流配置？</li>
+      </ol>
+      <div class="g">现场实测建议（只用公开或无敏感信息的材料）</div>
+      <ol>
+        <li>用公开的 ICH Q7 或中国 GMP 附录节选，测法规问答的准确度与引用是否可追溯</li>
+        <li>用一段自录的中英混杂模拟会议，测转写与纪要质量</li>
+        <li>给一份虚构的月度生产数据表，测报告草稿的结构与数据引用</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="qcard">
+    <div class="hd"><span class="t">晚宴</span>非正式交流<span class="w">获取书面材料与对接人</span></div>
+    <div class="bd">
+      <ol>
+        <li>结识阿里医药行业团队负责人，留下联系方式</li>
+        <li>索要：私有化或混合云方案材料、安全与合规白皮书、医药生产案例的可联系客户</li>
+        <li>了解报价区间与试用政策（只听不谈）</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 整体做法 ============ -->
+<section class="slide" id="s09">
+  <h2 class="kicker">09 · 整体做法</h2>
+  <h1>会前对齐、会中记录、会后转化</h1>
+  <div class="grid-3">
+    <div class="card">
+      <h3>会前（10/12–10/15）</h3>
+      <ul class="bul tight">
+        <li>回复组织方确认参加，并询问：阿里对接人、详细议程材料、是否允许拍照录音、是否需签保密协议</li>
+        <li>向 IT 确认钉钉现用版本、AI 权益、与阿里的既有接触</li>
+        <li>与执行副总裁对齐 15 分钟：此行目标、圆桌是否发言、希望你承担什么</li>
+        <li>为其准备一页纸：阿里 AI 体系、五个关键术语、三个最想问的问题</li>
+        <li>准备实测材料：公开法规节选、自录模拟会议、虚构数据表</li>
+        <li>可向执行副总裁提议：10/15 晚为同行领导做 10 分钟背景简报（由其决定）</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <h3>会中（10/16）</h3>
+      <ul class="bul tight">
+        <li>按"能力 / 适用场景 / 前提条件 / 合规风险 / 下一步"五栏记录，每个环节一页</li>
+        <li>关键回答记原话，尤其是数据隔离、私有化、审计记录三个问题</li>
+        <li>会间隙给执行副总裁一句话提示：刚才哪句是实话、哪句是话术</li>
+        <li>实测环节务必动手，结果拍照记录</li>
+        <li>不替任何方案背书；如有现场签约或合作意向，建议领导回复"回去评估后答复"</li>
+        <li>注意同行领导的兴趣点，会后可作为跨部门协作的切入口</li>
+      </ul>
+    </div>
+    <div class="card success">
+      <h3>会后（10/19–10/23）</h3>
+      <ul class="bul tight">
+        <li>48 小时内交执行副总裁参访纪要：看到什么、对凯莱英意味着什么、建议下一步</li>
+        <li>纪要按"可直接用 / 需条件后用 / 不适用"三类整理阿里能力</li>
+        <li>把阿里纳入推进计划的外部能力探底，与其他厂商横向比较</li>
+        <li>提出一个快赢试点候选，挂靠既有工作、不改 GMP 流程</li>
+        <li>跟进晚宴获取的书面材料与对接人</li>
+        <li>如同行领导有兴趣，可提议跨部门共享一份纪要</li>
+      </ul>
+    </div>
+  </div>
+  <div class="callout">
+    <strong>会后纪要的核心一句话建议：</strong>"阿里的办公 AI 可作为生产管理文字与知识类工作的低成本入口，
+    建议在不涉及客户信息的场景先小范围试用；涉及客户与 GMP 内容的场景，待数据隔离与部署方式书面确认后再议。"
+    现场情况如有出入，再据实调整。
+  </div>
+</section>
+
+<!-- ============ 10 判断 ============ -->
+<section class="slide" id="s10">
+  <h2 class="kicker">10 · 判断与不确定性</h2>
+  <h1>我对此行的判断、依据与不确定之处</h1>
+  <div class="judge">
+    <div class="k">我的判断</div>
+    <div class="v">这次参访本质上是阿里新品发布后的大客户拜访，下午两场专题是千问办公新品的定向介绍。对凯莱英最现实的价值，是在已用的钉钉上，以低成本把生产管理中的文字与知识类工作先用起来；工艺、设备与 GMP 关键决策不应寄望于此。</div>
+  </div>
+  <div class="judge">
+    <div class="k b">我的依据</div>
+    <div class="v">
+      ① 议程中"企业上下文""数字员工上岗"与 9 月 22 日云栖大会发布名称完全对应；
+      ② 钉钉 9.0 付费版 10 月 21 日起生效，时间点吻合；
+      ③ 公开医药案例中只有信达生物一例落在生产运营，其余多为营销与办公；
+      ④ 凯莱英现用钉钉，入口成本最低；
+      ⑤ 欧盟 Annex 22 征求意见稿已明确生成式模型不宜用于关键 GMP 决策。
+    </div>
+  </div>
+  <div class="judge">
+    <div class="k c">我的不确定性</div>
+    <div class="v">
+      ① 凯莱英当前钉钉版本、AI 权益与 IT 与阿里的既有接触 <span class="verify">需核实</span>；
+      ② 千问办公私有化是否对外部企业提供及其价格 <span class="verify">需核实</span>；
+      ③ 药明康德等 CXO 同行的具体落地场景 <span class="verify">需核实</span>；
+      ④ 推进机制建议的批复状态 <span class="verify">需核实</span>；
+      ⑤ 欧盟 Annex 22 截至目前的定稿状态 <span class="verify">需核实</span>；
+      ⑥ 钉钉付费版具体价格以官方报价为准，二手资料仅作参考。
+    </div>
+  </div>
+</section>
+
+</main>
+
+<div class="deck-nav">
+  <button onclick="prevSlide()">上一页</button>
+  <span class="pages"><span id="pageNo">1</span> / <span id="pageTotal">1</span></span>
+  <button onclick="nextSlide()">下一页</button>
+</div>
+
+<script>
+  const slides = Array.from(document.querySelectorAll('section.slide'));
+  let idx = 0;
+  function show(i){
+    if (!document.body.classList.contains('deck')) return;
+    idx = (i + slides.length) % slides.length;
+    slides.forEach((s,n)=> s.classList.toggle('active', n===idx));
+    document.getElementById('pageNo').textContent = idx+1;
+    document.getElementById('pageTotal').textContent = slides.length;
+  }
+  function nextSlide(){ show(idx+1); }
+  function prevSlide(){ show(idx-1); }
+  function toggleDeck(){ document.body.classList.toggle('deck'); if (document.body.classList.contains('deck')) show(idx); }
+  document.addEventListener('keydown', (e)=>{
+    if (!document.body.classList.contains('deck')) return;
+    if (e.key==='ArrowRight' || e.key==='PageDown') nextSlide();
+    if (e.key==='ArrowLeft' || e.key==='PageUp') prevSlide();
+    if (e.key==='Escape') document.body.classList.remove('deck');
+  });
+  document.getElementById('pageTotal').textContent = slides.length;
+</script>
+</body>
+</html>
