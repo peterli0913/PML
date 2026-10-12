@@ -100,7 +100,7 @@
 <header class="topbar">
   <div class="brand">阿里参访 · 行前准备 <span class="badge">2026-10-16 杭州</span></div>
   <nav>
-    <a href="#s00">结论</a><a href="#s01">角色</a><a href="#s02">阿里AI体系</a><a href="#s03">关键概念</a>
+    <a href="#s00">结论</a><a href="#s01">角色</a><a href="#s02">阿里AI体系</a><a href="#s02b">云栖与钉钉9.0</a><a href="#s03">关键概念</a>
     <a href="#s04">医药同行</a><a href="#s05">凯莱英基线</a><a href="#s06">合规边界</a><a href="#s07">思路</a>
     <a href="#s08">问题卡</a><a href="#s09">整体做法</a><a href="#s10">判断</a>
   </nav>
@@ -250,6 +250,56 @@
     </div>
   </div>
   <p class="footnote">以上为 2026 年 9–10 月公开信息整理；具体版本能力与价格以阿里现场介绍与书面材料为准。</p>
+</section>
+
+<!-- ============ 02B 云栖大会与钉钉 9.0 ============ -->
+<section class="slide" id="s02b">
+  <h2 class="kicker">02B · 云栖大会与钉钉 9.0</h2>
+  <h1>9 月云栖大会相关发布：要点、好处与可对接的生产场景</h1>
+  <table class="kly">
+    <thead><tr><th style="width:15%;">产品</th><th style="width:31%;">要点</th><th style="width:24%;">对我们的好处</th><th>可对接场景</th></tr></thead>
+    <tbody>
+      <tr><td class="nd">企业上下文</td><td>压缩并结构化群聊、文档与业务系统（可接 SAP 等）信息，随业务更新，按任务只提供相关部分；内置专属模型控制成本</td><td>不必先建大数据湖；减少 AI 用错资料</td><td>技转文件、SOP、偏差与 CAPA、批记录摘要的知识底座</td></tr>
+      <tr><td class="nd">数字员工</td><td>有名称、部门、负责人、岗位职责、授权范围与生命周期；可停用；操作追溯到身份</td><td>与 GMP 岗位职责、授权、审计追踪同一逻辑</td><td>报告起草员、会议纪要员、SOP 问答员、偏差检索员</td></tr>
+      <tr><td class="nd">协作空间</td><td>关联群聊、文档、知识库，人与数字员工、数字员工之间在同一空间协作</td><td>项目资料不再散在多个群</td><td>技术转移与 Campaign 项目空间，跨研发、分析、化工、生产</td></tr>
+      <tr><td class="nd">应用接入</td><td>业务系统以应用形式接入，保留原界面与数据，结果可写回</td><td>不替换现有系统</td><td>只读接入 CMMS、LIMS、SAP 做查询与汇总</td></tr>
+      <tr><td class="nd">安全中心</td><td>沙箱边界、高风险操作审批拦截、操作记录与恢复、最小权限、敏感信息识别、全程审计</td><td>回应合规与保密顾虑的主要抓手</td><td>按客户项目划权限；审计记录供质量部门检查</td></tr>
+      <tr><td class="nd">QwenNote A2</td><td>录音转写硬件，只保留文字与纪要，不保留原始音频，工作时亮灯提示</td><td>隐私友好、即用即走</td><td>内部生产会、交接班；客户会议需先评估保密与原始记录要求</td></tr>
+      <tr><td class="nd">Agent Studio / AgentCore</td><td>千问 AI 平台的企业级 Agent 构建、托管、治理与评估；模型服务提供机密推理与 99.9% SLA</td><td>IT 自建定制场景的底座</td><td>定制报告生成、跨系统问答；建模类问题仍需专业方案</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="sub">钉钉 9.0 付费版（9 月 23 日发布，10 月 21 日起逐步生效）</h3>
+  <table class="kly">
+    <thead><tr><th style="width:16%;">版本</th><th style="width:16%;">人数</th><th style="width:16%;">千问办公积分（每人）</th><th>定位与差异</th></tr></thead>
+    <tbody>
+      <tr><td class="nd">免费标准版</td><td>最高 1000 人</td><td>—</td><td>沟通、文档、会议、AI 表格等基础协同</td></tr>
+      <tr><td class="nd">AI 基础版</td><td>最高 1000 人</td><td>4000</td><td rowspan="2">资源扩容、基础协同与 AI 应用，适合刚开始用 AI 的团队</td></tr>
+      <tr><td class="nd">AI 高级版</td><td>最高 1000 人</td><td>6000</td></tr>
+      <tr><td class="nd">AI 尊享版</td><td>不限（超 500 人需组织认证）</td><td>8000</td><td rowspan="2">增加企业级安全、开放集成与自主可控，面向 Agent 接入核心业务系统；更高版本提供专属开放集成、专属安全、专属品牌与自运营服务台</td></tr>
+      <tr><td class="nd">AI 旗舰版</td><td>不限（超 500 人需组织认证）</td><td>12000</td></tr>
+    </tbody>
+  </table>
+  <div class="grid-2" style="margin-top:12px;">
+    <div class="card success">
+      <h3>共同好处</h3>
+      <ul class="bul tight">
+        <li>四档均原生接入千问办公，不必分别采购多个 AI 工具再打通账号权限</li>
+        <li>Agent 权限与员工权限一致，降低越权访问风险</li>
+        <li>商业版 API 调用不设上限；配服务群、服务顾问、SLA 与 7×24 应急</li>
+        <li>新功能：AI 听记全链路开放、AI 表格可由 Agent 直接查询录入并写回、Teambition 数字员工与一句话建项目</li>
+      </ul>
+    </div>
+    <div class="card warn">
+      <h3>需要注意</h3>
+      <ul class="bul tight">
+        <li>按凯莱英规模大概率对应尊享版或旗舰版，两档差异官方披露有限</li>
+        <li>积分按人数赠送，实际消耗需测算，高消耗场景可能需增购</li>
+        <li>原合同期内保留原权益，<strong>不必急于升级</strong></li>
+        <li>公开报道未列官方售价，以正式报价为准 <span class="verify">需核实</span></li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <!-- ============ 03 关键概念 ============ -->
