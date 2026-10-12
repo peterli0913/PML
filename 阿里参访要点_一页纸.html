@@ -4,35 +4,36 @@
 <meta charset="UTF-8" />
 <title>阿里参访要点（10 月 16 日）</title>
 <style>
-  @page { size: A4; margin: 12mm 13mm 11mm; }
+  @page { size: A4; margin: 11mm 12mm 10mm; }
   * { box-sizing: border-box; }
   html, body { margin:0; padding:0; }
   body {
     font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", "Source Han Sans CN", sans-serif;
-    color:#13213d; font-size: 10.6pt; line-height: 1.55; -webkit-print-color-adjust: exact; print-color-adjust: exact;
+    color:#13213d; font-size: 10.2pt; line-height: 1.5; -webkit-print-color-adjust: exact; print-color-adjust: exact;
   }
-  .page { width: 184mm; margin: 0 auto; }
+  .page { width: 186mm; margin: 0 auto; }
   .hdr { display:flex; align-items:flex-end; justify-content:space-between; border-bottom: 2px solid #0f1f3d; padding-bottom: 4px; margin-bottom: 7px; }
-  .hdr h1 { font-size: 17pt; margin:0; color:#0f1f3d; letter-spacing:.5px; }
-  .hdr .meta { font-size: 9pt; color:#5b6a8a; text-align:right; }
-  .concl { background:#0f1f3d; color:#fff; border-radius:6px; padding: 8px 11px; margin-bottom: 9px; font-size: 10.8pt; }
+  .hdr h1 { font-size: 16.5pt; margin:0; color:#0f1f3d; letter-spacing:.5px; }
+  .hdr .meta { font-size: 8.8pt; color:#5b6a8a; text-align:right; }
+  .concl { background:#0f1f3d; color:#fff; border-radius:6px; padding: 7px 11px; margin-bottom: 7px; font-size: 10.4pt; }
   .concl b { color:#ffb489; }
-  h2 { font-size: 11.6pt; margin: 9px 0 4px; color:#0f1f3d; display:flex; align-items:center; gap:6px; }
-  h2 .n { background:#ff7e3d; color:#fff; font-size:9pt; border-radius:3px; padding:0 5px; line-height:1.55; }
-  table { width:100%; border-collapse: collapse; font-size: 9.8pt; }
-  th, td { border-bottom: 1px solid #e3e8f2; padding: 4px 6px; text-align:left; vertical-align: top; }
-  th { background:#eef2f8; color:#0f1f3d; font-weight:700; font-size:9.4pt; }
+  h2 { font-size: 11.2pt; margin: 7px 0 3px; color:#0f1f3d; display:flex; align-items:center; gap:6px; }
+  h2 .n { background:#ff7e3d; color:#fff; font-size:8.8pt; border-radius:3px; padding:0 5px; line-height:1.55; }
+  table { width:100%; border-collapse: collapse; font-size: 9.5pt; }
+  th, td { border-bottom: 1px solid #e3e8f2; padding: 3px 6px; text-align:left; vertical-align: top; }
+  th { background:#eef2f8; color:#0f1f3d; font-weight:700; font-size:9.2pt; }
   td.k { font-weight:700; white-space:nowrap; color:#0f1f3d; }
+  tr.hot td { background:#fff7f1; }
   .cols { display:grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .box { border:1px solid #e3e8f2; border-radius:6px; padding: 6px 9px; background:#f8fafc; }
+  .box { border:1px solid #e3e8f2; border-radius:6px; padding: 5px 9px; background:#f8fafc; }
   .box.warn { background:#fff7f1; border-color:#ffd8be; }
   .box.red { background:#fef2f2; border-color:#fecaca; }
+  .box.green { background:#f0fdf4; border-color:#bbf7d0; }
+  .quote { border-left:3px solid #ff7e3d; background:#fff7f1; padding:5px 9px; margin:3px 0 2px; font-weight:600; }
   ol, ul { margin: 2px 0 0; padding-left: 15px; }
   li { margin: 1px 0; }
-  .muted { color:#5b6a8a; font-size:8.2pt; }
-  .tag { display:inline-block; font-size:8.4pt; padding:0 5px; border-radius:3px; background:#dcfce7; color:#166534; font-weight:700; margin-right:3px; }
-  .tag.y { background:#fef3c7; color:#92400e; }
-  .foot { margin-top:8px; border-top:1px solid #e3e8f2; padding-top:4px; font-size:8.4pt; color:#7a89a8; }
+  .muted { color:#5b6a8a; font-size:8.8pt; }
+  .foot { margin-top:6px; border-top:1px solid #e3e8f2; padding-top:3px; font-size:8.2pt; color:#7a89a8; }
 </style>
 </head>
 <body>
@@ -40,34 +41,31 @@
 
   <div class="hdr">
     <h1>阿里参访要点（10 月 16 日 · 杭州）</h1>
-    <div class="meta">供参访前阅读<br/>生产侧视角</div>
+    <div class="meta">依据阿里提供的行程整理<br/>生产侧视角</div>
   </div>
 
   <div class="concl">
-    <b>一句话：</b>阿里此行主推 9 月云栖大会新品（千问办公 + 钉钉 9.0）。对我们最现实的价值，是在<b>已在使用的钉钉</b>上，低成本推进<b>生产管理中的文字与知识类工作</b>；工艺控制、设备预测与 GMP 关键决策不在其能力重点内。
+    <b>一句话：</b>全天围绕 9 月云栖大会新品（千问办公 + 钉钉 9.0）展开，傍晚每位高管当众发言、共创三个场景，并以"明确对接机制"收尾。对我们最现实的价值，是在<b>已在使用的钉钉</b>上低成本推进<b>生产管理中的文字与知识类工作</b>；收尾宜只定技术对接，不作采购承诺。
   </div>
 
-  <h2><span class="n">一</span>阿里主推的产品</h2>
+  <h2><span class="n">一</span>行程重点</h2>
   <table>
-    <thead><tr><th style="width:21%;">产品</th><th style="width:47%;">核心内容</th><th>对应议程</th></tr></thead>
+    <thead><tr><th style="width:12%;">时间</th><th style="width:42%;">环节</th><th>我们的关注点</th></tr></thead>
     <tbody>
-      <tr><td class="k">千问办公 · 企业上下文</td><td>把分散在文档、群聊、业务系统里的信息整理成 AI 可直接使用的业务资料，随业务更新</td><td>下午专题"让 AI 读懂凯莱英"</td></tr>
-      <tr><td class="k">千问办公 · 数字员工</td><td>AI 有岗位、负责人、授权范围，可被停用，所有操作可追溯到该身份</td><td>下午专题"数字员工上岗"</td></tr>
-      <tr><td class="k">千问办公 · 安全中心</td><td>最小权限、高风险操作审批拦截、敏感信息识别、全程审计</td><td>两场专题均会涉及</td></tr>
-      <tr><td class="k">钉钉 9.0 付费版</td><td>四档 AI 商业版，均接入千问办公；<b>10 月 21 日起生效，原合同期内保留原权益</b></td><td>可能推荐升级版本</td></tr>
+      <tr><td class="k">09:00</td><td>云谷园区 · 开场《Context is all you need》+ 展厅</td><td>听趋势、看底座，以听为主</td></tr>
+      <tr><td class="k">11:30</td><td>亲橙 Park 午餐餐叙</td><td>非正式追问下方三个问题的好时机</td></tr>
+      <tr><td class="k">13:00</td><td>智能硬件展厅：随身记录、现场视觉</td><td>现场试用中英混杂会议的转写效果</td></tr>
+      <tr><td class="k">14:10</td><td>让 AI 上班：数字员工</td><td>权限能否按客户项目继承、审计是否可追溯</td></tr>
+      <tr class="hot"><td class="k">14:50</td><td>医药场景：情报中心、生产质检、智能报价</td><td><b>与我们最相关</b>；称是 CDMO 同行在跑的场景，可问是哪家、做到什么程度</td></tr>
+      <tr><td class="k">15:35</td><td>从工具变革到组织变革</td><td>"陪跑式落地"属服务产品，了解内容与收费</td></tr>
+      <tr class="hot"><td class="k">16:20</td><td>共创工作坊：每位高管说一件最想用 AI 解决的事</td><td><b>需提前备好一句话</b>（见下）</td></tr>
+      <tr class="hot"><td class="k">17:20</td><td>收尾：明确下一步与对接机制</td><td><b>只同意技术对接</b>，不承诺采购与升级</td></tr>
     </tbody>
   </table>
 
-  <h2><span class="n">二</span>与生产可对接的场景</h2>
-  <table>
-    <thead><tr><th style="width:27%;">场景</th><th style="width:43%;">做法</th><th>判断</th></tr></thead>
-    <tbody>
-      <tr><td class="k">生产会议与交接班纪要</td><td>AI 听记自动转写与生成纪要、待办</td><td><span class="tag">快赢</span>挂靠现有会议，不增工时</td></tr>
-      <tr><td class="k">Campaign / 月度运行报告</td><td>AI 汇总数据与文件出草稿，工程师修改定稿</td><td><span class="tag">快赢</span>机械汇编工时大</td></tr>
-      <tr><td class="k">SOP、法规问答与偏差检索</td><td>在授权范围内检索文件与历史偏差、CAPA</td><td><span class="tag">快赢</span>需先确认文件权限</td></tr>
-      <tr><td class="k">技术转移项目协作</td><td>研发、分析、化工、生产与 AI 在同一项目空间协作</td><td><span class="tag y">中期</span>涉及客户资料，需隔离</td></tr>
-    </tbody>
-  </table>
+  <h2><span class="n">二</span>共创环节的一句话（建议）</h2>
+  <div class="quote">"把生产一线的报告、纪要和异常记录交给 AI 先出初稿，工程师只做判断和把关；前提是客户数据不出域、可隔离、可审计。"</div>
+  <div class="muted">备选："让生产中的技术问题和异常信息第一时间被看见、能被检索，减少上报滞后。"</div>
 
   <div class="cols" style="margin-top:7px;">
     <div class="box red">
@@ -79,35 +77,35 @@
       </ol>
     </div>
     <div class="box warn">
-      <h2 style="margin-top:0;"><span class="n">四</span>现场建议</h2>
+      <h2 style="margin-top:0;"><span class="n">四</span>收尾表态建议</h2>
+      <div class="quote" style="margin-top:2px;">"今天的三个场景我们带回去，按内部标准评估后，由技术对接人与贵方约下一次交流。"</div>
       <ul>
-        <li><b>圆桌可讲：</b>受托生产的 AI 演进有三个特殊约束——多客户数据隔离、GMP 全程可追溯、放行与签字由人负责；做法是先嵌入现有流程，再逐步重塑</li>
-        <li><b>听案例时追问：</b>上线多久、多少人日常使用、效果数字怎么算</li>
-        <li><b>不当场承诺：</b>版本升级不急，原合同期内权益不变</li>
+        <li><b>可同意：</b>指定技术对接人；阿里提供部署与合规书面材料；约一次数据隔离专题交流</li>
+        <li><b>暂不同意：</b>采购、版本升级、合作框架；共创内容未经同意不对外引用</li>
       </ul>
     </div>
   </div>
 
   <div class="cols" style="margin-top:7px;">
     <div class="box">
-      <h2 style="margin-top:0;"><span class="n">五</span>医药同行参照</h2>
+      <h2 style="margin-top:0;"><span class="n">五</span>代表团内部建议</h2>
       <ul>
-        <li><b>信达生物：</b>AI 抓取分析生产异常，三个月节约超 160 工时——生产侧最相关的公开案例</li>
-        <li><b>CXO 同行：</b>钉钉称其医药方案已在药明康德落地，具体场景可现场了解</li>
-        <li>其余公开案例多在营销、办公与研发</li>
+        <li>午餐时各位副总简单对齐：一句话尽量不重复，覆盖研发、分析、化工、生产</li>
+        <li>共创出的三个场景，请阿里记为"待凯莱英内部评估的候选"</li>
+        <li>阿里同样服务 CDMO 同行：发言不涉及客户、项目、工艺与具体事件</li>
       </ul>
     </div>
-    <div class="box">
+    <div class="box green">
       <h2 style="margin-top:0;"><span class="n">六</span>会后安排</h2>
       <ul>
         <li>两个工作日内提交参访纪要与建议</li>
-        <li>将阿里纳入外部技术能力比较</li>
-        <li>提出一个不涉及客户信息、不改 GMP 流程的快赢试点建议</li>
+        <li>按内部选点标准复核共创出的三个场景</li>
+        <li>将阿里纳入外部技术能力比较，提出一个不涉及客户信息、不改 GMP 流程的快赢试点建议</li>
       </ul>
     </div>
   </div>
 
-  <div class="foot">信息来源：2026 年 9 月云栖大会、钉钉与阿里云官方发布及公开报道；版本价格与部署方式以阿里书面材料为准。</div>
+  <div class="foot">信息来源：阿里提供的 10.16 行程介绍（页面注明 AI 生成，最终以对接人确认为准）、2026 年 9 月云栖大会及钉钉官方发布。</div>
 </div>
 </body>
 </html>
