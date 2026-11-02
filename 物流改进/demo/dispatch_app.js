@@ -124,7 +124,13 @@
     const log = (trace.filter(function (t) { return t.order && t.order.code === order.code; }).slice(-18).map(function (t) {
       return "<li><b>" + esc(t.ok ? t.role : "未通过") + "</b> " + esc(t.message) + (t.input ? "<div class='muted'>输入：" + esc(t.input) + "</div><div class='muted'>输出：" + esc(t.output) + "</div>" : "") + "</li>";
     }).join("")) || "<li class='muted'>还没有操作。可以逐步点下一步，或演完 DEMO 两单。</li>";
-    const detail = "<div class='panel detail'><h2 style='margin:0 0 6px'>" + esc(order.code) + "</h2><p class='muted'>" + esc(order.kind) + " · " + esc(order.material) + " " + esc(order.qty) + " 吨 · " + esc(order.supplier) + (order.kind === "废液装车" ? " / " + order.receiver : "") + "</p><p>状态 <span class='tag'>" + esc(order.status) + "</span></p><p class='math'>标准放行 " + esc(order.releaseHours) + " 小时。距离 " + (order.distanceKm == null ? "未发车" : order.distanceKm + " km") + "。" + esc(order.etaNote || "") + (order.exception ? " 异常：" + order.exception : "") + (order.bay ? " 鹤管 " + order.bay : "") + (order.rcvNo ? " " + order.rcvNo : "") + (order.batch ? " " + order.batch : "") + (order.waitPlace ? " 等待位置 " + order.waitPlace : "") + "</p><h3>这一步可以做的事</h3>" + actionForm(order) + "<h3>过程</h3><ol class='log'>" + log + "</ol></div>";
+    const systems = D.SYSTEMS.map(function (item) {
+      return "<li><b>" + esc(item[0]) + "</b> " + esc(item[1]) + "</li>";
+    }).join("");
+    const exchanges = (order.exchanges || []).slice(-8).map(function (item) {
+      return "<li><b>" + esc(item.direction) + " " + esc(item.system) + "</b> " + esc(item.content) + "</li>";
+    }).join("");
+    const detail = "<div class='panel detail'><h2 style='margin:0 0 6px'>" + esc(order.code) + "</h2><p class='muted'>" + esc(order.kind) + " · " + esc(order.material) + " " + esc(order.qty) + " 吨 · " + esc(order.supplier) + (order.kind === "废液装车" ? " / " + order.receiver : "") + "</p><p>状态 <span class='tag'>" + esc(order.status) + "</span></p><p class='math'>标准放行 " + esc(order.releaseHours) + " 小时。距离 " + (order.distanceKm == null ? "未发车" : order.distanceKm + " km") + "。" + esc(order.etaNote || "") + (order.exception ? " 异常：" + order.exception : "") + (order.bay ? " 鹤管 " + order.bay : "") + (order.rcvNo ? " " + order.rcvNo : "") + (order.batch ? " " + order.batch : "") + (order.waitPlace ? " 等待位置 " + order.waitPlace : "") + "</p><h3>这一步可以做的事</h3>" + actionForm(order) + "<h3>与外部系统</h3><ul class='log'>" + (exchanges || "<li class='muted'>这一步还没有对外交互。</li>") + "</ul><h3>过程</h3><ol class='log'>" + log + "</ol><h3>部署时各接哪里</h3><ul class='log'>" + systems + "</ul></div>";
     document.getElementById("app").innerHTML = "<div class='layout'><div class='panel'>" + head + table + "<p class='muted'>显示 " + rows.length + " / " + orders.length + " 条</p></div>" + detail + "</div>";
     const box = document.getElementById("q");
     if (box) box.addEventListener("input", function () { q = box.value; render(); });

@@ -100,8 +100,12 @@
       manifestNo: "",
       released: false,
       closed: status === "已断管离场" || status === "已离场",
+      tankOnline: true,
+      tankFree: 80,
+      exchanges: [],
       log: [],
     };
+    if (status === "待罐区入厂指令" && i % 9 === 0) order.tankFree = 1;
     if (status === "在途") order.distanceKm = 40 + (i % 8) * 15;
     if (status === "到场预告") order.distanceKm = 6 + (i % 8);
     if (status === "待门卫核查" || ["待罐区入厂指令", "厂外等待", "待收货递检", "待取样", "原地等待放行", "出厂等待放行", "待重新入厂", "待置换卸车", "卸车中", "已断管离场", "待入厂装车", "装车中", "待检斤联单", "已离场"].indexOf(status) >= 0) {
@@ -137,6 +141,7 @@
     if (i === 0) {
       order.code = "TJ4-DEMO-A";
       order.material = "IPAc";
+      order.tank = "T-IPAc";
       order.qty = 12;
       order.releaseHours = 1.5;
       order.supplier = "天津德凯溶剂";
@@ -145,6 +150,7 @@
     if (i === 1) {
       order.code = "TJ4-DEMO-B";
       order.material = "DMF";
+      order.tank = "T-DMF";
       order.qty = 20;
       order.releaseHours = 3.5;
       order.supplier = "山东齐鲁溶剂";

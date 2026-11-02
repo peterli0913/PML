@@ -57,4 +57,17 @@ let w = waste;
 const reported = Dispatch.act(w, "supplier_report", { plate: "津C演示1", driver: "赵师傅", phone: "13800002222", coa: false });
 assert.strictEqual(reported.ok, true);
 
+const seen = {};
+short.order.exchanges.forEach(function (item) { seen[item.system] = true; });
+["计划采集系统", "微信供应商门户", "邮件", "定位", "钉钉", "U9", "DCS", "看板"].forEach(function (name) {
+  assert.ok(seen[name], "missing " + name);
+});
+const loading = orders.find(function (o) { return o.kind === "废液装车" && o.status === "装车中"; });
+const weighed = Dispatch.act(loading, "weigh", { weight: loading.qty });
+assert.strictEqual(weighed.ok, true);
+const manifested = Dispatch.act(weighed.order, "manifest");
+assert.strictEqual(manifested.ok, true);
+assert.ok(manifested.order.exchanges.some(function (item) { return item.system === "联单系统" && item.direction === "写出"; }));
+assert.ok(weighed.order.exchanges.some(function (item) { return item.system === "地磅" && item.direction === "读入"; }));
+
 console.log("dispatch tests ok");
