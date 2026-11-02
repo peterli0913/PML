@@ -277,7 +277,7 @@
     }).join("");
     return shell(spec, "<div class='panel'><h2>三块只交接这些结果</h2><ul class='list'><li>计划写出「已确认计划」：溶剂、数量、罐、日期。没有车牌。</li><li>车辆调度从已确认计划派车，写出车辆、鹤管和联单。</li><li>看板只读两边，另外写出超时和加急通知。</li></ul><h2>建议按这个顺序点</h2><ol class='steps'>" +
       spec.demo.map(function (step) { return "<li>" + esc(step) + "</li>"; }).join("") +
-      "</ol></div>" + cards);
+      "</ol><p><a href='dispatch.html'>打开车辆调度完整功能（100 条假数据）</a></p></div>" + cards);
   }
 
   function tankTable(withButtons, list) {
