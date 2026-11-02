@@ -3,12 +3,7 @@
   const NOW = "2026-11-02T10:40:00";
   const NOW_LABEL = "2026-11-02 10:40";
   const NAV = [
-    ["采集", [["p1", "P1 液位采集"], ["p2", "P2 节点采集"]]],
-    ["参数与提报", [["p3", "P3 主数据"], ["p4", "P4 需求提报"]]],
-    ["计划", [["p5", "P5 计划草案"], ["p6", "P6 采购下达"]]],
-    ["在途与厂内", [["p7", "P7 供应商门户"], ["p8", "P8 到厂与车位"], ["p9", "P9 时效盯办"]]],
-    ["合规", [["p10", "P10 联单余量"], ["p11", "P11 资格与加急"]]],
-    ["展示", [["p12", "P12 看板"], ["p13", "P13 预测"]]],
+    ["三块", [["plan", "计划"], ["dispatch", "车辆调度"], ["board", "看板整合"]]],
   ];
 
   function seed() {
@@ -280,70 +275,55 @@
         return "<button class='btn' data-nav='" + item[0] + "'>" + esc(item[1]) + "</button>";
       }).join("") + "</div></div>";
     }).join("");
-    return shell(spec, "<div class='panel'><h2>建议按这个顺序点</h2><ol class='steps'>" +
+    return shell(spec, "<div class='panel'><h2>三块只交接这些结果</h2><ul class='list'><li>计划写出「已确认计划」：溶剂、数量、罐、日期。没有车牌。</li><li>车辆调度从已确认计划派车，写出车辆、鹤管和联单。</li><li>看板只读两边，另外写出超时和加急通知。</li></ul><h2>建议按这个顺序点</h2><ol class='steps'>" +
       spec.demo.map(function (step) { return "<li>" + esc(step) + "</li>"; }).join("") +
-      "</ol><p class='muted'>每个程序里还有「输入与来源」「输出与去向」「功能与开发思路」和「本页演示」。吨位、批号、公司名都是演示数据。</p></div>" + cards);
+      "</ol></div>" + cards);
   }
 
-  function viewP1() {
-    const rows = allTanks().map(function (tank) {
-      const status = tank.online ? tag("在线", "ok") : tag("数据中断", "bad");
-      const btn = tank.online
+  function tankTable(withButtons, list) {
+    return table(["罐", "溶剂", "点位", "液位", "余量(吨)", "下限", "状态", withButtons ? "采集" : ""], (list || allTanks()).map(function (tank) {
+      const status = !tank.online ? tag("数据中断", "bad") : (tank.qty < tank.low ? tag("低于下限", "bad") : tag("在线", "ok"));
+      const btn = !withButtons ? "" : (tank.online
         ? "<button class='btn bad' data-act='offline' data-id='" + tank.id + "'>模拟中断</button>"
-        : "<button class='btn' data-act='online' data-id='" + tank.id + "'>恢复采集</button>";
-      return [esc(tank.id), esc(tank.solvent), esc(tank.point), esc(tank.level + "%"), esc(String(tank.qty)), esc(tank.at), status, btn];
-    });
-    return shell(window.SPEC.p1, "<div class='panel'><p class='math'>余量 = 液位% × 罐容。超过 15 分钟没有新值则数据中断。本服务不写 DCS。</p>" +
-      table(["罐", "溶剂", "点位", "液位", "余量(吨)", "采集时间", "状态", "演示"], rows) + "</div>");
+        : "<button class='btn' data-act='online' data-id='" + tank.id + "'>恢复采集</button>");
+      return [esc(tank.id), esc(tank.solvent), esc(tank.point), tank.online ? esc(tank.level + "%") : "—", tank.online ? esc(String(tank.qty)) : "—", esc(tank.low), status, btn];
+    }));
   }
 
-  function viewP2() {
-    const rows = state.nodes.map(function (node) {
-      const sampleBtn = node.sample ? "" : "<button class='btn primary' data-act='sample' data-id='" + node.id + "'>写入取样时间</button>";
-      const releaseBtn = node.sample && !node.release ? "<button class='btn primary' data-act='release' data-id='" + node.id + "'>写入放行时间</button>" : "";
-      return [esc(node.batch), esc(node.solvent), esc(node.qty), esc(node.receipt || "—"), esc(node.sample || "—"), esc(node.release || "—"), tag(node.status, node.status.indexOf("待") >= 0 ? "warn" : "ok"), sampleBtn + releaseBtn];
-    });
-    return shell(window.SPEC.p2, "<div class='panel'><p class='muted'>下面两个按钮只在演示里代替 U9 上的人工点击。生产程序只读 U9，没有写入。</p>" +
-      table(["批号", "溶剂", "数量", "收货", "取样", "放行", "状态", "演示"], rows) + "</div>");
-  }
-
-  function viewP3() {
-    const rows = state.tanks.concat(state.wasteTanks).map(function (tank) {
-      return [esc(tank.id), esc(tank.solvent), esc(tank.point), esc(tank.low), esc(tank.high), esc(tank.workshops), esc(tank.bay)];
-    });
-    const audits = state.audits.map(function (a) { return "<li>" + esc(a.at + " " + a.who + "：" + a.what) + "</li>"; }).join("");
-    return shell(window.SPEC.p3, "<div class='grid'><div class='panel'><h2>已对照的罐</h2>" +
-      table(["罐", "溶剂", "点位", "下限", "上限%", "厂房", "鹤管"], rows) +
-      "<h2>未对照</h2>" + table(["罐", "说明"], state.unmapped.map(function (t) { return [esc(t.id), esc(t.note)]; })) +
-      "</div><div class='panel'><h2>修改 TIF04 下限</h2><label>下限（吨）</label><input id='p3-low' value='" + esc(state.tanks[3].low) + "'><div class='row' style='margin-top:8px'><button class='btn primary' data-act='save-low'>保存并通知原录入人</button></div><h2>留痕</h2><ul class='list'>" + audits + "</ul></div></div>");
-  }
-
-  function viewP4() {
-    const rows = state.demands.map(function (d) {
+  function viewPlan() {
+    const demandRows = state.demands.map(function (d) {
       const actions = d.status === "提报"
         ? "<button class='btn primary' data-act='confirm-demand' data-id='" + d.id + "'>确认入单</button> <button class='btn bad' data-act='reject-demand' data-id='" + d.id + "'>驳回</button>"
         : "";
       const kind = d.status === "确认" ? "ok" : d.status === "驳回" ? "bad" : "warn";
-      return [esc(d.id), esc(d.type), esc(d.solvent), esc(d.qty), esc(d.date), esc(d.workshop), tag(d.status, kind), esc(d.text || ""), actions];
+      return [esc(d.id), esc(d.type), esc(d.solvent), esc(d.qty), esc(d.date), tag(d.status, kind), esc(d.text || ""), actions];
     });
-    return shell(window.SPEC.p4, "<div class='grid'><div class='panel'><h2>特殊需求原文</h2><label>原文</label><textarea id='p4-text'>明天2号厂房 ACN 要 40 吨，客户加急</textarea><div class='row' style='margin-top:8px'><button class='btn' data-act='parse'>整理原文</button><button class='btn primary' data-act='submit-demand'>提交提报</button></div><p id='p4-note' class='muted'></p><div class='row'><div class='field'><label>类型</label><select id='p4-type'><option>溶剂需求</option><option>废液产出</option></select></div><div class='field'><label>溶剂</label><input id='p4-solvent'></div><div class='field'><label>数量（吨）</label><input id='p4-qty'></div></div><div class='row'><div class='field'><label>日期</label><input id='p4-date'></div><div class='field'><label>厂房</label><input id='p4-workshop'></div><div class='field'><label>驳回原因</label><input id='p4-reason' value='数量和当天产能不符'></div></div></div><div class='panel'><h2>需求对象</h2>" +
-      table(["单号", "类型", "溶剂", "数量", "日期", "厂房", "状态", "原文", "操作"], rows) + "</div></div>");
-  }
-
-  function viewP5() {
+    const planRows = state.plans.map(function (p) {
+      const btn = p.status === "草案" ? "<button class='btn primary' data-act='confirm-plan' data-id='" + p.id + "'>确认计划</button>" : "";
+      const kind = p.status === "草案" ? "warn" : "ok";
+      return [esc(p.id), tag(p.status, kind), esc(p.type), esc(p.solvent), esc(p.tank), esc(p.qty), esc(p.priority == null ? "—" : p.priority), esc(p.math), btn];
+    });
     const skip = skips();
-    const rows = state.plans.filter(function (p) { return p.status === "草案" || p.status === "已下达"; }).map(function (p) {
-      return [esc(p.id), tag(p.status, p.status === "草案" ? "warn" : "ok"), esc(p.type), esc(p.solvent), esc(p.tank), esc(p.qty), esc(p.priority == null ? "—" : p.priority), esc(p.math), esc(p.reason)];
+    const actualRows = state.actuals.map(function (a) {
+      return [esc(a.solvent), esc(a.planQty), esc(a.actualQty), esc(a.actualQty) + " <span class='muted'>并列</span>"];
     });
-    return shell(window.SPEC.p5, "<div class='panel'><p class='math'>溶剂建议量 = max(需求 − 余量 − 在途 − 已放行待卸, 下限 − 余量, 0)。优先分值 = 余量 − 需求。<br>废液建议量 = max(当前容积 + 已确认产出 − 上限容积, 0)。</p><button class='btn primary' data-act='draft'>生成草案</button></div>" +
-      "<div class='panel' style='margin-top:12px'><h2>计划对象</h2>" + (rows.length ? table(["单号", "状态", "类型", "溶剂", "罐", "建议量", "优先分值", "计算过程", "理由"], rows) : "<p class='muted'>还没有草案。</p>") + "</div>" +
-      (skip.length ? "<div class='panel' style='margin-top:12px'><h2>这次跳过</h2><ul class='list'>" + skip.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + "</ul></div>" : ""));
+    return shell(window.SPEC.plan,
+      "<div class='panel'><h2>库存与参数</h2><p class='math'>余量 = 液位% × 罐容。中断的罐不进草案。本块不填车牌。</p>" + tankTable(true) +
+      "<p class='muted'>未对照：" + esc(state.unmapped.map(function (t) { return t.id + " " + t.note; }).join("；")) + "</p>" +
+      "<div class='row'><div class='field'><label>TIF04 下限（吨）</label><input id='p3-low' value='" + esc(chosen("p3-low", state.tanks[3].low)) + "'></div><button class='btn' data-act='save-low'>保存下限</button></div></div>" +
+      "<div class='panel' style='margin-top:12px'><h2>需求</h2><label>特殊需求原文</label><textarea id='p4-text'>" + esc(chosen("p4-text", "明天2号厂房 ACN 要 40 吨，客户加急")) + "</textarea><div class='row' style='margin-top:8px'><button class='btn' data-act='parse'>整理原文</button><button class='btn primary' data-act='submit-demand'>提交提报</button></div><p id='p4-note' class='muted'></p><div class='row'><div class='field'><label>类型</label><select id='p4-type'><option" + (chosen("p4-type", "溶剂需求") === "废液产出" ? "" : " selected") + ">溶剂需求</option><option" + (chosen("p4-type", "") === "废液产出" ? " selected" : "") + ">废液产出</option></select></div><div class='field'><label>溶剂</label><input id='p4-solvent' value='" + esc(chosen("p4-solvent", "")) + "'></div><div class='field'><label>数量</label><input id='p4-qty' value='" + esc(chosen("p4-qty", "")) + "'></div><div class='field'><label>日期</label><input id='p4-date' value='" + esc(chosen("p4-date", "")) + "'></div><div class='field'><label>厂房</label><input id='p4-workshop' value='" + esc(chosen("p4-workshop", "")) + "'></div><div class='field'><label>驳回原因</label><input id='p4-reason' value='" + esc(chosen("p4-reason", "数量和当天产能不符")) + "'></div></div>" +
+      table(["单号", "类型", "溶剂", "数量", "日期", "状态", "原文", "操作"], demandRows) + "</div>" +
+      "<div class='panel' style='margin-top:12px'><h2>草案</h2><p class='math'>溶剂建议量 = max(需求 − 余量 − 在途 − 已放行待卸, 下限 − 余量, 0)。废液建议量 = max(当前容积 + 已确认产出 − 上限容积, 0)。</p><button class='btn primary' data-act='draft'>生成草案</button>" +
+      (planRows.length ? table(["单号", "状态", "类型", "溶剂", "罐", "建议量", "优先分值", "计算过程", "操作"], planRows) : "<p class='muted'>还没有草案。</p>") +
+      (skip.length ? "<ul class='list'>" + skip.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + "</ul>" : "") + "</div>" +
+      "<div class='panel' style='margin-top:12px'><h2>预测只并列</h2>" + table(["溶剂", "上月计划", "上月实际", "下月参考"], actualRows) +
+      "<div class='row' style='margin-top:8px'><button class='btn bad' data-act='forecast-write'>尝试写入草案</button></div></div>");
   }
 
-  function viewP6() {
-    const drafts = state.plans.filter(function (p) { return p.status === "草案"; });
-    const options = drafts.map(function (p) {
-      const selected = p.id === chosen("p6-plan", drafts[0].id) ? " selected" : "";
+  function viewDispatch() {
+    const ready = state.plans.filter(function (p) { return p.status === "已确认"; });
+    const planOptions = ready.map(function (p) {
+      const selected = p.id === chosen("p6-plan", ready[0] ? ready[0].id : "") ? " selected" : "";
       return "<option value='" + esc(p.id) + "'" + selected + ">" + esc(p.id + " " + p.type + " " + p.solvent + " " + p.qty + "吨") + "</option>";
     }).join("");
     const parties = "<optgroup label='供应商'>" + state.suppliers.map(function (s) {
@@ -354,70 +334,42 @@
       return "<option value='" + r.id + "'" + selected + ">" + esc(r.name + " · " + r.procedure) + "</option>";
     }).join("") + "</optgroup>";
     const issued = state.plans.filter(function (p) { return p.status === "已下达"; }).map(function (p) {
-      return [esc(p.id), esc(p.solvent), esc(p.qty), esc(p.party), esc(p.plate), esc(p.seal || "空")];
+      return [esc(p.id), esc(p.solvent), esc(p.qty), esc(p.party || "—"), esc(p.plate || "—")];
     });
-    return shell(window.SPEC.p6, "<div class='grid'><div class='panel'><h2>确认草案</h2>" +
-      (drafts.length ? "<label>草案</label><select id='p6-plan'>" + options + "</select><label>供应商或接收商</label><select id='p6-party'>" + parties + "</select><label>车牌</label><input id='p6-plate' value='" + esc(chosen("p6-plate", "苏A演示11")) + "'><label>锁封号（可空）</label><input id='p6-seal' value='" + esc(chosen("p6-seal", "")) + "' placeholder='预留'><div class='row' style='margin-top:8px'><button class='btn primary' data-act='issue'>确认下达</button></div>" : "<p>没有草案。先到 P5 生成。</p>") +
-      "</div><div class='panel'><h2>邮件预览</h2>" + (state.mail ? "<div class='math'>" + esc(state.mail) + "</div>" : "<p class='muted'>下达成功后出现。演示不发送。</p>") +
-      "<h2>已下达</h2>" + (issued.length ? table(["单号", "溶剂", "数量", "对方", "车牌", "锁封"], issued) : "<p class='muted'>还没有。</p>") + "</div></div>");
-  }
-
-  function viewP7() {
+    const suppliers = state.suppliers.map(function (s) {
+      const btn = s.qualified ? tag("已确认 " + s.qaAt, "ok") : "<button class='btn primary' data-act='qa' data-id='" + s.id + "'>QA 确认</button>";
+      return [esc(s.name), esc(s.project), esc(s.docs), btn];
+    });
     const waiting = state.vehicles.filter(function (v) { return v.status === "待发车" || v.status === "在途" || v.status === "到厂"; });
     const actionable = waiting.filter(function (v) { return v.status === "待发车" || v.status === "在途"; });
     const preferred = (actionable.filter(function (v) { return v.status === "待发车"; })[0] || actionable[0] || {}).id || "";
     const currentVehicle = chosen("p7-vehicle", preferred);
     const choices = actionable.map(function (v) {
       const selected = v.id === currentVehicle ? " selected" : "";
-      return "<option value='" + v.id + "'" + selected + ">" + esc(v.id + " " + v.solvent + " " + v.status + " " + v.plate) + "</option>";
+      return "<option value='" + v.id + "'" + selected + ">" + esc(v.id + " " + v.solvent + " " + v.status) + "</option>";
     }).join("");
-    const rows = waiting.map(function (v) {
+    const vehicleRows = waiting.map(function (v) {
       return [esc(v.id), esc(v.solvent), esc(v.qty), esc(v.planPlate || "—"), esc(v.plate), tag(v.status, v.exception ? "bad" : "ok"), esc(v.exception || "—")];
     });
-    return shell(window.SPEC.p7, "<div class='split'><div class='panel'><h2>车辆对象</h2>" + table(["车", "溶剂", "数量", "计划车牌", "实际车牌", "状态", "异常"], rows) + "</div><div class='phone'><h2>供应商门户</h2><p class='muted'>只读已下达计划，不能改数量。</p>" +
-      (choices ? "<label>车辆</label><select id='p7-vehicle'>" + choices + "</select><label>实际车牌</label><input id='p7-plate' value='苏B演示99'><label>异常说明</label><input id='p7-note' placeholder='可空'><div class='row' style='margin-top:8px'><button class='btn primary' data-act='depart'>发车</button><button class='btn' data-act='arrive'>登记到达</button></div>" : "<p>没有可操作的车。先在 P6 下达。</p>") +
-      "</div></div>");
-  }
-
-  function viewP8() {
     const pending = state.nodes.filter(function (n) { return n.status === "已放行待卸车"; });
-    const arrived = state.vehicles.filter(function (v) { return v.status === "在途" || v.status === "到厂"; });
     const nodeOptions = pending.map(function (n) {
       const selected = n.id === chosen("p8-node", pending[0].id) ? " selected" : "";
       return "<option value='" + n.id + "'" + selected + ">" + esc(n.batch + " " + n.solvent) + "</option>";
     }).join("");
+    const suggestedBay = (pending[0] && allTanks().find(function (t) { return t.solvent === pending[0].solvent && t.online; }) || {}).id || "";
+    const bayCurrent = chosen("p8-bay", suggestedBay);
     const bays = allTanks().map(function (t) {
-      const selected = t.id === chosen("p8-bay", "") ? " selected" : "";
+      const selected = t.id === bayCurrent ? " selected" : "";
       return "<option value='" + t.id + "'" + selected + ">" + esc(t.bay + " · " + t.solvent) + "</option>";
     }).join("");
-    const suggest = pending[0] ? allTanks().find(function (t) { return t.solvent === pending[0].solvent && t.online; }) : null;
-    return shell(window.SPEC.p8, "<div class='grid'><div class='panel'><h2>已放行待卸</h2>" +
-      (pending.length ? table(["批号", "溶剂", "数量", "鹤管"], pending.map(function (n) { return [esc(n.batch), esc(n.solvent), esc(n.qty), esc(n.bay || "未确认")]; })) : "<p class='muted'>没有已放行待卸。</p>") +
-      "<h2>在途 / 到厂</h2>" + table(["车", "溶剂", "状态", "计划"], arrived.map(function (v) {
-        return [esc(v.plate), esc(v.solvent), esc(v.status), esc(v.planId || "未绑定计划")];
-      })) + "</div><div class='panel'><h2>罐区确认</h2><p class='muted'>推荐：" + esc(suggest ? suggest.bay + "（" + suggest.solvent + "）" : "无") + "。系统不控制阀门。</p>" +
-      (nodeOptions ? "<label>批号</label><select id='p8-node'>" + nodeOptions + "</select><label>鹤管</label><select id='p8-bay'>" + bays + "</select><div class='row' style='margin-top:8px'><button class='btn primary' data-act='bay'>确认鹤管</button></div>" : "") +
-      (arrived.some(function (v) { return v.status === "在途"; }) ? "<div class='row' style='margin-top:8px'><button class='btn' data-act='gate'>把第一辆在途车登记到厂</button></div>" : "") +
-      "</div></div>");
-  }
-
-  function viewP9() {
-    const list = timeouts();
-    const rows = list.map(function (item) {
-      return [esc(item.role), esc(item.batch), esc(item.solvent), esc(item.hours), esc(item.rule)];
+    const nodeRows = state.nodes.map(function (node) {
+      const sampleBtn = node.sample ? "" : "<button class='btn' data-act='sample' data-id='" + node.id + "'>写入取样</button>";
+      const releaseBtn = node.sample && !node.release ? "<button class='btn' data-act='release' data-id='" + node.id + "'>写入放行</button>" : "";
+      return [esc(node.batch), esc(node.solvent), esc(node.sample || "—"), esc(node.release || "—"), tag(node.status, "warn"), esc(node.bay || "未确认"), sampleBtn + releaseBtn];
     });
-    const sent = state.notices.filter(function (n) { return n.kind === "超时" || n.kind === "加急" || n.kind === "驳回" || n.kind === "异常"; }).map(function (n) {
-      return "<li>" + esc(n.role + "：" + n.text) + "</li>";
-    }).join("");
-    return shell(window.SPEC.p9, "<div class='panel'><h2>当前超时</h2>" + (rows.length ? table(["通知谁", "批号", "溶剂", "已等待小时", "规则"], rows) : "<p>当前没有超时。</p>") +
-      "<div class='row' style='margin-top:8px'><button class='btn primary' data-act='send-sla'>发送钉钉通知</button></div></div>" +
-      "<div class='panel' style='margin-top:12px'><h2>已写入的通知</h2><ul class='list'>" + (sent || "<li class='muted'>还没有</li>") + "</ul></div>");
-  }
-
-  function viewP10() {
-    const plans = state.plans.filter(function (p) { return p.type === "装车" && p.status === "已下达"; });
-    const options = plans.map(function (p) {
-      const selected = p.id === chosen("p10-plan", plans[0].id) ? " selected" : "";
+    const loadPlans = state.plans.filter(function (p) { return p.type === "装车" && p.status === "已下达"; });
+    const loadOptions = loadPlans.map(function (p) {
+      const selected = p.id === chosen("p10-plan", loadPlans[0].id) ? " selected" : "";
       return "<option value='" + p.id + "'" + selected + ">" + esc(p.id + " " + p.qty + "吨 " + p.party) + "</option>";
     }).join("");
     const receivers = state.receivers.map(function (r) {
@@ -427,64 +379,52 @@
     const ledger = state.receivers.map(function (r) {
       return [esc(r.name), esc(r.quota), esc(r.used), esc(Calc.round1(r.quota - r.used)), tag(r.procedure, r.ready ? "ok" : "bad")];
     });
-    const mans = state.manifests.map(function (m) {
-      return [esc(m.id), esc(m.party), esc(m.weight), esc(m.plate), esc(m.at)];
-    });
-    return shell(window.SPEC.p10, "<div class='grid'><div class='panel'><h2>接收商台账</h2>" + table(["接收商", "额度", "已用", "剩余", "手续"], ledger) +
-      "</div><div class='panel'><h2>联单预填</h2>" + (options ? "<label>已下达装车计划</label><select id='p10-plan'>" + options + "</select><label>接收商</label><select id='p10-receiver'>" + receivers + "</select><label>地磅重量（吨）</label><input id='p10-weight' value='" + esc(chosen("p10-weight", plans[0].qty)) + "'><div class='row' style='margin-top:8px'><button class='btn primary' data-act='manifest'>EHS 确认并提交</button></div>" : "<p>还没有已下达的装车计划。先在 P5 生成废液草案，再在 P6 选接收商甲下达。</p>") +
-      "<h2>联单记录</h2>" + (mans.length ? table(["单号", "接收商", "重量", "车牌", "时间"], mans) : "<p class='muted'>确认后出现。演示不连接真实联单平台。</p>") + "</div></div>");
+    const mans = state.manifests.map(function (m) { return [esc(m.id), esc(m.party), esc(m.weight), esc(m.plate)]; });
+    return shell(window.SPEC.dispatch,
+      "<div class='panel'><h2>派已确认的计划</h2>" + (ready.length ? "<label>已确认计划</label><select id='p6-plan'>" + planOptions + "</select><label>供应商或接收商</label><select id='p6-party'>" + parties + "</select><div class='row'><div class='field'><label>车牌</label><input id='p6-plate' value='" + esc(chosen("p6-plate", "苏A演示11")) + "'></div><div class='field'><label>锁封号</label><input id='p6-seal' value='" + esc(chosen("p6-seal", "")) + "'></div></div><button class='btn primary' data-act='issue'>确认派车</button>" : "<p>还没有已确认计划。先到计划块生成并确认。</p>") +
+      (issued.length ? table(["单号", "溶剂", "数量", "对方", "车牌"], issued) : "") +
+      (state.mail ? "<p class='math'>" + esc(state.mail) + "</p>" : "") + "</div>" +
+      "<div class='panel' style='margin-top:12px'><h2>供应商资格</h2>" + table(["供应商", "项目", "已有资料", "QA"], suppliers) + "</div>" +
+      "<div class='split' style='margin-top:12px'><div class='panel'><h2>车辆</h2>" + table(["车", "溶剂", "数量", "计划车牌", "实际车牌", "状态", "异常"], vehicleRows) + "</div><div class='phone'><h2>供应商门户</h2><p class='muted'>不能改计划数量。</p>" + (choices ? "<label>车辆</label><select id='p7-vehicle'>" + choices + "</select><label>实际车牌</label><input id='p7-plate' value='" + esc(chosen("p7-plate", "苏B演示99")) + "'><div class='row' style='margin-top:8px'><button class='btn primary' data-act='depart'>发车</button><button class='btn' data-act='arrive'>登记到达</button></div>" : "<p class='muted'>派车后出现待发车。</p>") + "</div></div>" +
+      "<div class='panel' style='margin-top:12px'><h2>到厂与鹤管</h2>" + (nodeOptions ? "<div class='row'><div class='field'><label>已放行待卸</label><select id='p8-node'>" + nodeOptions + "</select></div><div class='field'><label>鹤管</label><select id='p8-bay'>" + bays + "</select></div><button class='btn primary' data-act='bay'>确认鹤管</button></div>" : "<p class='muted'>没有已放行待卸。</p>") +
+      (waiting.some(function (v) { return v.status === "在途"; }) ? "<button class='btn' data-act='gate'>把第一辆在途车登记到厂</button>" : "") + "</div>" +
+      "<div class='panel' style='margin-top:12px'><h2>厂内节点（只读 U9，演示按钮代替点击）</h2>" + table(["批号", "溶剂", "取样", "放行", "状态", "鹤管", "演示"], nodeRows) + "</div>" +
+      "<div class='grid' style='margin-top:12px'><div class='panel'><h2>接收商</h2>" + table(["接收商", "额度", "已用", "剩余", "手续"], ledger) + "</div><div class='panel'><h2>联单</h2>" + (loadOptions ? "<label>已下达装车</label><select id='p10-plan'>" + loadOptions + "</select><label>接收商</label><select id='p10-receiver'>" + receivers + "</select><label>重量</label><input id='p10-weight' value='" + esc(chosen("p10-weight", loadPlans[0].qty)) + "'><button class='btn primary' data-act='manifest'>EHS 确认并提交</button>" : "<p>废液计划派车后才能预填联单。</p>") +
+      (mans.length ? table(["单号", "接收商", "重量", "车牌"], mans) : "") + "</div></div>");
   }
 
-  function viewP11() {
-    const rows = state.suppliers.map(function (s) {
-      const btn = s.qualified ? tag("已确认 " + s.qaAt, "ok") : "<button class='btn primary' data-act='qa' data-id='" + s.id + "'>QA 确认</button>";
-      return [esc(s.name), esc(s.mfr), esc(s.project), esc(s.docs), btn];
-    });
-    const planOptions = state.plans.map(function (p) { return "<option value='" + p.id + "'>" + esc(p.id + " " + p.solvent) + "</option>"; }).join("");
-    return shell(window.SPEC.p11, "<div class='panel'><h2>项目合格供应商</h2>" + table(["供应商", "生产商", "项目", "已有资料", "QA"], rows) +
-      "<p class='muted'>摘要只列资料名称，不写合格结论。</p></div><div class='panel' style='margin-top:12px'><h2>加急</h2>" +
-      (planOptions ? "<label>计划</label><select id='p11-plan'>" + planOptions + "</select><div class='row' style='margin-top:8px'><button class='btn primary' data-act='urgent'>发给全部节点</button></div>" : "<p class='muted'>先有草案或已下达计划。</p>") + "</div>");
-  }
-
-  function viewP12() {
+  function viewBoard() {
     const solventOnline = Calc.round1(state.tanks.filter(function (t) { return t.online; }).reduce(function (a, t) { return a + t.qty; }, 0));
     const transit = state.vehicles.filter(function (v) { return v.status === "在途"; }).length;
     const openNodes = state.nodes.filter(function (n) { return n.status !== "已卸车"; }).length;
-    const wasteSuggest = wasteRows().reduce(function (a, row) { return a + (row.result.suggest || 0); }, 0);
-    const tankRows = state.tanks.map(function (t) {
-      const low = t.qty < t.low;
-      return [esc(t.id), esc(t.solvent), t.online ? esc(t.level + "%") : tag("中断", "bad"), t.online ? esc(String(t.qty)) : "—", esc(t.low), low && t.online ? tag("低于下限", "bad") : tag("正常", "ok")];
-    });
+    const wasteSuggest = Calc.round1(wasteRows().reduce(function (a, row) { return a + (row.result.suggest || 0); }, 0));
     const exceptions = [];
     state.tanks.forEach(function (t) {
-      if (!t.online) exceptions.push(["采集", t.id + " 数据中断，未计入库存"]);
+      if (!t.online) exceptions.push(["采集", t.id + " 数据中断"]);
       else if (t.qty < t.low) exceptions.push(["库存", t.id + " " + t.solvent + " 余量 " + t.qty + " 低于下限 " + t.low]);
     });
     timeouts().forEach(function (item) { exceptions.push(["时效", item.batch + " → " + item.role]); });
     state.vehicles.forEach(function (v) { if (v.exception) exceptions.push(["在途", v.plate + " " + v.exception]); });
-    state.notices.filter(function (n) { return n.kind === "加急"; }).forEach(function (n) { exceptions.push(["加急", n.role]); });
-    const planRows = state.plans.map(function (p) { return [esc(p.id), esc(p.status), esc(p.solvent), esc(p.qty)]; });
-    return shell(window.SPEC.p12, "<div class='cards'><div class='card'><div class='lbl'>在线溶剂库存（吨）</div><div class='num'>" + solventOnline + "</div></div>" +
+    const planOptions = state.plans.map(function (p) { return "<option value='" + p.id + "'>" + esc(p.id + " " + p.status + " " + p.solvent) + "</option>"; }).join("");
+    const sla = timeouts().map(function (item) { return [esc(item.role), esc(item.batch), esc(item.hours), esc(item.rule)]; });
+    return shell(window.SPEC.board,
+      "<div class='cards'><div class='card'><div class='lbl'>在线溶剂库存（吨）</div><div class='num'>" + solventOnline + "</div></div>" +
       "<div class='card'><div class='lbl'>在途车辆</div><div class='num'>" + transit + "</div></div>" +
       "<div class='card'><div class='lbl'>未关闭厂内节点</div><div class='num'>" + openNodes + "</div></div>" +
-      "<div class='card" + (wasteSuggest > 0 ? " warn" : "") + "'><div class='lbl'>废液按规则待装（吨）</div><div class='num'>" + Calc.round1(wasteSuggest) + "</div></div></div>" +
-      "<div class='panel'><h2>溶剂罐</h2>" + table(["罐", "溶剂", "液位", "余量", "下限", "状态"], tankRows) + "</div>" +
-      "<div class='grid' style='margin-top:12px'><div class='panel'><h2>异常</h2>" + (exceptions.length ? table(["类", "内容"], exceptions.map(function (e) { return e.map(esc); })) : "<p>没有异常。</p>") + "</div><div class='panel'><h2>计划</h2>" + (planRows.length ? table(["单号", "状态", "溶剂", "数量"], planRows) : "<p class='muted'>还没有草案。</p>") + "</div></div>");
+      "<div class='card" + (wasteSuggest > 0 ? " warn" : "") + "'><div class='lbl'>废液规则待装（吨）</div><div class='num'>" + wasteSuggest + "</div></div></div>" +
+      "<div class='panel'><h2>溶剂罐</h2>" + tankTable(false, state.tanks) + "</div>" +
+      "<div class='grid' style='margin-top:12px'><div class='panel'><h2>异常</h2>" + (exceptions.length ? table(["类", "内容"], exceptions.map(function (e) { return e.map(esc); })) : "<p>没有异常。</p>") + "</div>" +
+      "<div class='panel'><h2>计划</h2>" + (state.plans.length ? table(["单号", "状态", "溶剂", "数量"], state.plans.map(function (p) { return [esc(p.id), esc(p.status), esc(p.solvent), esc(p.qty)]; })) : "<p class='muted'>计划块还没有草案。</p>") +
+      "<h2>车辆</h2>" + table(["车", "状态", "溶剂", "车牌"], state.vehicles.map(function (v) { return [esc(v.id), esc(v.status), esc(v.solvent), esc(v.plate)]; })) + "</div></div>" +
+      "<div class='panel' style='margin-top:12px'><h2>超时</h2>" + (sla.length ? table(["通知谁", "批号", "已等待小时", "规则"], sla) : "<p>当前没有超时。</p>") +
+      "<button class='btn primary' data-act='send-sla'>发送超时通知</button></div>" +
+      "<div class='panel' style='margin-top:12px'><h2>加急</h2>" + (planOptions ? "<select id='p11-plan'>" + planOptions + "</select><button class='btn' data-act='urgent'>发给全部节点</button>" : "<p class='muted'>还没有计划。</p>") + "</div>");
   }
 
-  function viewP13() {
-    const rows = state.actuals.map(function (a) {
-      return [esc(a.solvent), esc(a.planQty), esc(a.actualQty), esc(a.planCycle), esc(a.actualCycle), esc(a.actualQty) + " <span class='muted'>并列，不入草案</span>"];
-    });
-    return shell(window.SPEC.p13, "<div class='panel'><h2>2026-10 计划与实际</h2>" +
-      table(["溶剂", "计划量", "实际量", "计划周期", "实际周期", "下月参考"], rows) +
-      "<div class='row' style='margin-top:8px'><button class='btn bad' data-act='forecast-write'>尝试写入草案</button></div><p class='muted'>参考量等于上月实际，用来演示并列。它不是训练出来的预测。</p></div>");
-  }
-
-  const VIEWS = { home: viewHome, p1: viewP1, p2: viewP2, p3: viewP3, p4: viewP4, p5: viewP5, p6: viewP6, p7: viewP7, p8: viewP8, p9: viewP9, p10: viewP10, p11: viewP11, p12: viewP12, p13: viewP13 };
+  const VIEWS = { home: viewHome, plan: viewPlan, dispatch: viewDispatch, board: viewBoard };
 
   function render() {
-    const nav = "<div class='brand'>TJ4 物流小程序<small>演示数据，非厂区实绩</small></div><button class='nav" + (state.page === "home" ? " active" : "") + "' data-nav='home'>总览与演示顺序</button>" +
+    const nav = "<div class='brand'>TJ4 物流三块<small>演示数据，非厂区实绩</small></div><button class='nav" + (state.page === "home" ? " active" : "") + "' data-nav='home'>总览与演示顺序</button>" +
       NAV.map(function (group) {
         return "<div class='group'>" + esc(group[0]) + "</div>" + group[1].map(function (item) {
           return "<button class='nav" + (state.page === item[0] ? " active" : "") + "' data-nav='" + item[0] + "'>" + esc(item[1]) + "</button>";
@@ -595,22 +535,33 @@
       kept.forEach(function (p) { taken[p.type + "|" + p.tank] = true; });
       const fresh = buildFreshDrafts().filter(function (p) { return !taken[p.type + "|" + p.tank]; });
       state.plans = kept.concat(fresh);
-      flash("P5", "写入 " + fresh.length + " 条草案", "去向 P6 和 P12。不发送给供应商");
+      flash("计划", "写入 " + fresh.length + " 条草案", "仍在计划块。确认后才到车辆调度");
+    }
+    if (act === "confirm-plan") {
+      const plan = state.plans.find(function (p) { return p.id === id; });
+      if (!plan || plan.status !== "草案") return;
+      plan.status = "已确认";
+      flash("计划", plan.id + " 状态=已确认", "交给车辆调度。这里不分配车牌");
     }
     if (act === "issue") {
       const plan = state.plans.find(function (p) { return p.id === val("p6-plan"); });
       const partyId = val("p6-party");
       const plate = val("p6-plate") || "苏A演示11";
       if (!plan) return;
+      if (plan.status !== "已确认") {
+        flash("车辆调度", "只有已确认的计划可以派车", "数量仍留在计划块");
+        render();
+        return;
+      }
       if (plan.type === "到货") {
         const supplier = state.suppliers.find(function (s) { return s.id === partyId; });
         const gate = Calc.canIssueSolvent(supplier);
-        if (!gate.ok) { flash("P6", gate.reason, "计划仍是草案，没有邮件，没有门户"); render(); return; }
+        if (!gate.ok) { flash("车辆调度", gate.reason, "计划仍是已确认，没有车辆"); render(); return; }
         plan.party = supplier.name;
       } else {
         const receiver = state.receivers.find(function (r) { return r.id === partyId; });
         const gate = Calc.canIssueWaste(receiver, plan.qty);
-        if (!gate.ok) { flash("P6", gate.reason, "计划仍是草案"); render(); return; }
+        if (!gate.ok) { flash("车辆调度", gate.reason, "计划仍是已确认，没有车辆"); render(); return; }
         plan.party = receiver.name;
       }
       plan.status = "已下达";
@@ -629,8 +580,9 @@
         arrive: "",
         exception: "",
       });
+      delete state.form["p7-vehicle"];
       state.mail = "收件人：" + plan.party + "\n" + plan.type + " " + plan.solvent + " " + plan.qty + " 吨，罐 " + plan.tank + "，车牌 " + plate + "。请按确认后的计划发车。演示不发出这封邮件。";
-      flash("P6", plan.id + " 状态=已下达", "去向 P7 门户和邮件预览；废液还可到 P10");
+      flash("车辆调度", plan.id + " 状态=已下达", "供应商门户和看板。数量没有改");
     }
     if (act === "depart" || act === "arrive") {
       const vehicle = state.vehicles.find(function (v) { return v.id === val("p7-vehicle"); });
@@ -675,7 +627,7 @@
       list.forEach(function (item) {
         state.notices.push({ kind: "超时", role: item.role, text: item.batch + " " + item.solvent + "，" + item.rule });
       });
-      flash("P9", "写入 " + list.length + " 条钉钉通知", "对应角色；P12 异常列表。演示不连接钉钉");
+      flash("看板整合", "写入 " + list.length + " 条超时通知", "对应角色。计划数量没有改");
     }
     if (act === "manifest") {
       const plan = state.plans.find(function (p) { return p.id === val("p10-plan"); });
@@ -703,7 +655,7 @@
     }
     if (act === "forecast-write") {
       const before = state.plans.map(function (p) { return p.id + ":" + p.qty; }).join(",");
-      flash("P13", "已拒绝。预测不写回计划对象", "P5 草案保持 " + (before || "原样"));
+      flash("计划", "已拒绝。预测不写回计划对象", "草案保持 " + (before || "原样"));
     }
     render();
   }
