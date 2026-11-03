@@ -1,0 +1,3 @@
+.op { padding: 16rpx 0; border-bottom: 1rpx solid #e5e7eb; }
+.batch-title { font-weight: 650; margin-bottom: 8rpx; }
+.fields { display: flex; flex-wrap: wrap; gap: 12rpx; align-items: center; font-size: 22rpx; color: #6b7280; }

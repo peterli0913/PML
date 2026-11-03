@@ -1,0 +1,17 @@
+{
+  "pages": [
+    "pages/board/index",
+    "pages/demand/index",
+    "pages/batches/index",
+    "pages/duration/index",
+    "pages/hourly/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "溶剂需求计划",
+    "navigationBarBackgroundColor": "#1a2332",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f3f5f8"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,14 @@
+<shell current="duration" title="更新单操作时长" toast="{{toast}}" role="{{role}}" bind:rolechange="onRole">
+  <view class="card">
+    <view class="h2">操作时长</view>
+    <view class="note">持续：需求量除以时长，铺到每个小时。单次：需求量落在开工那一小时。应用到批次后，小时需求和看板一起变。</view>
+    <view class="op" wx:for="{{rows}}" wx:key="id">
+      <view class="batch-title">{{item.step}} {{item.id}} · {{item.mode}}</view>
+      <view class="fields">
+        <view>标准时长<input class="num" type="digit" value="{{item.durationHours}}" data-id="{{item.id}}" bindblur="onHours" /></view>
+        <view class="note">未完成 {{item.count}} 个</view>
+        <button class="primary" data-id="{{item.id}}" bindtap="onApply">应用到未完成批次</button>
+      </view>
+    </view>
+  </view>
+</shell>

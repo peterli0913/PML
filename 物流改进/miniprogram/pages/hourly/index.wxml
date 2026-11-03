@@ -1,0 +1,23 @@
+<shell current="hourly" title="一周小时需求" toast="{{toast}}" role="{{role}}" bind:rolechange="onRole">
+  <view class="pills">
+    <view wx:for="{{pills}}" wx:key="name" class="pill {{item.on ? 'on' : ''}}" data-name="{{item.name}}" bindtap="onSolvent">{{item.name}} · {{item.mark}}</view>
+    <view class="pill on" bindtap="onFreeze">执行 12 小时重算</view>
+  </view>
+  <view class="card">
+    <view class="h2">{{solvent}} · 未来 168 小时</view>
+    <canvas type="2d" id="chart" class="chart"></canvas>
+    <view class="note">折线是预计库存，红线是下限加缓冲。每 12 小时定稿一次。</view>
+  </view>
+  <view class="card">
+    <view class="h2">计算结果</view>
+    <view class="kpi-num">{{suggestQty}} 吨</view>
+    <view class="note">只按总量减库存是 {{legacyQty}} 吨。提前期 {{leadHours}} 小时。一周需求 {{totalDemand}} 吨，起始可用 {{startOnHand}} 吨。</view>
+    <view class="alert bad" wx:if="{{urgent}}">第 {{stockoutHour}} 小时破下限加缓冲。车要第 {{leadHours}} 小时才到，需要加急或后移批次。</view>
+    <view class="h2">到货更改</view>
+    <view class="alert" wx:if="{{changeText}}">{{changeText}}</view>
+    <view class="note" wx:else>和上一档 12 小时定稿比，没有超过 1 吨或 12 小时。</view>
+    <view class="h2">延误</view>
+    <view class="alert" wx:for="{{delays}}" wx:key="id">{{item.text}}</view>
+    <view class="note" wx:if="{{!delays.length}}">没有超过 4 小时的开工延误。</view>
+  </view>
+</shell>

@@ -1,0 +1,4 @@
+{
+  "desc": "溶剂需求计划演示",
+  "rules": [{ "action": "allow", "page": "*" }]
+}
