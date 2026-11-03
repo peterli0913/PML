@@ -1,12 +1,20 @@
-<shell current="hourly" title="一周小时需求" toast="{{toast}}" role="{{role}}" bind:rolechange="onRole">
+<shell current="hourly" title="未来一周小时需求" toast="{{toast}}" role="{{role}}" bind:rolechange="onRole">
   <view class="pills">
     <view wx:for="{{pills}}" wx:key="name" class="pill {{item.on ? 'on' : ''}}" data-name="{{item.name}}" bindtap="onSolvent">{{item.name}} · {{item.mark}}</view>
     <view class="pill on" bindtap="onFreeze">执行 12 小时重算</view>
   </view>
   <view class="card">
     <view class="h2">{{solvent}} · 未来 168 小时</view>
-    <canvas type="2d" id="chart" class="chart"></canvas>
-    <view class="note">折线是预计库存，红线是下限加缓冲。每 12 小时定稿一次。</view>
+    <view class="samples">
+      <view wx:for="{{samples}}" wx:key="h" class="sample">
+        <view class="sample-bar {{item.below ? 'low' : ''}}" style="height: {{item.height}}rpx;"></view>
+      </view>
+    </view>
+    <view class="note">每 6 小时一根，柱高是预计库存。低于下限加缓冲 {{floor}} 吨时标红。</view>
+    <view class="day" wx:for="{{days}}" wx:key="label">
+      <view class="day-meta"><text>{{item.label}} · {{item.qty}} 吨</text><text>日末库存 {{item.end}}</text></view>
+      <view class="track wide"><view class="fill" style="width: {{item.width}}%;"></view></view>
+    </view>
   </view>
   <view class="card">
     <view class="h2">计算结果</view>

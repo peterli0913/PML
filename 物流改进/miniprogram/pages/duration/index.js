@@ -1,24 +1,12 @@
 const store = require("../../utils/store.js");
 
 Page({
-  data: { role: "", toast: "", rows: [] },
+  data: { role: "", toast: "", rows: [], canEdit: true },
   onShow() { this.refresh(); },
-  refresh() {
-    const s = getApp().globalData;
-    this.setData({
-      role: s.role,
-      toast: s.toast,
-      rows: s.operations.map(function (op) {
-        return Object.assign({}, op, {
-          count: s.batches.filter(function (b) { return b.opId === op.id && b.status !== "完成"; }).length,
-        });
-      }),
-    });
-  },
+  refresh() { this.setData(store.durationView(getApp().globalData)); },
   onRole() { this.refresh(); },
   onHours(e) {
-    const op = getApp().globalData.operations.find(function (item) { return item.id === e.currentTarget.dataset.id; });
-    op.durationHours = Number(e.detail.value);
+    store.setDuration(getApp().globalData, e.currentTarget.dataset.id, e.detail.value);
   },
   onApply(e) {
     store.applyDuration(getApp().globalData, e.currentTarget.dataset.id);

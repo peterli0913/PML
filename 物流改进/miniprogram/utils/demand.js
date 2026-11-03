@@ -139,6 +139,7 @@ function planSolvent(spec) {
   const focus = advice.gapHour == null ? advice.stockoutHour : advice.gapHour;
   return {
     solvent: spec.solvent,
+    demand: built.demand.map(round1),
     projected: projected.map(round1),
     floor: floor,
     leadHours: lead,

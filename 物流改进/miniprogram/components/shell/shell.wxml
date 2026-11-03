@@ -13,7 +13,7 @@
       bindtap="go"
     >{{item.title}}</view>
   </view>
-  <scroll-view class="main" scroll-y>
+  <view class="main">
     <view class="bar">
       <text class="crumb">首页 / {{title}}</text>
       <text class="role-btn" bindtap="toggleRole">切换角色</text>
@@ -22,5 +22,5 @@
       <view class="toast" wx:if="{{toast}}">{{toast}}</view>
       <slot></slot>
     </view>
-  </scroll-view>
+  </view>
 </view>

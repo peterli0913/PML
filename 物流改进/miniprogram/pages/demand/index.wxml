@@ -9,12 +9,12 @@
   <view class="card">
     <view class="h2">本周溶剂需求</view>
     <view class="note">生产经理维护各项目的周计划。未完成批次按比例跟着变，进度看板和小时需求立刻用新数。</view>
-    <view class="row row-h"><text>项目</text><text>溶剂</text><text>周计划</text><text>已分摊</text></view>
-    <view class="row" wx:for="{{rows}}" wx:key="id">
-      <text>{{item.project}}</text>
-      <text>{{item.solvent}}</text>
-      <input class="num" type="digit" value="{{item.weekQty}}" data-id="{{item.id}}" bindblur="onQty" />
-      <text>{{item.batchQty}}</text>
+    <view class="demand-row" wx:for="{{rows}}" wx:key="id">
+      <view class="grow">
+        <view>{{item.project}} · {{item.solvent}}</view>
+        <view class="note">{{item.workshop}} · {{item.materialCode}} · {{item.manager}} · 已分摊 {{item.batchQty}} 吨</view>
+      </view>
+      <input class="num" type="digit" value="{{item.weekQty}}" data-id="{{item.id}}" disabled="{{!canEdit}}" bindblur="onQty" />
     </view>
   </view>
 </shell>

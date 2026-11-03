@@ -45,6 +45,14 @@ function create() {
 
 function round1(n) { return Demand.round1(n); }
 
+function canEdit(state) { return state.role === "生产经理"; }
+
+function finite(value) {
+  if (value === "" || value == null) return null;
+  const n = Number(value);
+  return Number.isFinite(n) ? n : null;
+}
+
 function weekSum(state) {
   return round1(state.weekly.reduce(function (a, w) { return a + Number(w.weekQty); }, 0));
 }
@@ -54,33 +62,88 @@ function batchSum(state) {
 }
 
 function setWeekQty(state, id, qty) {
+  if (!canEdit(state)) {
+    state.toast = "物流计划员只读。周计划由生产经理修改。";
+    return false;
+  }
+  const n = finite(qty);
+  if (n == null || n < 0) {
+    state.toast = "周计划需要填大于等于 0 的吨数。";
+    return false;
+  }
   const row = state.weekly.find(function (w) { return w.id === id; });
-  row.weekQty = Number(qty);
+  row.weekQty = n;
   const list = state.batches.filter(function (b) { return b.weekId === id && b.status !== "完成"; });
   const sum = list.reduce(function (a, b) { return a + Number(b.qty); }, 0);
   if (list.length && sum > 0) {
-    const factor = Number(qty) / sum;
+    const factor = n / sum;
     list.forEach(function (b) { b.qty = round1(Number(b.qty) * factor); });
   } else if (list.length) {
-    list[0].qty = Number(qty);
+    list[0].qty = n;
   }
-  state.toast = row.project + " " + row.solvent + " 周计划改为 " + qty + " 吨，已分摊到未完成批次，看板和小时需求已更新。";
+  state.toast = row.project + " " + row.solvent + " 周计划改为 " + n + " 吨，已分摊到未完成批次，看板和小时需求已更新。";
+  return true;
 }
 
 function setBatchField(state, id, field, value) {
+  if (!canEdit(state)) {
+    state.toast = "物流计划员只读。批次清单由生产经理修改。";
+    return false;
+  }
   const batch = state.batches.find(function (b) { return b.id === id; });
-  batch[field] = Number(value);
+  const n = finite(value);
+  if (n == null) {
+    state.toast = "请填写数字。距开始可以为负数，表示计划时点已过。";
+    return false;
+  }
+  if (field === "qty" && n < 0) {
+    state.toast = "需求量不能为负。";
+    return false;
+  }
+  if (field === "durationHours" && n <= 0) {
+    state.toast = "操作时长要大于 0 小时。";
+    return false;
+  }
+  if (field === "progress" && (n < 0 || n > 1)) {
+    state.toast = "进度填 0 到 1，例如完成四成填 0.4。";
+    return false;
+  }
+  batch[field] = n;
   if (field === "qty") {
     const row = state.weekly.find(function (w) { return w.id === batch.weekId; });
     row.weekQty = round1(state.batches.filter(function (b) { return b.weekId === row.id; }).reduce(function (a, b) { return a + Number(b.qty); }, 0));
     state.toast = batch.project + " 批次需求已改，周计划同步为 " + row.weekQty + " 吨。";
   } else {
-    state.toast = batch.project + " 的批次清单已更新，看板会按新进度抓取。";
+    state.toast = batch.project + " 的批次清单已更新，看板和小时需求会按新进度计算。";
   }
+  return true;
+}
+
+function setDuration(state, opId, hours) {
+  if (!canEdit(state)) {
+    state.toast = "物流计划员只读。操作时长由生产经理修改。";
+    return false;
+  }
+  const n = finite(hours);
+  if (n == null || n <= 0) {
+    state.toast = "标准时长要大于 0 小时。";
+    return false;
+  }
+  const op = state.operations.find(function (item) { return item.id === opId; });
+  op.durationHours = n;
+  return true;
 }
 
 function applyDuration(state, opId) {
+  if (!canEdit(state)) {
+    state.toast = "物流计划员只读。操作时长由生产经理修改。";
+    return false;
+  }
   const op = state.operations.find(function (item) { return item.id === opId; });
+  if (!op || !(Number(op.durationHours) > 0)) {
+    state.toast = "标准时长要大于 0 小时。";
+    return false;
+  }
   let n = 0;
   state.batches.forEach(function (b) {
     if (b.opId === op.id && b.status !== "完成") {
@@ -90,6 +153,7 @@ function applyDuration(state, opId) {
     }
   });
   state.toast = op.id + " 标准时长 " + op.durationHours + " 小时，已应用到 " + n + " 个未完成批次。";
+  return true;
 }
 
 function planOf(state, name) {
@@ -112,13 +176,151 @@ function freeze(state) {
   state.toast = "12 小时计算已定稿。之后再改周计划或时长，会重新出现到货更改。";
 }
 
+function demandView(state) {
+  return {
+    role: state.role,
+    toast: state.toast,
+    canEdit: canEdit(state),
+    total: weekSum(state),
+    rows: state.weekly.map(function (w) {
+      const sum = state.batches.filter(function (b) { return b.weekId === w.id; }).reduce(function (a, b) { return a + Number(b.qty); }, 0);
+      return Object.assign({}, w, { batchQty: round1(sum) });
+    }),
+  };
+}
+
+function batchView(state) {
+  return { role: state.role, toast: state.toast, canEdit: canEdit(state), rows: state.batches };
+}
+
+function durationView(state) {
+  return {
+    role: state.role,
+    toast: state.toast,
+    canEdit: canEdit(state),
+    rows: state.operations.map(function (op) {
+      return Object.assign({}, op, {
+        count: state.batches.filter(function (b) { return b.opId === op.id && b.status !== "完成"; }).length,
+      });
+    }),
+  };
+}
+
+function boardView(state) {
+  const running = state.batches.filter(function (b) { return b.status === "进行中"; }).length;
+  const late = state.batches.filter(function (b) { return b.status === "未开始" && Number(b.plannedStartHour) <= -4; }).length;
+  const weeks = state.weekly.map(function (w) {
+    const list = state.batches.filter(function (b) { return b.weekId === w.id; });
+    const qty = list.reduce(function (a, b) { return a + Number(b.qty); }, 0) || 1;
+    const pct = Math.round(list.reduce(function (a, b) { return a + Number(b.qty) * Number(b.progress || 0); }, 0) / qty * 100);
+    return Object.assign({}, w, { pct: pct, low: pct < 30 });
+  });
+  const progress = state.batches.map(function (b) {
+    const slip = b.status === "未开始" && b.plannedStartHour < 0;
+    return {
+      id: b.id,
+      title: b.project + " " + b.opNo,
+      solvent: b.solvent,
+      qty: b.qty,
+      pct: Math.round(Number(b.progress) * 100),
+      slip: slip,
+      statusText: slip ? "延误 " + (-b.plannedStartHour) + " 小时" : b.status,
+    };
+  });
+  const stocks = ["DMF", "ACN", "IPAc", "甲醇"].map(function (name) {
+    const week = round1(state.weekly.filter(function (w) { return w.solvent === name; }).reduce(function (a, w) { return a + Number(w.weekQty); }, 0));
+    return { name: name, qty: state.inventories[name].qty, week: week, level: state.inventories[name].level, low: state.inventories[name].level < 30 };
+  });
+  return {
+    role: state.role,
+    toast: state.toast,
+    canEdit: canEdit(state),
+    total: weekSum(state),
+    batchTotal: batchSum(state),
+    diff: round1(weekSum(state) - batchSum(state)),
+    running: running,
+    late: late,
+    weeks: weeks,
+    progress: progress,
+    stocks: stocks,
+  };
+}
+
+function hourlyView(state, solvent) {
+  const names = ["DMF", "ACN", "IPAc", "甲醇"];
+  const name = names.indexOf(solvent) >= 0 ? solvent : "甲醇";
+  const plan = planOf(state, name);
+  const pills = names.map(function (item) {
+    const current = planOf(state, item);
+    return {
+      name: item,
+      mark: current.urgent ? "赶不上" : current.suggestQty > 0 ? "要补" : "够用",
+      on: item === name,
+    };
+  });
+  const rawDays = [];
+  let maxDay = 0;
+  for (let d = 0; d < 7; d++) {
+    let qty = 0;
+    for (let h = 0; h < 24; h++) qty += plan.demand[d * 24 + h] || 0;
+    qty = round1(qty);
+    rawDays.push(qty);
+    if (qty > maxDay) maxDay = qty;
+  }
+  const days = rawDays.map(function (qty, d) {
+    return {
+      label: "第" + (d + 1) + "天",
+      qty: qty,
+      width: maxDay ? Math.round(qty / maxDay * 100) : 0,
+      end: plan.projected[d * 24 + 23],
+    };
+  });
+  const sampled = [];
+  for (let h = 0; h < plan.projected.length; h += 6) sampled.push({ h: h, v: plan.projected[h] });
+  const min = Math.min.apply(null, sampled.map(function (item) { return item.v; }).concat([plan.floor, 0]));
+  const max = Math.max.apply(null, sampled.map(function (item) { return item.v; }).concat([plan.floor]));
+  const span = Math.max(0.1, max - min);
+  const samples = sampled.map(function (item) {
+    return {
+      h: item.h,
+      height: Math.max(4, Math.round(((item.v - min) / span) * 120)),
+      below: item.v < plan.floor,
+    };
+  });
+  return {
+    role: state.role,
+    toast: state.toast,
+    canEdit: canEdit(state),
+    solvent: name,
+    pills: pills,
+    suggestQty: plan.suggestQty,
+    legacyQty: plan.legacyQty,
+    leadHours: plan.leadHours,
+    totalDemand: plan.totalDemand,
+    startOnHand: plan.startOnHand,
+    urgent: plan.urgent,
+    stockoutHour: plan.stockoutHour,
+    delays: plan.delays,
+    changeText: plan.arrivalChange ? plan.arrivalChange.text : "",
+    floor: plan.floor,
+    days: days,
+    samples: samples,
+  };
+}
+
 module.exports = {
   create: create,
   weekSum: weekSum,
   batchSum: batchSum,
   setWeekQty: setWeekQty,
   setBatchField: setBatchField,
+  setDuration: setDuration,
   applyDuration: applyDuration,
   planOf: planOf,
   freeze: freeze,
+  demandView: demandView,
+  batchView: batchView,
+  durationView: durationView,
+  boardView: boardView,
+  hourlyView: hourlyView,
 };
