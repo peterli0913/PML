@@ -1,4 +1,4 @@
 {
-  "desc": "溶剂需求计划演示",
+  "desc": "TJ4 槽车转运演示",
   "rules": [{ "action": "allow", "page": "*" }]
 }

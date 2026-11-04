@@ -1,0 +1,23 @@
+:host { display: block; }
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 24rpx 8rpx;
+}
+.brand { font-size: 34rpx; font-weight: 700; }
+.who { color: #6b7280; font-size: 24rpx; margin-top: 4rpx; }
+.switch { color: #1d4ed8; font-size: 28rpx; padding: 12rpx 8rpx; }
+.tabs {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 110rpx;
+  background: #fff;
+  border-top: 1rpx solid #e5e7eb;
+  display: flex;
+  z-index: 5;
+}
+.tab { flex: 1; text-align: center; line-height: 110rpx; color: #6b7280; font-size: 28rpx; }
+.tab.on { color: #1d4ed8; font-weight: 700; }

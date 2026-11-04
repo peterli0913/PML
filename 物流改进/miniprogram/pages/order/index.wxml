@@ -1,0 +1,43 @@
+<chrome current="queue" role="{{role}}">
+  <view class="page" wx:if="{{!missing}}">
+    <view class="toast" wx:if="{{toast}}">{{toast}}</view>
+    <view class="card">
+      <view class="row">
+        <text class="plate">{{plate}}</text>
+        <text class="tag">{{status}}</text>
+      </view>
+      <view class="sub">{{kind}} · {{material}} {{qty}} 吨 · {{driver}} {{phone}}</view>
+      <view class="sub">{{bay}} · {{tank}} · {{queueText}}</view>
+      <view class="steps" style="margin-top: 16rpx;">
+        <text wx:for="{{steps}}" wx:key="name" class="step {{item.state}}">{{item.name}}</text>
+      </view>
+    </view>
+    <button
+      wx:for="{{actions}}"
+      wx:key="label"
+      class="act"
+      data-action="{{item.action}}"
+      data-km="{{item.km}}"
+      data-place="{{item.place}}"
+      bindtap="onAct"
+    >{{item.label}}</button>
+    <button wx:if="{{canMove}}" class="act ghost" data-how="up" bindtap="onMove">前移一位</button>
+    <button wx:if="{{canMove}}" class="act ghost" data-how="top" bindtap="onMove">提到最前</button>
+    <view class="card" wx:if="{{kind === '入库'}}">
+      <view class="h2">检测报告</view>
+      <view class="note">只读 ERP 的结果，这里不能改报告，也不能提前卸车。</view>
+      <view class="field"><text>取样</text><text>{{sample}}</text></view>
+      <view class="field"><text>结果</text><text>{{result}}</text></view>
+      <view class="field"><text>放行</text><text>{{release}}</text></view>
+      <view class="field"><text>项目</text><text>{{items}}</text></view>
+      <view class="field"><text>COA</text><text>{{coa}}</text></view>
+      <view class="field"><text>本车批号</text><text>{{batch}}</text></view>
+    </view>
+    <view class="card">
+      <view class="h2">储罐</view>
+      <view class="field"><text>可用空间</text><text>{{free}} 吨</text></view>
+      <view class="field"><text>罐内批号</text><text>{{tankBatch}}</text></view>
+      <view class="note">{{mix}}</view>
+    </view>
+  </view>
+</chrome>

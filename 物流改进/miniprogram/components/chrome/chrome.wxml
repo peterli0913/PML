@@ -1,0 +1,19 @@
+<view class="chrome">
+  <view class="top">
+    <view>
+      <view class="brand">槽车转运</view>
+      <view class="who">{{role === '司机' ? '槽车司机' : '罐区管理人员'}}</view>
+    </view>
+    <view class="switch" bindtap="toggle">{{role === '司机' ? '切换罐区' : '切换司机'}}</view>
+  </view>
+  <slot></slot>
+  <view class="tabs" wx:if="{{role !== '司机'}}">
+    <view
+      wx:for="{{tabs}}"
+      wx:key="id"
+      class="tab {{current === item.id ? 'on' : ''}}"
+      data-url="{{item.url}}"
+      bindtap="go"
+    >{{item.title}}</view>
+  </view>
+</view>

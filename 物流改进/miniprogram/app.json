@@ -1,13 +1,13 @@
 {
   "pages": [
-    "pages/board/index",
-    "pages/demand/index",
-    "pages/batches/index",
-    "pages/duration/index",
-    "pages/hourly/index"
+    "pages/queue/index",
+    "pages/bays/index",
+    "pages/tanks/index",
+    "pages/order/index",
+    "pages/driver/index"
   ],
   "window": {
-    "navigationBarTitleText": "溶剂需求计划",
+    "navigationBarTitleText": "槽车转运",
     "navigationBarBackgroundColor": "#1a2332",
     "navigationBarTextStyle": "white",
     "backgroundColor": "#f3f5f8"
