@@ -1,22 +1,25 @@
-const fleet = require("../../utils/fleet.js");
+const orders = require("../../utils/orders.js");
 
 Page({
-  data: { missing: true },
+  data: { missing: true, plateDraft: "" },
   onLoad(query) { this.orderId = query.id; },
   onShow() { this.refresh(); },
-  refresh() {
-    this.setData(fleet.orderView(getApp().globalData, this.orderId));
-  },
-  onAct(e) {
-    const action = e.currentTarget.dataset.action;
-    const payload = {};
-    if (e.currentTarget.dataset.km) payload.km = Number(e.currentTarget.dataset.km);
-    if (e.currentTarget.dataset.place) payload.place = e.currentTarget.dataset.place;
-    fleet.act(getApp().globalData, this.orderId, action, payload);
+  refresh() { this.setData(Object.assign({ plateDraft: this.data.plateDraft }, orders.orderView(getApp().globalData, this.orderId))); },
+  onAllow() {
+    orders.allow(getApp().globalData, this.orderId);
     this.refresh();
   },
-  onMove(e) {
-    fleet.move(getApp().globalData, this.orderId, e.currentTarget.dataset.how);
+  onLeave() {
+    orders.leave(getApp().globalData, this.orderId);
+    this.refresh();
+  },
+  onPull() {
+    orders.pullPortal(getApp().globalData, this.orderId);
+    this.refresh();
+  },
+  onPlate(e) { this.setData({ plateDraft: e.detail.value }); },
+  onSavePlate() {
+    orders.setPlate(getApp().globalData, this.orderId, this.data.plateDraft);
     this.refresh();
   },
 });

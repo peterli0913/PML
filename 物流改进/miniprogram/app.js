@@ -1,7 +1,7 @@
-const fleet = require("./utils/fleet.js");
+const orders = require("./utils/orders.js");
 
 App({
   onLaunch() {
-    this.globalData = fleet.create();
+    this.globalData = orders.create();
   },
 });

@@ -1,21 +1,15 @@
 <chrome current="driver" role="{{role}}">
   <view class="page">
-    <view class="note" style="margin-bottom: 16rpx;">演示用车牌切换。正式环境扫自己的车码进入。</view>
+    <view class="note">演示可切换工单。正式环境司机只看见发给自己的一张。</view>
     <scroll-view class="cars" scroll-x>
-      <view
-        wx:for="{{cars}}"
-        wx:key="id"
-        class="car {{item.on ? 'on' : ''}}"
-        data-id="{{item.id}}"
-        bindtap="onCar"
-      >{{item.plate}}</view>
+      <view wx:for="{{cars}}" wx:key="id" class="car {{item.on ? 'on' : ''}}" data-id="{{item.id}}" bindtap="onCar">{{item.id}} {{item.plate}}</view>
     </scroll-view>
     <view class="hero">
       <view class="kicker">当前指令 · {{current.plate}}</view>
       <view class="big">{{current.instruction}}</view>
-      <view class="where">
+      <view class="where" wx:if="{{current.showWhere}}">
         <view class="where-box">
-          <view class="where-label">{{current.whereLabel}} · 车位</view>
+          <view class="where-label">现在去 · 鹤位</view>
           <view class="where-value">{{current.bay}}</view>
         </view>
         <view class="where-box">
@@ -23,14 +17,8 @@
           <view class="where-value">{{current.tank}}</view>
         </view>
       </view>
-      <view class="queue-line">{{current.material}} {{current.qty}} 吨 · {{current.queueText}}</view>
+      <view class="queue-line">{{current.material}} {{current.qty}} 吨</view>
     </view>
-    <view class="card">
-      <view class="h2">这趟进度</view>
-      <view class="steps">
-        <text wx:for="{{current.steps}}" wx:key="name" class="step {{item.state}}">{{item.name}}</text>
-      </view>
-    </view>
-    <button wx:if="{{current.canException}}" class="act ghost" bindtap="onException">上报异常，先停车</button>
+    <button wx:if="{{current.canConfirm}}" class="act" bindtap="onConfirm">确认这辆车</button>
   </view>
 </chrome>

@@ -4,10 +4,10 @@
     <view class="card" wx:for="{{rows}}" wx:key="id">
       <view class="row">
         <text class="plate">{{item.name}}</text>
-        <text class="tag {{item.occupant ? 'work' : ''}}">{{item.occupant ? '占用' : '空闲'}}</text>
+        <text class="tag {{item.occupant ? 'work' : 'done'}}">{{item.occupant ? '占用' : '空闲'}}</text>
       </view>
-      <view class="sub">{{item.material}} · 对接 {{item.tank}} · 可用 {{item.free}} 吨</view>
-      <view class="sub">{{item.occupant ? '正在作业 ' + item.occupant : '等候 ' + item.wait + ' 辆'}}</view>
+      <view class="sub">{{item.material}} · {{item.tank}}</view>
+      <view class="sub">{{item.occupant ? item.occupant + ' · ' + item.orderId : '没有车在作业'}}</view>
     </view>
   </view>
 </chrome>

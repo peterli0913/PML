@@ -1,6 +1,6 @@
-const fleet = require("../../utils/fleet.js");
+const orders = require("../../utils/orders.js");
 
 Page({
   data: {},
-  onShow() { this.setData(fleet.bayView(getApp().globalData)); },
+  onShow() { this.setData(orders.bayView(getApp().globalData)); },
 });

@@ -1,19 +1,19 @@
-const fleet = require("../../utils/fleet.js");
+const orders = require("../../utils/orders.js");
 
 Page({
   data: {
     role: "司机",
     cars: [],
-    current: { steps: [], instruction: "", bay: "", tank: "", plate: "", material: "", qty: "", queueText: "", whereLabel: "", canException: false },
+    current: { instruction: "", bay: "", tank: "", plate: "", material: "", qty: "", showWhere: false, canConfirm: false, id: "" },
   },
   onShow() { this.refresh(); },
-  refresh() { this.setData(fleet.driverView(getApp().globalData)); },
+  refresh() { this.setData(orders.driverView(getApp().globalData)); },
   onCar(e) {
-    fleet.setFocus(getApp().globalData, e.currentTarget.dataset.id);
+    getApp().globalData.focusId = e.currentTarget.dataset.id;
     this.refresh();
   },
-  onException() {
-    fleet.act(getApp().globalData, this.data.current.id, "report_exception", { text: "路上异常，先停车" });
+  onConfirm() {
+    orders.confirm(getApp().globalData, this.data.current.id);
     this.refresh();
   },
 });
