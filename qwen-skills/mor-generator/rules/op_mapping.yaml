@@ -1,0 +1,68 @@
+# 工艺「单元操作名称」→ MOR 操作。一条工艺操作可以拆成多个 MOR 操作。
+# 每个 MOR 操作写：英文/中文标题、在操作库中优先找的大类、按工艺文字加的工况标签。
+# 学习工具（learn）会把配对文件里观察到的映射写进 knowledge/op_mapping_learned.yaml，
+# 生成时 learned 优先，这里是兜底。
+
+设备确认:
+  - {title_en: Confirm equipment, title_cn: 设备确认, family: 设备确认}
+配溶液:
+  - {title_en: Add, title_cn: 加料, family: 配溶液}
+加料:
+  - {title_en: Add, title_cn: 加料, family: 加料}
+反应:
+  - {title_en: React, title_cn: 反应, family: 反应}
+调节pH:
+  - {title_en: Adjust pH, title_cn: 调pH, family: 调pH}
+调pH:
+  - {title_en: Adjust pH, title_cn: 调pH, family: 调pH}
+过滤:
+  - {title_en: Filter, title_cn: 过滤, family: 分离}
+离心&淋洗:
+  - {title_en: Filter, title_cn: 离心, family: 分离}
+离心:
+  - {title_en: Filter, title_cn: 离心, family: 分离}
+升温:
+  - {title_en: Heat, title_cn: 升温, family: 温度, prefer: 升温}
+降温:
+  - {title_en: Cool, title_cn: 降温, family: 温度, prefer: 降温}
+调温:
+  - {title_en: Adjust Temp., title_cn: 调温, family: 温度, prefer: 调温}
+保温:
+  - {title_en: Maintain, title_cn: 保温, family: 温度, prefer: 保温}
+烘料:
+  - {title_en: Load, title_cn: 装料, family: 装料}
+  - {title_en: Dry, title_cn: 烘料, family: 烘料}
+筛料:
+  - {title_en: Sieve, title_cn: 筛料, family: 筛料}
+降温&收料:
+  - {title_en: Collect, title_cn: "收料& Analyze/检测", family: 收料}
+收料:
+  - {title_en: Collect, title_cn: "收料& Analyze/检测", family: 收料}
+称重:
+  - {title_en: Weigh, title_cn: 称重, family: 称重}
+浓缩:
+  - {title_en: Concentrate, title_cn: 浓缩, family: 浓缩}
+萃取:
+  - {title_en: Extract, title_cn: 萃取, family: 萃取}
+洗涤:
+  - {title_en: Wash, title_cn: 洗涤, family: 萃取}
+分液:
+  - {title_en: Separate, title_cn: 分液, family: 分液}
+析晶:
+  - {title_en: Crystallize, title_cn: 析晶, family: 析晶}
+终止:
+  - {title_en: Quench, title_cn: 终止, family: 终止}
+转移:
+  - {title_en: Transfer, title_cn: 转移, family: 反应}
+置换:
+  - {title_en: Exchange, title_cn: 置换, family: 置换}
+
+# 工艺文字里出现这些词时，给模块选择加工况标签
+condition_words:
+  控温: ["控温"]
+  分批: ["分\\d+批", "分批"]
+  打印DCS: []          # 商业化项目默认打印 DCS 曲线，见模板配置
+  补加: ["补加"]
+  淋洗: ["淋洗"]
+  多次: ["每加入", "复测", "每隔"]
+  分锅: ["分\\d+次.{0,10}放入", "分锅"]
