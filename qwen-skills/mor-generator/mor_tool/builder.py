@@ -649,8 +649,9 @@ def _prepend_header_row(tbl, entry):
     for x in tcpr.findall(q("gridSpan")) + tcpr.findall(q("vMerge")) + tcpr.findall(q("tcW")):
         tcpr.remove(x)
     if span > 1:
-        gs = etree.SubElement(tcpr, q("gridSpan"))
+        gs = etree.Element(q("gridSpan"))
         gs.set(q("val"), str(span))
+        tcpr.insert(1 if tcpr.find(q("cnfStyle")) is not None else 0, gs)
     for p in tc.findall(q("p"))[1:]:
         tc.remove(p)
     for x in list(tc):

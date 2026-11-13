@@ -172,6 +172,8 @@ def material_entry(m, kn, matlib, cfg, validation, limiting_qty):
     elif res["status"] == "ambiguous":
         control, control_status = res["chosen"]["control_no"], TODO
         note = "物料库有多个编号：" + "、".join(sorted({c["control_no"] for c in res["candidates"]}))
+    elif is_water(m["name"]):
+        control_status, note = OK, "工艺用水，MOR 不填内部控制号"
     else:
         note = "物料库查不到，请自填"
     term = kn.term("material", m["name"]) if kn else None
@@ -327,17 +329,23 @@ def _example_instruction(src, ex):
 
 
 def apply_fills(plan, fills):
-    """fills: [{"path": "ins[20].instruction.en", "value": "..."}]。写入后对应条目状态改为 ok。"""
+    """fills: [{"path": "ins[20].instruction.en", "value": "..."}]，或整条写入
+    {"path": "ins[20].instruction", "value": {"cn": "...", "en": "..."}}。写入后对应条目状态改为 ok。"""
     for f in fills:
         parts = re.findall(r"[^.\[\]]+|\[\d+\]", f["path"])
         obj = plan
         for p in parts[:-1]:
             obj = obj[int(p[1:-1])] if p.startswith("[") else obj[p]
         last = parts[-1]
-        if last.startswith("["):
-            obj[int(last[1:-1])] = f["value"]
-        else:
-            obj[last] = f["value"]
+        key = int(last[1:-1]) if last.startswith("[") else last
+        cur = obj[key] if (isinstance(obj, list) or key in obj) else None
+        if isinstance(cur, dict) and "status" in cur:
+            if not isinstance(f["value"], dict):
+                raise ValueError("%s 是一个条目，请写到具体字段（如 %s.cn / %s.en），或给出 {字段: 值}" % (f["path"], f["path"], f["path"]))
+            cur.update(f["value"])
+            cur["status"] = OK
+            continue
+        obj[key] = f["value"]
         if isinstance(obj, dict):
             if "status" in obj and last in ("en", "cn", "value", "rows", "added_en", "criterion", "test"):
                 obj["status"] = OK
