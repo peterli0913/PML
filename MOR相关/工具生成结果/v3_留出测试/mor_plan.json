@@ -1,0 +1,2658 @@
+{
+ "meta": {
+  "tech_no": "Tech-DH313839301 v.3",
+  "tech_file": "MOR相关/Tech-DH313839301_v.3_liyue_10-21-2026.docx",
+  "mor_no": "MOR-DH313839301.03",
+  "site_code": "DH3",
+  "product_code": "138393",
+  "step_no": "01",
+  "step_of": "1/1",
+  "tech_version": 3,
+  "template": "commercial_validation",
+  "validation": false,
+  "examples_used": [
+   "DH313839301-v2"
+  ]
+ },
+ "front": {
+  "site_address": {
+   "value": "Asymchem Laboratories (Jilin) Co., Ltd. (No.899, Xingqi Road, High-tech Industrial Zone, Dunhua, Jilin, 133700, China) (Referred as DH3)",
+   "status": "ok"
+  },
+  "product_name_en": {
+   "value": "(((9H-fluoren-9-yl)methoxy)carbonyl)-L-isoleucine",
+   "status": "ok",
+   "note": "取自同项目上一版 MOR：MOR-DH313839301.02_07-24-2026.docx"
+  },
+  "product_code": {
+   "value": "138393",
+   "status": "ok"
+  },
+  "client_code": {
+   "value": "N/A",
+   "status": "todo",
+   "note": "有客户代码时填写"
+  },
+  "expected_yield": {
+   "value": "80~95",
+   "status": "ok",
+   "source": "放大生产工艺描述·整体投料计划"
+  },
+  "sm_mw": {
+   "value": "131.18",
+   "status": "ok",
+   "source": "计划投料表 第6行"
+  },
+  "product_mw": {
+   "value": "353.42",
+   "status": "ok",
+   "source": "反应路线图 word/media/image1.emf"
+  },
+  "spec": {
+   "value": "Appearance White to off-white solid Purity ≥99.0% Maximum Individual Impurity ≤0.1% Assay ≥98.0% D-isomer impurity ≤0.1% De-Fmoc impurity ≤0.1% KF ≤0.5% Ethanol residual ≤1000ppm",
+   "status": "ok"
+  },
+  "batch_size": {
+   "value": "N/A",
+   "status": "ok"
+  },
+  "changes": [
+   {
+    "steps": "-",
+    "cn": "-：产品规格SP-138393-01（现行版） → 纯度≥99.0%，最大单杂≤0.1%，含量≥98.0%，掉Fmoc杂质≤0.1%，D型异构体杂质≤0.1%，外观为白色至类白色固体，KF≤0.5%，乙醇残留≤1000ppm（放行地点由TJ4变更为DH3，采用汇总COA旅行，对产品质量无影响）",
+    "en": "Product specification SP-138393-01 (current version) → purity ≥99.0%, maximum single impurity ≤0.1%, assay ≥98.0%, de-Fmoc impurity ≤0.1%, D-isomer impurity ≤0.1%, appearance: white to off-white solid, KF ≤0.5%, ethanol residual ≤1000 ppm (release site changed from TJ4 to DH3 and released by summary COA, no impact on product quality)",
+    "status": "ok"
+   },
+   {
+    "steps": "19",
+    "cn": "19：烘料检测KF≤0.5%，乙醇残留≤1000ppm（目标200ppm），138393含量≥98.0% → 烘料检测KF≤0.5%，乙醇残留≤1000ppm（目标200ppm），138393含量≥98.0%，外观为白色至类白色固体（放行方式改变，同步增加外观检测，对产品质量无影响）",
+    "en": "Ins.19 drying test: KF ≤0.5%, ethanol residual ≤1000 ppm (target 200 ppm), 138393 assay ≥98.0% → KF ≤0.5%, ethanol residual ≤1000 ppm (target 200 ppm), 138393 assay ≥98.0%, appearance: white to off-white solid (release method changed, appearance test added at the same time, no impact on product quality)",
+    "status": "ok"
+   }
+  ]
+ },
+ "ins": [
+  {
+   "n": 1,
+   "title_en": "Confirm equipment",
+   "title_cn": "设备确认",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "1",
+   "op_step_raw": "1",
+   "op_name": "设备确认",
+   "op_source": "反应及处理操作步骤表 第3行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 1,
+    "file": "ins_01.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": null,
+     "instruction_cn": [
+      0,
+      1,
+      0,
+      9,
+      0.667
+     ],
+     "instruction_en": [
+      0,
+      1,
+      0,
+      8
+     ]
+    },
+    "example_materials": []
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Glass-lined mixing tank1",
+     "en": "Mixing tank",
+     "cn": "搅拌罐",
+     "function": "Prepare solution/配溶液",
+     "meters": [],
+     "name_source": "学习"
+    },
+    {
+     "key": "Glass-lined reactor1",
+     "en": "Glass-lined reactor1",
+     "cn": "L搪玻璃釜1",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Glass-lined reactor2",
+     "en": "Glass-lined reactor2",
+     "cn": "L搪玻璃釜2",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "title_en": "Add",
+   "title_cn": "加料",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "2",
+   "op_step_raw": "2",
+   "op_name": "配溶液",
+   "op_source": "反应及处理操作步骤表 第4行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [
+    {
+     "cn": "饮用水",
+     "en": "Drinking water",
+     "en_status": "ok",
+     "control_no": "",
+     "control_status": "ok",
+     "control_note": "工艺用水，MOR 不填内部控制号",
+     "qty_kg": "880.0",
+     "volume_m3": "0.880",
+     "density": "1.00",
+     "fw": "--",
+     "kg_per_kg": "4.00",
+     "mol_ratio": "--",
+     "limiting": false,
+     "optional": false,
+     "state": "液体",
+     "state_source": "推断",
+     "rows": 7,
+     "accuracy": "±3.0%",
+     "step": "2",
+     "source": "计划投料表 第2行"
+    },
+    {
+     "cn": "36%盐酸",
+     "en": "36% hydrochloric acid",
+     "en_status": "ok",
+     "control_no": "YL000451",
+     "control_status": "ok",
+     "control_note": "学习自 MOR-DH313839301.02_07-24-2026.docx",
+     "qty_kg": "523.6",
+     "volume_m3": "0.440",
+     "density": "1.19",
+     "fw": "--",
+     "kg_per_kg": "2.38",
+     "mol_ratio": "--",
+     "limiting": false,
+     "optional": false,
+     "state": "液体",
+     "state_source": "物料库",
+     "rows": 5,
+     "accuracy": "±3.0%",
+     "step": "2",
+     "source": "计划投料表 第3行"
+    }
+   ],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 2,
+    "file": "ins_02.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": [
+      0,
+      3,
+      0,
+      1,
+      0.414
+     ],
+     "instruction_en": [
+      0,
+      3,
+      0,
+      0
+     ]
+    },
+    "example_materials": [
+     {
+      "cn": "饮用水",
+      "qty_kg": "880.0"
+     },
+     {
+      "cn": "36%盐酸",
+      "qty_kg": "523.6"
+     }
+    ]
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Glass-lined mixing tank1",
+     "en": "Mixing tank",
+     "cn": "搅拌罐",
+     "function": "Prepare solution/配溶液",
+     "meters": [],
+     "name_source": "学习"
+    },
+    {
+     "key": "Metering pump",
+     "en": "Pump",
+     "cn": "泵",
+     "function": "Add liquid material/加液体料",
+     "meters": [],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "title_en": "Add",
+   "title_cn": "加料",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "3",
+   "op_step_raw": "3",
+   "op_name": "加料",
+   "op_source": "反应及处理操作步骤表 第5行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [
+    {
+     "cn": "饮用水",
+     "en": "Drinking water",
+     "en_status": "ok",
+     "control_no": "",
+     "control_status": "ok",
+     "control_note": "工艺用水，MOR 不填内部控制号",
+     "qty_kg": "2420.0",
+     "volume_m3": "2.420",
+     "density": "1.00",
+     "fw": "--",
+     "kg_per_kg": "11.00",
+     "mol_ratio": "--",
+     "limiting": false,
+     "optional": false,
+     "state": "液体",
+     "state_source": "推断",
+     "rows": 18,
+     "accuracy": "±3.0%",
+     "step": "3",
+     "source": "计划投料表 第5行"
+    },
+    {
+     "cn": "L-异亮氨酸",
+     "en": "L-Isoleucine",
+     "en_status": "ok",
+     "control_no": "YL001023",
+     "control_status": "ok",
+     "control_note": "学习自 MOR-DH313839301.02_07-24-2026.docx",
+     "qty_kg": "220.0",
+     "volume_m3": "--",
+     "density": "--",
+     "fw": "131.18",
+     "kg_per_kg": "1.00",
+     "mol_ratio": "1.00",
+     "limiting": true,
+     "optional": false,
+     "state": "固体",
+     "state_source": "物料库",
+     "rows": 10,
+     "accuracy": "±0.5%",
+     "step": "3",
+     "source": "计划投料表 第6行"
+    }
+   ],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 3,
+    "file": "ins_03.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": [
+      0,
+      3,
+      0,
+      1,
+      0.946
+     ],
+     "instruction_en": [
+      0,
+      3,
+      0,
+      0
+     ]
+    },
+    "example_materials": [
+     {
+      "cn": "饮用水",
+      "qty_kg": "2420.0"
+     },
+     {
+      "cn": "L-异亮氨酸",
+      "qty_kg": "220.0"
+     }
+    ]
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Glass-lined reactor1",
+     "en": "Glass-lined reactor1",
+     "cn": "L搪玻璃釜1",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Solid charge box",
+     "en": "Solid charge box",
+     "cn": "固体加料箱",
+     "function": "Add solid material/加固体料",
+     "meters": [],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "title_en": "Add",
+   "title_cn": "加料",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "4",
+   "op_step_raw": "4",
+   "op_name": "加料",
+   "op_source": "反应及处理操作步骤表 第6行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [
+    {
+     "cn": "无水乙醇",
+     "en": "Absolute ethanol",
+     "en_status": "ok",
+     "control_no": "YL000027",
+     "control_status": "ok",
+     "control_note": "学习自 MOR-DH313839301.02_07-24-2026.docx",
+     "qty_kg": "2346.3",
+     "volume_m3": "2.970",
+     "density": "0.79",
+     "fw": "--",
+     "kg_per_kg": "10.665",
+     "mol_ratio": "--",
+     "limiting": false,
+     "optional": false,
+     "state": "液体",
+     "state_source": "物料库",
+     "rows": 17,
+     "accuracy": "±3.0%",
+     "step": "4",
+     "source": "计划投料表 第4行"
+    }
+   ],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 4,
+    "file": "ins_04.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": [
+      0,
+      3,
+      0,
+      1,
+      0.826
+     ],
+     "instruction_en": [
+      0,
+      3,
+      0,
+      0
+     ]
+    },
+    "example_materials": [
+     {
+      "cn": "无水乙醇",
+      "qty_kg": "2346.3"
+     }
+    ]
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Glass-lined reactor1",
+     "en": "Glass-lined reactor1",
+     "cn": "L搪玻璃釜1",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "title_en": "Add",
+   "title_cn": "加料",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "5",
+   "op_step_raw": "5",
+   "op_name": "加料",
+   "op_source": "反应及处理操作步骤表 第7行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [
+    {
+     "cn": "碳酸钠",
+     "en": "Sodium carbonate",
+     "en_status": "ok",
+     "control_no": "YL000491",
+     "control_status": "ok",
+     "control_note": "学习自 MOR-DH313839301.02_07-24-2026.docx",
+     "qty_kg": "195.8",
+     "volume_m3": "--",
+     "density": "--",
+     "fw": "105.99",
+     "kg_per_kg": "0.89",
+     "mol_ratio": "1.10",
+     "limiting": false,
+     "optional": false,
+     "state": "固体",
+     "state_source": "物料库",
+     "rows": 9,
+     "accuracy": "±3.0%",
+     "step": "5",
+     "source": "计划投料表 第7行"
+    },
+    {
+     "cn": "9-芴甲基-N-琥珀酰亚胺碳酸酯",
+     "en": "9-fluorenylmethyl-N-succinimide carbonate",
+     "en_status": "ok",
+     "control_no": "YL002691",
+     "control_status": "ok",
+     "control_note": "学习自 MOR-DH313839301.02_07-24-2026.docx",
+     "qty_kg": "543.1",
+     "volume_m3": "--",
+     "density": "--",
+     "fw": "337.33",
+     "kg_per_kg": "2.4687",
+     "mol_ratio": "0.96",
+     "limiting": false,
+     "optional": false,
+     "state": "固体",
+     "state_source": "物料库",
+     "rows": 23,
+     "accuracy": "±3.0%",
+     "step": "5",
+     "source": "计划投料表 第8行"
+    }
+   ],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 5,
+    "file": "ins_05.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": [
+      1,
+      1,
+      0,
+      1,
+      0.643
+     ],
+     "instruction_en": [
+      1,
+      1,
+      0,
+      0
+     ]
+    },
+    "example_materials": [
+     {
+      "cn": "碳酸钠",
+      "qty_kg": "195.8"
+     },
+     {
+      "cn": "9-芴甲基-N-琥珀酰亚胺碳酸酯",
+      "qty_kg": "543.1"
+     }
+    ]
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Glass-lined reactor1",
+     "en": "Glass-lined reactor1",
+     "cn": "L搪玻璃釜1",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Solid addition funnel",
+     "en": "Solid addition funnel",
+     "cn": "固体加料漏斗",
+     "function": "Add solid material/加固体料",
+     "meters": [],
+     "name_source": "学习"
+    },
+    {
+     "key": "Solid charge box",
+     "en": "Solid charge box",
+     "cn": "固体加料箱",
+     "function": "Add solid material/加固体料",
+     "meters": [],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 6,
+   "title_en": "React",
+   "title_cn": "反应",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "6",
+   "op_step_raw": "6",
+   "op_name": "反应",
+   "op_source": "反应及处理操作步骤表 第8行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 6,
+    "file": "ins_06.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": [
+      0,
+      2,
+      0,
+      1,
+      1.0
+     ],
+     "instruction_en": [
+      0,
+      2,
+      0,
+      0
+     ]
+    },
+    "example_materials": []
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": []
+  },
+  {
+   "n": 7,
+   "title_en": "Adjust pH",
+   "title_cn": "调pH",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "7",
+   "op_step_raw": "7",
+   "op_name": "调节pH",
+   "op_source": "反应及处理操作步骤表 第10行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 7,
+    "file": "ins_07.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": [
+      0,
+      3,
+      0,
+      3,
+      0.359
+     ],
+     "instruction_en": [
+      0,
+      3,
+      0,
+      2
+     ]
+    },
+    "example_materials": []
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Glass-lined reactor1",
+     "en": "Glass-lined reactor1",
+     "cn": "L搪玻璃釜1",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 8,
+   "title_en": "Filter",
+   "title_cn": "过滤",
+   "title_source": "learned",
+   "optional": true,
+   "op_step": "8",
+   "op_step_raw": "8",
+   "op_name": "过滤",
+   "op_source": "反应及处理操作步骤表 第11行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 8,
+    "file": "ins_08.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": [
+      1,
+      1,
+      0,
+      1,
+      0.455
+     ],
+     "instruction_en": [
+      1,
+      1,
+      0,
+      0
+     ]
+    },
+    "example_materials": []
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Glass-lined reactor1",
+     "en": "Glass-lined reactor1",
+     "cn": "L搪玻璃釜1",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Glass-lined reactor2",
+     "en": "Glass-lined reactor2",
+     "cn": "L搪玻璃釜2",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Bag filter",
+     "en": "Bag filter",
+     "cn": "袋式过滤器",
+     "function": "Filter/ 过滤",
+     "meters": [
+      "Pressure meter #/压力表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Liquid material filter",
+     "en": "Liquid material filter",
+     "cn": "流体过滤器",
+     "function": "Filter/ 过滤",
+     "meters": [
+      "Pressure meter #/压力表编号:"
+     ],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 9,
+   "title_en": "Heat",
+   "title_cn": "升温",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "9",
+   "op_step_raw": "9",
+   "op_name": "升温",
+   "op_source": "反应及处理操作步骤表 第12行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 9,
+    "file": "ins_09.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": null,
+     "instruction_cn": [
+      0,
+      2,
+      0,
+      1,
+      1.0
+     ],
+     "instruction_en": [
+      0,
+      2,
+      0,
+      0
+     ]
+    },
+    "example_materials": []
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Glass-lined reactor1",
+     "en": "Glass-lined reactor1",
+     "cn": "L搪玻璃釜1",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Glass-lined reactor2",
+     "en": "Glass-lined reactor2",
+     "cn": "L搪玻璃釜2",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 10,
+   "title_en": "Adjust pH",
+   "title_cn": "调pH",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "10",
+   "op_step_raw": "10",
+   "op_name": "调节pH",
+   "op_source": "反应及处理操作步骤表 第13行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 10,
+    "file": "ins_10.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": null,
+     "instruction_en": null
+    },
+    "example_materials": []
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Glass-lined reactor1",
+     "en": "Glass-lined reactor1",
+     "cn": "L搪玻璃釜1",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Glass-lined reactor2",
+     "en": "Glass-lined reactor2",
+     "cn": "L搪玻璃釜2",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Liquid material filter",
+     "en": "Liquid material filter",
+     "cn": "流体过滤器",
+     "function": "Filter/ 过滤",
+     "meters": [
+      "Pressure meter #/压力表编号:"
+     ],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 11,
+   "title_en": "Cool",
+   "title_cn": "降温",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "11",
+   "op_step_raw": "11",
+   "op_name": "降温",
+   "op_source": "反应及处理操作步骤表 第14行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 11,
+    "file": "ins_11.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": null,
+     "instruction_cn": [
+      0,
+      2,
+      0,
+      1,
+      0.956
+     ],
+     "instruction_en": [
+      0,
+      2,
+      0,
+      0
+     ]
+    },
+    "example_materials": []
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Glass-lined reactor1",
+     "en": "Glass-lined reactor1",
+     "cn": "L搪玻璃釜1",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Glass-lined reactor2",
+     "en": "Glass-lined reactor2",
+     "cn": "L搪玻璃釜2",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 12,
+   "title_en": "Filter",
+   "title_cn": "离心",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "12",
+   "op_step_raw": "12",
+   "op_name": "离心&淋洗",
+   "op_source": "反应及处理操作步骤表 第15行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [
+    {
+     "cn": "饮用水",
+     "en": "Drinking water",
+     "en_status": "ok",
+     "control_no": "",
+     "control_status": "ok",
+     "control_note": "工艺用水，MOR 不填内部控制号",
+     "qty_kg": "1760.0",
+     "volume_m3": "1.760",
+     "density": "1.00",
+     "fw": "--",
+     "kg_per_kg": "8.00",
+     "mol_ratio": "--",
+     "limiting": false,
+     "optional": false,
+     "state": "液体",
+     "state_source": "推断",
+     "rows": 13,
+     "accuracy": "±3.0%",
+     "step": "12",
+     "source": "计划投料表 第9行"
+    },
+    {
+     "cn": "饮用水",
+     "en": "Drinking water",
+     "en_status": "ok",
+     "control_no": "",
+     "control_status": "ok",
+     "control_note": "工艺用水，MOR 不填内部控制号",
+     "qty_kg": "1760.0",
+     "volume_m3": "1.760",
+     "density": "1.00",
+     "fw": "--",
+     "kg_per_kg": "8.00",
+     "mol_ratio": "--",
+     "limiting": false,
+     "optional": false,
+     "state": "液体",
+     "state_source": "推断",
+     "rows": 13,
+     "accuracy": "±3.0%",
+     "step": "12",
+     "source": "计划投料表 第10行"
+    }
+   ],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 12,
+    "file": "ins_12.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": null,
+     "instruction_en": null
+    },
+    "example_materials": [
+     {
+      "cn": "饮用水",
+      "qty_kg": "1760.0"
+     },
+     {
+      "cn": "饮用水",
+      "qty_kg": "1760.0"
+     }
+    ]
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Glass-lined reactor1",
+     "en": "Glass-lined reactor1",
+     "cn": "L搪玻璃釜1",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Glass-lined reactor2",
+     "en": "Glass-lined reactor2",
+     "cn": "L搪玻璃釜2",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Liquid material filter",
+     "en": "Liquid material filter",
+     "cn": "流体过滤器",
+     "function": "Filter/ 过滤",
+     "meters": [
+      "Pressure meter #/压力表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Halar-lined Centrifuge",
+     "en": "Halar-lined Centrifuge",
+     "cn": "衬哈离心机",
+     "function": "Filter/ 离心",
+     "meters": [],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 13,
+   "title_en": "Confirm equipment",
+   "title_cn": "设备确认",
+   "title_source": "learned",
+   "optional": true,
+   "op_step": "13",
+   "op_step_raw": "□13",
+   "op_name": "设备确认",
+   "op_source": "反应及处理操作步骤表 第16行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 13,
+    "file": "ins_13.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": null,
+     "instruction_cn": [
+      0,
+      1,
+      0,
+      1,
+      0.909
+     ],
+     "instruction_en": [
+      0,
+      1,
+      0,
+      0
+     ]
+    },
+    "example_materials": []
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Glass-lined reactor2",
+     "en": "Glass-lined reactor2",
+     "cn": "L搪玻璃釜2",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 14,
+   "title_en": "Add",
+   "title_cn": "加料",
+   "title_source": "learned",
+   "optional": true,
+   "op_step": "14",
+   "op_step_raw": "□14",
+   "op_name": "加料",
+   "op_source": "反应及处理操作步骤表 第17行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [
+    {
+     "cn": "饮用水",
+     "en": "Drinking water",
+     "en_status": "ok",
+     "control_no": "",
+     "control_status": "ok",
+     "control_note": "工艺用水，MOR 不填内部控制号",
+     "qty_kg": "3520.0",
+     "volume_m3": "3.520",
+     "density": "1.00",
+     "fw": "--",
+     "kg_per_kg": "16.00",
+     "mol_ratio": "--",
+     "limiting": false,
+     "optional": true,
+     "state": "液体",
+     "state_source": "推断",
+     "rows": 25,
+     "accuracy": "±3.0%",
+     "step": "14",
+     "source": "计划投料表 第11行"
+    }
+   ],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 14,
+    "file": "ins_14.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": [
+      0,
+      3,
+      0,
+      2,
+      0.588
+     ],
+     "instruction_en": null
+    },
+    "example_materials": [
+     {
+      "cn": "饮用水",
+      "qty_kg": "3520.0"
+     }
+    ]
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Glass-lined reactor1",
+     "en": "Glass-lined reactor1",
+     "cn": "L搪玻璃釜1",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Glass-lined reactor2",
+     "en": "Glass-lined reactor2",
+     "cn": "L搪玻璃釜2",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Liquid material filter",
+     "en": "Liquid material filter",
+     "cn": "流体过滤器",
+     "function": "Filter/ 过滤",
+     "meters": [
+      "Pressure meter #/压力表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Solid charge box",
+     "en": "Solid charge box",
+     "cn": "固体加料箱",
+     "function": "Add solid material/加固体料",
+     "meters": [],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 15,
+   "title_en": "Add",
+   "title_cn": "加料",
+   "title_source": "learned",
+   "optional": true,
+   "op_step": "15",
+   "op_step_raw": "□15",
+   "op_name": "加料",
+   "op_source": "反应及处理操作步骤表 第18行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [
+    {
+     "cn": "无水乙醇",
+     "en": "Absolute ethanol",
+     "en_status": "ok",
+     "control_no": "YL000027",
+     "control_status": "ok",
+     "control_note": "学习自 MOR-DH313839301.02_07-24-2026.docx",
+     "qty_kg": "2346.3",
+     "volume_m3": "2.970",
+     "density": "0.79",
+     "fw": "--",
+     "kg_per_kg": "10.665",
+     "mol_ratio": "--",
+     "limiting": false,
+     "optional": true,
+     "state": "液体",
+     "state_source": "物料库",
+     "rows": 17,
+     "accuracy": "±3.0%",
+     "step": "15",
+     "source": "计划投料表 第12行"
+    }
+   ],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 15,
+    "file": "ins_15.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": [
+      0,
+      3,
+      0,
+      2,
+      0.435
+     ],
+     "instruction_en": null
+    },
+    "example_materials": [
+     {
+      "cn": "无水乙醇",
+      "qty_kg": "2346.3"
+     }
+    ]
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Glass-lined reactor1",
+     "en": "Glass-lined reactor1",
+     "cn": "L搪玻璃釜1",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Glass-lined reactor2",
+     "en": "Glass-lined reactor2",
+     "cn": "L搪玻璃釜2",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Liquid material filter",
+     "en": "Liquid material filter",
+     "cn": "流体过滤器",
+     "function": "Filter/ 过滤",
+     "meters": [
+      "Pressure meter #/压力表编号:"
+     ],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 16,
+   "title_en": "Filter",
+   "title_cn": "离心",
+   "title_source": "learned",
+   "optional": true,
+   "op_step": "16",
+   "op_step_raw": "□16",
+   "op_name": "离心&淋洗",
+   "op_source": "反应及处理操作步骤表 第19行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [
+    {
+     "cn": "饮用水",
+     "en": "Drinking water",
+     "en_status": "ok",
+     "control_no": "",
+     "control_status": "ok",
+     "control_note": "工艺用水，MOR 不填内部控制号",
+     "qty_kg": "1760.0",
+     "volume_m3": "1.760",
+     "density": "1.00",
+     "fw": "--",
+     "kg_per_kg": "8.00",
+     "mol_ratio": "--",
+     "limiting": false,
+     "optional": true,
+     "state": "液体",
+     "state_source": "推断",
+     "rows": 13,
+     "accuracy": "±3.0%",
+     "step": "16",
+     "source": "计划投料表 第13行"
+    }
+   ],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 16,
+    "file": "ins_16.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": null,
+     "instruction_en": null
+    },
+    "example_materials": [
+     {
+      "cn": "饮用水",
+      "qty_kg": "1760.0"
+     }
+    ]
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Glass-lined reactor1",
+     "en": "Glass-lined reactor1",
+     "cn": "L搪玻璃釜1",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Glass-lined reactor2",
+     "en": "Glass-lined reactor2",
+     "cn": "L搪玻璃釜2",
+     "function": "Run reaction& Work up / 反应&后处理",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+      "Digital display # 数显表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Liquid material filter",
+     "en": "Liquid material filter",
+     "cn": "流体过滤器",
+     "function": "Filter/ 过滤",
+     "meters": [
+      "Pressure meter #/压力表编号:"
+     ],
+     "name_source": "学习"
+    },
+    {
+     "key": "Halar-lined Centrifuge",
+     "en": "Halar-lined Centrifuge",
+     "cn": "衬哈离心机",
+     "function": "Filter/ 离心",
+     "meters": [],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 17,
+   "title_en": "Load",
+   "title_cn": "装料",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "17",
+   "op_step_raw": "17",
+   "op_name": "烘料",
+   "op_source": "反应及处理操作步骤表 第20行",
+   "position_in_op": 0,
+   "ops_in_group": 2,
+   "materials": [],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 17,
+    "file": "ins_17.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": null,
+     "instruction_en": null
+    },
+    "example_materials": []
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Rotary conical dryer",
+     "en": "Rotary conical dryer",
+     "cn": "双锥干燥器",
+     "function": "Dry/烘料",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Temperature transmitter#/温度变送器编号:"
+     ],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 18,
+   "title_en": "Dry",
+   "title_cn": "烘料",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "17",
+   "op_step_raw": "17",
+   "op_name": "烘料",
+   "op_source": "反应及处理操作步骤表 第20行",
+   "position_in_op": 1,
+   "ops_in_group": 2,
+   "materials": [],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 18,
+    "file": "ins_18.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": [
+      1,
+      1,
+      0,
+      1,
+      0.446
+     ],
+     "instruction_en": [
+      1,
+      1,
+      0,
+      0
+     ]
+    },
+    "example_materials": []
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Rotary conical dryer",
+     "en": "Rotary conical dryer",
+     "cn": "双锥干燥器",
+     "function": "Dry/烘料",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Temperature transmitter#/温度变送器编号:"
+     ],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 19,
+   "title_en": "Sieve",
+   "title_cn": "筛料",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "18",
+   "op_step_raw": "18",
+   "op_name": "筛料",
+   "op_source": "反应及处理操作步骤表 第21行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 19,
+    "file": "ins_19.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": null,
+     "instruction_en": null
+    },
+    "example_materials": []
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Rotary conical dryer",
+     "en": "Rotary conical dryer",
+     "cn": "双锥干燥器",
+     "function": "Dry/烘料",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Temperature transmitter#/温度变送器编号:"
+     ],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 20,
+   "title_en": "Load",
+   "title_cn": "装料",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "19",
+   "op_step_raw": "19",
+   "op_name": "烘料",
+   "op_source": "反应及处理操作步骤表 第22行",
+   "position_in_op": 0,
+   "ops_in_group": 2,
+   "materials": [],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 20,
+    "file": "ins_20.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.007,
+    "same_text": false,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": null,
+     "instruction_en": null
+    },
+    "example_materials": []
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块里这个 Ins 没有操作描述段落（同一工艺操作拆出的其他 Ins 承载描述）"
+   },
+   "equipment": [
+    {
+     "key": "Rotary conical dryer",
+     "en": "Rotary conical dryer",
+     "cn": "双锥干燥器",
+     "function": "Dry/烘料",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Temperature transmitter#/温度变送器编号:"
+     ],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 21,
+   "title_en": "Dry",
+   "title_cn": "烘料",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "19",
+   "op_step_raw": "19",
+   "op_name": "烘料",
+   "op_source": "反应及处理操作步骤表 第22行",
+   "position_in_op": 1,
+   "ops_in_group": 2,
+   "materials": [],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 21,
+    "file": "ins_21.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.007,
+    "same_text": false,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": [
+      0,
+      2,
+      0,
+      1,
+      0.736
+     ],
+     "instruction_en": [
+      0,
+      2,
+      0,
+      0
+     ]
+    },
+    "example_materials": []
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "Sweep with nitrogen for NLT 2h, then dry the solid at ≤50℃(Tjacket≤55℃), referenceP≤-0.08MPa, 4h later, start rotating every 2 h for 5 min, dry for 12~24h, sample the solid for KF analysis every 8~12h until two consecutive of KF≤0.5%, then sample the solid ethanol residual≤1000ppm(Target 200ppm) and 138393 assay≥98.0% for test, and check that the appearance is white to off-white solid at the same time. After drying, cool to ≤35℃.",
+    "cn": "搪玻璃双锥用氮气吹扫至少2h后，夹套控温≤55℃，体系控温≤50℃，参考真空度P≤-0.08MPa，烘料4h后开始每2h旋转5min，烘料12~24h后开始取样，以后每隔8~12h取样1次，检测固体含水直到连续两次KF≤0.5%后，再检测乙醇残留≤1000ppm（目标200ppm），再跟踪至138393含量≥98.0%，同步检测外观为白色至类白色固体。烘料结束，搪玻璃双锥内温降至≤35℃。",
+    "cn_src": "双锥烘料：将操作18的过筛后的全部物料分1次或多次转移至3000L搪玻璃双锥中，搪玻璃双锥用氮气吹扫至少2h后，夹套控温≤55℃，体系控温≤50℃，参考真空度P≤-0.08MPa，烘料4h后开始每2h旋转5min，烘料12~24h后开始取样，以后每隔8~12h取样1次，检测固体含水直到连续两次KF≤0.5%后，再检测乙醇残留≤1000ppm（目标200ppm），再跟踪至138393含量≥98.0%，同步检测外观为白色至类白色固体。",
+    "status": "ok",
+    "notes_cn": [],
+    "example_cn": "搪玻璃双锥用氮气吹扫至少2h后，夹套控温≤55℃，体系控温≤50℃，参考真空度P≤-0.08MPa，烘料4h后开始每2h旋转5min，烘料12~24h后开始取样，以后每隔8~12h取样1次，检测固体含水直到连续两次KF≤0.5%后，再检测乙醇残留≤1000ppm（目标200ppm），再跟踪138393含量≥98.0%。烘料结束，搪玻璃双锥内温降至≤35℃。",
+    "example_en": "Sweep with nitrogen for NLT 2h, then dry the solid at ≤50℃(Tjacket≤55℃), referenceP≤-0.08MPa, 4h later, start rotating every 2 h for 5 min, dry for 12~24h, sample the solid for KF analysis every 8~12h until two consecutive of KF≤0.5%, then sample the solid ethanol residual≤1000ppm(Target 200ppm) and 138393 assay≥98.0% for test. After drying, cool to ≤35℃.",
+    "example_op_text": "双锥烘料：将操作18的过筛后的全部物料分1次或多次转移至3000L搪玻璃双锥中，搪玻璃双锥用氮气吹扫至少2h后，夹套控温≤55℃，体系控温≤50℃，参考真空度P≤-0.08MPa，烘料4h后开始每2h旋转5min，烘料12~24h后开始取样，以后每隔8~12h取样1次，检测固体含水直到连续两次KF≤0.5%后，再检测乙醇残留≤1000ppm（目标200ppm），再跟踪138393含量≥98.0%。",
+    "hint": "对照 example_op_text 和 cn_src 的差异，只改动变化的部分；cn 可以在 example_cn 基础上改"
+   },
+   "equipment": [
+    {
+     "key": "Rotary conical dryer",
+     "en": "Rotary conical dryer",
+     "cn": "双锥干燥器",
+     "function": "Dry/烘料",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Temperature transmitter#/温度变送器编号:"
+     ],
+     "name_source": "学习"
+    }
+   ]
+  },
+  {
+   "n": 22,
+   "title_en": "Collect",
+   "title_cn": "收料& Analyze/检测",
+   "title_source": "learned",
+   "optional": false,
+   "op_step": "20",
+   "op_step_raw": "20",
+   "op_name": "降温&收料",
+   "op_source": "反应及处理操作步骤表 第23行",
+   "position_in_op": 0,
+   "ops_in_group": 1,
+   "materials": [],
+   "source": {
+    "type": "example",
+    "pair_id": "DH313839301-v2",
+    "ins": 22,
+    "file": "ins_22.xml",
+    "dir": "/tmp/kn_v2only/examples/DH313839301-v2",
+    "score": 1.15,
+    "same_text": true,
+    "roles": {
+     "safety": [
+      0,
+      1,
+      0
+     ],
+     "instruction_cn": null,
+     "instruction_en": null
+    },
+    "example_materials": []
+   },
+   "safety_keep": true,
+   "safety": [],
+   "instruction": {
+    "en": "",
+    "cn": "",
+    "status": "keep",
+    "source": "例子块与工艺原文一致，保留"
+   },
+   "equipment": [
+    {
+     "key": "Rotary conical dryer",
+     "en": "Rotary conical dryer",
+     "cn": "双锥干燥器",
+     "function": "Dry/烘料",
+     "meters": [
+      "Pressure meter #/压力表编号:",
+      "Temperature transmitter#/温度变送器编号:"
+     ],
+     "name_source": "学习"
+    }
+   ]
+  }
+ ],
+ "equipment": [
+  {
+   "key": "Glass-lined mixing tank1",
+   "en": "Mixing tank",
+   "cn": "搅拌罐",
+   "function": "Prepare solution/配溶液",
+   "meters": [],
+   "name_source": "学习",
+   "ins": [
+    1,
+    2
+   ]
+  },
+  {
+   "key": "Glass-lined reactor1",
+   "en": "Glass-lined reactor1",
+   "cn": "L搪玻璃釜1",
+   "function": "Run reaction& Work up / 反应&后处理",
+   "meters": [
+    "Pressure meter #/压力表编号:",
+    "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+    "Digital display # 数显表编号:"
+   ],
+   "name_source": "学习",
+   "ins": [
+    1,
+    3,
+    4,
+    5,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    14,
+    15,
+    16
+   ]
+  },
+  {
+   "key": "Glass-lined reactor2",
+   "en": "Glass-lined reactor2",
+   "cn": "L搪玻璃釜2",
+   "function": "Run reaction& Work up / 反应&后处理",
+   "meters": [
+    "Pressure meter #/压力表编号:",
+    "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:",
+    "Digital display # 数显表编号:"
+   ],
+   "name_source": "学习",
+   "ins": [
+    1,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+   ]
+  },
+  {
+   "key": "Metering pump",
+   "en": "Pump",
+   "cn": "泵",
+   "function": "Add liquid material/加液体料",
+   "meters": [],
+   "name_source": "学习",
+   "ins": [
+    2
+   ]
+  },
+  {
+   "key": "Solid charge box",
+   "en": "Solid charge box",
+   "cn": "固体加料箱",
+   "function": "Add solid material/加固体料",
+   "meters": [],
+   "name_source": "学习",
+   "ins": [
+    3,
+    5,
+    14
+   ]
+  },
+  {
+   "key": "Solid addition funnel",
+   "en": "Solid addition funnel",
+   "cn": "固体加料漏斗",
+   "function": "Add solid material/加固体料",
+   "meters": [],
+   "name_source": "学习",
+   "ins": [
+    5
+   ]
+  },
+  {
+   "key": "Bag filter",
+   "en": "Bag filter",
+   "cn": "袋式过滤器",
+   "function": "Filter/ 过滤",
+   "meters": [
+    "Pressure meter #/压力表编号:"
+   ],
+   "name_source": "学习",
+   "ins": [
+    8
+   ]
+  },
+  {
+   "key": "Liquid material filter",
+   "en": "Liquid material filter",
+   "cn": "流体过滤器",
+   "function": "Filter/ 过滤",
+   "meters": [
+    "Pressure meter #/压力表编号:"
+   ],
+   "name_source": "学习",
+   "ins": [
+    8,
+    10,
+    12,
+    14,
+    15,
+    16
+   ]
+  },
+  {
+   "key": "Halar-lined Centrifuge",
+   "en": "Halar-lined Centrifuge",
+   "cn": "衬哈离心机",
+   "function": "Filter/ 离心",
+   "meters": [],
+   "name_source": "学习",
+   "ins": [
+    12,
+    16
+   ]
+  },
+  {
+   "key": "Rotary conical dryer",
+   "en": "Rotary conical dryer",
+   "cn": "双锥干燥器",
+   "function": "Dry/烘料",
+   "meters": [
+    "Pressure meter #/压力表编号:",
+    "Temperature transmitter#/温度变送器编号:"
+   ],
+   "name_source": "学习",
+   "ins": [
+    17,
+    18,
+    19,
+    20,
+    21,
+    22
+   ]
+  }
+ ],
+ "materials": [
+  {
+   "cn": "饮用水",
+   "en": "Drinking water",
+   "en_status": "ok",
+   "control_no": "",
+   "control_status": "ok",
+   "control_note": "工艺用水，MOR 不填内部控制号",
+   "qty_kg": "880.0",
+   "volume_m3": "0.880",
+   "density": "1.00",
+   "fw": "--",
+   "kg_per_kg": "4.00",
+   "mol_ratio": "--",
+   "limiting": false,
+   "optional": false,
+   "state": "液体",
+   "state_source": "推断",
+   "rows": 7,
+   "accuracy": "±3.0%",
+   "step": "2",
+   "source": "计划投料表 第2行",
+   "ins": 2,
+   "ins_optional": false
+  },
+  {
+   "cn": "36%盐酸",
+   "en": "36% hydrochloric acid",
+   "en_status": "ok",
+   "control_no": "YL000451",
+   "control_status": "ok",
+   "control_note": "学习自 MOR-DH313839301.02_07-24-2026.docx",
+   "qty_kg": "523.6",
+   "volume_m3": "0.440",
+   "density": "1.19",
+   "fw": "--",
+   "kg_per_kg": "2.38",
+   "mol_ratio": "--",
+   "limiting": false,
+   "optional": false,
+   "state": "液体",
+   "state_source": "物料库",
+   "rows": 5,
+   "accuracy": "±3.0%",
+   "step": "2",
+   "source": "计划投料表 第3行",
+   "ins": 2,
+   "ins_optional": false
+  },
+  {
+   "cn": "饮用水",
+   "en": "Drinking water",
+   "en_status": "ok",
+   "control_no": "",
+   "control_status": "ok",
+   "control_note": "工艺用水，MOR 不填内部控制号",
+   "qty_kg": "2420.0",
+   "volume_m3": "2.420",
+   "density": "1.00",
+   "fw": "--",
+   "kg_per_kg": "11.00",
+   "mol_ratio": "--",
+   "limiting": false,
+   "optional": false,
+   "state": "液体",
+   "state_source": "推断",
+   "rows": 18,
+   "accuracy": "±3.0%",
+   "step": "3",
+   "source": "计划投料表 第5行",
+   "ins": 3,
+   "ins_optional": false
+  },
+  {
+   "cn": "L-异亮氨酸",
+   "en": "L-Isoleucine",
+   "en_status": "ok",
+   "control_no": "YL001023",
+   "control_status": "ok",
+   "control_note": "学习自 MOR-DH313839301.02_07-24-2026.docx",
+   "qty_kg": "220.0",
+   "volume_m3": "--",
+   "density": "--",
+   "fw": "131.18",
+   "kg_per_kg": "1.00",
+   "mol_ratio": "1.00",
+   "limiting": true,
+   "optional": false,
+   "state": "固体",
+   "state_source": "物料库",
+   "rows": 10,
+   "accuracy": "±0.5%",
+   "step": "3",
+   "source": "计划投料表 第6行",
+   "ins": 3,
+   "ins_optional": false
+  },
+  {
+   "cn": "无水乙醇",
+   "en": "Absolute ethanol",
+   "en_status": "ok",
+   "control_no": "YL000027",
+   "control_status": "ok",
+   "control_note": "学习自 MOR-DH313839301.02_07-24-2026.docx",
+   "qty_kg": "2346.3",
+   "volume_m3": "2.970",
+   "density": "0.79",
+   "fw": "--",
+   "kg_per_kg": "10.665",
+   "mol_ratio": "--",
+   "limiting": false,
+   "optional": false,
+   "state": "液体",
+   "state_source": "物料库",
+   "rows": 17,
+   "accuracy": "±3.0%",
+   "step": "4",
+   "source": "计划投料表 第4行",
+   "ins": 4,
+   "ins_optional": false
+  },
+  {
+   "cn": "碳酸钠",
+   "en": "Sodium carbonate",
+   "en_status": "ok",
+   "control_no": "YL000491",
+   "control_status": "ok",
+   "control_note": "学习自 MOR-DH313839301.02_07-24-2026.docx",
+   "qty_kg": "195.8",
+   "volume_m3": "--",
+   "density": "--",
+   "fw": "105.99",
+   "kg_per_kg": "0.89",
+   "mol_ratio": "1.10",
+   "limiting": false,
+   "optional": false,
+   "state": "固体",
+   "state_source": "物料库",
+   "rows": 9,
+   "accuracy": "±3.0%",
+   "step": "5",
+   "source": "计划投料表 第7行",
+   "ins": 5,
+   "ins_optional": false
+  },
+  {
+   "cn": "9-芴甲基-N-琥珀酰亚胺碳酸酯",
+   "en": "9-fluorenylmethyl-N-succinimide carbonate",
+   "en_status": "ok",
+   "control_no": "YL002691",
+   "control_status": "ok",
+   "control_note": "学习自 MOR-DH313839301.02_07-24-2026.docx",
+   "qty_kg": "543.1",
+   "volume_m3": "--",
+   "density": "--",
+   "fw": "337.33",
+   "kg_per_kg": "2.4687",
+   "mol_ratio": "0.96",
+   "limiting": false,
+   "optional": false,
+   "state": "固体",
+   "state_source": "物料库",
+   "rows": 23,
+   "accuracy": "±3.0%",
+   "step": "5",
+   "source": "计划投料表 第8行",
+   "ins": 5,
+   "ins_optional": false
+  },
+  {
+   "cn": "饮用水",
+   "en": "Drinking water",
+   "en_status": "ok",
+   "control_no": "",
+   "control_status": "ok",
+   "control_note": "工艺用水，MOR 不填内部控制号",
+   "qty_kg": "1760.0",
+   "volume_m3": "1.760",
+   "density": "1.00",
+   "fw": "--",
+   "kg_per_kg": "8.00",
+   "mol_ratio": "--",
+   "limiting": false,
+   "optional": false,
+   "state": "液体",
+   "state_source": "推断",
+   "rows": 13,
+   "accuracy": "±3.0%",
+   "step": "12",
+   "source": "计划投料表 第9行",
+   "ins": 12,
+   "ins_optional": false
+  },
+  {
+   "cn": "饮用水",
+   "en": "Drinking water",
+   "en_status": "ok",
+   "control_no": "",
+   "control_status": "ok",
+   "control_note": "工艺用水，MOR 不填内部控制号",
+   "qty_kg": "1760.0",
+   "volume_m3": "1.760",
+   "density": "1.00",
+   "fw": "--",
+   "kg_per_kg": "8.00",
+   "mol_ratio": "--",
+   "limiting": false,
+   "optional": false,
+   "state": "液体",
+   "state_source": "推断",
+   "rows": 13,
+   "accuracy": "±3.0%",
+   "step": "12",
+   "source": "计划投料表 第10行",
+   "ins": 12,
+   "ins_optional": false
+  },
+  {
+   "cn": "饮用水",
+   "en": "Drinking water",
+   "en_status": "ok",
+   "control_no": "",
+   "control_status": "ok",
+   "control_note": "工艺用水，MOR 不填内部控制号",
+   "qty_kg": "3520.0",
+   "volume_m3": "3.520",
+   "density": "1.00",
+   "fw": "--",
+   "kg_per_kg": "16.00",
+   "mol_ratio": "--",
+   "limiting": false,
+   "optional": true,
+   "state": "液体",
+   "state_source": "推断",
+   "rows": 25,
+   "accuracy": "±3.0%",
+   "step": "14",
+   "source": "计划投料表 第11行",
+   "ins": 14,
+   "ins_optional": true
+  },
+  {
+   "cn": "无水乙醇",
+   "en": "Absolute ethanol",
+   "en_status": "ok",
+   "control_no": "YL000027",
+   "control_status": "ok",
+   "control_note": "学习自 MOR-DH313839301.02_07-24-2026.docx",
+   "qty_kg": "2346.3",
+   "volume_m3": "2.970",
+   "density": "0.79",
+   "fw": "--",
+   "kg_per_kg": "10.665",
+   "mol_ratio": "--",
+   "limiting": false,
+   "optional": true,
+   "state": "液体",
+   "state_source": "物料库",
+   "rows": 17,
+   "accuracy": "±3.0%",
+   "step": "15",
+   "source": "计划投料表 第12行",
+   "ins": 15,
+   "ins_optional": true
+  },
+  {
+   "cn": "饮用水",
+   "en": "Drinking water",
+   "en_status": "ok",
+   "control_no": "",
+   "control_status": "ok",
+   "control_note": "工艺用水，MOR 不填内部控制号",
+   "qty_kg": "1760.0",
+   "volume_m3": "1.760",
+   "density": "1.00",
+   "fw": "--",
+   "kg_per_kg": "8.00",
+   "mol_ratio": "--",
+   "limiting": false,
+   "optional": true,
+   "state": "液体",
+   "state_source": "推断",
+   "rows": 13,
+   "accuracy": "±3.0%",
+   "step": "16",
+   "source": "计划投料表 第13行",
+   "ins": 16,
+   "ins_optional": true
+  }
+ ],
+ "sampling": [
+  {
+   "steps_raw": "6",
+   "ins": [
+    6
+   ],
+   "optional_ins": [],
+   "tests_cn": "Fmoc-OSu残留",
+   "source_desc": "Reaction mixture/反应体系",
+   "release": false,
+   "rows": [
+    [
+     "6",
+     "X",
+     "--",
+     "--",
+     "Reaction mixture/反应体系",
+     "HPLC",
+     "Fmoc-OSu area%≤0.05%",
+     "AM-138393-007"
+    ]
+   ],
+   "status": "ok",
+   "source": "标准取样步骤表 第2行",
+   "added_tests": [],
+   "note": "沿用 DH313839301-v2 的分析方法行"
+  },
+  {
+   "steps_raw": "7，10",
+   "ins": [
+    7,
+    10
+   ],
+   "optional_ins": [],
+   "tests_cn": "pH（精密pH试纸检测）",
+   "source_desc": "Reaction mixture/反应体系",
+   "release": false,
+   "rows": [
+    [
+     "7",
+     "X",
+     "--",
+     "--",
+     "Reaction mixture/反应体系",
+     "pH",
+     "6~7",
+     "--"
+    ],
+    [
+     "10",
+     "X",
+     "--",
+     "--",
+     "Reaction mixture/反应体系",
+     "pH",
+     "4~4.5",
+     "--"
+    ],
+    [
+     "",
+     "X",
+     "--",
+     "--",
+     "",
+     "pH",
+     "2.5~3.5",
+     "--"
+    ]
+   ],
+   "status": "ok",
+   "source": "标准取样步骤表 第3行",
+   "added_tests": [],
+   "note": "沿用 DH313839301-v2 的分析方法行"
+  },
+  {
+   "steps_raw": "12、□16",
+   "ins": [
+    12,
+    16
+   ],
+   "optional_ins": [
+    16
+   ],
+   "tests_cn": "HPLC 138393纯度，单杂，对映异构体纯度，游离氨基酸残留，溶解度",
+   "source_desc": "Filter cake/滤饼",
+   "release": false,
+   "rows": [
+    [
+     "12,□16",
+     "X",
+     "--",
+     "--",
+     "Filter cake/滤饼",
+     "Solubility/溶解度",
+     "Clearly soluble/溶清",
+     "AM-380"
+    ],
+    [
+     "",
+     "X",
+     "--",
+     "--",
+     "",
+     "HPLC",
+     "138393 purity/138393纯度≥99.0%",
+     "AM-138393-004"
+    ],
+    [
+     "",
+     "",
+     "",
+     "",
+     "",
+     "",
+     "Maximum single impurity/最大单杂 area%≤0.1%",
+     ""
+    ],
+    [
+     "",
+     "X",
+     "--",
+     "--",
+     "",
+     "HPLC",
+     "Fmoc-D-Ile-OH area%≤0.1%",
+     "AM-138393-005"
+    ],
+    [
+     "",
+     "X",
+     "--",
+     "--",
+     "",
+     "HPLC",
+     "L-Ile-OH wt%≤0.1%",
+     "AM-138393-006"
+    ]
+   ],
+   "status": "ok",
+   "source": "标准取样步骤表 第4行",
+   "added_tests": [],
+   "note": "沿用 DH313839301-v2 的分析方法行"
+  },
+  {
+   "steps_raw": "19",
+   "ins": [
+    21
+   ],
+   "optional_ins": [],
+   "tests_cn": "GC 乙醇残留 KF HPLC 138393含量 外观",
+   "source_desc": "Solid/烘料固体",
+   "release": false,
+   "rows": [
+    [
+     "21",
+     "X",
+     "--",
+     "--",
+     "Solid/烘料固体",
+     "KF",
+     "KF≤0.5%",
+     "AM-003"
+    ],
+    [
+     "",
+     "",
+     "",
+     "",
+     "",
+     "GC",
+     "Ethanol residual/乙醇残留≤1000ppm",
+     "AM-020-01"
+    ],
+    [
+     "",
+     "",
+     "",
+     "",
+     "",
+     "HPLC",
+     "138393 assay/138393含量≥98.0%",
+     "AM-138393-004"
+    ]
+   ],
+   "status": "ok",
+   "source": "标准取样步骤表 第5行",
+   "added_tests": [
+    "外观"
+   ],
+   "note": "沿用 DH313839301-v2 的分析方法行；新增检测项：外观",
+   "added_en": {
+    "外观": {
+     "test": "Appearance/外观",
+     "criterion": "White to off-white solid/白色至类白色固体"
+    }
+   }
+  },
+  {
+   "steps_raw": "20",
+   "ins": [
+    22
+   ],
+   "optional_ins": [],
+   "tests_cn": "纯度，外标，单杂，对映异构体纯度，游离氨基酸残留",
+   "source_desc": "Product/产品",
+   "release": true,
+   "rows": [
+    [
+     "22",
+     "--",
+     "--",
+     "X",
+     "Product/产品138393",
+     "Refer to COA/参见COA"
+    ]
+   ],
+   "status": "ok",
+   "source": "标准取样步骤表 第6行",
+   "added_tests": [],
+   "note": "沿用 DH313839301-v2 的分析方法行"
+  }
+ ],
+ "warnings": [],
+ "todo_summary": {
+  "needs_ai": [],
+  "todo": [
+   "front.client_code"
+  ]
+ }
+}
