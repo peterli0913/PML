@@ -114,15 +114,19 @@ class Knowledge:
         return sorted(p for p in (self.root / "examples").iterdir() if p.is_dir())
 
     def load_examples(self):
-        out = []
+        """按学习时间从早到晚返回。"""
+        pairs = []
         for d in self.example_dirs():
             idx = d / "index.json"
             if idx.exists():
-                data = json.loads(idx.read_text(encoding="utf-8"))
-                for item in data["ins"]:
-                    item["pair_id"] = data["pair_id"]
-                    item["dir"] = str(d)
-                    out.append(item)
+                pairs.append((d, json.loads(idx.read_text(encoding="utf-8"))))
+        pairs.sort(key=lambda x: (x[1].get("learned_at", ""), x[0].name))
+        out = []
+        for d, data in pairs:
+            for item in data["ins"]:
+                item["pair_id"] = data["pair_id"]
+                item["dir"] = str(d)
+                out.append(item)
         return out
 
     def log(self, text):

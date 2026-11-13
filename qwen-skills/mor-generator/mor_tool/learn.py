@@ -171,7 +171,7 @@ def learn_pair(tech_path, mor_path, kn, rules_seed=None, pair_id=None):
     ex_dir = kn.root / "examples" / pair_id
     ex_dir.mkdir(parents=True, exist_ok=True)
     (ex_dir / "styles.xml").write_bytes(etree.tostring(styles, encoding="utf-8", xml_declaration=True))
-    index = {"pair_id": pair_id, "tech": Path(tech_path).name, "mor": source, "learned_at": datetime.now().isoformat(timespec="seconds"),
+    index = {"pair_id": pair_id, "tech": Path(tech_path).name, "mor": source, "learned_at": datetime.now().astimezone().isoformat(timespec="seconds"),
              "tech_no": proc.get("tech_no"), "ins": []}
 
     skip = [re.compile(p) for p in ["^体系超温报警", "^上限[:：]", "^下限[:：]"]]
@@ -261,7 +261,7 @@ def learn_pair(tech_path, mor_path, kn, rules_seed=None, pair_id=None):
 
     kn.save()
     kn.log("## %s 学习 %s\n- 工艺：%s\n- 新译名/句子 %d，新物料别名 %d，新操作映射 %d，操作块例子 %d，批注 %d" % (
-        datetime.now().strftime("%Y-%m-%d %H:%M"), source, Path(tech_path).name,
+        datetime.now().astimezone().strftime("%Y-%m-%d %H:%M %z"), source, Path(tech_path).name,
         summary["new_terms"], summary["new_aliases"], summary["new_mappings"], summary["examples"], summary["comments"]))
     summary["alignment"] = [(proc["operations"][i]["step_raw"], proc["operations"][i]["name"], [blocks[b]["n"] for b in bs]) for i, bs in alignment]
     return summary

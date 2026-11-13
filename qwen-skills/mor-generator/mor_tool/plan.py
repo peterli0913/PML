@@ -75,7 +75,8 @@ def choose_example(entry, op, examples, min_score=0.3):
             s += 0.1
         if ex.get("position_in_op") == entry["position_in_op"] and ex.get("ops_in_group") == entry["ops_in_group"]:
             s += 0.05
-        if s > best_s:
+        # examples 按学习时间排序，同分时取最近学的定稿（反映最新写法）
+        if s >= best_s:
             best, best_s = ex, s
     if best and best_s >= min_score:
         return best, round(best_s, 3)
