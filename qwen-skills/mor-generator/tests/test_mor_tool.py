@@ -165,6 +165,21 @@ class ValidationModeTest(unittest.TestCase):
         _validate(self, out)
 
 
+class ReportDocxTest(unittest.TestCase):
+    def test_markdown_subset_to_word(self):
+        from docx import Document
+        from mor_tool.report_docx import write_report
+        md = "# 标题\n\n**结果：错误 0**\n\n## 表\n\n| 项 | 值 |\n|---|---|\n| a | 【待补：编号】 |\n\n- 列表一\n- 列表二\n"
+        out = write_report(md, Path(tempfile.mkdtemp(prefix="rep-")) / "r")
+        self.assertEqual(out.suffix, ".docx")
+        d = Document(str(out))
+        self.assertEqual(len(d.tables), 1)
+        self.assertEqual([c.text for c in d.tables[0].rows[1].cells], ["a", "【待补：编号】"])
+        self.assertTrue(any(r.font.highlight_color for c in d.tables[0].rows[1].cells for p in c.paragraphs for r in p.runs))
+        self.assertTrue(any(p.style.name == "List Bullet" for p in d.paragraphs))
+        self.assertTrue(any(r.bold for p in d.paragraphs for r in p.runs if "结果" in r.text))
+
+
 class CheckboxRenderCopyTest(unittest.TestCase):
     def test_checkbox_field_becomes_box(self):
         w = NS["w"]

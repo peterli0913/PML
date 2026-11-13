@@ -81,8 +81,11 @@ $M run 工艺.docx -o out/
 
 输出：
 - `MOR-xxx_草稿.docx`：粉色槽位已填，填不了的是黄色高亮 `【待补：…】`；蓝色说明已删，红字转黑
-- `*.生成报告.md`：每个 Ins 的来源（哪个例子/哪个库模块）、要人工填写的项、建议核对项
-- `*.复核报告.md`：错误、提示、高亮清单
+- `*.生成报告.docx`：每个 Ins 的来源（哪个例子/哪个库模块）、要人工填写的项、建议核对项
+- `*.复核报告.docx`：错误、提示、高亮清单
+
+**所有报告（生成报告、复核报告、对比报告）一律输出 Word（.docx），交给用户的也是 Word，不交 .md。**
+你自己需要读报告内容时，命令行已打印摘要；要全文就另跑一次并把 `--report` / `-o` 写成 `.md`，只供你阅读，不交付。
 
 `check` 可以单独用在任何版本的 MOR 上（人工改完也再跑一次）。`--fix` 会：Ins 重新连续编号并同步设备表、原料表、分析方法表里的操作号；操作表首行设为跨页重复标题行；打开文档时更新目录；`--pages` 用 LibreOffice 排版后填「Page X of Y」。正文里「进行操作 8」这类文字引用只报告、不自动改。
 
@@ -128,7 +131,7 @@ python -m unittest discover -s qwen-skills/mor-generator/tests -v
 ### 5. 衡量效果
 
 ```bash
-$M compare 生成草稿.docx 人工定稿.docx -o 对比报告.md
+$M compare 生成草稿.docx 人工定稿.docx -o 对比报告.docx
 ```
 
 报告 Ins 标题一致数、块文字相似度、原料行、内部控制号、设备、分析方法行。新产品的工艺建议先**不学**，生成后和专家定稿对比，再学习，这样每一对都先当一次测试集。
@@ -141,6 +144,7 @@ qwen-skills/mor-generator/
   scripts/mor.py          命令行入口
   mor_tool/               tech 解析 / materials 物料库 / library 操作库 / plan 计划 / builder 组装
                           checker 复核 / learn 学习 / compare 对比 / knowledge 知识库读写
+                          report_docx 报告写成 Word
   rules/                  人维护的规则（YAML）
   knowledge/              学到的知识（自动生成，可人工改）
   tests/                  回归测试

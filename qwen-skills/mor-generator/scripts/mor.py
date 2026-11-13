@@ -8,8 +8,9 @@
   python qwen-skills/mor-generator/scripts/mor.py run    工艺.docx            -o 输出目录/
   python qwen-skills/mor-generator/scripts/mor.py check  MOR.docx  [--tech 工艺.docx] [--fix]
   python qwen-skills/mor-generator/scripts/mor.py learn  工艺.docx  定稿MOR.docx
-  python qwen-skills/mor-generator/scripts/mor.py compare 生成.docx 人工.docx  -o 对比.md
+  python qwen-skills/mor-generator/scripts/mor.py compare 生成.docx 人工.docx  -o 对比报告.docx
 
+报告（生成报告、复核报告、对比报告）都输出 Word；-o/--report 写成 .md 时才输出文本。
 全局参数放在子命令前：--validation yes|no  --template 模板配置名  --knowledge 知识库目录
 """
 
@@ -21,6 +22,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from mor_tool import builder, checker, compare, learn, plan, tech  # noqa: E402
+from mor_tool.report_docx import write_report  # noqa: E402
 from mor_tool.session import Session  # noqa: E402
 
 
@@ -81,15 +83,14 @@ def _write_report(rep, plan_obj, path):
     check = [i for i in rep.items if i["level"] == "check"]
     lines += ["", "## 需要填写（MOR 中黄色高亮）", ""] + ["- %s：%s" % (i["where"], i["what"]) for i in todo]
     lines += ["", "## 建议核对", ""] + ["- %s：%s" % (i["where"], i["what"]) for i in check]
-    Path(path).write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return write_report("\n".join(lines) + "\n", path)
 
 
 def cmd_build(a):
     s = Session(a.template, a.knowledge, _validation(a))
     p = json.loads(Path(a.plan).read_text(encoding="utf-8"))
     rep = builder.build(p, s, a.output)
-    rp = Path(a.output).with_suffix(".生成报告.md")
-    _write_report(rep, p, rp)
+    rp = _write_report(rep, p, Path(a.output).with_suffix(".生成报告.docx"))
     print("已生成 %s；报告 %s" % (a.output, rp))
 
 
@@ -103,9 +104,9 @@ def cmd_run(a):
     _dump(p, out_dir / "mor_plan.json")
     docx = out_dir / (name + ".docx")
     rep = builder.build(p, s, docx)
-    _write_report(rep, p, out_dir / (name + ".生成报告.md"))
+    _write_report(rep, p, out_dir / (name + ".生成报告.docx"))
     res = checker.check(docx, tech_path=a.tech, fix=True, out_path=docx, pages=not a.no_pages)
-    (out_dir / (name + ".复核报告.md")).write_text(checker.to_markdown(res), encoding="utf-8")
+    write_report(checker.to_markdown(res), out_dir / (name + ".复核报告.docx"))
     t = p["todo_summary"]
     print("已生成 %s\n  Ins %d 个；AI 待补 %d 处；人工待填 %d 处；复核：错误 %d，提示 %d" % (
         docx, len(p["ins"]), len(t["needs_ai"]), len(t["todo"]), len(res["errors"]), len(res["warnings"])))
@@ -114,8 +115,7 @@ def cmd_run(a):
 def cmd_check(a):
     res = checker.check(a.mor, tech_path=a.tech, fix=a.fix, out_path=a.output or a.mor, pages=a.pages)
     md = checker.to_markdown(res)
-    out = Path(a.report or Path(a.output or a.mor).with_suffix(".复核报告.md"))
-    out.write_text(md, encoding="utf-8")
+    out = write_report(md, a.report or Path(a.output or a.mor).with_suffix(".复核报告.docx"))
     print("复核完成：错误 %d，提示 %d，高亮待补 %d；报告 %s" % (len(res["errors"]), len(res["warnings"]), res["highlights"], out))
 
 
@@ -131,8 +131,9 @@ def cmd_learn(a):
 def cmd_compare(a):
     res = compare.compare(a.generated, a.reference)
     md = compare.to_markdown(res, a.generated, a.reference)
-    Path(a.output or "对比报告.md").write_text(md, encoding="utf-8")
+    out = write_report(md, a.output or "对比报告.docx")
     print(compare.summary_line(res))
+    print("对比报告 %s" % out)
 
 
 def main(argv=None):
