@@ -9,6 +9,8 @@
   python qwen-skills/mor-generator/scripts/mor.py check  MOR.docx  [--tech 工艺.docx] [--fix]
   python qwen-skills/mor-generator/scripts/mor.py learn  工艺.docx  定稿MOR.docx
   python qwen-skills/mor-generator/scripts/mor.py compare 生成.docx 人工.docx  -o 对比.md
+
+全局参数放在子命令前：--validation yes|no  --template 模板配置名  --knowledge 知识库目录
 """
 
 import argparse
@@ -20,6 +22,10 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
 from mor_tool import builder, checker, compare, learn, plan, tech  # noqa: E402
 from mor_tool.session import Session  # noqa: E402
+
+
+def _validation(a):
+    return None if a.validation is None else a.validation == "yes"
 
 
 def _dump(obj, path):
@@ -40,7 +46,7 @@ def _make_plan(a, s):
 
 
 def cmd_plan(a):
-    s = Session(a.template, a.knowledge)
+    s = Session(a.template, a.knowledge, _validation(a))
     _, p = _make_plan(a, s)
     out = a.output or "mor_plan.json"
     _dump(p, out)
@@ -79,7 +85,7 @@ def _write_report(rep, plan_obj, path):
 
 
 def cmd_build(a):
-    s = Session(a.template, a.knowledge)
+    s = Session(a.template, a.knowledge, _validation(a))
     p = json.loads(Path(a.plan).read_text(encoding="utf-8"))
     rep = builder.build(p, s, a.output)
     rp = Path(a.output).with_suffix(".生成报告.md")
@@ -88,7 +94,7 @@ def cmd_build(a):
 
 
 def cmd_run(a):
-    s = Session(a.template, a.knowledge)
+    s = Session(a.template, a.knowledge, _validation(a))
     proc, p = _make_plan(a, s)
     out_dir = Path(a.output or ".")
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -114,7 +120,7 @@ def cmd_check(a):
 
 
 def cmd_learn(a):
-    s = Session(a.template, a.knowledge)
+    s = Session(a.template, a.knowledge, _validation(a))
     summary = learn.learn_pair(a.tech, a.mor, s.kn, s.cfg.op_mapping, pair_id=a.id)
     print("已学习 %s：新译名/句子 %d，新物料别名 %d，新操作映射 %d，操作块例子 %d，批注 %d" % (
         summary["pair_id"], summary["new_terms"], summary["new_aliases"], summary["new_mappings"], summary["examples"], summary["comments"]))
@@ -133,6 +139,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description="MOR 生成与复核工具")
     ap.add_argument("--template", help="rules/templates/ 下的配置名，默认见 config.yaml")
     ap.add_argument("--knowledge", help="知识库目录，默认 qwen-skills/mor-generator/knowledge")
+    ap.add_argument("--validation", choices=["yes", "no"], help="是否验证项目（验证批），默认见模板配置 validation")
     sub = ap.add_subparsers(dest="cmd", required=True)
 
     p = sub.add_parser("parse"); p.add_argument("tech"); p.add_argument("-o", "--output"); p.set_defaults(func=cmd_parse)

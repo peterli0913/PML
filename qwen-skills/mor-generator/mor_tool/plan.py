@@ -461,7 +461,13 @@ def build_plan(proc, cfg, kn, modules, matlib, ppe_gloss, use_examples=True):
             entry["safety"] = _safety(op, kn, ppe_gloss, cfg) if (pos == 0 and not same_safety) else []
             term = kn.term("instruction", op["text"]) if kn else None
             cn, notes = cn_instruction(op, entry["materials"] or mats, validation, cfg)
-            if src["type"] == "example" and src["same_text"]:
+            ex_instr = _example_instruction(src, ex) if src["type"] == "example" else {}
+            qty_blank_in_example = bool(re.search(r"称量范围[:：]\s*kg\s*~", ex_instr.get("example_cn", "")))
+            if validation and qty_blank_in_example:
+                entry["instruction"] = {"en": "", "cn": cn, "cn_src": op["text"], "status": NEEDS_AI, "notes_cn": notes}
+                entry["instruction"].update(ex_instr)
+                entry["instruction"]["hint"] = "例子是非验证项目，投料量和称量范围是空的；按 cn 里的数量改写 example_cn / example_en"
+            elif src["type"] == "example" and src["same_text"]:
                 entry["instruction"] = {"en": "", "cn": "", "status": "keep", "source": "例子块与工艺原文一致，保留"}
             elif src["type"] == "example" and not (src.get("roles") or {}).get("instruction_cn"):
                 entry["instruction"] = {"en": "", "cn": "", "status": "keep",
@@ -470,8 +476,7 @@ def build_plan(proc, cfg, kn, modules, matlib, ppe_gloss, use_examples=True):
                 entry["instruction"] = {"en": term["en"], "cn": term["cn_mor"] or cn, "status": OK, "source": "翻译记忆"}
             else:
                 entry["instruction"] = {"en": "", "cn": cn, "cn_src": op["text"], "status": NEEDS_AI, "notes_cn": notes}
-                if src["type"] == "example":
-                    entry["instruction"].update(_example_instruction(src, ex))
+                entry["instruction"].update(ex_instr)
             entry["equipment"] = _equipment_mentions(op["text"], cfg)
             plan["ins"].append(entry)
             ins_of_step.setdefault(op["step"], []).append(n)

@@ -1026,8 +1026,28 @@ def fill_headers_footers(parts, plan, cfg):
 
 # ---------------------------------------------------------------- 入口
 
+BLANK_RANGE = re.compile(r"称量范围[:：]\s*kg\s*~\s*kg")
+
+
+def _flag_blank_quantities(doc, rep):
+    """验证项目里，从非验证例子或操作库带来的空白投料量要高亮出来，不能漏填。"""
+    for b in mor_doc.ins_blocks(doc):
+        n = 0
+        for el, a, bb in b["parts"]:
+            for tr in (rows_of(el)[a:bb] if a is not None else [el]):
+                for p in tr.iter(q("p")):
+                    if BLANK_RANGE.search(clean(text_of(p))):
+                        n += 1
+                        for r in p.iter(q("r")):
+                            if run_text(r).strip():
+                                set_highlight(r)
+        if n:
+            rep.add("Ins.%d" % b["n"], "验证项目：%d 段投料量/可接受称量范围是空的，请按工艺投料表填写" % n)
+
+
 def build(plan, session, out_path):
     cfg = session.cfg
+    cfg.validation_override = bool(plan["meta"]["validation"])
     rep = Report()
     tpl = cfg.resource("template")
     z = zipfile.ZipFile(str(tpl))
@@ -1043,6 +1063,8 @@ def build(plan, session, out_path):
     rebuild_toc(body, plan)
     replace_body(body, plan, session, rep)
     fill_version(body, plan, cfg, rep)
+    if cfg.validation:
+        _flag_blank_quantities(doc, rep)
 
     if cfg.common["colors"].get("drop_blue_notes", True):
         drop_blue_runs(body)

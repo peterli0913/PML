@@ -140,6 +140,31 @@ class ColdPlanTest(unittest.TestCase):
         self.assertEqual((m2["control_no"], m2["control_status"]), ("YL000451", "ok"))
 
 
+class ValidationModeTest(unittest.TestCase):
+    """验证项目：标准投料量和可接受称量范围要算出来；例子里空着的投料量不能原样沿用。"""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.s = Session(validation=True)
+        cls.plan = plan.build_plan(tech.parse(TECH3), cls.s.cfg, cls.s.kn, cls.s.modules, cls.s.matlib, cls.s.ppe_glossary)
+
+    def test_standard_quantity_and_range(self):
+        lim = [m for m in self.plan["materials"] if m["limiting"]][0]
+        self.assertEqual(lim["cn"], "L-异亮氨酸")
+        self.assertEqual((lim["standard_qty"], lim["range"]), ("220.0", "218.9~221.1"))
+
+    def test_blank_example_quantities_not_kept(self):
+        e = self.plan["ins"][1]
+        self.assertEqual(e["instruction"]["status"], "needs_ai")
+        self.assertIn("880.0kg", e["instruction"]["cn"])
+
+    def test_build_flags_remaining_blanks(self):
+        out = Path(tempfile.mkdtemp(prefix="mor-val-")) / "val.docx"
+        rep = builder.build(copy.deepcopy(self.plan), self.s, out)
+        self.assertTrue(any("验证项目" in i["what"] for i in rep.items))
+        _validate(self, out)
+
+
 class CheckboxRenderCopyTest(unittest.TestCase):
     def test_checkbox_field_becomes_box(self):
         w = NS["w"]

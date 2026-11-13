@@ -6,8 +6,8 @@ from .knowledge import Knowledge
 
 
 class Session:
-    def __init__(self, template=None, knowledge_dir=None):
-        self.cfg = Config(template)
+    def __init__(self, template=None, knowledge_dir=None, validation=None):
+        self.cfg = Config(template, validation)
         self.kn = Knowledge(knowledge_dir or self.cfg.knowledge_dir)
         self._modules = None
         self._matlib = None

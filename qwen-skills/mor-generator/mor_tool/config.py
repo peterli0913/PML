@@ -14,7 +14,8 @@ def _yaml(path):
 
 
 class Config:
-    def __init__(self, template=None):
+    def __init__(self, template=None, validation=None):
+        self.validation_override = validation
         self.data = _yaml(TOOL_DIR / "config.yaml")
         self.rules_dir = REPO_ROOT / self.data.get("rules_dir", "qwen-skills/mor-generator/rules")
         self.knowledge_dir = REPO_ROOT / self.data.get("knowledge_dir", "qwen-skills/mor-generator/knowledge")
@@ -34,4 +35,6 @@ class Config:
 
     @property
     def validation(self):
+        if self.validation_override is not None:
+            return bool(self.validation_override)
         return bool(self.template.get("validation", False))
