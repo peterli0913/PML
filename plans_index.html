@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>凯莱英 AI 落地 6 方向推进方案 · 导航入口</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #0f1f3d 0%, #1f3870 60%, #2a4d9c 100%);
+    min-height: 100vh;
+    color: #fff;
+    padding: 60px 40px;
+  }
+  .container { max-width: 1240px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 40px; }
+  h1 {
+    font-size: 36px; font-weight: 700; margin-bottom: 10px;
+    border-left: 5px solid #ff7e3d; padding-left: 14px; display: inline-block;
+  }
+  .subtitle { font-size: 17px; opacity: 0.8; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 14px;
+    padding: 24px 26px;
+    text-decoration: none;
+    color: #fff;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    display: block;
+  }
+  .card:hover {
+    background: rgba(255,255,255,0.15);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+  }
+  .card .num {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff7e3d, #ffaa7a);
+    width: 44px; height: 44px;
+    border-radius: 10px;
+    text-align: center; line-height: 44px;
+    font-size: 22px; font-weight: 800;
+    margin-bottom: 14px;
+  }
+  .card .badge {
+    display: inline-block;
+    padding: 3px 10px; font-size: 11px;
+    border-radius: 99px; font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .badge.shortwin { background: rgba(34, 197, 94, 0.25); color: #86efac; }
+  .badge.mid { background: rgba(59, 130, 246, 0.25); color: #93c5fd; }
+  .badge.long { background: rgba(239, 68, 68, 0.25); color: #fca5a5; }
+  .card h2 {
+    font-size: 19px; font-weight: 700; margin-bottom: 8px; line-height: 1.4;
+  }
+  .card .slogan {
+    color: #ffaa7a; font-size: 14px; font-style: italic; margin-bottom: 12px;
+  }
+  .card .desc { font-size: 13px; opacity: 0.85; line-height: 1.7; margin-bottom: 12px; }
+  .card .meta {
+    font-size: 11px; opacity: 0.6; padding-top: 12px;
+    border-top: 1px dashed rgba(255,255,255,0.15);
+  }
+  .ref { margin-top: 32px; padding: 18px 22px; background: rgba(255,255,255,0.04); border-radius: 10px; font-size: 13px; }
+  .ref a { color: #ffaa7a; text-decoration: none; }
+  .ref a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>凯莱英 AI 落地 6 大方向推进方案</h1>
+    <div class="subtitle">每个方向独立的可向上汇报方案 · 仿 DH1 PdM 风格 · 含演示 demo + ROI 计算器 + 供应商对比 + 决策建议</div>
+  </header>
+
+  <div class="grid">
+    <a href="d1_qc_prediction_plan.html" class="card">
+      <div class="num">①</div>
+      <span class="badge long">长期战略</span>
+      <h2>批次放行预测 + QC 报告 AI 起草</h2>
+      <div class="slogan">让批次放行从"测完才知道"走向"做的时候就知道"</div>
+      <div class="desc">在批中期 / 结束前 AI 预测 QC 结果范围；自动生成 QC 报告草稿；高风险批早期干预，低风险批加速放行。</div>
+      <div class="meta">📅 PoC 3 月 + Pilot 4-6 月 · 💰 1500-2500 万 (3 年) · 🎯 ROI 最大但落地最难</div>
+    </a>
+
+    <a href="d2_report_drafting_plan.html" class="card">
+      <div class="num">②</div>
+      <span class="badge shortwin">短期可见 · Quick Win #1</span>
+      <h2>生产技术报告 AI 辅助撰写</h2>
+      <div class="slogan">让生产技术报告从"1 周拼报告"走向"1 天定稿"</div>
+      <div class="desc">把工艺研发 / 生产 / QA 写 Campaign Report、MOR、APR 中 70-80% 的"机械汇编"自动化；工程师专心做"趋势 + 结论 + 建议"那 20-30%。</div>
+      <div class="meta">📅 PoC 3 月 + Pilot 4-6 月 · 💰 400-600 万 (3 年) · 🎯 最易出成果</div>
+    </a>
+
+    <a href="d3_tech_transfer_plan.html" class="card">
+      <div class="num">③</div>
+      <span class="badge long">长期战略</span>
+      <h2>AI 辅助技术转移与工艺放大评估</h2>
+      <div class="slogan">让工艺技术转移从"老法师救场"走向"知识可复用"</div>
+      <div class="desc">把过去 10 年项目结构化沉淀；新项目 AI 自动给出审查清单 + 风险矩阵 + 推荐参数；资深工程师产能 +50-100%。</div>
+      <div class="meta">📅 18+ 月 · 💰 2000-3500 万 (3 年) · 🎯 凯莱英 IP 长期资产</div>
+    </a>
+
+    <a href="d4_equipment_lifecycle_plan.html" class="card">
+      <div class="num">④</div>
+      <span class="badge mid">中期布局</span>
+      <h2>设备全生命周期 AI 智能管理 (5 子模块)</h2>
+      <div class="slogan">让设备管理从"记录系统"走向"决策大脑"</div>
+      <div class="desc">电子点检 / 备品备件 / PdM / 设备验证 / 故障调查 5 子模块；一笔基础设施投入，5 个 AI 应用同时受益；跟 DH1 PdM 评估期成果衔接。</div>
+      <div class="meta">📅 12-24 月波浪推进 · 💰 1200-2000 万 (3 年) · 🎯 跨子模块复用</div>
+    </a>
+
+    <a href="d5_visual_compliance_plan.html" class="card">
+      <div class="num">⑤</div>
+      <span class="badge mid">中期布局</span>
+      <h2>视觉 AI 操作合规实时监测</h2>
+      <div class="slogan">让 GMP 巡检从"被动抽查"走向"24×7 守门员"</div>
+      <div class="desc">用现有 CCTV + 视觉 AI 实时识别违反 SOP 动作；巡检员从"主动巡查"变成"响应告警"；隐私 / 工会议题需提前打通。</div>
+      <div class="meta">📅 PoC 4 月 + Pilot 6 月 · 💰 400-800 万 (3 年) · 🎯 24×7 全覆盖</div>
+    </a>
+
+    <a href="d6_training_generation_plan.html" class="card">
+      <div class="num">⑥</div>
+      <span class="badge shortwin">短期可见 · Quick Win #2</span>
+      <h2>AI 培训内容自动化生成</h2>
+      <div class="slogan">让 SOP 培训视频从"2 周拍一个"走向"1 天上线"</div>
+      <div class="desc">SOP 文档一键生成数字人讲解视频 + 考核题；视频化覆盖率从 10% 提升到 80%+；跟方向 ② 共用 LLM 底座。</div>
+      <div class="meta">📅 PoC 3 月 + Pilot 4-6 月 · 💰 150-300 万 (3 年) · 🎯 展示效果最强</div>
+    </a>
+  </div>
+
+  <div class="ref">
+    <strong>📚 配套参考文档</strong>（同分支可访问）
+    <ul style="margin-top:8px; padding-left:20px;">
+      <li><a href="dh1_predictive_maintenance_brief.html">DH1 关键动设备 PdM 推进方案</a> — 本系列样板（设备 AI 方向 ④ 的子集 ③ PdM 已细化版本）</li>
+      <li><a href="six_directions_implementation_plan.html">6 方向落地实施方案 v1.0</a> — 工程化总览（依赖关系网 / 分工矩阵 / Gantt / Sprint 表）</li>
+      <li><a href="seven_directions_brief.html">6 方向思路汇报</a> — 上层思路（场景 + 输入输出 + 工作流 + AI 能做到多好 + 挑战）</li>
+      <li><a href="vendor_futurefab_followup_assessment.html">智现未来 PoC 评估</a> — 半导体 AI 跨域适配评估</li>
+      <li><a href="vendor_accenture_assessment.html">埃森哲咨询能力评估</a> — 战略咨询商定位</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

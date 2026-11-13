@@ -1,0 +1,37 @@
+# 通用规则。来源写在每条后面，方便以后核对和修改。
+mor_number:
+  # Tech-DH313839301 v.2 → MOR-DH313839301.02（2026-11-13 会议、MOR 批注 0）
+  pattern: "MOR-{site}{product}{step}.{version:02d}"
+
+weighing_accuracy:
+  limiting: "±0.5%"      # 工艺投料表注 1；会议 00:24
+  non_limiting: "±3.0%"
+
+charging_rows:
+  # 加料记录表行数 = 加入量 ÷ 容器容量，取整后 +1（MOR 批注 177）
+  liquid_kg_per_container: 150   # 200 L 桶按 150 kg
+  solid_kg_per_container: 25
+  min_rows: 2
+
+blank_rows:
+  equipment_list: 2        # 设备清单末尾留 2 行（批注 134）
+  material_table: 2        # 原料表末尾留 2 行（批注 144）
+
+safety:
+  # 劳保和安全措施取自工艺两列；N/A 不写（批注 174）
+  skip_values: ["N/A", "NA", "n/a", "无", ""]
+  # 「体系超温报警」是 DCS 报警设定，不进 MOR 的安全行（对照 MOR-DH313839301.02）
+  skip_line_patterns:
+    - "^体系超温报警"
+    - "^上限[:：]"
+    - "^下限[:：]"
+
+colors:
+  pink_slots_to: highlight   # 粉色是要从工艺抓取的位置；抓不到就黄色高亮
+  drop_blue_notes: true      # 蓝色说明文字成稿时删除（模板说明）
+  red_to_black: true         # 红色为模板更新提示，成稿转为黑字
+
+todo_marker: "【待补：{what}】"
+
+ins_reference_format: "Ins.{n}"      # 设备清单「操作指令编号」列：Ins.1, Ins.4（批注 131）
+ins_reference_join: ", "

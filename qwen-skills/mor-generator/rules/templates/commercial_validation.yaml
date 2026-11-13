@@ -1,0 +1,14 @@
+# QF05098 商业化（验证批）项目 MOR 模板的配置。
+# 以后别的项目类型（非商业化、临床、类 GMP）复制一份改，config.yaml 里切换 default_template。
+name: 商业化(验证批)
+template_resource: template
+library_tags_prefer: ["商业化", "打印DCS"]
+library_tags_avoid: ["类GMP", "非商业化", "备选写法"]
+
+# 验证项目：设备编号打上，标准投料量和可接受称量范围算出来（批注 132、139、140）
+# 非验证项目：设备编号写下划线，标准投料量留空。两份样例都按非验证处理。
+validation: false
+
+equipment_table: first          # 模板里有两张设备表，默认保留第一张（不含厂房和车间）
+theoretical_formula: simple     # simple：不折算含量；assay：带质量百分含量
+footer_batch_size_when_not_validation: "N/A"

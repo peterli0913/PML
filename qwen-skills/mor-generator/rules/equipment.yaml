@@ -1,0 +1,79 @@
+# 设备识别：工艺文字里的写法 → 设备清单的名称、用途和固定仪表行（会议 00:15，每类设备的仪表行数固定）。
+# pattern 是正则，{n} 表示序号，会保留到名称里。
+- pattern: "搪玻璃搅拌罐(\\d*)"
+  en: "Glass-lined mixing tank{n}"
+  cn: "L搪玻璃搅拌罐{n}"
+  function: "Prepare solution/配溶液"
+  meters: []
+- pattern: "搪玻璃釜(\\d*)"
+  en: "Glass-lined reactor{n}"
+  cn: "L搪玻璃釜{n}"
+  function: "Run reaction& Work up / 反应&后处理"
+  meters: ["Pressure meter #/压力表编号:", "Thermometer probe (Pt resistance) #温度计探针（铂电阻）编号:", "Digital display # 数显表编号:"]
+- pattern: "搪玻璃双锥|双锥干燥器|双锥"
+  en: "Rotary conical dryer"
+  cn: "双锥干燥器"
+  function: "Dry/烘料"
+  meters: ["Pressure meter #/压力表编号:", "Temperature transmitter#/温度变送器编号:"]
+- pattern: "袋式过滤器"
+  en: "Bag filter"
+  cn: "袋式过滤器"
+  function: "Filter/ 过滤"
+  meters: ["Pressure meter #/压力表编号:"]
+- pattern: "流体过滤器"
+  en: "Liquid material filter"
+  cn: "流体过滤器"
+  function: "Filter/ 过滤"
+  meters: ["Pressure meter #/压力表编号:"]
+- pattern: "衬哈离心机"
+  en: "Halar-lined Centrifuge"
+  cn: "衬哈离心机"
+  function: "Filter/ 离心"
+  meters: []
+- pattern: "白钢离心机|不锈钢离心机"
+  en: "Stainless steel Centrifuge"
+  cn: "白钢离心机"
+  function: "Filter/ 离心"
+  meters: []
+- pattern: "衬塑离心机"
+  en: "Plastic-lined Centrifuge"
+  cn: "衬塑离心机"
+  function: "Filter/ 离心"
+  meters: []
+- pattern: "(?:不锈钢)?加料漏斗(\\d*)"
+  en: "Solid addition funnel"
+  cn: "固体加料漏斗"
+  function: "Add solid material/加固体料"
+  meters: []
+  merge: true
+- pattern: "(?:不锈钢)?(?:固体)?加料箱(\\d*)"
+  en: "Solid charge box"
+  cn: "固体加料箱"
+  function: "Add solid material/加固体料"
+  meters: []
+  merge: true
+- pattern: "计量泵"
+  en: "Metering pump"
+  cn: "计量泵"
+  function: "Add liquid material/加液体料"
+  meters: []
+- pattern: "热风循环烘箱"
+  en: "Tray dryer"
+  cn: "热风循环烘箱"
+  function: "Dry/烘料"
+  meters: ["Thermometer probe (Pt resistance) #/温度计探针（铂电阻）编号:", "Digital display # /数显表编号:"]
+- pattern: "压滤罐"
+  en: "Stainless steel Nutsche filter"
+  cn: "白钢压滤罐"
+  function: "Filter/过滤"
+  meters: ["Pressure meter #/压力表编号:"]
+- pattern: "接收罐"
+  en: "Receiving tank"
+  cn: "L接收罐"
+  function: "Receive solvent/接收溶剂"
+  meters: []
+- pattern: "真空上料机"
+  en: "Vacuum charging machine"
+  cn: "真空上料机"
+  function: "Add solid material/加固体料"
+  meters: []

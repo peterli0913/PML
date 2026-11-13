@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>凯莱英生产技术报告 AI 辅助撰写 — 推进方案</title>
+<style>
+
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "HarmonyOS Sans SC", "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
+    color: #0f1f3d;
+    background: #f3f5fa;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  /* === Top nav === */
+  .topbar {
+    position: sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 10px 28px;
+    background: rgba(15,31,61,.96); color: #fff;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar .brand { font-weight:700; letter-spacing:.5px; font-size:14px;}
+  .topbar .brand .badge {
+    display:inline-block; padding:2px 8px; margin-left:8px;
+    background:#ff7e3d; color:#fff; border-radius:4px; font-size:11px; font-weight:600;
+  }
+  .topbar nav a {
+    color:#cdd6e8; font-size:12.5px; text-decoration:none;
+    margin: 0 8px; padding:6px 8px; border-radius:6px;
+  }
+  .topbar nav a:hover { background:#1d2f55; color:#fff; }
+  .topbar .modeswitch {
+    font-size:12px; cursor:pointer; padding:6px 12px;
+    border:1px solid #3b507e; color:#cdd6e8; border-radius:6px;
+    background:transparent;
+  }
+  .topbar .modeswitch:hover { background:#1d2f55; }
+
+  /* === Slide / section === */
+  main { max-width: 1240px; margin: 0 auto; padding: 0 24px 80px; }
+  section.slide {
+    background:#fff;
+    border-radius: 14px;
+    padding: 44px 52px 50px;
+    margin: 28px 0;
+    box-shadow: 0 6px 24px rgba(15,31,61,.07);
+    position: relative;
+    min-height: 540px;
+  }
+  section.slide.cover {
+    background: linear-gradient(135deg, #0f1f3d 0%, #1f3870 60%, #2a4d9c 100%);
+    color:#fff;
+  }
+  section.slide h2.kicker {
+    color:#ff7e3d; font-size: 13px; font-weight:700; letter-spacing: 4px;
+    margin: 0 0 6px; text-transform: uppercase;
+  }
+  section.slide h1 {
+    font-size: 30px; margin: 0 0 14px; font-weight:700;
+    border-left: 5px solid #ff7e3d; padding-left: 14px; line-height: 1.25;
+  }
+  section.slide.cover h1 { border:none; padding:0; font-size: 44px; line-height: 1.2;}
+  section.slide.cover .subtitle { font-size:18px; opacity:.85; margin-top:18px; max-width: 760px;}
+  section.slide.cover .meta { margin-top: 60px; font-size:13px; opacity:.75; }
+  section.slide.cover .meta div { margin: 4px 0;}
+  section.slide .lead { font-size: 16px; color:#3a4d72; margin: 0 0 24px; max-width: 920px;}
+
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 28px;}
+  .grid-3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;}
+  .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px;}
+
+  /* Cards & callouts */
+  .card {
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px;
+    padding: 20px 22px;
+  }
+  .card.accent { background: #fff7f1; border-color:#ffd8be;}
+  .card.danger { background: #fef2f2; border-color:#fecaca;}
+  .card.success { background: #f0fdf4; border-color:#bbf7d0;}
+  .card .num {
+    font-size: 32px; font-weight:800; color:#0f1f3d;
+    line-height: 1.1;
+  }
+  .card.accent .num { color:#ff7e3d; }
+  .card .num small { font-size:14px; font-weight:600; color:#7a89a8; margin-left:4px;}
+  .card .label { font-size:13px; color:#5b6a8a; margin-top:4px;}
+  .card .desc { font-size:13px; color:#3a4d72; margin-top:10px; line-height:1.5;}
+
+  /* tables */
+  table.kly { width:100%; border-collapse: collapse; font-size: 13.5px; }
+  table.kly th, table.kly td {
+    padding: 10px 12px; text-align:left;
+    border-bottom: 1px solid #e6ebf5;
+  }
+  table.kly thead th {
+    background:#0f1f3d; color:#fff; font-weight:600; font-size:12.5px;
+    letter-spacing:.5px;
+  }
+  table.kly tbody tr:nth-child(even) { background:#f7f9fc; }
+  table.kly td.num { text-align:right; font-variant-numeric: tabular-nums; }
+  table.kly .pill {
+    display:inline-block; padding:2px 9px; border-radius:99px; font-size:11.5px; font-weight:600;
+  }
+  .pill.ok    { background:#dcfce7; color:#166534; }
+  .pill.mid   { background:#fef9c3; color:#854d0e; }
+  .pill.warn  { background:#fee2e2; color:#991b1b; }
+  .pill.info  { background:#dbeafe; color:#1e3a8a; }
+
+  /* lists */
+  ul.bul { padding-left: 0; list-style:none; margin: 8px 0;}
+  ul.bul li { padding: 6px 0 6px 22px; position:relative; font-size:14px;}
+  ul.bul li:before {
+    content:""; position:absolute; left:4px; top:14px; width:8px; height:8px;
+    background:#ff7e3d; border-radius:2px; transform:rotate(45deg);
+  }
+  ul.bul.tight li { padding: 3px 0 3px 22px; font-size:13.5px; }
+  ul.bul.tight li:before { top:12px; }
+
+  .tag {
+    display:inline-block; padding:3px 10px; font-size:12px; border-radius:99px;
+    background:#e7eefb; color:#1e40af; font-weight:600; margin: 2px 4px 2px 0;
+  }
+  .tag.warn { background:#fef3c7; color:#92400e;}
+  .tag.danger { background:#fee2e2; color:#991b1b;}
+  .tag.ok { background:#dcfce7; color:#166534;}
+
+  /* Demo specific */
+  .demo-box {
+    background: linear-gradient(180deg,#0f1f3d 0%,#142a55 100%);
+    color:#fff; border-radius: 14px; padding: 24px;
+  }
+  .demo-box .demo-title { font-size: 14px; opacity:.7; margin-bottom: 10px;}
+  .gauges { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  .gauge {
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px; padding: 14px;
+  }
+  .gauge .g-label { font-size: 11.5px; color: #9aabd6; text-transform: uppercase; letter-spacing: 1px;}
+  .gauge .g-val   { font-size: 28px; font-weight:800; margin: 6px 0 2px; }
+  .gauge .g-unit  { font-size: 12px; color: #9aabd6;}
+  .gauge .g-bar   { height: 5px; background: rgba(255,255,255,.1); border-radius: 4px; margin-top:8px; overflow:hidden;}
+  .gauge .g-bar > div { height:100%; background:#3ec6ff; transition: width .3s; }
+  .gauge.warn .g-val { color:#fbbf24; }
+  .gauge.warn .g-bar > div { background:#fbbf24; }
+  .gauge.danger .g-val { color:#ef4444; }
+  .gauge.danger .g-bar > div { background:#ef4444; }
+  .gauge.ok .g-val { color:#22d3ee; }
+
+  .health-banner {
+    background: rgba(255,255,255,.06); border-radius: 10px; padding: 14px 16px;
+    display:flex; gap:24px; align-items:center; margin-bottom: 14px;
+  }
+  .health-score {
+    font-size: 56px; font-weight: 800; line-height:1;
+    background: linear-gradient(135deg,#22d3ee,#3ec6ff);
+    -webkit-background-clip: text; background-clip: text; color:transparent;
+  }
+  .health-info { flex:1; }
+  .health-info .ttl { font-size: 13px; color:#9aabd6; text-transform: uppercase; letter-spacing: 1.5px;}
+  .health-info .stat { font-size: 18px; font-weight:600; margin: 4px 0;}
+  .health-info .desc { font-size: 13px; color:#cdd6e8; }
+  .countdown { text-align:center; padding: 0 18px; border-left: 1px solid rgba(255,255,255,.1);}
+  .countdown .num { font-size:34px; font-weight:800; color:#fbbf24;}
+  .countdown .lbl { font-size: 11.5px; color:#9aabd6;}
+
+  .demo-controls {
+    display:flex; gap: 10px; align-items:center; margin-top: 14px; flex-wrap: wrap;
+    background: rgba(255,255,255,.04); border-radius:10px; padding:12px 14px;
+  }
+  .demo-controls label { font-size: 12.5px; color:#9aabd6; }
+  .demo-controls input[type=range] { flex:1; max-width: 600px; accent-color: #ff7e3d;}
+  .demo-controls .btn {
+    padding: 6px 14px; font-size: 12.5px; border-radius: 6px;
+    background: #ff7e3d; color:#fff; border:none; cursor:pointer; font-weight:600;
+  }
+  .demo-controls .btn:hover { background:#ff9359;}
+  .demo-controls .btn.ghost { background:transparent; color:#9aabd6; border:1px solid rgba(255,255,255,.18);}
+  .demo-controls .btn.ghost:hover { color:#fff;}
+
+  .event-log {
+    margin-top: 14px; max-height: 180px; overflow-y: auto;
+    background: rgba(255,255,255,.04); border-radius: 10px; padding: 8px 14px;
+    font-size:12.5px;
+  }
+  .event-log .e { padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,.08);}
+  .event-log .e:last-child { border:none;}
+  .event-log .e .t { color:#9aabd6; margin-right:10px; font-variant-numeric: tabular-nums;}
+  .event-log .e.warn .t { color:#fbbf24;}
+  .event-log .e.danger .t { color:#ef4444;}
+
+  /* ROI */
+  .roi-grid { display:grid; grid-template-columns: 380px 1fr; gap: 28px; }
+  .roi-input {
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px;
+    padding: 22px;
+  }
+  .roi-input .field { margin-bottom: 12px;}
+  .roi-input .field label {
+    display:block; font-size: 12.5px; color:#5b6a8a;
+    margin-bottom: 4px; font-weight: 500;
+  }
+  .roi-input .field input {
+    width:100%; padding: 8px 10px; font-size: 14px;
+    border: 1px solid #d4dbed; border-radius:6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .roi-input .field .hint { font-size: 11.5px; color:#7a89a8; margin-top:2px;}
+  .roi-out {
+    background: linear-gradient(135deg, #0f1f3d, #1f3870);
+    color:#fff; border-radius:12px; padding: 22px;
+    display:grid; grid-template-rows: auto 1fr;
+  }
+  .roi-out .ttl { font-size: 13px; color:#9aabd6; text-transform: uppercase; letter-spacing: 2px;}
+  .roi-numbers { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top:14px;}
+  .roi-numbers .item { background: rgba(255,255,255,.06); padding:14px; border-radius:10px; }
+  .roi-numbers .item .v { font-size:30px; font-weight:800; color:#22d3ee;}
+  .roi-numbers .item .v.orange { color:#fbbf24; }
+  .roi-numbers .item .l { font-size:12px; color:#9aabd6; margin-top:4px;}
+  .roi-bar-row { margin-top:14px; }
+  .roi-bar-row .lbl { font-size: 12px; color:#9aabd6; margin-bottom:4px;}
+  .roi-bar { background: rgba(255,255,255,.08); height: 16px; border-radius:8px; overflow:hidden; position:relative;}
+  .roi-bar > div { height:100%; background: linear-gradient(90deg,#22d3ee,#3ec6ff); transition: width .3s;}
+  .roi-bar .marker {
+    position:absolute; top:-4px; bottom:-4px; width:2px; background:#ff7e3d;
+  }
+  .roi-bar .marker:after {
+    content:""; position:absolute; top:-4px; left:-4px; width:10px; height:10px;
+    background:#ff7e3d; border-radius:50%;
+  }
+
+  /* Roadmap */
+  .roadmap { display:grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top:8px;}
+  .roadmap .stage {
+    background:#fff; border:1px solid #e3e8f2; border-radius:10px;
+    padding: 16px 14px;
+    position: relative;
+  }
+  .roadmap .stage:before {
+    content:""; position:absolute; top: 50%; right:-7px; width:14px; height:14px;
+    background:#ff7e3d; border-radius: 50%; transform: translateY(-50%);
+    border: 3px solid #fff; box-shadow: 0 0 0 1px #ffaa7a;
+    z-index:2;
+  }
+  .roadmap .stage:last-child:before { display:none;}
+  .roadmap .stage .month { font-size: 12px; color:#ff7e3d; font-weight:700;}
+  .roadmap .stage .ttl { font-size: 14px; font-weight:700; margin: 4px 0; }
+  .roadmap .stage .det { font-size: 12px; color:#5b6a8a;}
+
+  /* SVG charts */
+  svg.chart text { font-family: inherit; }
+  svg.chart .grid line { stroke: #e3e8f2; stroke-dasharray: 2 3;}
+  svg.chart .axis  line, svg.chart .axis path { stroke: #94a3b8; }
+  svg.chart .axis text { fill:#5b6a8a; font-size: 11px;}
+  svg.chart .l-actual { fill:none; stroke:#3ec6ff; stroke-width:2;}
+  svg.chart .l-pred   { fill:none; stroke:#fbbf24; stroke-width:2; stroke-dasharray: 4 4;}
+  svg.chart .l-thresh { stroke:#ef4444; stroke-dasharray: 5 4; stroke-width:1.5; }
+  svg.chart .a-band   { fill: rgba(251,191,36,.15);}
+
+  /* footer */
+  .footnote { font-size: 11.5px; color:#7a89a8; margin-top: 14px; line-height: 1.5;}
+
+  /* slide deck mode */
+  body.deck main { padding: 0; max-width: none;}
+  body.deck section.slide {
+    margin: 0; min-height: 100vh; border-radius: 0;
+    display: none;
+    padding: 60px 80px 60px;
+  }
+  body.deck section.slide.active { display:block; }
+  body.deck .topbar { display:flex; }
+  body.deck .deck-nav { display:flex !important;}
+  .deck-nav {
+    display:none;
+    position: fixed; bottom: 18px; right: 18px; z-index: 60;
+    background: rgba(15,31,61,.92); padding: 6px 10px; border-radius: 999px;
+    color:#fff; font-size: 12.5px; gap: 8px; align-items:center;
+  }
+  .deck-nav button {
+    background: transparent; border: none; color:#fff; cursor:pointer;
+    padding: 4px 10px; border-radius: 6px; font-weight: 600;
+  }
+  .deck-nav button:hover { background: rgba(255,255,255,.1);}
+  .deck-nav .pages { font-variant-numeric: tabular-nums; opacity: .8;}
+
+  /* Responsive */
+  @media (max-width: 980px){
+    .grid-2, .grid-3, .grid-4, .roadmap { grid-template-columns: 1fr;}
+    .roi-grid { grid-template-columns: 1fr;}
+    section.slide { padding: 28px 22px;}
+    .gauges { grid-template-columns: repeat(2,1fr);}
+  }
+  /* print */
+  @media print {
+    .topbar, .deck-nav { display:none !important;}
+    section.slide { box-shadow:none; page-break-after: always; margin: 0; border-radius: 0;}
+    body { background:#fff;}
+  }
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">凯莱英 · AI 落地推进 <span class="badge">方向 ② · 报告 AI 撰写</span></div>
+  <nav>
+    <a href="#cover">封面</a>
+    <a href="#why">背景</a>
+    <a href="#status">现状</a>
+    <a href="#scope">范围</a>
+    <a href="#tech">技术路线</a>
+    <a href="#demo">演示</a>
+    <a href="#vendor">供应商</a>
+    <a href="#roi">ROI</a>
+    <a href="#roadmap">路径</a>
+    <a href="#risk">风险</a>
+    <a href="#decision">决策</a>
+  </nav>
+  <button class="modeswitch" onclick="document.body.classList.toggle('deck')">演示模式</button>
+</div>
+
+<main>
+
+<!-- ============ 封面 ============ -->
+<section class="slide cover" id="cover">
+  <h2 class="kicker">CAMPAIGN REPORT · MOR · APR · AI DRAFTING</h2>
+  <h1>凯莱英生产技术报告<br/>AI 辅助撰写推进方案</h1>
+  <div class="subtitle">让生产技术报告从<br/><span style="color:#ff9b6b;">"1 周拼报告"走向"1 天定稿"</span></div>
+  <div class="subtitle" style="font-size:15px; margin-top:14px; opacity:.75;">把工艺研发 / 生产 / QA 写 Campaign Report、MOR、APR 中 70-80% 的"机械汇编"工作交给 AI；
+工程师从"拉数据 + 填表格"解放出来，专心做"趋势分析 + 结论 + 改善建议"那 20-30%。</div>
+  <div class="meta">
+    <div>方向编号：② · Quick Win 候选 #1</div>
+    <div>主导部门：工艺研发 / 生产 / QA / IT</div>
+    <div>预计 PoC 周期：3 个月 · Pilot 周期：4-6 个月</div>
+    <div>本方案版本：v1.0</div>
+  </div>
+</section>
+
+<!-- ============ PART 01 · 为什么是现在 ============ -->
+<section class="slide" id="why">
+  <h2 class="kicker">PART 01 · 为什么是现在</h2>
+  <h1>每年 200+ 份技术报告 · 资深工程师 30% 工时被"机械汇编"占用</h1>
+  <p class="lead">
+    技术报告是 CDMO 业务的"<strong>对外交付物</strong>"和"<strong>对内沉淀物</strong>"双重身份 —— Campaign Report 给客户、MOR 给管理层、APR 给监管。
+    数量大、模板固定、数据源散落 —— 这正是 AI 最擅长的场景。
+  </p>
+
+  <div class="grid-4" style="margin-top:14px;">
+    <div class="card accent">
+      <div class="num">~200+</div>
+      <div class="label">凯莱英每年技术报告数量</div>
+      <div class="desc">含 Campaign Report ~80 / MOR ~24 / APR ~40 / 偏差总结 ~50 / 客户技术报告 ~30+（估算）</div>
+    </div>
+    <div class="card accent">
+      <div class="num">5 d</div>
+      <div class="label">单份 Campaign Report 平均工时</div>
+      <div class="desc">资深工艺工程师从"拉数据→拼表格→画图→写结论"完整 5 个工作日</div>
+    </div>
+    <div class="card accent">
+      <div class="num">70-80%</div>
+      <div class="label">报告内容是"机械汇编"</div>
+      <div class="desc">批次清单 / KPI 表 / 趋势图 / 偏差汇总 / CAPA 关闭表 — 都是从 MES / LIMS / QMS / SAP / IP.21 拉数据 + 模板填充</div>
+    </div>
+    <div class="card accent">
+      <div class="num">20-30%</div>
+      <div class="label">真正需要专家判断的部分</div>
+      <div class="desc">趋势分析、根因解读、结论、改善建议 — AI 只做初稿，工程师定稿</div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:24px; font-size:18px; color:#0f1f3d;">业务痛点</h2>
+  <div class="grid-3" style="margin-top:8px;">
+    <div class="card danger">
+      <strong style="color:#991b1b;">🔴 工程师产能浪费</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>5 工作日 / 份 × 200 份 = 1000 工作日 / 年 ≈ 4 个全职工程师</li>
+        <li>其中 700 工作日（70%）是"机械活"</li>
+        <li>资深工程师本应做"工艺优化"，被报告拖住</li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <strong style="color:#991b1b;">🔴 报告质量不一致</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>不同工程师写出来的同类报告结构不一致</li>
+        <li>数据漏项、图表标错、引用不一致 — 客户审计时常被指出</li>
+        <li>新人写报告需要 2-3 倍时间</li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <strong style="color:#991b1b;">🔴 监管 / 客户要求越来越高</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>FDA / NMPA 要求 APR 数据可追溯 + 趋势分析</li>
+        <li>客户技术报告要求 7-14 天内交付（越来越紧）</li>
+        <li>QbD / PAT 体系下报告需要包含的数据维度比 5 年前多 2-3 倍</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card success" style="margin-top:18px;">
+    <strong style="color:#166534;">💡 为什么是"AI 不烧钱也能见效"的最佳实证</strong>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li><strong>不涉及生产决策</strong> — 不动 GMP 严管的"放行 / 投料"流程，监管敏感度低</li>
+      <li><strong>有兜底</strong> — 工程师审核签字流程不变，AI 出错最多被改掉，不会发到客户</li>
+      <li><strong>价值显性</strong> — 每份报告省 4 工时，规模化后 800 工时/年起步</li>
+      <li><strong>技术成熟</strong> — 市场上 LLM + RAG 方案非常成熟，DeepSeek / 通义 / 盘古都可选</li>
+      <li><strong>团队接受度高</strong> — 让工程师"少干苦活"，业务部门主动配合</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ PART 02 · 现状盘点 ============ -->
+<section class="slide" id="status">
+  <h2 class="kicker">PART 02 · 凯莱英现状盘点</h2>
+  <h1>底座 80% 就绪 · 缺的是把数据"汇编 + 套模板"的最后一公里</h1>
+  <p class="lead">
+    凯莱英其实已经做了大量"数据沉淀"的工作 —— MES / LIMS / QMS / SAP / EAM 都在跑。
+    缺的不是数据，是<strong>"跨系统取数 + 按模板填充 + 自动生成图表"</strong>这一层。
+  </p>
+
+  <table class="kly">
+    <thead>
+      <tr><th style="width:18%;">维度</th><th style="width:22%;">现有基础</th><th style="width:22%;">缺什么</th><th>评估</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>数据源</strong></td>
+        <td>MES / EBR / LIMS / QMS / SAP / EAM / IP.21 都已在用</td>
+        <td>跨系统统一查询层（数据中间层 / 数据湖）</td>
+        <td><span class="pill mid">部分就绪</span> 需 IT 建中间层</td>
+      </tr>
+      <tr>
+        <td><strong>报告模板</strong></td>
+        <td>Word 模板已有；不同客户模板已有</td>
+        <td>"段落 + 数据来源" 结构化版本（AI 可读格式）</td>
+        <td><span class="pill mid">部分就绪</span> 业务 2-4 周可做</td>
+      </tr>
+      <tr>
+        <td><strong>历史报告语料</strong></td>
+        <td>历年报告归档完整，可查到 5+ 年历史</td>
+        <td>结构化解析（Word/PDF → 段落级元数据）</td>
+        <td><span class="pill ok">就绪</span> 用 OCR + LLM 半自动处理</td>
+      </tr>
+      <tr>
+        <td><strong>AI 基础设施</strong></td>
+        <td>—</td>
+        <td>LLM 服务（推理）+ 向量库（RAG）+ 调用网关</td>
+        <td><span class="pill warn">缺失</span> 这是 PoC 的核心建设</td>
+      </tr>
+      <tr>
+        <td><strong>SOP / 流程</strong></td>
+        <td>报告撰写 SOP 完整，审核签字流程清晰</td>
+        <td>加一节"AI 草稿 + 工程师定稿"的描述</td>
+        <td><span class="pill ok">就绪</span> QA 1-2 周可更新</td>
+      </tr>
+      <tr>
+        <td><strong>客户数据隔离</strong></td>
+        <td>各客户项目数据已隔离（CDMO 业务必备）</td>
+        <td>客户专属 RAG 索引 + 项目级权限</td>
+        <td><span class="pill mid">部分就绪</span> AI 层需重新设计权限</td>
+      </tr>
+      <tr>
+        <td><strong>合规 / 验证</strong></td>
+        <td>GAMP 5 验证流程已建立</td>
+        <td>AI 系统验证模板（针对 LLM / RAG）</td>
+        <td><span class="pill mid">部分就绪</span> 需要 QA + 法规事务参与</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card" style="margin-top:18px;">
+    <strong>核心判断</strong>：
+    <ul class="bul tight" style="margin-top:6px;">
+      <li>凯莱英不是"从零起步"，<strong>80% 的底座已经在</strong>，缺的是"把数据汇编 + 套模板"那一层 AI</li>
+      <li>最大工程量在<strong>跨系统取数中间层</strong>（IT 主责，4-8 周）+ <strong>模板结构化</strong>（业务主责，2-4 周）</li>
+      <li>LLM 选型可外采（DeepSeek 私有化 / 通义企业版 / 华为云盘古），不需要从头训练</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ PART 03 · 范围 ============ -->
+<section class="slide" id="scope">
+  <h2 class="kicker">PART 03 · 试点覆盖范围</h2>
+  <h1>从"1 种报告 × 1 个项目"扩展到"5 种报告 × 全公司项目"</h1>
+  <p class="lead">
+    分 3 步走，每一步都有明确的"扩多大"边界。第一步 PoC 只做<strong>Campaign Report</strong>（最高频）×
+    <strong>1 个商业化项目</strong>（数据最丰富），跑通后再扩展。
+  </p>
+
+  <div class="roadmap" style="grid-template-columns: repeat(3, 1fr); margin-top:14px;">
+    <div class="stage">
+      <div class="month">PoC · M1-M3</div>
+      <div class="ttl">1 种 × 1 个</div>
+      <div class="det">
+        Campaign Report ×<br/>1 个商业化项目<br/>（含历史 10+ 批）<br/>
+        <strong style="color:#ff7e3d;">目标</strong>：草稿采纳率 ≥50%
+      </div>
+    </div>
+    <div class="stage">
+      <div class="month">Pilot · M4-M7</div>
+      <div class="ttl">3 种 × 10-20 个</div>
+      <div class="det">
+        + MOR + 偏差总结<br/>
+        覆盖 10-20 个项目<br/>
+        含客户专属模板<br/>
+        <strong style="color:#ff7e3d;">目标</strong>：草稿采纳率 ≥65%、工时省 ≥40%
+      </div>
+    </div>
+    <div class="stage">
+      <div class="month">Scale · M8-M12+</div>
+      <div class="ttl">5 种 × 全公司</div>
+      <div class="det">
+        + APR + 客户技术报告<br/>
+        覆盖所有项目<br/>
+        含多语言版本<br/>
+        <strong style="color:#ff7e3d;">目标</strong>：年节省 1500+ 工时 / 200 万 +
+      </div>
+    </div>
+  </div>
+
+  <h2 style="margin-top:24px; font-size:18px; color:#0f1f3d;">PoC 阶段的具体范围 — 跟 IT 第一次开会时拍板</h2>
+
+  <div class="grid-2" style="margin-top:10px;">
+    <div class="card success">
+      <strong style="color:#166534;">✅ MVP 做的</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li><strong>1 个项目</strong>：选某主力商业化 API 项目（10+ 历史批次 + 数据完整）</li>
+        <li><strong>1 种报告</strong>：Campaign Report（出现频率最高，模板成熟）</li>
+        <li><strong>5 个数据源</strong>：MES / LIMS / QMS / SAP / IP.21（不接 EAM）</li>
+        <li><strong>2 种输出</strong>：Word 草稿 + PDF 预览（不接邮件 / 客户端）</li>
+        <li><strong>LLM + RAG 架构</strong>：用通用大模型 + 凯莱英专属 RAG 索引（不训练专属模型）</li>
+        <li><strong>1 个团队</strong>：选某项目组的 5-10 位工艺工程师试用</li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <strong style="color:#991b1b;">❌ MVP 不做的（避免范围蔓延）</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>不做 APR（监管最严，留 V3）</li>
+        <li>不做客户专属模板（先做凯莱英标准）</li>
+        <li>不做 AI 自动发布给客户（永远人工审核签字）</li>
+        <li>不做"AI 直接写结论"（AI 提供 3-5 个候选段落，工程师选）</li>
+        <li>不做多语言（先中文，英文留 Pilot 阶段）</li>
+        <li>不做实时生成（先支持"批次结束后 24 小时内出草稿"，不做实时）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 04 · 技术路线 ============ -->
+<section class="slide" id="tech">
+  <h2 class="kicker">PART 04 · 技术路线 — 可复用、可解释、可审计</h2>
+  <h1>跨系统取数 → 段落级 RAG → 模板填充 → 工程师定稿</h1>
+  <p class="lead">
+    架构上不复杂，关键在<strong>"段落级 RAG"</strong>这个设计选择 ——
+    不让 LLM"自由发挥",而是<strong>把每个段落的内容来源严格绑定到原始数据 / 历史段落</strong>，
+    从根上规避 LLM 的"幻觉"问题，满足合规审计要求。
+  </p>
+
+  <div style="margin-top:14px;">
+    <svg viewBox="0 0 1100 380" style="width:100%; height:auto;">
+      <!-- 数据源层 -->
+      <rect x="20" y="20" width="220" height="180" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5" rx="10"/>
+      <text x="130" y="48" text-anchor="middle" font-size="14" font-weight="700" fill="#1e40af">📥 数据源层 (IT)</text>
+      <text x="35" y="75" font-size="12" fill="#1e3a8a">• MES / EBR (批次执行)</text>
+      <text x="35" y="95" font-size="12" fill="#1e3a8a">• LIMS (QC 结果)</text>
+      <text x="35" y="115" font-size="12" fill="#1e3a8a">• QMS (偏差 / CAPA)</text>
+      <text x="35" y="135" font-size="12" fill="#1e3a8a">• SAP (物料 / 成本)</text>
+      <text x="35" y="155" font-size="12" fill="#1e3a8a">• IP.21 (CPP 趋势)</text>
+      <text x="35" y="178" font-size="11" font-style="italic" fill="#7c2d12">→ 跨系统数据中间层</text>
+
+      <!-- AI 处理层 -->
+      <rect x="280" y="20" width="240" height="340" fill="#f5f3ff" stroke="#7c3aed" stroke-width="1.5" rx="10"/>
+      <text x="400" y="48" text-anchor="middle" font-size="14" font-weight="700" fill="#5b21b6">🤖 AI 处理层</text>
+      <text x="295" y="78" font-size="12" fill="#3a4d72">① 数据 ETL + 清洗</text>
+      <text x="295" y="98" font-size="12" fill="#3a4d72">② 历史报告解析</text>
+      <text x="295" y="113" font-size="11" fill="#7a89a8" font-style="italic">→ 段落级元数据</text>
+      <text x="295" y="138" font-size="12" fill="#3a4d72">③ 向量化 + RAG 索引</text>
+      <text x="295" y="153" font-size="11" fill="#7a89a8" font-style="italic">→ 按项目 / 客户隔离</text>
+      <text x="295" y="178" font-size="12" fill="#3a4d72">④ LLM 推理</text>
+      <text x="295" y="193" font-size="11" fill="#7a89a8" font-style="italic">→ 段落 by 段落生成</text>
+      <text x="295" y="218" font-size="12" fill="#3a4d72">⑤ 数据交叉校验</text>
+      <text x="295" y="233" font-size="11" fill="#7a89a8" font-style="italic">→ 数字一致性检查</text>
+      <text x="295" y="258" font-size="12" fill="#3a4d72">⑥ 图表自动生成</text>
+      <text x="295" y="273" font-size="11" fill="#7a89a8" font-style="italic">→ 趋势图 / Pareto</text>
+      <text x="295" y="298" font-size="12" fill="#3a4d72">⑦ 引用源标注</text>
+      <text x="295" y="313" font-size="11" fill="#7a89a8" font-style="italic">→ 段落 → 数据 / 文档</text>
+      <text x="295" y="338" font-size="11" font-style="italic" fill="#5b21b6">→ 段落级 RAG 是合规的关键</text>
+
+      <!-- 业务工作层 -->
+      <rect x="560" y="20" width="220" height="180" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5" rx="10"/>
+      <text x="670" y="48" text-anchor="middle" font-size="14" font-weight="700" fill="#065f46">👤 业务工作层</text>
+      <text x="575" y="75" font-size="12" fill="#3a4d72">• 内部门户"一键生成"</text>
+      <text x="575" y="95" font-size="12" fill="#3a4d72">• Word 协同编辑器</text>
+      <text x="575" y="115" font-size="12" fill="#3a4d72">• 段落级"采纳 / 修改"</text>
+      <text x="575" y="135" font-size="12" fill="#3a4d72">• 引用源点击查原文</text>
+      <text x="575" y="155" font-size="12" fill="#3a4d72">• 二级审核 → QA 签字</text>
+      <text x="575" y="178" font-size="11" font-style="italic" fill="#7c2d12">→ 工艺工程师主操作</text>
+
+      <!-- 输出 / 合规层 -->
+      <rect x="820" y="20" width="260" height="340" fill="#fff7ed" stroke="#f59e0b" stroke-width="1.5" rx="10"/>
+      <text x="950" y="48" text-anchor="middle" font-size="14" font-weight="700" fill="#92400e">📤 输出 / 合规层</text>
+      <text x="835" y="78" font-size="12" fill="#3a4d72">• Word + PDF 双格式</text>
+      <text x="835" y="98" font-size="12" fill="#3a4d72">• 自动配套附件</text>
+      <text x="835" y="113" font-size="11" fill="#7a89a8" font-style="italic">(批次列表 / 趋势图)</text>
+      <text x="835" y="138" font-size="12" fill="#3a4d72">• 引用源链路完整</text>
+      <text x="835" y="158" font-size="12" fill="#3a4d72">• 审计日志</text>
+      <text x="835" y="173" font-size="11" fill="#7a89a8" font-style="italic">(谁触发 / 谁审 / 谁签)</text>
+      <text x="835" y="198" font-size="12" fill="#3a4d72">• 客户专属水印</text>
+      <text x="835" y="218" font-size="12" fill="#3a4d72">• GAMP 5 验证</text>
+      <text x="835" y="238" font-size="12" fill="#3a4d72">• 21 CFR Part 11 兼容</text>
+      <text x="835" y="263" font-size="12" fill="#3a4d72">• EU GMP Annex 22 路径</text>
+      <text x="835" y="288" font-size="12" fill="#3a4d72">• 历史版本可追溯</text>
+      <text x="835" y="308" font-size="12" fill="#3a4d72">• 报告反馈 → 再训练</text>
+      <text x="835" y="338" font-size="11" font-style="italic" fill="#92400e">→ 客户审计 / FDA 检查应对</text>
+
+      <!-- 数据流向箭头 -->
+      <polygon points="240,110 275,110 270,105 270,115" fill="#3b82f6"/>
+      <polygon points="525,110 555,110 550,105 550,115" fill="#7c3aed"/>
+      <polygon points="785,110 815,110 810,105 810,115" fill="#10b981"/>
+      <text x="265" y="90" font-size="10" fill="#7c2d12">数据</text>
+      <text x="540" y="90" font-size="10" fill="#7c2d12">草稿</text>
+      <text x="800" y="90" font-size="10" fill="#7c2d12">交付</text>
+    </svg>
+  </div>
+
+  <h2 style="margin-top:22px; font-size:18px; color:#0f1f3d;">关键设计 · "段落级 RAG"</h2>
+  <p style="font-size:13.5px; color:#3a4d72; line-height:1.8;">
+    传统 LLM 用法是"输入数据 + 模板 → 输出报告"，但这种方式有<strong>幻觉风险</strong>（LLM 会自己编数字）。
+    我们采用<strong>"段落级 RAG"</strong>设计：
+  </p>
+  <ul class="bul tight">
+    <li><strong>每个报告章节 → 拆成若干段落</strong>，每个段落有自己的"数据来源类型"（KPI 表 / 趋势图 / 偏差总结 / 结论建议 等）</li>
+    <li><strong>每种数据来源类型 → 走不同的生成路径</strong>：
+      <ul class="bul tight" style="margin-left:20px;">
+        <li>"批次清单 / KPI 表"：从 MES / LIMS 直接<strong>硬填充</strong>，不让 LLM 改数字</li>
+        <li>"趋势图 / Pareto"：从数据计算结果<strong>渲染成 SVG / 图片</strong>，不让 LLM 画图</li>
+        <li>"偏差描述 / CAPA 总结"：用 LLM 改写，但<strong>每段都附原始 QMS 记录链接</strong></li>
+        <li>"结论 / 改善建议"：LLM 提供 3-5 个候选，工程师选 / 改 / 自己写</li>
+      </ul>
+    </li>
+    <li><strong>每个段落都附"引用源"标签</strong>，可点击跳转原始数据 → 合规审计可追溯</li>
+  </ul>
+
+  <div class="card success" style="margin-top:14px;">
+    <strong style="color:#166534;">为什么这个设计能满足合规</strong>：每个数字、每段引用都可追溯到原始系统记录；LLM 只在
+    "改写已有内容"和"提供候选建议"两个有限场景介入；工程师审核时<strong>每段都能看到来源</strong>。
+    GAMP 5 验证时可以明确"哪些是 AI 决策、哪些是数据搬运"。
+  </div>
+</section>
+
+<!-- ============ PART 05 · 演示 demo ============ -->
+<section class="slide" id="demo">
+  <h2 class="kicker">PART 05 · 这就是 AI 辅助撰写的样子</h2>
+  <h1>实时演示：某 API 项目 Q3 Campaign Report 自动生成</h1>
+  <p class="lead">
+    场景：API 项目 X-2026-Q3 第 18 批刚结束，工艺工程师在内部门户点"生成 Campaign Report"。
+    左侧选数据源、右侧看 AI 实时生成的报告大纲。
+  </p>
+
+  <div class="demo-box" style="margin-top:12px;">
+    <div class="demo-title">📊 报告生成器 · API 项目 X-2026-Q3</div>
+
+    <div style="display:grid; grid-template-columns: 320px 1fr; gap: 20px;">
+      <div>
+        <div style="font-size:13px; color:#9aabd6; margin-bottom:8px;">📂 可用数据源（点击启用）</div>
+        <div id="d2-sources" style="display:flex; flex-direction:column; gap:6px;"></div>
+        <div style="font-size:11.5px; color:#9aabd6; margin-top:14px;">已启用：<span id="d2-count" style="color:#fbbf24; font-weight:700;">0</span> / 8 个数据源</div>
+        <div style="font-size:11px; color:#7a89a8; margin-top:6px; line-height:1.6;">
+          演示：启用越多数据源 → AI 自动生成的报告章节越完整、引用源越多
+        </div>
+      </div>
+
+      <div>
+        <div style="font-size:13px; color:#9aabd6; margin-bottom:8px;">📄 实时生成的报告大纲（含数据流向）</div>
+        <div id="d2-outline" style="background:rgba(255,255,255,.04); border-radius:8px; padding:14px; max-height:380px; overflow-y:auto; font-size:12.5px; line-height:1.85;">
+          <em style="color:#7a89a8;">请先在左侧启用数据源 ...</em>
+        </div>
+        <div style="margin-top:12px; display:flex; gap:10px; align-items:center;">
+          <button class="btn" onclick="d2GenerateAll()">▶ 启用全部 + 生成完整报告</button>
+          <button class="btn ghost" onclick="d2Clear()">↻ 清空</button>
+          <span id="d2-status" style="font-size:11.5px; color:#9aabd6;"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:14px;">
+    <strong>看完 demo 后的几个关键点</strong>：
+    <ul class="bul tight" style="margin-top:6px;">
+      <li>每个章节<strong>都标注了数据来源</strong>（比如"3.1 趋势分析 ← IP.21 + LIMS"）— 这是合规审计的命脉</li>
+      <li>启用 6+ 数据源后报告大纲达到 9-10 个章节 → 跟资深工程师手写的 Campaign Report 结构对等</li>
+      <li>实际使用中，工程师启动后<strong>30 秒-2 分钟</strong>内可以拿到完整草稿，再花 0.5-1 天审核 / 改 / 签字</li>
+    </ul>
+  </div>
+</section>
+
+<script>
+const d2Sources = [
+  { id:'mes', name:'MES / EBR · 批次执行记录', sections:[
+    {title:'1. 执行摘要 — 本期生产概况',  src:'MES'},
+    {title:'2. 批次清单 + 工艺执行表 (含偏离项标注)', src:'MES + EBR'}
+  ]},
+  { id:'lims', name:'LIMS · QC 检测结果',  sections:[
+    {title:'3. QC 检测结果汇总 (各 CQA 项)', src:'LIMS'},
+    {title:'3.1 关键 CQA 批间趋势分析', src:'LIMS'}
+  ]},
+  { id:'qms', name:'QMS · 偏差 + CAPA',  sections:[
+    {title:'4. 偏差与 CAPA 关闭情况', src:'QMS'},
+    {title:'4.1 同类问题分析 (跨批次 / 跨项目)', src:'QMS + 历史报告 RAG'}
+  ]},
+  { id:'sap', name:'SAP · 物料消耗 + 成本',  sections:[
+    {title:'5. 物料消耗与单批成本分析', src:'SAP'}
+  ]},
+  { id:'ip21', name:'IP.21 · DCS 工艺参数趋势', sections:[
+    {title:'2.1 关键 CPP 趋势 (温度 / 压力 / pH)', src:'IP.21'}
+  ]},
+  { id:'eam', name:'EAM · 设备运行 + 维护',  sections:[
+    {title:'6. 设备运行情况 (OEE / 停机 / 清洁验证)', src:'EAM'}
+  ]},
+  { id:'tpl', name:'客户专属报告模板',     sections:[
+    {title:'7. 客户专属附件 (按客户模板)', src:'客户模板库'}
+  ]},
+  { id:'hist', name:'历史报告语料库 (RAG)', sections:[
+    {title:'8. 趋势对比 + 改善建议初稿', src:'历史报告 RAG + LLM'},
+    {title:'9. 结论 + 合规声明草稿', src:'历史模板 + LLM'}
+  ]}
+];
+const d2Active = new Set();
+function renderD2(){
+  const c = document.getElementById('d2-sources');
+  c.innerHTML = '';
+  d2Sources.forEach(s => {
+    const b = document.createElement('button');
+    b.className = 'btn ' + (d2Active.has(s.id)?'':'ghost');
+    b.style.textAlign='left'; b.style.fontSize='12px';
+    b.textContent = (d2Active.has(s.id)?'✓ ':'+ ') + s.name;
+    b.onclick = ()=>{ d2Active.has(s.id) ? d2Active.delete(s.id) : d2Active.add(s.id); renderD2(); };
+    c.appendChild(b);
+  });
+  document.getElementById('d2-count').textContent = d2Active.size;
+  const o = document.getElementById('d2-outline');
+  if (d2Active.size===0){
+    o.innerHTML = '<em style="color:#7a89a8;">请先在左侧启用数据源 ...</em>';
+    return;
+  }
+  let html = '';
+  d2Sources.forEach(s => {
+    if (!d2Active.has(s.id)) return;
+    s.sections.forEach(sec => {
+      html += '<div style="margin:8px 0; padding-left:10px; border-left:3px solid #fbbf24;">' +
+              '<strong style="color:#fff;">'+sec.title+'</strong>' +
+              '<div style="font-size:11px; color:#9aabd6; margin-top:2px;">← 数据源：'+sec.src+'</div></div>';
+    });
+  });
+  o.innerHTML = html;
+  document.getElementById('d2-status').textContent = '✓ 草稿生成中 ...';
+  setTimeout(()=>{ document.getElementById('d2-status').textContent = '✓ Word 草稿已就绪 (Mock)'; }, 400);
+}
+function d2GenerateAll(){
+  d2Active.clear();
+  d2Sources.forEach(s => d2Active.add(s.id));
+  renderD2();
+}
+function d2Clear(){
+  d2Active.clear();
+  renderD2();
+}
+renderD2();
+</script>
+
+<!-- ============ PART 06 · 供应商方案对比 ============ -->
+<section class="slide" id="vendor">
+  <h2 class="kicker">PART 06 · 三条路线对比</h2>
+  <h1>外采 LLM 服务 · 外采制药行业 RAG · 自建</h1>
+  <p class="lead">
+    报告 AI 起草这块没有"唯一标准方案"，市场上主要 3 条路线。建议<strong>"通用 LLM + 自建 RAG"</strong>为主，
+    成本最低、可控性最高，且跟方向 ⑥ 培训生成共用底座。
+  </p>
+
+  <table class="kly" style="margin-top:14px;">
+    <thead>
+      <tr>
+        <th style="width:14%;">维度</th>
+        <th style="width:24%;">路线 A · 通用 LLM + 自建 RAG（推荐）</th>
+        <th style="width:24%;">路线 B · 制药行业 LLM（华为云盘古制药 / Aizon）</th>
+        <th style="width:24%;">路线 C · 全包咨询商（埃森哲）</th>
+        <th>路线 D · 国产替代 (DeepSeek/通义) + RAG</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>LLM 来源</strong></td>
+        <td>OpenAI GPT-4o / Claude / 国产任选</td>
+        <td>华为云盘古制药专属大模型</td>
+        <td>埃森哲 AI Refinery™ 集成多家</td>
+        <td>DeepSeek 满血版（私有化）/ 通义千问企业版</td>
+      </tr>
+      <tr>
+        <td><strong>制药领域知识</strong></td>
+        <td>无内置，靠 RAG 索引补</td>
+        <td>有内置（含制药案例库）</td>
+        <td>有部分（埃森哲生命科学团队）</td>
+        <td>无内置，靠 RAG 索引补</td>
+      </tr>
+      <tr>
+        <td><strong>客户数据隔离</strong></td>
+        <td>RAG 索引可完全私有部署</td>
+        <td>华为云租户隔离 + 私有部署可选</td>
+        <td>埃森哲合同条款约束</td>
+        <td>全私有部署，最安全</td>
+      </tr>
+      <tr>
+        <td><strong>PoC 启动周期</strong></td>
+        <td><span class="pill ok">2-4 周</span></td>
+        <td><span class="pill mid">6-8 周</span> 需先签 license</td>
+        <td><span class="pill warn">10-14 周</span> 走 RFP 流程</td>
+        <td><span class="pill ok">2-4 周</span></td>
+      </tr>
+      <tr>
+        <td><strong>PoC 预算</strong></td>
+        <td><span class="pill ok">30-80 万</span></td>
+        <td><span class="pill mid">80-200 万</span></td>
+        <td><span class="pill warn">200-500 万</span></td>
+        <td><span class="pill ok">30-100 万</span> 含 GPU 投入</td>
+      </tr>
+      <tr>
+        <td><strong>规模化年成本</strong></td>
+        <td>~50-100 万 / 年（API 调用费）</td>
+        <td>100-300 万 / 年（license + 运维）</td>
+        <td>200-500 万 / 年（人天计费）</td>
+        <td>10-50 万 / 年（自有 GPU 折旧）</td>
+      </tr>
+      <tr>
+        <td><strong>合规支持</strong></td>
+        <td>需自建 GAMP 5 验证文档</td>
+        <td>盘古制药有 GxP 案例参考</td>
+        <td>埃森哲提供 GAMP 5 验证服务</td>
+        <td>需自建</td>
+      </tr>
+      <tr>
+        <td><strong>跨方向复用</strong></td>
+        <td>底座可<strong>同时给 ⑥ 培训用</strong></td>
+        <td>盘古制药也支持 ⑥（制药 LLM 复用）</td>
+        <td>所有方向都包，但贵</td>
+        <td>底座可同时给 ⑥ 培训用</td>
+      </tr>
+      <tr>
+        <td><strong>核心风险</strong></td>
+        <td>API 调用费随用量涨；制药术语精度依赖 RAG 质量</td>
+        <td>盘古制药版本迭代受华为云控制；价格上涨可能</td>
+        <td>顾问跨项目流动可能涉及数据保密；价格高</td>
+        <td>DeepSeek/通义 推理算力本地化投入 100-300 万一次性</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:18px;">
+    <div class="card success">
+      <strong style="color:#166534;">💡 推荐路线：A + D 混合</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li><strong>PoC 阶段</strong>用路线 A（通用 LLM API），快速跑通，不需要大投入</li>
+        <li><strong>Pilot / Scale 阶段</strong>转路线 D（DeepSeek 满血版私有化），避免数据出境 + 调用费不可控</li>
+        <li>RAG 引擎自建（轻量级开源即可，如 Chroma / Milvus / 阿里云向量库）</li>
+        <li>跟方向 ⑥ 培训生成<strong>共用同一套 LLM + RAG 底座</strong>，边际成本接近 0</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <strong style="color:#92400e;">⚠️ 路线 B / C 何时考虑</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li><strong>路线 B（盘古制药）</strong>：如果凯莱英已有华为云战略合作 → 谈优惠价值得；制药案例库是真亮点</li>
+        <li><strong>路线 C（埃森哲）</strong>：如果集团要做<strong>全方向 AI 战略总集成</strong>（不只是报告），且预算充足，埃森哲适合做"伞型"合作；但单独做报告 AI 性价比低</li>
+        <li>无论 B/C，<strong>都不能让供应商持有凯莱英 RAG 索引</strong>（客户数据资产保留在凯莱英）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PART 07 · ROI 测算（可交互）============ -->
+<section class="slide" id="roi">
+  <h2 class="kicker">PART 07 · 投资回报测算</h2>
+  <h1>试点投入 vs 年化收益 — 输入参数可调</h1>
+  <p class="lead">
+    保守估算 —— 报告数量、节省工时、工程师小时成本 这 3 个参数<strong>请实际调整</strong>看 ROI。
+  </p>
+
+  <div class="roi-grid" style="margin-top:12px;">
+    <div class="roi-input">
+      <div class="field">
+        <label>年报告数量（份）</label>
+        <input type="number" id="r-reports" value="200" min="50" max="500" oninput="d2RoiCalc()">
+        <div class="hint">凯莱英年 Campaign + MOR + APR + 客户报告估算</div>
+      </div>
+      <div class="field">
+        <label>单份原工时（工作日）</label>
+        <input type="number" id="r-orig" value="5" min="1" max="15" step="0.5" oninput="d2RoiCalc()">
+        <div class="hint">资深工程师写一份 Campaign Report 时间</div>
+      </div>
+      <div class="field">
+        <label>AI 辅助后工时（工作日）</label>
+        <input type="number" id="r-new" value="1.5" min="0.5" max="10" step="0.5" oninput="d2RoiCalc()">
+        <div class="hint">AI 草稿 + 工程师审核改稿 + 签字</div>
+      </div>
+      <div class="field">
+        <label>工程师日薪（元/天）</label>
+        <input type="number" id="r-rate" value="1500" min="500" max="5000" step="100" oninput="d2RoiCalc()">
+        <div class="hint">资深工艺工程师全成本日薪（含五险一金）</div>
+      </div>
+      <div class="field">
+        <label>报告交付加速带来的额外业务价值（万元/年）</label>
+        <input type="number" id="r-biz" value="100" min="0" max="500" oninput="d2RoiCalc()">
+        <div class="hint">客户更快拿到报告 → 更快下单 / 复购的间接收益（保守填）</div>
+      </div>
+      <div class="field">
+        <label>项目总投入（万元，含 PoC + Pilot + Scale 3 年）</label>
+        <input type="number" id="r-cost" value="400" min="100" max="2000" oninput="d2RoiCalc()">
+        <div class="hint">建议参考：PoC 50 万 + Pilot 150 万 + Scale 200 万</div>
+      </div>
+    </div>
+    <div class="roi-out">
+      <div class="ttl">📊 年化收益估算（3 年累计）</div>
+      <div class="roi-numbers">
+        <div class="item">
+          <div class="v" id="r-save-hours">300</div>
+          <div class="l">年节省工程师工时（工作日）</div>
+        </div>
+        <div class="item">
+          <div class="v orange" id="r-save-money">45</div>
+          <div class="l">年节省人力成本（万元）</div>
+        </div>
+        <div class="item">
+          <div class="v" id="r-total-year">145</div>
+          <div class="l">年化总收益（万元）</div>
+        </div>
+        <div class="item">
+          <div class="v orange" id="r-payback">2.8</div>
+          <div class="l">投资回本周期（年）</div>
+        </div>
+      </div>
+      <div class="roi-bar-row">
+        <div class="lbl">3 年累计 ROI 比例</div>
+        <div class="roi-bar">
+          <div id="r-roi-bar" style="width:60%;"></div>
+          <div class="marker" style="left:33.3%;"></div>
+        </div>
+        <div style="font-size:11px; color:#9aabd6; margin-top:4px;">
+          橙色标记 = 1 年回本线 | 蓝色 = 3 年累计 ROI 倍数（&gt; 100% 即超过投入）
+        </div>
+      </div>
+      <div style="margin-top:18px; padding-top:14px; border-top:1px dashed rgba(255,255,255,.15); font-size:12px; color:#9aabd6;">
+        <strong style="color:#fff;">注</strong>：
+        ① 工时节省 = (年报告数 × 单份节省日数) × 365/250（年工作日 250）；
+        ② "额外业务价值"是<strong>非直接收益</strong>，请保守填，决策时建议先按 0 看；
+        ③ 3 年累计 ROI = (3 × 年化收益) ÷ 总投入。
+      </div>
+    </div>
+  </div>
+
+  <script>
+  function d2RoiCalc(){
+    const reports = +document.getElementById('r-reports').value;
+    const orig = +document.getElementById('r-orig').value;
+    const newt = +document.getElementById('r-new').value;
+    const rate = +document.getElementById('r-rate').value;
+    const biz = +document.getElementById('r-biz').value;
+    const cost = +document.getElementById('r-cost').value;
+    const savedDays = reports * (orig - newt);
+    const savedMoneyWan = (savedDays * rate / 10000);
+    const yearTotalWan = savedMoneyWan + biz;
+    const payback = cost / yearTotalWan;
+    const roi3y = (yearTotalWan * 3) / cost;
+    document.getElementById('r-save-hours').textContent = Math.round(savedDays);
+    document.getElementById('r-save-money').textContent = savedMoneyWan.toFixed(0);
+    document.getElementById('r-total-year').textContent = yearTotalWan.toFixed(0);
+    document.getElementById('r-payback').textContent = payback.toFixed(1);
+    const barW = Math.min(roi3y * 33.3, 100);
+    document.getElementById('r-roi-bar').style.width = barW + '%';
+  }
+  d2RoiCalc();
+  </script>
+
+  <div class="card success" style="margin-top:18px;">
+    <strong style="color:#166534;">🎯 默认参数下的结论</strong>：
+    年 200 份报告 × 单份节省 3.5 天 × 1500 元/天 = <strong>105 万元/年人力节省</strong>；
+    加上 100 万业务加速 = <strong>205 万元/年总收益</strong>；
+    项目总投入 400 万 → <strong>1.95 年回本</strong>，3 年累计 ROI <strong>154%</strong>。
+    属于<strong>"高确定性、中等价值"</strong>的 ROI 区间，跟 dh1 PdM 相比 ROI 节奏更快但单点价值低。
+  </div>
+</section>
+
+<!-- ============ PART 08 · 落地路径 ============ -->
+<section class="slide" id="roadmap">
+  <h2 class="kicker">PART 08 · 落地路径</h2>
+  <h1>12 个月跑通 PoC + Pilot + Scale 三阶段</h1>
+
+  <div class="roadmap" style="margin-top:10px;">
+    <div class="stage">
+      <div class="month">M1-M2</div>
+      <div class="ttl">数据底座</div>
+      <div class="det">
+        IT 建跨系统中间层<br/>
+        业务 梳理报告模板 + 50 份历史语料<br/>
+        LLM 选型 + 向量库部署
+      </div>
+    </div>
+    <div class="stage">
+      <div class="month">M3</div>
+      <div class="ttl">PoC 验收</div>
+      <div class="det">
+        1 个项目历史回测<br/>
+        工艺工程师对比"AI 版 vs 原版"<br/>
+        采纳率 ≥50% 即过
+      </div>
+    </div>
+    <div class="stage">
+      <div class="month">M4-M7</div>
+      <div class="ttl">Pilot</div>
+      <div class="det">
+        3 种报告类型 × 10-20 项目<br/>
+        + 客户专属模板<br/>
+        + QA 审核流程<br/>
+        采纳率 ≥65%
+      </div>
+    </div>
+    <div class="stage">
+      <div class="month">M8-M10</div>
+      <div class="ttl">合规验证</div>
+      <div class="det">
+        GAMP 5 类别 4 验证<br/>
+        客户审计应对材料<br/>
+        21 CFR Part 11 / EU GMP Annex 22 兼容性确认
+      </div>
+    </div>
+    <div class="stage">
+      <div class="month">M11-M12+</div>
+      <div class="ttl">Scale</div>
+      <div class="det">
+        全公司报告类型铺开<br/>
+        多语言版本<br/>
+        持续优化采纳率<br/>
+        年节省 1500+ 工时
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:18px;">
+    <strong>关键里程碑（Go / No-Go 检查点）</strong>
+    <table class="kly" style="margin-top:8px;">
+      <thead><tr><th style="width:10%;">月</th><th style="width:25%;">里程碑</th><th style="width:20%;">验收方</th><th>Go / No-Go 标准</th></tr></thead>
+      <tbody>
+        <tr><td>M2 末</td><td>数据中间层 PoC</td><td>IT + 业务</td><td>1 个项目可一键拉到 MES/LIMS/QMS/SAP/IP.21 完整数据</td></tr>
+        <tr><td>M3 末</td><td>PoC 结题</td><td>工艺工程师 + QA</td><td>10 份历史 Campaign Report 回测，AI 草稿采纳率 ≥50%</td></tr>
+        <tr><td>M5 末</td><td>客户模板适配</td><td>业务 + QA</td><td>支持至少 3 家主要客户的报告模板</td></tr>
+        <tr><td>M7 末</td><td>Pilot 结题</td><td>跨部门评审</td><td>20+ 项目实际使用，工时节省 ≥40%、采纳率 ≥65%</td></tr>
+        <tr><td>M10 末</td><td>GAMP 5 验证</td><td>QA + 法规事务</td><td>验证文档完整 + 客户审计模拟通过</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ PART 09 · 风险与控制 ============ -->
+<section class="slide" id="risk">
+  <h2 class="kicker">PART 09 · 风险与控制</h2>
+  <h1>主要风险与对应控制措施</h1>
+
+  <table class="kly" style="margin-top:12px;">
+    <thead><tr><th style="width:18%;">风险</th><th style="width:22%;">表现 / 影响</th><th style="width:30%;">控制措施</th><th>责任方</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>① LLM "幻觉"</strong></td>
+        <td>AI 自己编数字 / 编偏差描述 → 报告失真</td>
+        <td>① 段落级 RAG 设计（数字硬填充）；② 数据交叉校验脚本；③ 工程师审核兜底</td>
+        <td>IT (算法) + 业务 (审核)</td>
+      </tr>
+      <tr>
+        <td><strong>② 跨系统取数失败</strong></td>
+        <td>MES/LIMS/QMS API 不全或数据有缺，部分章节空白</td>
+        <td>① 先做 1 个项目数据连通 PoC；② 缺数据时报告中明显标"待人工填"；③ 容错降级机制</td>
+        <td>IT 主责</td>
+      </tr>
+      <tr>
+        <td><strong>③ 报告模板多 + 客户化</strong></td>
+        <td>不同客户 / 报告类型模板差异大，AI 难以覆盖全</td>
+        <td>① 先做凯莱英标准模板；② 客户模板逐家适配（Pilot 阶段）；③ 工程师可选择性 override</td>
+        <td>业务主责</td>
+      </tr>
+      <tr>
+        <td><strong>④ 数据保密 / 客户隔离</strong></td>
+        <td>不同客户 RAG 索引混用可能违反保密合同</td>
+        <td>① 每客户独立向量库；② 项目级权限 + 审计日志；③ 客户合同附件明确 AI 用途</td>
+        <td>IT + 法务</td>
+      </tr>
+      <tr>
+        <td><strong>⑤ 工程师不信任 AI 草稿</strong></td>
+        <td>"还不如我自己写"→ 系统使用率低</td>
+        <td>① 让 5-10 位资深工程师参与 PoC 设计；② 引用源透明 + 可点击查原文；③ 采纳率持续监控 + 调优</td>
+        <td>业务 + IT</td>
+      </tr>
+      <tr>
+        <td><strong>⑥ GMP / 客户审计</strong></td>
+        <td>FDA / NMPA / 客户对"AI 起草"态度不明</td>
+        <td>① GAMP 5 类别 4 验证；② 强调"AI 草稿 ≠ AI 决策"；③ 签字流程 100% 保留人工</td>
+        <td>QA + 法规事务</td>
+      </tr>
+      <tr>
+        <td><strong>⑦ LLM 调用费失控</strong></td>
+        <td>外采 API 用量大 → 月成本飙升</td>
+        <td>① 设月度调用上限 + 告警；② Pilot 后转私有化部署（DeepSeek/通义）；③ 长文本压缩 + 缓存</td>
+        <td>IT 主责</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ PART 10 · 决策建议 ============ -->
+<section class="slide" id="decision">
+  <h2 class="kicker">PART 10 · 决策建议</h2>
+  <h1>重点决策 4 件事</h1>
+
+  <div class="grid-2" style="margin-top:14px;">
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">①</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">立项 — 作为 Quick Win #1 启动</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">
+        建议<strong>立即立项</strong>本方向 PoC（50-80 万预算 / 3 个月周期）。
+        本方向是 6 个 AI 方向里"<strong>最快出成果、最低风险、最高接受度</strong>"的，适合作为给副总裁 / 集团 / 客户展示
+        "AI 不是 PPT"的实证。配合方向 ⑥ 培训生成一起做，可共用 LLM + RAG 底座。
+      </p>
+      <ul class="bul tight" style="margin-top:8px;">
+        <li>决策项：PoC 立项 + 预算 50-80 万 + 团队 5-8 人</li>
+        <li>启动条件：跟 IT 对接人开 1 次 kick-off 会议即可</li>
+      </ul>
+    </div>
+
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">②</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">技术路线 — 推荐 A+D 混合</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">
+        建议先用<strong>路线 A（通用 LLM API + 自建 RAG）</strong>跑 PoC，3 个月内见效；
+        Pilot 阶段转<strong>路线 D（DeepSeek 满血版私有化 + RAG）</strong>避免数据出境和调用费不可控。
+        埃森哲 / 华为云盘古制药不作为本方向第一选项（性价比不如自建）。
+      </p>
+      <ul class="bul tight" style="margin-top:8px;">
+        <li>决策项：LLM 路线 A→D；不绑定外采全包方案</li>
+        <li>关键约束：RAG 索引 100% 凯莱英所有，供应商无权持有</li>
+      </ul>
+    </div>
+
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">③</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">范围控制 — PoC 严格 1 种报告 × 1 个项目</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">
+        本方向最大陷阱是"<strong>啥都想做</strong>" —— 同时上 Campaign + MOR + APR、覆盖所有客户、做多语言。
+        PoC 阶段必须严格限定<strong>1 种报告（Campaign Report） × 1 个项目（主力商业化 API）</strong>，
+        跑通后再扩大。
+      </p>
+      <ul class="bul tight" style="margin-top:8px;">
+        <li>决策项：PoC 范围由"工艺研发主任 + IT 对接人 + QA 主管"3 方书面确认</li>
+        <li>变更控制：PoC 阶段不允许加范围（Pilot 才放开）</li>
+      </ul>
+    </div>
+
+    <div class="card accent">
+      <div style="font-size:32px; color:#ff7e3d; font-weight:800;">④</div>
+      <div style="font-size:17px; font-weight:700; margin:4px 0 6px;">PoC 验收标准 — 提前对齐</div>
+      <p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">
+        PoC 阶段（M3 末）必须有<strong>明确的 Go / No-Go 标准</strong>。建议：
+        ① <strong>10 份历史 Campaign Report 回测</strong>；② <strong>AI 草稿采纳率 ≥50%</strong>；
+        ③ <strong>每段都有引用源链路</strong>；④ <strong>工程师验收时间 ≤1 天/份</strong>。
+        4 条都达标才进 Pilot；不达标则评估是模型问题还是数据问题，决定继续优化或停止。
+      </p>
+      <ul class="bul tight" style="margin-top:8px;">
+        <li>决策项：验收标准跟 QA / 工艺研发 / IT 三方确认 + 写进 PoC 合同</li>
+        <li>不达标的兜底：30 万沉没成本上限 + 资产保留（数据中间层 + RAG 索引归凯莱英）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 附录 ============ -->
+<section class="slide" id="appendix">
+  <h2 class="kicker">附录</h2>
+  <h1>核心术语 + 数据源接口清单 + 参考资料</h1>
+
+  <h2 style="font-size:17px;">A. 核心术语对照</h2>
+  <table class="kly">
+    <thead><tr><th style="width:22%;">术语</th><th style="width:22%;">英文 / 全称</th><th>解释</th></tr></thead>
+    <tbody>
+      <tr><td>Campaign Report</td><td>—</td><td>一个生产 campaign / 周期的总结报告（凯莱英主力交付物，对客户和内部双用）</td></tr>
+      <tr><td>MOR</td><td>Manufacturing Operations Review</td><td>月度生产运营评审报告，给管理层看</td></tr>
+      <tr><td>APR</td><td>Annual Product Review</td><td>年度产品质量回顾报告，GMP 强监管，给 FDA / 客户</td></tr>
+      <tr><td>LLM</td><td>Large Language Model</td><td>大语言模型，本方案核心 AI 组件</td></tr>
+      <tr><td>RAG</td><td>Retrieval-Augmented Generation</td><td>"检索增强生成"，先检索知识库再让 LLM 基于检索结果生成 — 防止幻觉的核心技术</td></tr>
+      <tr><td>段落级 RAG</td><td>Paragraph-level RAG</td><td>本方案的关键设计 — 每个报告段落都对应明确数据来源，可追溯审计</td></tr>
+      <tr><td>GAMP 5</td><td>Good Automated Manufacturing Practice v5</td><td>制药行业 IT 系统验证标准，AI 系统属于"类别 4 (Configured Product)"</td></tr>
+      <tr><td>21 CFR Part 11</td><td>—</td><td>FDA 对电子记录 / 电子签字的要求，AI 草稿必须符合</td></tr>
+      <tr><td>EU GMP Annex 22</td><td>—</td><td>2025 起施行，第一次明确 AI/ML 可作为 GxP 工具，开了合规绿灯</td></tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin-top:24px; font-size:17px;">B. 数据源接口清单 (PoC 阶段)</h2>
+  <table class="kly">
+    <thead><tr><th>系统</th><th>需要的数据</th><th>接入方式</th><th>评估</th></tr></thead>
+    <tbody>
+      <tr><td>MES / EBR</td><td>批次清单、工艺步骤实际参数、操作人员</td><td>REST API / 数据库直连</td><td><span class="pill ok">已有 API</span></td></tr>
+      <tr><td>LIMS</td><td>QC 检测结果、放行状态、留样信息</td><td>REST API</td><td><span class="pill ok">已有 API</span></td></tr>
+      <tr><td>QMS</td><td>偏差记录、CAPA 状态、变更控制</td><td>REST API / Web Service</td><td><span class="pill mid">需 IT 配置</span></td></tr>
+      <tr><td>SAP</td><td>物料消耗、单批成本、收率</td><td>SAP RFC / OData</td><td><span class="pill mid">需 IT 配置</span></td></tr>
+      <tr><td>IP.21</td><td>关键工艺参数趋势（温度 / 压力 / pH）</td><td>OPC HDA / AspenOne API</td><td><span class="pill ok">已有接口</span></td></tr>
+      <tr><td>EAM</td><td>设备运行情况、清洁验证</td><td>REST API</td><td><span class="pill warn">Pilot 阶段才接</span></td></tr>
+      <tr><td>历史报告库</td><td>5+ 年 Word / PDF 报告</td><td>SharePoint / 文件服务器 + OCR</td><td><span class="pill ok">就绪</span></td></tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin-top:24px; font-size:17px;">C. 参考资料</h2>
+  <ul class="bul tight">
+    <li>《凯莱英数智化立项规划设想初稿》— 本方案的战略背景</li>
+    <li>《6 方向落地实施方案 v1.0》— 跟其他 5 个方向的协同关系</li>
+    <li>《埃森哲咨询能力落地评估》— 路线 C 评估依据</li>
+    <li>《智现未来产品落地评估》— 路线 B 的对照（智现未来不是本方向首选）</li>
+    <li>FDA Guidance: Computer Software Assurance (CSA) 2025-09 终稿</li>
+    <li>EU GMP Annex 22 (AI/ML in GxP) 2025 起施行</li>
+  </ul>
+</section>
+
+</main>
+
+</body>
+</html>

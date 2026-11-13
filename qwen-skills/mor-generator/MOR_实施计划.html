@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MOR 生成工具 · 实施计划</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body { font-family: "PingFang SC","Microsoft YaHei","Source Han Sans CN","Noto Sans CJK SC",sans-serif;
+         color:#0f1f3d; background:#f3f5fa; line-height:1.75; -webkit-font-smoothing:antialiased; }
+  .topbar { position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between;
+            padding:10px 28px; background:rgba(15,31,61,.96); color:#fff; box-shadow:0 2px 10px rgba(0,0,0,.15); }
+  .topbar .brand { font-weight:700; font-size:14px; letter-spacing:.5px; }
+  .topbar .brand .badge { display:inline-block; padding:2px 8px; margin-left:8px; background:#ff7e3d;
+                          border-radius:4px; font-size:11px; }
+  .topbar nav a { color:#cdd6e8; font-size:12.5px; text-decoration:none; margin:0 4px; padding:6px 10px; border-radius:6px; }
+  .topbar nav a:hover { background:#1d2f55; color:#fff; }
+  main { max-width:1100px; margin:0 auto; padding:0 24px 80px; }
+  section.slide { background:#fff; border-radius:14px; padding:40px 52px 44px; margin:24px 0;
+                  box-shadow:0 6px 24px rgba(15,31,61,.07); }
+  section.slide.cover { background:linear-gradient(135deg,#0f1f3d 0%,#1f3870 60%,#2a4d9c 100%); color:#fff; }
+  section.slide.cover h1 { border:none; padding:0; font-size:34px; color:#fff; }
+  section.slide.cover .subtitle { font-size:16px; opacity:.88; margin-top:10px; }
+  section.slide.cover .highlight-box { background:rgba(255,255,255,.1); color:#e6ecf7; margin-top:24px; }
+  h2.kicker { color:#ff7e3d; font-size:12.5px; font-weight:700; letter-spacing:3px; margin:0 0 6px; }
+  section.slide h1 { font-size:24px; margin:0 0 18px; border-left:5px solid #ff7e3d; padding-left:14px; line-height:1.35; }
+  section.slide h3 { font-size:16px; color:#1e40af; margin:22px 0 10px; }
+  section.slide p { font-size:14px; color:#3a4d72; margin:8px 0; }
+  code { background:#fff3ea; color:#c2410c; padding:1px 6px; border-radius:4px; font-size:12.5px; }
+  pre { background:#f3f5fa; padding:14px 18px; border-radius:8px; font-size:12.5px; overflow-x:auto; }
+  table.kly { width:100%; border-collapse:collapse; font-size:13px; margin:10px 0 16px; }
+  table.kly th, table.kly td { padding:9px 12px; text-align:left; border-bottom:1px solid #e6ebf5; vertical-align:top; line-height:1.7; }
+  table.kly thead th { background:#0f1f3d; color:#fff; font-weight:600; font-size:12px; }
+  table.kly tbody tr:nth-child(even) { background:#f7f9fc; }
+  ul.bul { padding-left:0; list-style:none; margin:6px 0; }
+  ul.bul li { padding:4px 0 4px 22px; position:relative; font-size:14px; color:#3a4d72; }
+  ul.bul li:before { content:""; position:absolute; left:4px; top:14px; width:7px; height:7px; background:#ff7e3d;
+                     border-radius:2px; transform:rotate(45deg); }
+  ul.bul li.sub { margin-left:24px; padding-left:18px; font-size:13.5px; }
+  ul.bul li.sub:before { width:5px; height:5px; background:#9aa7c2; top:15px; }
+  .highlight-box { background:#fff7f1; border-left:4px solid #ff7e3d; padding:14px 20px; margin:14px 0;
+                   border-radius:0 8px 8px 0; color:#3a4d72; font-size:14px; }
+  .flow { display:flex; flex-wrap:nowrap; align-items:stretch; gap:4px; margin:14px 0 6px; }
+  .flow .node, .flow .step { padding:10px 6px; border-radius:8px; font-size:12.5px; font-weight:600; text-align:center;
+                             display:flex; flex-direction:column; justify-content:center; flex:1 1 0; min-width:0; }
+  .flow .node { background:#eff3fa; color:#0f1f3d; border:1px solid #d7deec; }
+  .flow .step { background:#0f1f3d; color:#fff; }
+  .flow small { font-weight:400; font-size:11px; opacity:.8; margin-top:2px; }
+  .flow .arrow { display:flex; align-items:center; color:#ff7e3d; font-weight:700; }
+  .flow-note { font-size:12.5px !important; color:#5b6a8a !important; }
+  @media print { body { background:#fff; } .topbar { display:none; }
+                 section.slide { box-shadow:none; page-break-inside:avoid; } }
+</style>
+</head>
+<body>
+<div class="topbar"><div class="brand">MOR 生成工具 · 实施计划<span class="badge">v0.1</span></div><nav><a href="#s0">核心思路</a><a href="#s1">角色与投入</a><a href="#s2">分阶段计划</a><a href="#s3">先 skill 后小程序</a><a href="#s4">主要风险与对策</a></nav></div>
+<main><section class="slide" id="s0"><h2 class="kicker">PART 01</h2><h1>核心思路</h1><p><strong>不是&quot;让 AI 写 MOR&quot;，而是&quot;把 MOR 拆成可复用的零件，AI 负责拼装和核对&quot;。</strong></p><div class="flow"><div class="node">工艺文件</div><div class="arrow">→</div><div class="step">① 解析<small>AI</small></div><div class="arrow">→</div><div class="node">结构化工艺步骤表</div><div class="arrow">→</div><div class="step">② 人工确认<small>MOR 编写人</small></div><div class="arrow">→</div><div class="step">③ 组装<small>模板为主 · AI 为辅</small></div><div class="arrow">→</div><div class="node">MOR 草稿</div><div class="arrow">→</div><div class="step">④ 自动核对<small>程序</small></div><div class="arrow">→</div><div class="node">专家审改</div><div class="arrow">→</div><div class="step">⑤ 批注沉淀<small>回流规则 / 模板</small></div></div><p class="flow-note">⑤ 专家批注沉淀为规则 / 模板，回流到解析与组装环节，工具越用越准。</p><table class="kly"><thead><tr><th>环节</th><th>谁做</th><th>为什么这样设计</th></tr></thead><tbody><tr><td>① 解析</td><td>AI</td><td>把工艺中的步骤、参数、物料、IPC 抽成表格，后面各环节都以这张表为准</td></tr><tr><td>② 确认</td><td>写 MOR 的人（约 10 分钟）</td><td>在表格里核对参数，比在整篇 MOR 里核对快得多；也能挡住 AI 抽错的数字</td></tr><tr><td>③ 组装</td><td>规则模板为主，AI 为辅</td><td>投料、升温、过滤等标准段落用公司模板填空，保证格式和用语一致；AI 只写衔接和特殊说明</td></tr><tr><td>④ 核对</td><td>程序</td><td>逐项比对 MOR 和工艺的数字、遗漏步骤、单位、签字点；人工核对是最耗时的部分</td></tr><tr><td>⑤ 沉淀</td><td>专家批注 → AI 提炼</td><td>每条批注都变成规则或模板的修订，工具越用越准</td></tr></tbody></table></section><section class="slide" id="s1"><h2 class="kicker">PART 02</h2><h1>角色与投入</h1><table class="kly"><thead><tr><th>角色</th><th>人</th><th>投入</th></tr></thead><tbody><tr><td>AI 实施</td><td>李涛</td><td>每周</td></tr><tr><td>MOR 专家</td><td>1–2 名资深 MOR 编写人</td><td>阶段 1–2（可线上），阶段 4 正常写 MOR 时使用工具并批注</td></tr><tr><td>QA 顾问</td><td>1 名</td><td>阶段 0（如需） 和阶段 5（可线上）</td></tr><tr><td>IT 支持</td><td>1 名</td><td>小程序阶段介入</td></tr></tbody></table></section><section class="slide" id="s2"><h2 class="kicker">PART 03</h2><h1>分阶段计划（开发约 9 周，迭代约7周）</h1><h3>阶段 0：立项与基线（第 1–2 周）</h3><table class="kly"><thead><tr><th>#</th><th>步骤</th><th>交付物</th><th>验收标准</th></tr></thead><tbody><tr><td>0.1</td><td>和 MOR 专家确定范围：哪些产品类型、哪些章节（建议先做&quot;操作步骤&quot;章节，它占工时最多）</td><td>范围说明（1 页）</td><td>专家签字认可</td></tr><tr><td>0.2</td><td>测基线（如需）：2–3 名编写人各记录 2 份 MOR 的工时，按&quot;读工艺 / 抄参数 / 写步骤 / 核对 / 排版 / 返工&quot;分段记录</td><td>基线工时表</td><td>至少 4 份样本</td></tr><tr><td>0.3</td><td>确认合规定位：工具输出仅是&quot;草稿&quot;，按现有 SOP 由人编写、审核、批准；评估是否需要计算机化系统验证，以及按 GAMP 5 的风险等级</td><td>意见记录</td><td></td></tr><tr><td>0.4</td><td>收集资料：工艺–MOR 配对文件（目标 20–30 对，覆盖主要单元操作）、MOR 模板、MOR 编写 SOP 或规范、设备清单、常用物料清单</td><td>资料目录（放在 AI 表格&quot;MOR 资料&quot;表）</td><td>配对数 ≥ 20</td></tr></tbody></table><h3>阶段 1：结构分析（第 2–4 周）</h3><table class="kly"><thead><tr><th>#</th><th>步骤</th><th>交付物</th><th>验收标准</th></tr></thead><tbody><tr><td>1.1</td><td>选 3 对代表性文件，由MOR专家逐段标注&quot;工艺第 X 段 ↔ MOR 第 Y–Z 步&quot;</td><td>对齐表 3 份</td><td>覆盖每段工艺</td></tr><tr><td>1.2</td><td>AI 基于对齐表，归纳 MOR 的章节结构、编号规则、记录项格式、签字点规则</td><td><code>MOR 结构规范 v0.1</code></td><td>专家评审通过</td></tr><tr><td>1.3</td><td>AI 在 20–30 对文件中聚类单元操作，得到操作类型清单</td><td>单元操作清单</td><td>专家补全和合并</td></tr><tr><td>1.4</td><td>找出&quot;工艺里没写、但 MOR 里有&quot;的内容（例如设备编号、通用安全要求、清场），明确这些信息的来源</td><td>补充信息来源表</td><td>每项都有明确来源</td></tr></tbody></table><p>第 1.4 步最关键：这部分内容 AI 从工艺文件里推不出来，必须由设备库、规则或人工输入提供，否则就是 AI 出错的主要来源。</p><h3>阶段 2：构建知识底座（第 4–7 周）</h3><p>在企业上下文库中新增以下表（结构见 <code>references/unit-operation-library.md</code>）：</p><table class="kly"><thead><tr><th>#</th><th>步骤</th><th>交付物</th><th>验收标准</th></tr></thead><tbody><tr><td>2.1</td><td><strong>单元操作库</strong>：每类操作包括触发词、标准段落模板（带槽位）、必填记录项、签字点、常见注意事项、2 个历史实例。AI 从配对文件中提取初稿，专家逐类审核</td><td>单元操作库 v1.0</td><td>每类操作专家审核通过</td></tr><tr><td>2.2</td><td><strong>编写规则库</strong>：数值写法、范围表达、单位、术语、禁用表达、编号规则</td><td>规则库 v1.0（30–60 条）</td><td>专家审核</td></tr><tr><td>2.3</td><td><strong>设备库 / 物料库</strong>：设备编号、类型、容积、所在车间；物料名称、编码、别名</td><td>两张表</td><td>覆盖试点车间</td></tr><tr><td>2.4</td><td>留出测试集：5 对配对文件<strong>不参与建库</strong>，专门用于测试</td><td>测试集清单</td><td>覆盖不同产品类型</td></tr></tbody></table><h3>阶段 3：生成 skill（第 6–9 周）</h3><table class="kly"><thead><tr><th>#</th><th>步骤</th><th>交付物</th><th>验收标准</th></tr></thead><tbody><tr><td>3.1</td><td>实现解析：工艺 → 结构化工艺步骤表（见 <code>references/process-schema.md</code>）</td><td>解析结果</td><td>测试集参数抽取准确率 ≥ 98%</td></tr><tr><td>3.2</td><td>实现组装：按单元操作库生成 MOR 草稿，每步带出处（对应工艺第几步）</td><td>MOR 草稿（钉钉文档）</td><td>步骤覆盖率 ≥ 95%</td></tr><tr><td>3.3</td><td>实现核对（见 <code>references/checks.md</code>），输出核对报告</td><td>核对报告</td><td>能检出人为植入的 10 个错误中的 9 个以上</td></tr><tr><td>3.4</td><td>用测试集跑 5 份，与真实 MOR 对比，由专家打分</td><td>测试报告</td><td>专家判断：改一改就能用</td></tr></tbody></table><h3>阶段 4：专家试用与迭代（第 9–14 周）</h3><table class="kly"><thead><tr><th>#</th><th>步骤</th><th>交付物</th><th>验收标准</th></tr></thead><tbody><tr><td>4.1</td><td><strong>影子模式</strong>（2 周）：专家照常手写 MOR，工具并行生成，事后比对差异，发现系统性问题</td><td>差异分析</td><td>系统性问题已修复</td></tr><tr><td>4.2</td><td><strong>辅助模式</strong>：专家在实际工作中先用工具出草稿，再在钉钉文档中直接修改或评论</td><td>实际 MOR 5–10 份</td><td>—</td></tr><tr><td>4.3</td><td><strong>每周学习</strong>：读取文档评论和修订（<code>dws doc +review</code>），按 <code>references/expert-feedback.md</code> 分类，更新单元操作库和规则库，并记录版本</td><td>版本日志</td><td>每周一版</td></tr><tr><td>4.4</td><td>每两周开一次 30 分钟复盘会：看指标趋势，确定下一轮重点</td><td>复盘纪要</td><td>—</td></tr></tbody></table><h3>阶段 5：验收与推广决策（第 14–16 周）</h3><table class="kly"><thead><tr><th>#</th><th>步骤</th><th>交付物</th><th>验收标准</th></tr></thead><tbody><tr><td>5.1</td><td>用 ≥ 5 份新 MOR 统计工时，与基线对比</td><td>效果报告</td><td>达到初始设定的目标</td></tr><tr><td>5.2</td><td>编写工具使用 SOP 或作业指导，对新人进行培训</td><td>SOP 草案</td><td>QA 审核</td></tr><tr><td>5.3</td><td>决定是否开发小程序界面：左侧工艺、右侧 MOR 对照，点击一步即可跳到出处，并支持在线批注</td><td>小程序需求说明</td><td></td></tr><tr><td>5.4</td><td>扩展到其他车间或产品类型</td><td>推广计划</td><td>—</td></tr></tbody></table></section><section class="slide" id="s3"><h2 class="kicker">PART 04</h2><h1>先用 skill + 钉钉文档，再做小程序</h1><ul class="bul"><li class="">skill 版本 2–3 周就能跑起来，钉钉文档的修订和评论天然就是批注通道，不需要开发界面。</li><li class="">等单元操作库和规则库稳定之后（大约第 12 周），小程序只是换一个界面，核心资产不变。</li><li class="">千问办公小程序的开发方式和发布审核流程。</li></ul></section><section class="slide" id="s4"><h2 class="kicker">PART 05</h2><h1>主要风险与对策</h1><table class="kly"><thead><tr><th>风险</th><th>对策</th></tr></thead><tbody><tr><td>AI 抄错或编造参数</td><td>数字锁定：MOR 中的每个数字都必须能在工艺中找到出处，否则标红；核对环节 100% 比对</td></tr><tr><td>工艺里没写的信息被 AI 自行补全</td><td>一律写成 <code>【待补：设备编号】</code> 占位，由设备库或人工填入</td></tr><tr><td>专家认为&quot;改 AI 稿比自己写还慢&quot;</td><td>影子模式先找出系统性问题，等测试集评分达标后再进入辅助模式</td></tr><tr><td>规则越积越多、互相冲突</td><td>规则带版本和状态，冲突时由专家裁决；每月整理一次</td></tr></tbody></table></section></main>
+</body>
+</html>

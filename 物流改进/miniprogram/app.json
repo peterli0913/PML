@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/queue/index",
+    "pages/bays/index",
+    "pages/order/index",
+    "pages/driver/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "槽车转运",
+    "navigationBarBackgroundColor": "#1a2332",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f3f5f8"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

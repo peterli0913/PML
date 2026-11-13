@@ -1,0 +1,22 @@
+[
+  {
+    "path": "ins[20].instruction.cn",
+    "value": "搪玻璃双锥用氮气吹扫至少2h后，夹套控温≤55℃，体系控温≤50℃，参考真空度P≤-0.08MPa，烘料4h后开始每2h旋转5min，烘料12~24h后开始取样，以后每隔8~12h取样1次，检测固体含水直到连续两次KF≤0.5%后，再检测乙醇残留≤1000ppm（目标200ppm），再跟踪至138393含量≥98.0%，同步检测外观为白色至类白色固体。烘料结束，搪玻璃双锥内温降至≤35℃。"
+  },
+  {
+    "path": "ins[20].instruction.en",
+    "value": "Sweep with nitrogen for NLT 2h, then dry the solid at ≤50℃(Tjacket≤55℃), referenceP≤-0.08MPa, 4h later, start rotating every 2 h for 5 min, dry for 12~24h, sample the solid for KF analysis every 8~12h until two consecutive of KF≤0.5%, then sample the solid ethanol residual≤1000ppm(Target 200ppm) and 138393 assay≥98.0% for test, and check that the appearance is white to off-white solid at the same time. After drying, cool to ≤35℃."
+  },
+  {
+    "path": "front.changes[0].en",
+    "value": "Product specification SP-138393-01 (current version) → purity ≥99.0%, maximum single impurity ≤0.1%, assay ≥98.0%, de-Fmoc impurity ≤0.1%, D-isomer impurity ≤0.1%, appearance: white to off-white solid, KF ≤0.5%, ethanol residual ≤1000 ppm (release site changed from TJ4 to DH3 and released by summary COA, no impact on product quality)"
+  },
+  {
+    "path": "front.changes[1].en",
+    "value": "Ins.19 drying test: KF ≤0.5%, ethanol residual ≤1000 ppm (target 200 ppm), 138393 assay ≥98.0% → KF ≤0.5%, ethanol residual ≤1000 ppm (target 200 ppm), 138393 assay ≥98.0%, appearance: white to off-white solid (release method changed, appearance test added at the same time, no impact on product quality)"
+  },
+  {
+    "path": "sampling[3].added_en",
+    "value": {"外观": {"test": "Appearance/外观", "criterion": "White to off-white solid/白色至类白色固体"}}
+  }
+]

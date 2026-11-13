@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>凯莱英 DH1 关键动设备预测性维护 — 推进汇报</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "HarmonyOS Sans SC", "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
+    color: #0f1f3d;
+    background: #f3f5fa;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  /* === Top nav === */
+  .topbar {
+    position: sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 10px 28px;
+    background: rgba(15,31,61,.96); color: #fff;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar .brand { font-weight:700; letter-spacing:.5px; font-size:14px;}
+  .topbar .brand .badge {
+    display:inline-block; padding:2px 8px; margin-left:8px;
+    background:#ff7e3d; color:#fff; border-radius:4px; font-size:11px; font-weight:600;
+  }
+  .topbar nav a {
+    color:#cdd6e8; font-size:12.5px; text-decoration:none;
+    margin: 0 8px; padding:6px 8px; border-radius:6px;
+  }
+  .topbar nav a:hover { background:#1d2f55; color:#fff; }
+  .topbar .modeswitch {
+    font-size:12px; cursor:pointer; padding:6px 12px;
+    border:1px solid #3b507e; color:#cdd6e8; border-radius:6px;
+    background:transparent;
+  }
+  .topbar .modeswitch:hover { background:#1d2f55; }
+
+  /* === Slide / section === */
+  main { max-width: 1240px; margin: 0 auto; padding: 0 24px 80px; }
+  section.slide {
+    background:#fff;
+    border-radius: 14px;
+    padding: 44px 52px 50px;
+    margin: 28px 0;
+    box-shadow: 0 6px 24px rgba(15,31,61,.07);
+    position: relative;
+    min-height: 540px;
+  }
+  section.slide.cover {
+    background: linear-gradient(135deg, #0f1f3d 0%, #1f3870 60%, #2a4d9c 100%);
+    color:#fff;
+  }
+  section.slide h2.kicker {
+    color:#ff7e3d; font-size: 13px; font-weight:700; letter-spacing: 4px;
+    margin: 0 0 6px; text-transform: uppercase;
+  }
+  section.slide h1 {
+    font-size: 30px; margin: 0 0 14px; font-weight:700;
+    border-left: 5px solid #ff7e3d; padding-left: 14px; line-height: 1.25;
+  }
+  section.slide.cover h1 { border:none; padding:0; font-size: 44px; line-height: 1.2;}
+  section.slide.cover .subtitle { font-size:18px; opacity:.85; margin-top:18px; max-width: 760px;}
+  section.slide.cover .meta { margin-top: 60px; font-size:13px; opacity:.75; }
+  section.slide.cover .meta div { margin: 4px 0;}
+  section.slide .lead { font-size: 16px; color:#3a4d72; margin: 0 0 24px; max-width: 920px;}
+
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 28px;}
+  .grid-3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;}
+  .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px;}
+
+  /* Cards & callouts */
+  .card {
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px;
+    padding: 20px 22px;
+  }
+  .card.accent { background: #fff7f1; border-color:#ffd8be;}
+  .card.danger { background: #fef2f2; border-color:#fecaca;}
+  .card.success { background: #f0fdf4; border-color:#bbf7d0;}
+  .card .num {
+    font-size: 32px; font-weight:800; color:#0f1f3d;
+    line-height: 1.1;
+  }
+  .card.accent .num { color:#ff7e3d; }
+  .card .num small { font-size:14px; font-weight:600; color:#7a89a8; margin-left:4px;}
+  .card .label { font-size:13px; color:#5b6a8a; margin-top:4px;}
+  .card .desc { font-size:13px; color:#3a4d72; margin-top:10px; line-height:1.5;}
+
+  /* tables */
+  table.kly { width:100%; border-collapse: collapse; font-size: 13.5px; }
+  table.kly th, table.kly td {
+    padding: 10px 12px; text-align:left;
+    border-bottom: 1px solid #e6ebf5;
+  }
+  table.kly thead th {
+    background:#0f1f3d; color:#fff; font-weight:600; font-size:12.5px;
+    letter-spacing:.5px;
+  }
+  table.kly tbody tr:nth-child(even) { background:#f7f9fc; }
+  table.kly td.num { text-align:right; font-variant-numeric: tabular-nums; }
+  table.kly .pill {
+    display:inline-block; padding:2px 9px; border-radius:99px; font-size:11.5px; font-weight:600;
+  }
+  .pill.ok    { background:#dcfce7; color:#166534; }
+  .pill.mid   { background:#fef9c3; color:#854d0e; }
+  .pill.warn  { background:#fee2e2; color:#991b1b; }
+  .pill.info  { background:#dbeafe; color:#1e3a8a; }
+
+  /* lists */
+  ul.bul { padding-left: 0; list-style:none; margin: 8px 0;}
+  ul.bul li { padding: 6px 0 6px 22px; position:relative; font-size:14px;}
+  ul.bul li:before {
+    content:""; position:absolute; left:4px; top:14px; width:8px; height:8px;
+    background:#ff7e3d; border-radius:2px; transform:rotate(45deg);
+  }
+  ul.bul.tight li { padding: 3px 0 3px 22px; font-size:13.5px; }
+  ul.bul.tight li:before { top:12px; }
+
+  .tag {
+    display:inline-block; padding:3px 10px; font-size:12px; border-radius:99px;
+    background:#e7eefb; color:#1e40af; font-weight:600; margin: 2px 4px 2px 0;
+  }
+  .tag.warn { background:#fef3c7; color:#92400e;}
+  .tag.danger { background:#fee2e2; color:#991b1b;}
+  .tag.ok { background:#dcfce7; color:#166534;}
+
+  /* Demo specific */
+  .demo-box {
+    background: linear-gradient(180deg,#0f1f3d 0%,#142a55 100%);
+    color:#fff; border-radius: 14px; padding: 24px;
+  }
+  .demo-box .demo-title { font-size: 14px; opacity:.7; margin-bottom: 10px;}
+  .gauges { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  .gauge {
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px; padding: 14px;
+  }
+  .gauge .g-label { font-size: 11.5px; color: #9aabd6; text-transform: uppercase; letter-spacing: 1px;}
+  .gauge .g-val   { font-size: 28px; font-weight:800; margin: 6px 0 2px; }
+  .gauge .g-unit  { font-size: 12px; color: #9aabd6;}
+  .gauge .g-bar   { height: 5px; background: rgba(255,255,255,.1); border-radius: 4px; margin-top:8px; overflow:hidden;}
+  .gauge .g-bar > div { height:100%; background:#3ec6ff; transition: width .3s; }
+  .gauge.warn .g-val { color:#fbbf24; }
+  .gauge.warn .g-bar > div { background:#fbbf24; }
+  .gauge.danger .g-val { color:#ef4444; }
+  .gauge.danger .g-bar > div { background:#ef4444; }
+  .gauge.ok .g-val { color:#22d3ee; }
+
+  .health-banner {
+    background: rgba(255,255,255,.06); border-radius: 10px; padding: 14px 16px;
+    display:flex; gap:24px; align-items:center; margin-bottom: 14px;
+  }
+  .health-score {
+    font-size: 56px; font-weight: 800; line-height:1;
+    background: linear-gradient(135deg,#22d3ee,#3ec6ff);
+    -webkit-background-clip: text; background-clip: text; color:transparent;
+  }
+  .health-info { flex:1; }
+  .health-info .ttl { font-size: 13px; color:#9aabd6; text-transform: uppercase; letter-spacing: 1.5px;}
+  .health-info .stat { font-size: 18px; font-weight:600; margin: 4px 0;}
+  .health-info .desc { font-size: 13px; color:#cdd6e8; }
+  .countdown { text-align:center; padding: 0 18px; border-left: 1px solid rgba(255,255,255,.1);}
+  .countdown .num { font-size:34px; font-weight:800; color:#fbbf24;}
+  .countdown .lbl { font-size: 11.5px; color:#9aabd6;}
+
+  .demo-controls {
+    display:flex; gap: 10px; align-items:center; margin-top: 14px; flex-wrap: wrap;
+    background: rgba(255,255,255,.04); border-radius:10px; padding:12px 14px;
+  }
+  .demo-controls label { font-size: 12.5px; color:#9aabd6; }
+  .demo-controls input[type=range] { flex:1; max-width: 600px; accent-color: #ff7e3d;}
+  .demo-controls .btn {
+    padding: 6px 14px; font-size: 12.5px; border-radius: 6px;
+    background: #ff7e3d; color:#fff; border:none; cursor:pointer; font-weight:600;
+  }
+  .demo-controls .btn:hover { background:#ff9359;}
+  .demo-controls .btn.ghost { background:transparent; color:#9aabd6; border:1px solid rgba(255,255,255,.18);}
+  .demo-controls .btn.ghost:hover { color:#fff;}
+
+  .event-log {
+    margin-top: 14px; max-height: 180px; overflow-y: auto;
+    background: rgba(255,255,255,.04); border-radius: 10px; padding: 8px 14px;
+    font-size:12.5px;
+  }
+  .event-log .e { padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,.08);}
+  .event-log .e:last-child { border:none;}
+  .event-log .e .t { color:#9aabd6; margin-right:10px; font-variant-numeric: tabular-nums;}
+  .event-log .e.warn .t { color:#fbbf24;}
+  .event-log .e.danger .t { color:#ef4444;}
+
+  /* ROI */
+  .roi-grid { display:grid; grid-template-columns: 380px 1fr; gap: 28px; }
+  .roi-input {
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px;
+    padding: 22px;
+  }
+  .roi-input .field { margin-bottom: 12px;}
+  .roi-input .field label {
+    display:block; font-size: 12.5px; color:#5b6a8a;
+    margin-bottom: 4px; font-weight: 500;
+  }
+  .roi-input .field input {
+    width:100%; padding: 8px 10px; font-size: 14px;
+    border: 1px solid #d4dbed; border-radius:6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .roi-input .field .hint { font-size: 11.5px; color:#7a89a8; margin-top:2px;}
+  .roi-out {
+    background: linear-gradient(135deg, #0f1f3d, #1f3870);
+    color:#fff; border-radius:12px; padding: 22px;
+    display:grid; grid-template-rows: auto 1fr;
+  }
+  .roi-out .ttl { font-size: 13px; color:#9aabd6; text-transform: uppercase; letter-spacing: 2px;}
+  .roi-numbers { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top:14px;}
+  .roi-numbers .item { background: rgba(255,255,255,.06); padding:14px; border-radius:10px; }
+  .roi-numbers .item .v { font-size:30px; font-weight:800; color:#22d3ee;}
+  .roi-numbers .item .v.orange { color:#fbbf24; }
+  .roi-numbers .item .l { font-size:12px; color:#9aabd6; margin-top:4px;}
+  .roi-bar-row { margin-top:14px; }
+  .roi-bar-row .lbl { font-size: 12px; color:#9aabd6; margin-bottom:4px;}
+  .roi-bar { background: rgba(255,255,255,.08); height: 16px; border-radius:8px; overflow:hidden; position:relative;}
+  .roi-bar > div { height:100%; background: linear-gradient(90deg,#22d3ee,#3ec6ff); transition: width .3s;}
+  .roi-bar .marker {
+    position:absolute; top:-4px; bottom:-4px; width:2px; background:#ff7e3d;
+  }
+  .roi-bar .marker:after {
+    content:""; position:absolute; top:-4px; left:-4px; width:10px; height:10px;
+    background:#ff7e3d; border-radius:50%;
+  }
+
+  /* Roadmap */
+  .roadmap { display:grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top:8px;}
+  .roadmap .stage {
+    background:#fff; border:1px solid #e3e8f2; border-radius:10px;
+    padding: 16px 14px;
+    position: relative;
+  }
+  .roadmap .stage:before {
+    content:""; position:absolute; top: 50%; right:-7px; width:14px; height:14px;
+    background:#ff7e3d; border-radius: 50%; transform: translateY(-50%);
+    border: 3px solid #fff; box-shadow: 0 0 0 1px #ffaa7a;
+    z-index:2;
+  }
+  .roadmap .stage:last-child:before { display:none;}
+  .roadmap .stage .month { font-size: 12px; color:#ff7e3d; font-weight:700;}
+  .roadmap .stage .ttl { font-size: 14px; font-weight:700; margin: 4px 0; }
+  .roadmap .stage .det { font-size: 12px; color:#5b6a8a;}
+
+  /* SVG charts */
+  svg.chart text { font-family: inherit; }
+  svg.chart .grid line { stroke: #e3e8f2; stroke-dasharray: 2 3;}
+  svg.chart .axis  line, svg.chart .axis path { stroke: #94a3b8; }
+  svg.chart .axis text { fill:#5b6a8a; font-size: 11px;}
+  svg.chart .l-actual { fill:none; stroke:#3ec6ff; stroke-width:2;}
+  svg.chart .l-pred   { fill:none; stroke:#fbbf24; stroke-width:2; stroke-dasharray: 4 4;}
+  svg.chart .l-thresh { stroke:#ef4444; stroke-dasharray: 5 4; stroke-width:1.5; }
+  svg.chart .a-band   { fill: rgba(251,191,36,.15);}
+
+  /* footer */
+  .footnote { font-size: 11.5px; color:#7a89a8; margin-top: 14px; line-height: 1.5;}
+
+  /* slide deck mode */
+  body.deck main { padding: 0; max-width: none;}
+  body.deck section.slide {
+    margin: 0; min-height: 100vh; border-radius: 0;
+    display: none;
+    padding: 60px 80px 60px;
+  }
+  body.deck section.slide.active { display:block; }
+  body.deck .topbar { display:flex; }
+  body.deck .deck-nav { display:flex !important;}
+  .deck-nav {
+    display:none;
+    position: fixed; bottom: 18px; right: 18px; z-index: 60;
+    background: rgba(15,31,61,.92); padding: 6px 10px; border-radius: 999px;
+    color:#fff; font-size: 12.5px; gap: 8px; align-items:center;
+  }
+  .deck-nav button {
+    background: transparent; border: none; color:#fff; cursor:pointer;
+    padding: 4px 10px; border-radius: 6px; font-weight: 600;
+  }
+  .deck-nav button:hover { background: rgba(255,255,255,.1);}
+  .deck-nav .pages { font-variant-numeric: tabular-nums; opacity: .8;}
+
+  /* Responsive */
+  @media (max-width: 980px){
+    .grid-2, .grid-3, .grid-4, .roadmap { grid-template-columns: 1fr;}
+    .roi-grid { grid-template-columns: 1fr;}
+    section.slide { padding: 28px 22px;}
+    .gauges { grid-template-columns: repeat(2,1fr);}
+  }
+  /* print */
+  @media print {
+    .topbar, .deck-nav { display:none !important;}
+    section.slide { box-shadow:none; page-break-after: always; margin: 0; border-radius: 0;}
+    body { background:#fff;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    凯莱英 · 数智化推进
+    <span class="badge">DH1 PdM 推进汇报</span>
+  </div>
+  <nav>
+    <a href="#s-cover">封面</a>
+    <a href="#s-why">痛点</a>
+    <a href="#s-status">现状</a>
+    <a href="#s-scope">范围</a>
+    <a href="#s-tech">技术</a>
+    <a href="#s-demo">Demo</a>
+    <a href="#s-vendor">方案对比</a>
+    <a href="#s-roi">ROI</a>
+    <a href="#s-roadmap">路径</a>
+    <a href="#s-risk">风险</a>
+    <a href="#s-decision">建议</a>
+  </nav>
+  <button class="modeswitch" id="btnDeck">▶ 演示模式</button>
+</header>
+
+<main>
+
+<!-- ============ 封面 ============ -->
+<section class="slide cover" id="s-cover" data-page="1">
+  <h2 class="kicker">Predictive Maintenance · DH1 Utility</h2>
+  <h1>关键动设备预测性维护推进方案<br/><span style="color:#ff9b6b;">让动力站从"被迫救火"走向"主动预知"</span></h1>
+  <div class="subtitle">
+    基于凯莱英《数智化立项规划》Step2 既定路线，结合 DH1 现场实际，对动力站等关键动设备
+    部署 7×24 小时温振监测 + AI 自动诊断 + EAM 工单闭环，实现"故障前 30 天预警、避免计划外停机、减少备件库存与过度维修"。
+  </div>
+  <div class="meta">
+    <div>覆盖范围（试点）：DH1 动力站、纯水间、空调间、车间防爆离心机 — 共 348 台动设备 / 776 支传感器</div>
+    <div>核心问题：方案、供应商、节奏、预算 — 请决策</div>
+  </div>
+</section>
+
+<!-- ============ 1. 为什么必须做 ============ -->
+<section class="slide" id="s-why" data-page="2">
+  <h2 class="kicker">PART 01 · 为什么是现在</h2>
+  <h1>动力站一停，整个分厂就停 — 而我们目前几乎完全靠"事后维修 + 经验巡检"</h1>
+  <p class="lead">
+    DH1 动力站承担全厂冷冻、压缩空气、循环水、纯水、暖通；其中冰机、空压机、循环泵、离心机一旦突发故障，影响的不是单台设备，而是整条 GMP 生产线的连续性。当前维护策略以"事后维修 + 定期预防性更换"为主，存在三类隐性损失：
+  </p>
+
+  <div class="grid-3">
+    <div class="card danger">
+      <div class="num">3 类痛点</div>
+      <div class="label">事后/被动维护</div>
+      <div class="desc">
+        <strong>① 漏检</strong>：人工巡检受班次、经验、天气影响，早期故障经常错过<br/>
+        <strong>② 过度维修</strong>：到期更换备件，实际状态完好的也拆<br/>
+        <strong>③ 突发停机</strong>：振动报警时往往已不可逆，备件、人力来不及调度
+      </div>
+    </div>
+    <div class="card accent">
+      <div class="num">30 天</div>
+      <div class="label">预测性维护可提前预警的时间窗口</div>
+      <div class="desc">
+        Aspen Mtell 等成熟方案在公开案例中可在故障发生前 <strong>30 天以上</strong>给出预警，结合振动诊断后窗口可拉到 <strong>2~6 个月</strong>。<br/>
+        <span class="tag warn">数据来源</span> 凯莱英《数智化立项规划设想初稿》第 26 页 / 信力共擎方案第 12 页
+      </div>
+    </div>
+    <div class="card success">
+      <div class="num">−20% ~ −35%</div>
+      <div class="label">行业基线：非计划停机降幅</div>
+      <div class="desc">
+        制药行业实施预测性维护的公开标杆：辉瑞（GE Vernova Proficy）、英国某 biopharma CIP 案例非计划停机 −35%、维护费 −20%、年节省 30 万美元；GSK Upper Merion 通过数字化排程额外释放约 10% 产能。
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:26px;">
+    <h3 style="font-size:18px; margin-bottom:8px;">把损失算成账 — 一个待 EAM 数据回填的"估算框架"</h3>
+    <p style="font-size:13.5px; color:#3a4d72; margin: 0 0 12px; max-width: 1000px;">
+      下表中的数字<strong>不是来自 DH1 真实工单数据</strong>，而是按"行业公开基线 × 设备数量 × 单价/工时假设"搭起来的<strong>测算模板</strong>，
+      目的是让损失维度"看得见"。立项后第 1 个月的工作之一，就是用敦化分厂 EAM 工单 + 生产损失记录把每一项的真实值替换进来。
+    </p>
+    <table class="kly">
+      <thead>
+        <tr>
+          <th style="width:14%;">损失类型</th>
+          <th style="width:22%;">触发条件</th>
+          <th style="width:16%;">单次量级</th>
+          <th style="width:11%;">年发次数</th>
+          <th style="width:24%;">测算依据（公式 / 假设来源）</th>
+          <th class="num">年损失估算</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>冰机突发停机</td>
+          <td>螺杆压缩机轴承 / 油路异常 → 跳机</td>
+          <td>停机 4–8 h，影响 1–2 条 GMP 生产线</td>
+          <td>1–2 次</td>
+          <td style="font-size:12.5px;">
+            <code>损失 = 停机时长 × 影响线数 × 线小时机会成本</code><br/>
+            假设 GMP 线小时机会成本 10–20 万/h（CDMO 行业基线）<br/>
+            次数：30 台冰机按 MTBF 3–5 年估
+          </td>
+          <td class="num">≈ 80–150 万元</td>
+        </tr>
+        <tr>
+          <td>循环泵 / 关键机泵跳停</td>
+          <td>叶轮汽蚀 / 机械密封失效 / 轴承抱死</td>
+          <td>停机 2–4 h，需现场抢修</td>
+          <td>3–5 次</td>
+          <td style="font-size:12.5px;">
+            <code>损失 = 抢修时长 × 影响范围 × 单价</code><br/>
+            180 台循环泵，按 ISO 关键机泵年故障率 2–3% 估<br/>
+            其中导致工艺停机的占 1/3
+          </td>
+          <td class="num">≈ 40–90 万元</td>
+        </tr>
+        <tr>
+          <td>过度维修 / 备件浪费</td>
+          <td>到期更换轴承 / 密封 / 油料，实际状态完好</td>
+          <td>—</td>
+          <td>持续发生</td>
+          <td style="font-size:12.5px;">
+            <code>节省额 = 动力站年维护费 × 行业 PdM 节省率</code><br/>
+            动力站年维护费按 200–300 万估<br/>
+            行业基线 −10% ~ −20%（参考 GE Vernova / Dataiku 案例）
+          </td>
+          <td class="num">≈ 30–60 万元</td>
+        </tr>
+        <tr>
+          <td>巡检漏检 → 小故障演变</td>
+          <td>初期异响未识别 → 整机报废 / 大修</td>
+          <td>单次大修 100–300 万</td>
+          <td>1 次 / 2–3 年</td>
+          <td style="font-size:12.5px;">
+            <code>年化 = 单次大修费用 ÷ 发生周期</code><br/>
+            按敦化分厂同类工厂经验：3 年内发生过<br/>
+            至少 1 起整机更换级故障
+          </td>
+          <td class="num">≈ 50–120 万元 / 年</td>
+        </tr>
+        <tr style="background:#fff7f1; font-weight:700;">
+          <td colspan="5">合计：动力站每年的"看不见但真实存在"的损失（估算框架值）</td>
+          <td class="num" style="color:#ff7e3d;">200–420 万元 / 年</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="footnote">
+      <strong>数据来源说明（请评审时一并核对）：</strong>
+      ① "行业基线"全部来自封面 PART 06 / PART 07 引用的公开案例（辉瑞 GE Vernova、英国 Biopharma CIP、AstraZeneca、GSK、BMS Devens）；
+      ② 设备数量（30 台冰机、180 台循环泵）来自和利时方案 2.2 节的 *5 站点扩展；
+      ③ "GMP 线小时机会成本""动力站年维护费"为<strong>需向敦化分厂运营 / 财务核实的待替换占位</strong>；
+      ④ 不计 GMP 偏差调查、客户 NPI 延迟、安全事故等隐性成本（这部分通常远大于上表）。
+      <span style="color:#c2410c;">立项第 1 个月的硬动作：用 EAM 工单 + 财务系统拉取真实数据替换上表，作为后续 ROI 验证基线。</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. 凯莱英现状 ============ -->
+<section class="slide" id="s-status" data-page="3">
+  <h2 class="kicker">PART 02 · 凯莱英现状盘点</h2>
+  <h1>不是"从零起步"——蓝图早已画好</h1>
+  <p class="lead">
+    《凯莱英数智化立项规划设想初稿》（艾默生协作）已经把"设备预测性维护 Pilot"明确写在 <strong>Step2（2-3 年）</strong>路线里，DH1 动力站的空压机、离心泵、冰机已被选为试点设备。
+  </p>
+
+  <div class="grid-2">
+    <div>
+      <h3 style="font-size:16px;">数智化三步走：我们已走完 Step1，现在是 Step2 的关键启动点</h3>
+      <svg class="chart" viewBox="0 0 600 240" style="width:100%; height:auto;">
+        <defs>
+          <linearGradient id="grBlue" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3ec6ff"/>
+            <stop offset="100%" stop-color="#1f3870"/>
+          </linearGradient>
+        </defs>
+        <!-- timeline -->
+        <line x1="40" y1="170" x2="560" y2="170" stroke="#cbd5e1" stroke-width="2"/>
+        <!-- step1 (done) -->
+        <rect x="40" y="100" width="160" height="70" rx="10" fill="#22c55e" opacity=".9"/>
+        <text x="50" y="125" fill="#fff" font-size="13" font-weight="700">Step 1 · 1 年（基本完成）</text>
+        <text x="50" y="145" fill="#fff" font-size="11">网络打通、IP.21 实时数据库</text>
+        <text x="50" y="160" fill="#fff" font-size="11">生产/工艺/公辅可视化</text>
+        <!-- step2 (now) -->
+        <rect x="220" y="60" width="180" height="110" rx="10" fill="url(#grBlue)"/>
+        <text x="232" y="84" fill="#fff" font-size="13" font-weight="700">Step 2 · 2-3 年（当前）</text>
+        <text x="232" y="104" fill="#fff" font-size="11">★ 设备预测性维护 Pilot</text>
+        <text x="232" y="120" fill="#fff" font-size="11">批次分析（黄金批次）</text>
+        <text x="232" y="136" fill="#fff" font-size="11">MVA 多元数据分析</text>
+        <text x="232" y="156" fill="#ff7e3d" font-size="11" font-weight="700">⚑ 本次推进焦点</text>
+        <!-- step3 -->
+        <rect x="420" y="100" width="140" height="70" rx="10" fill="#cbd5e1"/>
+        <text x="432" y="125" fill="#0f1f3d" font-size="13" font-weight="700">Step 3 · 3-5 年</text>
+        <text x="432" y="145" fill="#0f1f3d" font-size="11">企业级 OT 大数据</text>
+        <text x="432" y="160" fill="#0f1f3d" font-size="11">数智化标杆 / 集团 AI</text>
+        <!-- arrows -->
+        <polygon points="200,135 220,128 220,142" fill="#22c55e"/>
+        <polygon points="400,115 420,108 420,122" fill="#1f3870"/>
+      </svg>
+      <div class="footnote">资料来源：《凯莱英数智化立项规划设想初稿》第 7 页"整体规划，分步实施"。</div>
+    </div>
+    <div>
+      <h3 style="font-size:16px;">DH1 动力站试点设备 — 已选定，但卡在"下一阶段工作"</h3>
+      <table class="kly" style="margin-top:6px;">
+        <thead>
+          <tr><th>设备类型</th><th>已收集传感器</th><th>当前状态</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>空压机系统</td>
+            <td>循环泵运行/出口压力、露点温度、水箱液位/pH、缓冲罐压力、总管压力 …</td>
+            <td><span class="pill mid">规划已明确</span></td>
+          </tr>
+          <tr>
+            <td>离心泵</td>
+            <td>电机端/泵端振动测点（待补）、运行/工艺参数</td>
+            <td><span class="pill mid">规划已明确</span></td>
+          </tr>
+          <tr>
+            <td>冰机（螺杆压缩机）</td>
+            <td>8 套冰机循环水进/回温、冷却水泵运行/出口压力、乙二醇水箱冷媒温度/液位</td>
+            <td><span class="pill mid">规划已明确</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:14px; background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding: 12px 14px;">
+        <strong style="color:#991b1b;">下一阶段未启动的 4 件事</strong>
+        <ul class="bul tight" style="margin-top:6px;">
+          <li>对比模型库，判断现有传感器对 AI 建模是否足够</li>
+          <li>IP.21 获取/存储/输出相关传感器数据</li>
+          <li>EAM 系统获取相关设备工单、形成"诊断 → 工单"闭环</li>
+          <li>借助机器学习建立 Agent 模型，在线部署、可视化</li>
+        </ul>
+        <div class="footnote" style="margin-top:6px;">摘自《凯莱英数智化立项规划设想初稿》第 28 页"现场调研汇总及下一阶段工作"。</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px; background:#f7f9fc; border-left: 4px solid #ff7e3d; padding: 14px 18px; border-radius: 6px;">
+    <strong>结论一句话：</strong>
+    凯莱英在数智化战略层和数据底座层已经投入了相当资源，
+    后续关键决策是<strong>"用谁的方案、覆盖到什么范围、用什么节奏推进"</strong>。
+  </div>
+</section>
+
+<!-- ============ 3. 设备范围 ============ -->
+<section class="slide" id="s-scope" data-page="4">
+  <h2 class="kicker">PART 03 · 试点覆盖范围</h2>
+  <h1>从"3 类设备"扩展到"动力站全域 348 台 / 776 支传感器"</h1>
+  <p class="lead">
+    杭州和利时基于 DH1 现场调研给出的初步方案，把覆盖范围从原规划的"空压机/离心泵/冰机"，扩展到了"凡是停机即影响生产连续性的所有动设备"。这个范围的扩展是合理的——预测性维护要规模化才能摊薄底座成本。
+  </p>
+
+  <div class="grid-2">
+    <div>
+      <h3 style="font-size:16px;">设备分布（共 348 台）</h3>
+      <svg class="chart" id="equipPie" viewBox="0 0 360 360" style="width:100%; max-width:360px;"></svg>
+      <div id="equipLegend" style="margin-top: 8px;"></div>
+    </div>
+    <div>
+      <h3 style="font-size:16px;">详细清单（来自和利时方案）</h3>
+      <table class="kly">
+        <thead><tr><th>设备</th><th>位置</th><th>是否防爆</th><th class="num">台数</th><th class="num">传感器</th></tr></thead>
+        <tbody id="equipTable"></tbody>
+        <tfoot>
+          <tr style="background:#0f1f3d; color:#fff; font-weight:700;">
+            <td colspan="3">合计</td>
+            <td class="num">348</td>
+            <td class="num">776</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-4" style="margin-top: 22px;">
+    <div class="card">
+      <div class="num">348 <small>台</small></div>
+      <div class="label">动设备总数</div>
+    </div>
+    <div class="card">
+      <div class="num">776 <small>支</small></div>
+      <div class="label">传感器总数（无线 108 + 有线 668）</div>
+    </div>
+    <div class="card">
+      <div class="num">85 <small>套</small></div>
+      <div class="label">在线监测单元 / 网关</div>
+    </div>
+    <div class="card">
+      <div class="num">7×24h</div>
+      <div class="label">连续监测频率（10 min 指标 / 2 h 波形）</div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    覆盖逻辑：① 转动且关键 → 振温监测；② 防爆区（真空机组、离心机）使用本安/隔爆型传感器与网关；③ 凉水塔露天采用 4G 无线传感器；④ 离心机数量最多（53 台），是 GMP 车间内单一最大种类，对生产连续性影响最大。
+  </div>
+</section>
+
+<!-- ============ 4. 技术路线 ============ -->
+<section class="slide" id="s-tech" data-page="5">
+  <h2 class="kicker">PART 04 · 技术路线 — 可解释、可落地</h2>
+  <h1>振动 + 温度 + 工艺 → 特征提取 → 机理 + 小数据 AI → 健康分数 → 工单闭环</h1>
+  <p class="lead">
+    AI 在这里不是"黑箱模型炒概念"。所有报警都能追溯到具体的物理征兆（频谱中某倍频/边频带能量上升），这对 GMP 监管沟通和现场工程师的信任都至关重要。
+  </p>
+
+  <svg class="chart" viewBox="0 0 1100 290" style="width:100%; height:auto; margin-top: 10px;">
+    <defs>
+      <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+        <path d="M0,0 L10,5 L0,10 Z" fill="#94a3b8"/>
+      </marker>
+    </defs>
+
+    <!-- Layer 1 device -->
+    <g>
+      <rect x="20" y="40" width="170" height="210" rx="10" fill="#0f1f3d"/>
+      <text x="105" y="68" fill="#ff7e3d" font-size="12" font-weight="700" text-anchor="middle">L1 · 设备层</text>
+      <text x="105" y="92" fill="#fff" font-size="13" text-anchor="middle">348 台动设备</text>
+      <text x="105" y="115" fill="#cbd5e1" font-size="11" text-anchor="middle">冰机 / 空压机 / 循环泵</text>
+      <text x="105" y="132" fill="#cbd5e1" font-size="11" text-anchor="middle">真空机组 / 离心机 / 凉水塔</text>
+      <text x="105" y="149" fill="#cbd5e1" font-size="11" text-anchor="middle">纯水泵 / 空调风机</text>
+      <line x1="40" y1="170" x2="170" y2="170" stroke="#3b507e" stroke-width="0.5"/>
+      <text x="105" y="190" fill="#9aabd6" font-size="11" text-anchor="middle">三轴温振传感器</text>
+      <text x="105" y="206" fill="#9aabd6" font-size="11" text-anchor="middle">±50g 量程, 24bit ADC</text>
+      <text x="105" y="222" fill="#9aabd6" font-size="11" text-anchor="middle">采样率 2~50 kHz</text>
+      <text x="105" y="238" fill="#9aabd6" font-size="11" text-anchor="middle">无线版电池寿命 3 年</text>
+    </g>
+
+    <!-- Layer 2 collection -->
+    <g>
+      <rect x="220" y="40" width="180" height="210" rx="10" fill="#1e3a8a"/>
+      <text x="310" y="68" fill="#ff7e3d" font-size="12" font-weight="700" text-anchor="middle">L2 · 采集层</text>
+      <text x="310" y="92" fill="#fff" font-size="13" text-anchor="middle">85 套监测单元/网关</text>
+      <text x="310" y="115" fill="#cbd5e1" font-size="11" text-anchor="middle">8/16/24 通道有线采集站</text>
+      <text x="310" y="132" fill="#cbd5e1" font-size="11" text-anchor="middle">防爆 ZigBee 网关</text>
+      <text x="310" y="149" fill="#cbd5e1" font-size="11" text-anchor="middle">边缘计算（速度 RMS</text>
+      <text x="310" y="165" fill="#cbd5e1" font-size="11" text-anchor="middle">/加速度 RMS/温度）</text>
+      <line x1="240" y1="180" x2="380" y2="180" stroke="#3b507e" stroke-width="0.5"/>
+      <text x="310" y="200" fill="#9aabd6" font-size="11" text-anchor="middle">10 min 指标上传</text>
+      <text x="310" y="216" fill="#9aabd6" font-size="11" text-anchor="middle">2 h 波形上传</text>
+      <text x="310" y="232" fill="#9aabd6" font-size="11" text-anchor="middle">支持 ModbusRTU/RS485</text>
+    </g>
+
+    <!-- Layer 3 platform -->
+    <g>
+      <rect x="430" y="40" width="220" height="210" rx="10" fill="#2563eb"/>
+      <text x="540" y="68" fill="#ff7e3d" font-size="12" font-weight="700" text-anchor="middle">L3 · 算法层</text>
+      <text x="540" y="92" fill="#fff" font-size="13" text-anchor="middle">机理 + 小数据 AI</text>
+      <text x="540" y="115" fill="#cbd5e1" font-size="11" text-anchor="middle">FFT / 包络解调 / 倒频谱</text>
+      <text x="540" y="132" fill="#cbd5e1" font-size="11" text-anchor="middle">动力学建模（机理驱动）</text>
+      <text x="540" y="149" fill="#cbd5e1" font-size="11" text-anchor="middle">张量自适应分解</text>
+      <text x="540" y="166" fill="#cbd5e1" font-size="11" text-anchor="middle">LSTM 时序模型</text>
+      <line x1="450" y1="180" x2="630" y2="180" stroke="#3b507e" stroke-width="0.5"/>
+      <text x="540" y="200" fill="#9aabd6" font-size="11" text-anchor="middle">200+ 预置故障模型</text>
+      <text x="540" y="216" fill="#9aabd6" font-size="11" text-anchor="middle">输出健康分数（0-100）</text>
+      <text x="540" y="232" fill="#9aabd6" font-size="11" text-anchor="middle">自动诊断准确率 95-98%</text>
+    </g>
+
+    <!-- Layer 4 application -->
+    <g>
+      <rect x="680" y="40" width="190" height="210" rx="10" fill="#0e7490"/>
+      <text x="775" y="68" fill="#ff7e3d" font-size="12" font-weight="700" text-anchor="middle">L4 · 应用层</text>
+      <text x="775" y="92" fill="#fff" font-size="13" text-anchor="middle">运维管理 + 可视化</text>
+      <text x="775" y="115" fill="#cbd5e1" font-size="11" text-anchor="middle">集团/厂级/设备三级大屏</text>
+      <text x="775" y="132" fill="#cbd5e1" font-size="11" text-anchor="middle">健康雷达图 / 时间轴</text>
+      <text x="775" y="149" fill="#cbd5e1" font-size="11" text-anchor="middle">自动诊断报告 + 周报</text>
+      <text x="775" y="166" fill="#cbd5e1" font-size="11" text-anchor="middle">移动 APP（巡检/工单）</text>
+      <line x1="700" y1="180" x2="850" y2="180" stroke="#3b507e" stroke-width="0.5"/>
+      <text x="775" y="200" fill="#9aabd6" font-size="11" text-anchor="middle">RESTful WebAPI</text>
+      <text x="775" y="216" fill="#9aabd6" font-size="11" text-anchor="middle">推送至 EAM/MES/IP.21</text>
+    </g>
+
+    <!-- Layer 5 closed loop -->
+    <g>
+      <rect x="900" y="40" width="180" height="210" rx="10" fill="#9a3412"/>
+      <text x="990" y="68" fill="#fff7f1" font-size="12" font-weight="700" text-anchor="middle">L5 · 业务闭环</text>
+      <text x="990" y="92" fill="#fff" font-size="13" text-anchor="middle">EAM 工单 + CAPA</text>
+      <text x="990" y="115" fill="#fde7d6" font-size="11" text-anchor="middle">报警 → 工单自动派发</text>
+      <text x="990" y="132" fill="#fde7d6" font-size="11" text-anchor="middle">维修结果回写</text>
+      <text x="990" y="149" fill="#fde7d6" font-size="11" text-anchor="middle">备件预测/采购触发</text>
+      <text x="990" y="166" fill="#fde7d6" font-size="11" text-anchor="middle">检修闭环验证</text>
+      <line x1="920" y1="180" x2="1060" y2="180" stroke="#7c2d12" stroke-width="0.5"/>
+      <text x="990" y="200" fill="#fbbf24" font-size="11" text-anchor="middle">这一步是 ROI 核心</text>
+      <text x="990" y="216" fill="#fbbf24" font-size="11" text-anchor="middle">没闭环 = 看板而已</text>
+    </g>
+
+    <!-- arrows -->
+    <line x1="195" y1="145" x2="215" y2="145" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr)"/>
+    <line x1="405" y1="145" x2="425" y2="145" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr)"/>
+    <line x1="655" y1="145" x2="675" y2="145" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr)"/>
+    <line x1="875" y1="145" x2="895" y2="145" stroke="#94a3b8" stroke-width="2" marker-end="url(#arr)"/>
+
+    <!-- title -->
+    <text x="20" y="20" fill="#0f1f3d" font-size="13" font-weight="700">从设备到工单的全链路（5 层）</text>
+    <text x="900" y="20" fill="#5b6a8a" font-size="11" text-anchor="end">数据下行 ⇆ 决策上行</text>
+  </svg>
+
+  <div class="grid-3" style="margin-top:24px;">
+    <div class="card">
+      <strong>故障预警时间窗（按手段）</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>智能体 / AI 模型：<span class="tag info">&gt; 6 个月</span></li>
+        <li>振动趋势 + 频谱：<span class="tag info">3-6 个月</span></li>
+        <li>专业振动指标：<span class="tag info">2-3 个月</span></li>
+        <li>基础振动烈度：<span class="tag info">1-2 个月</span></li>
+        <li>看/听/摸/嗅：<span class="tag warn">几小时-几天</span></li>
+      </ul>
+      <div class="footnote">摘自信力共擎方案第 12 页"针对不同健康状态的有效技术手段"。</div>
+    </div>
+    <div class="card">
+      <strong>可识别的故障类型（部分）</strong>
+      <div style="margin-top:8px;">
+        <span class="tag">不平衡</span><span class="tag">不对中</span><span class="tag">机械松动</span>
+        <span class="tag">部件碰摩</span><span class="tag">轴承内/外圈/滚动体</span>
+        <span class="tag">轴承润滑不良</span><span class="tag">齿轮啮合</span>
+        <span class="tag">联轴器</span><span class="tag">电磁振动</span>
+        <span class="tag">气隙不均</span><span class="tag">空化气蚀</span>
+        <span class="tag">叶片积灰</span><span class="tag warn">螺杆压缩机相关 (3 类)</span>
+      </div>
+    </div>
+    <div class="card">
+      <strong>可解释性</strong>
+      <p style="font-size:13.5px; margin: 6px 0 0;">
+        每一次报警都能给出"故障类型 + 部位 + 严重程度 + 频谱证据 + 处置建议"。
+        这意味着报警可以在 GMP 框架下作为<strong>偏差证据</strong>使用，而不是黑箱推荐。
+        <strong>第一阶段定位为"决策辅助"</strong>，规避计算机化系统验证（CSV）瓶颈。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. 互动 Demo ============ -->
+<section class="slide" id="s-demo" data-page="6">
+  <h2 class="kicker">PART 05 · 这就是预测性维护的样子</h2>
+  <h1>实时演示：DH1 动力站 #03 螺杆冰机的健康监测过程</h1>
+  <p class="lead">
+    下面是基于真实诊断逻辑（非真实凯莱英现场数据）模拟的一台冰机 90 天运行情况。<strong>请试着拖动时间滑块"回拨时间"</strong>，看 AI 是否能在故障真正发生之前给出预警。
+  </p>
+
+  <div class="demo-box">
+    <div class="demo-title">设备：DH1 / 3 号楼动力站 / 冰机 #03（螺杆压缩机, 250 kW）— 监测点位 4 个</div>
+
+    <!-- Gauges -->
+    <div class="gauges">
+      <div class="gauge ok" id="gauge-vrms">
+        <div class="g-label">速度均方根 (10-1000 Hz)</div>
+        <div class="g-val">—</div>
+        <div class="g-unit">mm/s · ISO 10816 标准</div>
+        <div class="g-bar"><div style="width:0%"></div></div>
+      </div>
+      <div class="gauge ok" id="gauge-arms">
+        <div class="g-label">加速度均方根</div>
+        <div class="g-val">—</div>
+        <div class="g-unit">m/s² · 高频段</div>
+        <div class="g-bar"><div style="width:0%"></div></div>
+      </div>
+      <div class="gauge ok" id="gauge-temp">
+        <div class="g-label">轴承表面温度</div>
+        <div class="g-val">—</div>
+        <div class="g-unit">℃ · 报警 75</div>
+        <div class="g-bar"><div style="width:0%"></div></div>
+      </div>
+      <div class="gauge ok" id="gauge-bear">
+        <div class="g-label">轴承健康指标 (自研)</div>
+        <div class="g-val">—</div>
+        <div class="g-unit">分数 · 100 = 完好</div>
+        <div class="g-bar"><div style="width:0%"></div></div>
+      </div>
+    </div>
+
+    <!-- Health banner -->
+    <div class="health-banner">
+      <div class="health-score" id="healthScore">—</div>
+      <div class="health-info">
+        <div class="ttl">综合健康分数 / 当前评估</div>
+        <div class="stat" id="healthStatus">运行正常</div>
+        <div class="desc" id="healthDesc">所有故障模式得分均 ≥ 80，无异常征兆。</div>
+      </div>
+      <div class="countdown">
+        <div class="num" id="rul">—</div>
+        <div class="lbl">天 · 距预测故障 (RUL)</div>
+      </div>
+    </div>
+
+    <!-- Chart -->
+    <svg class="chart" id="trendChart" viewBox="0 0 1080 320" style="width:100%; height:auto;"></svg>
+
+    <!-- Controls -->
+    <div class="demo-controls">
+      <label style="white-space:nowrap;">时间：<span id="timeLabel" style="color:#fff; font-weight:600;">D 0</span></label>
+      <input type="range" id="timeSlider" min="0" max="119" value="0" />
+      <button class="btn" id="btnPlay">▶ 自动播放</button>
+      <button class="btn ghost" id="btnReset">重置</button>
+    </div>
+
+    <!-- Event log -->
+    <div class="event-log" id="eventLog"></div>
+  </div>
+
+  <div class="grid-3" style="margin-top:22px;">
+    <div class="card success">
+      <strong>关键观察 1 · 提前 30+ 天预警</strong>
+      <p style="font-size:13.5px; margin-top:6px;">
+        D60 起轴承健康指标开始下滑，振动频谱中出现轴承外圈特征频率（BPFO）的小幅边频带，
+        系统在 D62 给出 "<strong>轴承外圈早期异常</strong>" 预警。
+        <strong>实际不可逆故障发生在 D95</strong>，预警窗口约 33 天。
+      </p>
+    </div>
+    <div class="card accent">
+      <strong>关键观察 2 · 不是"超过阈值才报警"</strong>
+      <p style="font-size:13.5px; margin-top:6px;">
+        D62 的速度 RMS 还在 ISO 10816 的"良好"区间内（&lt; 4.5 mm/s）。
+        传统阈值报警此时<strong>不会触发</strong>，但基于机理的健康指标已经下降。
+        这是预测性维护与传统监测的根本差异。
+      </p>
+    </div>
+    <div class="card danger">
+      <strong>关键观察 3 · 被动维护的代价</strong>
+      <p style="font-size:13.5px; margin-top:6px;">
+        如果没有 PdM，振动烈度真正越限是 D88，距实际故障仅 7 天，
+        备件采购 + 检修排产几乎来不及。在 GMP 车间这意味着<strong>计划外停机</strong>。
+        提前 30 天则可以纳入正常排产、无生产损失。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. 方案对比 ============ -->
+<section class="slide" id="s-vendor" data-page="7">
+  <h2 class="kicker">PART 06 · 三条路线对比</h2>
+  <h1>杭州和利时 vs 安徽信力共擎 vs 自建（基于 IP.21 + Mtell）</h1>
+  <p class="lead">
+    三种路径都能实现预测性维护，但定位、成熟度、风险结构差异显著。我们的建议是：<strong>不做二选一，而是分层组合</strong>。
+  </p>
+
+  <div class="grid-2">
+    <div>
+      <h3 style="font-size:16px;">能力维度对比（雷达图）</h3>
+      <svg class="chart" id="radar" viewBox="0 0 420 380" style="width:100%; max-width:460px;"></svg>
+      <div class="footnote">维度评分为基于公开方案 + 行业经验的相对评分，仅用于辅助决策。</div>
+    </div>
+    <div>
+      <h3 style="font-size:16px;">关键差异速览</h3>
+      <table class="kly">
+        <thead>
+          <tr><th>维度</th><th>和利时 HiaPMR</th><th>信力共擎</th><th>自建（艾默生 Mtell）</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>方案颗粒度</td><td><span class="pill ok">已落到 348 台/776 测点</span></td><td><span class="pill mid">通用方案介绍</span></td><td><span class="pill mid">需自定义</span></td></tr>
+          <tr><td>故障模型库</td><td>200+ 预置模型，机理 + 小数据 AI</td><td>泵阀机理深，往复机/螺杆专家</td><td>正常/异常 Agent，需自训练</td></tr>
+          <tr><td>典型客户</td><td>制药/化工通用</td><td>九江石化、选煤厂、洛石化</td><td>拜耳、跨国化工</td></tr>
+          <tr><td>和 IP.21/EAM 对接</td><td>WebAPI 完整，含工单闭环 API</td><td>需定制</td><td>原生集成</td></tr>
+          <tr><td>防爆能力</td><td>有线 + 无线均有防爆型</td><td>有，需现场确认</td><td>取决于硬件供应商</td></tr>
+          <tr><td>报价定位</td><td>中等（一站式交付）</td><td>中等偏上（流体专家溢价）</td><td>高（软件 License 贵）</td></tr>
+          <tr><td>实施周期</td><td>3-6 个月（已有方案）</td><td>4-8 个月</td><td>9-18 个月</td></tr>
+          <tr><td>核心风险</td><td>故障模型对凯莱英特定工艺需训练</td><td>2025 新公司，规模化运维待验证</td><td>项目周期长、投入大、对内部能力要求高</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top: 22px;">
+    <div class="card">
+      <strong>杭州和利时 · 适合</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>第一波试点的"主交付方"</li>
+        <li>设备覆盖广、品类杂的现场</li>
+        <li>需要快速上线 + 一站式硬件、软件、运维</li>
+      </ul>
+      <div class="footnote">参考：方案已具体到 348 台 / 776 支传感器 / 含光缆 20 km、网线 6 km 等施工细节。</div>
+    </div>
+    <div class="card">
+      <strong>安徽信力共擎 · 适合</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>螺杆压缩机、往复机、关键转动机泵的"深度诊断"补强</li>
+        <li>作为第二供应商或专家诊断后台</li>
+        <li>对疑难故障做"对比验证"</li>
+      </ul>
+      <div class="footnote">合肥工大化机所 + 华升泵阀 + 华为系运营，团队在流体机械机理与诊断算法上的积累值得借力。</div>
+    </div>
+    <div class="card">
+      <strong>自建路线（艾默生 Mtell + IP.21）· 适合</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>2-3 年后规模化复制到 DH2/DH3/TJ 各厂</li>
+        <li>集团级 OT 大数据中心 (Inmation) 落地后</li>
+        <li>自有数据团队成熟、可独立训练模型时</li>
+      </ul>
+      <div class="footnote">现阶段不建议直接全部自建，建模能力与 GMP 文档要求都还没到位。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. ROI ============ -->
+<section class="slide" id="s-roi" data-page="8">
+  <h2 class="kicker">PART 07 · 投资回报测算</h2>
+  <h1>试点投入 vs 年化收益 — 输入参数可调</h1>
+  <p class="lead">
+    下面是一个透明的 ROI 计算器（左侧输入参数可调，右侧实时更新）。所有默认值给出了基于行业基线 + 和利时配置清单的保守估算。
+  </p>
+
+  <div class="roi-grid">
+    <div class="roi-input">
+      <h3 style="font-size:15px; margin-top:0;">投资侧（一次性）</h3>
+      <div class="field">
+        <label>硬件 + 软件 + 实施总投入（万元）</label>
+        <input type="number" id="i_capex" value="650" />
+        <div class="hint">含传感器 776 支、网关 85 套、平台、施工、培训</div>
+      </div>
+      <div class="field">
+        <label>年度运维 / License / 模型升级（万元）</label>
+        <input type="number" id="i_opex" value="80" />
+      </div>
+      <h3 style="font-size:15px; margin-top:14px;">收益侧（年度）</h3>
+      <div class="field">
+        <label>避免的非计划停机次数 / 年</label>
+        <input type="number" id="i_avoidStops" value="6" />
+        <div class="hint">行业基线 −20% ~ −35%；DH1 估算原约 8-12 次</div>
+      </div>
+      <div class="field">
+        <label>单次非计划停机的损失（万元）</label>
+        <input type="number" id="i_costPerStop" value="35" />
+        <div class="hint">含生产损失 + 抢修加班 + 客户交付延迟</div>
+      </div>
+      <div class="field">
+        <label>备件库存 / 过度维修节省（万元 / 年）</label>
+        <input type="number" id="i_sparePart" value="40" />
+      </div>
+      <div class="field">
+        <label>巡检人力优化（万元 / 年）</label>
+        <input type="number" id="i_labor" value="25" />
+      </div>
+      <div class="field">
+        <label>避免重大事故（折年化期望，万元）</label>
+        <input type="number" id="i_safety" value="50" />
+        <div class="hint">如轴承抱死引发火灾、密封失效泄漏等的折现期望</div>
+      </div>
+    </div>
+
+    <div class="roi-out">
+      <div class="ttl">回报评估 · 实时计算</div>
+
+      <div class="roi-numbers">
+        <div class="item"><div class="v" id="o_benefit">—</div><div class="l">年化总收益（万元）</div></div>
+        <div class="item"><div class="v orange" id="o_payback">—</div><div class="l">投资回收期（年）</div></div>
+        <div class="item"><div class="v" id="o_5y">—</div><div class="l">5 年净收益（万元）</div></div>
+        <div class="item"><div class="v orange" id="o_irr">—</div><div class="l">5 年期 IRR（估算）</div></div>
+      </div>
+
+      <div class="roi-bar-row">
+        <div class="lbl">收益构成 · 占比</div>
+        <svg id="roiStack" viewBox="0 0 600 28" style="width:100%; height:28px;"></svg>
+        <div id="roiLegend" style="margin-top:8px; font-size:12px; color:#cdd6e8;"></div>
+      </div>
+
+      <div style="margin-top: 18px; font-size:12.5px; color:#9aabd6; line-height: 1.6;">
+        <strong style="color:#fbbf24;">阅读建议</strong>：投资回收期低于 3 年，对照集团内部投资门槛是非常有竞争力的资本性支出。
+        且本测算<strong>不计</strong>客户 NPI 加速、监管审计加分、绿色化指标等隐性收益。
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top:22px;">
+    <div class="card success">
+      <strong>对比基线（公开案例）</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>UK Biopharma CIP 项目：年节省 30 万美元，回收期 ~1.8 年</li>
+        <li>辉瑞 Proficy CSense：非计划停机大幅下降（未公开金额）</li>
+        <li>BMS Devens 30+ 用例：NPI 时间 −42%、产量 +40%</li>
+      </ul>
+    </div>
+    <div class="card">
+      <strong>保守口径说明</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>避免次数取行业 −20% ~ −35% 区间下限</li>
+        <li>单次停机损失未含 GMP 偏差调查</li>
+        <li>5 年期 IRR 已折扣运维费 80 万/年</li>
+      </ul>
+    </div>
+    <div class="card accent">
+      <strong>第二阶段杠杆</strong>
+      <p style="font-size:13.5px; margin-top:6px;">
+        DH1 试点跑通后，复制到 DH2/DH3/TJ 各厂的<strong>边际成本极低</strong>（设备清单、模型库、运维流程已固化），
+        ROI 通常会随复制规模翻倍。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. 落地路径 ============ -->
+<section class="slide" id="s-roadmap" data-page="9">
+  <h2 class="kicker">PART 08 · 落地路径</h2>
+  <h1>12 个月内 DH1 跑通完整闭环，第 13 个月起复制到其他工厂</h1>
+
+  <div class="roadmap" style="margin-top:18px;">
+    <div class="stage">
+      <div class="month">M0 — M2</div>
+      <div class="ttl">立项 + 选型签约</div>
+      <div class="det">
+        ① 确认设备范围 / 预算<br/>
+        ② 招标或单一来源谈判<br/>
+        ③ 数据接入 IP.21 接口规范<br/>
+        ④ 与 EAM 系统接口确认
+      </div>
+    </div>
+    <div class="stage">
+      <div class="month">M2 — M5</div>
+      <div class="ttl">硬件部署 + 数据采集</div>
+      <div class="det">
+        ① 776 支传感器现场安装<br/>
+        ② 85 套网关上电、组网<br/>
+        ③ 防爆区调试与验收<br/>
+        ④ 边缘指标稳定上传
+      </div>
+    </div>
+    <div class="stage">
+      <div class="month">M5 — M8</div>
+      <div class="ttl">模型训练 + 上线</div>
+      <div class="det">
+        ① 平台部署、用户培训<br/>
+        ② 故障模型对接、初校准<br/>
+        ③ 报警规则联合工程师评审<br/>
+        ④ EAM 工单接口联调
+      </div>
+    </div>
+    <div class="stage">
+      <div class="month">M8 — M12</div>
+      <div class="ttl">运行评估 + 闭环优化</div>
+      <div class="det">
+        ① 报警准确率统计<br/>
+        ② 模型迭代、误报压降<br/>
+        ③ 第一份 ROI 实证报告<br/>
+        ④ 形成运维标准 SOP
+      </div>
+    </div>
+    <div class="stage">
+      <div class="month">M12+</div>
+      <div class="ttl">复制 + 平台化</div>
+      <div class="det">
+        ① 复制到 DH2/DH3/TJ 工厂<br/>
+        ② 接入集团 OT DataHub<br/>
+        ③ 建立内部 PdM 运营中心<br/>
+        ④ 自有模型训练能力
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin-top:30px; font-size:16px;">里程碑 KPI（每个阶段必须达到才能进入下一阶段）</h3>
+  <table class="kly">
+    <thead>
+      <tr><th>阶段</th><th>必达 KPI</th><th>达不到的处置</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>M5</td><td>776 支传感器在线率 ≥ 95%、IP.21 历史数据回写正常</td><td>暂缓平台上线，集中排查传感器/网关</td></tr>
+      <tr><td>M8</td><td>系统对历史 5 起已知故障可追溯识别（回放验证）</td><td>不开放报警推送，避免误报扰民</td></tr>
+      <tr><td>M12</td><td>系统已发出至少 3 起"成功提前预警"案例 + 1 份 ROI 报告</td><td>评估是否切换供应商或调整范围</td></tr>
+      <tr><td>M18</td><td>完成 1 个其他工厂的复制部署</td><td>评估集团级平台路线（艾默生 Inmation 等）</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="margin-top:24px; font-size:16px;">配合部门与职责</h3>
+  <div class="grid-4">
+    <div class="card"><strong>智能制造 CIMT（牵头）</strong><div class="desc">总体设计、供应商管理、模型平台、跨厂复制</div></div>
+    <div class="card"><strong>敦化分厂工程/动力</strong><div class="desc">现场安装、设备清单确认、检维修闭环、KPI 落地</div></div>
+    <div class="card"><strong>IT / 信息安全</strong><div class="desc">IP.21 接口、EAM 集成、网络隔离、21 CFR Part 11 合规</div></div>
+    <div class="card"><strong>QA / EHS</strong><div class="desc">报警与偏差体系打通、防爆区合规、CSV 边界确认</div></div>
+  </div>
+</section>
+
+<!-- ============ 9. 风险与控制 ============ -->
+<section class="slide" id="s-risk" data-page="10">
+  <h2 class="kicker">PART 09 · 风险与控制</h2>
+  <h1>主要风险与对应控制措施</h1>
+
+  <table class="kly">
+    <thead>
+      <tr><th style="width:20%;">风险</th><th style="width:30%;">表现 / 后果</th><th style="width:50%;">控制措施</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>① 模型误报扰民</strong><br/><span class="pill warn">发生概率：中</span></td>
+        <td>新模型上线 1-3 个月内对凯莱英工艺特征不熟悉，可能频繁误报，导致工程师"狼来了"</td>
+        <td>
+          ① 上线前 1 个月仅记录、不推送<br/>
+          ② 报警分级（提示/预警/严重），仅严重级直接派工单<br/>
+          ③ 工程师反馈每周回写模型，建立误报关闭流程
+        </td>
+      </tr>
+      <tr>
+        <td><strong>② 数据未真正打通到 EAM</strong><br/><span class="pill warn">发生概率：中高</span></td>
+        <td>报警停留在 PdM 平台、不进 EAM 工单系统，沦为"看板"，ROI 兑现失败</td>
+        <td>
+          ① 项目立项就把 EAM 接口列为<strong>验收必备项</strong><br/>
+          ② 推荐使用方案中已提供的 <code>events/repair</code> 接口（详见和利时方案 5.5 节）<br/>
+          ③ 设备工程师 KPI 增加"PdM 工单闭环率"
+        </td>
+      </tr>
+      <tr>
+        <td><strong>③ 供应商绑定 / 数据所有权</strong><br/><span class="pill warn">发生概率：中</span></td>
+        <td>波形原始数据、特征工程都在供应商云上，未来切换难、谈判被动</td>
+        <td>
+          ① 合同明确：振动原始波形、健康分数等<strong>全部数据归甲方所有</strong><br/>
+          ② 优先本地部署、不上厂家公有云<br/>
+          ③ WebAPI 必须开放，且接口文档版本化
+        </td>
+      </tr>
+      <tr>
+        <td><strong>④ GMP / CSV 验证负担</strong><br/><span class="pill mid">发生概率：低</span></td>
+        <td>若 PdM 报警直接触发 GMP 控制回路，需做完整 21 CFR Part 11 / CSV 验证</td>
+        <td>
+          ① 第一阶段定位为"决策辅助系统"，<strong>不写入 GMP 工艺控制</strong><br/>
+          ② 部署在动力站 + 公辅区域，避免 GMP 边界<br/>
+          ③ 后续如对接质量系统，按 GAMP 5 类别 4 走验证
+        </td>
+      </tr>
+      <tr>
+        <td><strong>⑤ 防爆区施工风险</strong><br/><span class="pill mid">发生概率：低</span></td>
+        <td>防爆离心机 (53 台) 与真空机组 (3 台) 的传感器/网关需要严格防爆等级</td>
+        <td>
+          ① 已选用 ExiaIICT4Ga / Ex d IIC T6 Gb 防爆型号<br/>
+          ② 施工方需具备防爆资质，由 EHS 全程监督<br/>
+          ③ 涉及打孔安装的，进入工艺停机窗口同步执行
+        </td>
+      </tr>
+      <tr>
+        <td><strong>⑥ 现有传感器不足以建模</strong><br/><span class="pill mid">发生概率：低</span></td>
+        <td>《数智化立项规划》第 28 页明确提出"对比模型库判断现有传感器是否足够"，目前未做</td>
+        <td>
+          ① 项目第 1 个月内由乙方完成"模型库 vs 现有传感器"差距分析<br/>
+          ② 缺失测点在硬件清单中补齐<br/>
+          ③ 工艺参数（IP.21 中已有）通过接口接入，不重复采集
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 10. 决策建议 ============ -->
+<section class="slide" id="s-decision" data-page="11">
+  <h2 class="kicker">PART 10 · 决策建议</h2>
+  <h1>重点决策 4 件事</h1>
+
+  <div class="grid-2">
+    <div class="card accent">
+      <h3 style="margin-top:0;">① 是否启动 DH1 全域 PdM 试点</h3>
+      <p style="font-size:14px;">
+        建议：<strong>启动</strong>，覆盖范围采用和利时方案的 348 台 / 776 支传感器，预算约 <strong>650 万元一次性 + 80 万元/年运维</strong>，回收期 &lt; 3 年。
+      </p>
+    </div>
+    <div class="card accent">
+      <h3 style="margin-top:0;">② 主交付供应商</h3>
+      <p style="font-size:14px;">
+        建议：<strong>杭州和利时（HiaPMR）作为主交付方</strong>。理由：方案已落到具体设备清单与施工量；制药/化工领域有成熟交付能力；价格在合理区间。
+        <strong>信力共擎</strong>作为<strong>第二诊断顾问</strong>，为关键螺杆压缩机/往复机故障提供"专家会诊"补强。
+      </p>
+    </div>
+    <div class="card accent">
+      <h3 style="margin-top:0;">③ 数据归属与平台路线</h3>
+      <p style="font-size:14px;">
+        建议：<strong>本地部署 + 数据归甲方</strong>。波形原始数据、特征数据、模型参数全部归凯莱英，
+        未来 2-3 年迁移到集团 OT DataHub（艾默生 Inmation）平滑可达。
+      </p>
+    </div>
+    <div class="card accent">
+      <h3 style="margin-top:0;">④ KPI 与考核口径</h3>
+      <p style="font-size:14px;">
+        建议把以下 4 个指标列入<strong>2026 年敦化分厂动力部门 KPI</strong>：<br/>
+        ① 关键动设备非计划停机次数 −30%<br/>
+        ② PdM 工单闭环率 ≥ 90%<br/>
+        ③ 备件库存周转天数 −20%<br/>
+        ④ 至少形成 3 起"成功提前预警"案例
+      </p>
+    </div>
+  </div>
+
+  <div style="margin-top:24px; background: linear-gradient(135deg, #0f1f3d, #1f3870); color:#fff; border-radius:14px; padding:24px 28px;">
+    <h3 style="margin-top:0; color:#fbbf24;">总结</h3>
+    <p style="font-size:16px; line-height: 1.7; max-width:1000px;">
+      <strong>预测性维护对凯莱英现在是处在 Step2 的关键节点。</strong>
+      底座（IP.21、传感器规划、试点设备）都已经具备，外部成熟方案（和利时、信力共擎）能直接接上来。
+      建议尽快启动 DH1 试点，把这一段路走完，<strong>12 个月内见到第一份实证 ROI 报告</strong>，
+      为 Step3 的集团级 OT 大数据 + AI 应用奠定可复制的基础。
+    </p>
+  </div>
+</section>
+
+<!-- ============ 11. 附录 ============ -->
+<section class="slide" id="s-appendix" data-page="12">
+  <h2 class="kicker">附录</h2>
+  <h1>设备清单、API 清单、术语表</h1>
+
+  <h3 style="margin-top:14px; font-size:15px;">A. 完整设备 / 传感器清单（来自和利时方案 2.2 节）</h3>
+  <table class="kly">
+    <thead><tr><th>序号</th><th>位号</th><th>设备</th><th>防爆</th><th class="num">台数</th><th>功率</th><th class="num">单台传感器</th><th class="num">合计</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>303-VP007</td><td>真空机组</td><td>防爆</td><td class="num">1</td><td>初/二/三级 11/3/4 kW</td><td class="num">6</td><td class="num">18</td></tr>
+      <tr><td>2</td><td>303-VP006</td><td>真空机组</td><td>防爆</td><td class="num">1</td><td>同上</td><td class="num">6</td><td class="num">—</td></tr>
+      <tr><td>3</td><td>303-VP004</td><td>真空机组</td><td>防爆</td><td class="num">1</td><td>同上</td><td class="num">6</td><td class="num">—</td></tr>
+      <tr><td>4</td><td>3 号楼动力站 × 5 站</td><td>冰机</td><td>非防爆</td><td class="num">6 / 站</td><td>250 kW</td><td class="num">4</td><td class="num">24 / 站</td></tr>
+      <tr><td>5</td><td>3 号楼动力站 × 5 站</td><td>空压机</td><td>非防爆</td><td class="num">5 / 站</td><td>15/37/45 kW</td><td class="num">3</td><td class="num">15 / 站</td></tr>
+      <tr><td>6</td><td>3 号楼动力站 × 5 站</td><td>循环泵</td><td>非防爆</td><td class="num">36 / 站</td><td>7.5–45 kW</td><td class="num">2</td><td class="num">72 / 站</td></tr>
+      <tr><td>7</td><td>3 号楼动力站 × 5 站</td><td>凉水塔</td><td>非防爆</td><td class="num">6 / 站</td><td>5.5/7.5 kW</td><td class="num">3</td><td class="num">18 / 站</td></tr>
+      <tr><td>8</td><td>1–7 号楼纯水间</td><td>纯水系统纯水泵</td><td>非防爆</td><td class="num">13</td><td>4–15 kW</td><td class="num">2</td><td class="num">26</td></tr>
+      <tr><td>9</td><td>2/4/5/6 号楼空调间</td><td>空调风机</td><td>非防爆</td><td class="num">14</td><td>7.5–37 kW</td><td class="num">2</td><td class="num">28</td></tr>
+      <tr><td>10</td><td>2–7 号楼</td><td>离心机</td><td>防爆</td><td class="num">53</td><td>15–22 kW</td><td class="num">3</td><td class="num">159</td></tr>
+      <tr style="background:#0f1f3d; color:#fff; font-weight:700;">
+        <td colspan="4">合计（含动力站 × 5 站点扩展）</td><td class="num">348</td><td>—</td><td class="num">—</td><td class="num">776</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footnote">
+    注：序号 4-7 项位号为 "3号楼动力站*5"，意指 5 个站点位号合并统计；本表"台数 / 站"为单站数，
+    全场合计已按 5 站扩展。776 支传感器为方案配置清单分类合计（18 防爆无线 + 90 无线 4G + 509 有线振动 + 159 防爆有线振动）。
+  </div>
+
+  <div class="grid-2" style="margin-top:24px;">
+    <div>
+      <h3 style="font-size:15px;">B. WebAPI（共 20 个接口，节选）</h3>
+      <ul class="bul tight">
+        <li><code>GET /machines/workstatus</code> — 批量设备状态</li>
+        <li><code>GET /machines/score</code> — 振动指标诊断分数趋势</li>
+        <li><code>GET /machines/score-expert</code> — 健康指标分数（含故障定位）</li>
+        <li><code>GET /events</code> — 设备事件 / 工单</li>
+        <li><code>GET /reports/latest</code> — 最新诊断报告</li>
+        <li><code>POST /events/repair</code> — <strong>检修闭环回写（关键）</strong></li>
+        <li><code>POST /draw/api/fft</code> — 幅值谱图数据</li>
+        <li><code>POST /draw/api/hht</code> — 包络解调数据</li>
+      </ul>
+      <div class="footnote">完整列表见和利时方案 5.4 节，共 20 个接口。</div>
+    </div>
+    <div>
+      <h3 style="font-size:15px;">C. 关键术语</h3>
+      <ul class="bul tight">
+        <li><strong>RUL</strong>（Remaining Useful Life）：剩余使用寿命</li>
+        <li><strong>FFT / 包络解调</strong>：将时域振动转为频谱、识别故障特征频率</li>
+        <li><strong>BPFO / BPFI</strong>：滚动轴承外/内圈通过频率</li>
+        <li><strong>ISO 10816</strong>：旋转机械振动烈度评定标准</li>
+        <li><strong>OEE</strong>：整体设备效率（可用性 × 性能 × 质量）</li>
+        <li><strong>Mtell</strong>：艾默生（Aspen Tech）AI 预测性维护软件</li>
+        <li><strong>HiaPMR</strong>：和利时动设备预测性维护平台</li>
+        <li><strong>EAM</strong>：企业资产管理（含工单、备件、检修）</li>
+        <li><strong>CSV</strong>：计算机化系统验证（GMP 合规要求）</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="font-size:15px; margin-top:22px;">D. 资料来源</h3>
+  <ul class="bul tight">
+    <li><em>《凯莱英"数智化"立项规划设想 – 初稿》</em>（艾默生协作，53 页，含 Mtell 试点流程、IP.21 架构）</li>
+    <li><em>《杭州和利时给 DH1 动设备预测性维护系统技术初步方案》</em>（2026 年 4 月，含 348 台设备清单、776 支传感器、20 个 WebAPI、配置清单）</li>
+    <li><em>《安徽信力共擎——关键设备智能监测解决方案》</em>（含故障预警时间窗、传感器配置、九江石化等案例）</li>
+    <li>制药行业公开案例：辉瑞 / GSK / AstraZeneca / BMS Devens 等</li>
+  </ul>
+</section>
+
+</main>
+
+<div class="deck-nav" id="deckNav">
+  <button id="btnPrev">◀ 上一页</button>
+  <span class="pages"><span id="curPage">1</span> / <span id="totPage">12</span></span>
+  <button id="btnNext">下一页 ▶</button>
+  <button id="btnExitDeck">退出</button>
+</div>
+
+<script>
+/* =========================================================================
+   1. 设备饼图
+   ========================================================================= */
+// 注：和利时方案中"3号楼动力站*5"的 *5 含义为"5 个站点位号"，
+// 故循环泵/冰机/空压机/凉水塔的实际台数为单站数 × 5。
+// 总台数 348 与方案 2.2 节合计一致。
+const equipData = [
+  { name: '循环泵',     count: 180, sensors: 360, color:'#3ec6ff' },
+  { name: '离心机',     count: 53,  sensors: 159, color:'#ff7e3d' },
+  { name: '冰机',       count: 30,  sensors: 120, color:'#1e40af' },
+  { name: '凉水塔',     count: 30,  sensors: 90,  color:'#7c3aed' },
+  { name: '空压机',     count: 25,  sensors: 75,  color:'#a855f7' },
+  { name: '空调风机',   count: 14,  sensors: 28,  color:'#22d3ee' },
+  { name: '纯水泵',     count: 13,  sensors: 26,  color:'#0ea5e9' },
+  { name: '真空机组',   count: 3,   sensors: 18,  color:'#dc2626' },
+];
+
+(function renderPie(){
+  const svg = document.getElementById('equipPie');
+  if (!svg) return;
+  const cx=180, cy=180, r=130;
+  const total = equipData.reduce((s,d)=>s+d.count,0);
+  let a0 = -Math.PI/2;
+  let html = '';
+  equipData.forEach(d=>{
+    const a1 = a0 + (d.count/total)*Math.PI*2;
+    const x0 = cx + r*Math.cos(a0), y0 = cy + r*Math.sin(a0);
+    const x1 = cx + r*Math.cos(a1), y1 = cy + r*Math.sin(a1);
+    const largeArc = (a1-a0) > Math.PI ? 1 : 0;
+    html += `<path d="M${cx},${cy} L${x0.toFixed(2)},${y0.toFixed(2)} A${r},${r} 0 ${largeArc} 1 ${x1.toFixed(2)},${y1.toFixed(2)} Z" fill="${d.color}" stroke="#fff" stroke-width="2"/>`;
+    const am = (a0+a1)/2;
+    const lx = cx + (r*0.65)*Math.cos(am);
+    const ly = cy + (r*0.65)*Math.sin(am);
+    if (d.count >= 5) {
+      html += `<text x="${lx}" y="${ly}" text-anchor="middle" font-size="12" font-weight="700" fill="#fff">${d.count}</text>`;
+    }
+    a0 = a1;
+  });
+  // center
+  html += `<circle cx="${cx}" cy="${cy}" r="60" fill="#fff"/>`;
+  html += `<text x="${cx}" y="${cy-6}" text-anchor="middle" font-size="13" fill="#5b6a8a">设备总数</text>`;
+  html += `<text x="${cx}" y="${cy+22}" text-anchor="middle" font-size="28" font-weight="800" fill="#0f1f3d">${total}</text>`;
+  svg.innerHTML = html;
+
+  // legend
+  const lg = document.getElementById('equipLegend');
+  if (lg) {
+    lg.innerHTML = equipData.map(d=>`
+      <div style="display:inline-flex; align-items:center; margin: 3px 10px 3px 0; font-size: 12.5px;">
+        <span style="display:inline-block;width:10px;height:10px;background:${d.color};border-radius:2px;margin-right:6px;"></span>
+        <span>${d.name} <strong>${d.count}</strong> 台 / ${d.sensors} 测点</span>
+      </div>
+    `).join('');
+  }
+
+  // table
+  const tb = document.getElementById('equipTable');
+  if (tb) {
+    tb.innerHTML = equipData.map(d=>`
+      <tr>
+        <td><span style="display:inline-block;width:10px;height:10px;background:${d.color};border-radius:2px;margin-right:8px;vertical-align:middle;"></span>${d.name}</td>
+        <td>${d.name==='真空机组'?'2 楼防爆':d.name==='离心机'?'2-7 号楼 GMP 区':d.name==='纯水泵'?'1-7 号楼纯水间':'3 号楼动力站'}</td>
+        <td>${(d.name==='真空机组'||d.name==='离心机')?'<span class="pill warn">防爆</span>':'<span class="pill ok">非防爆</span>'}</td>
+        <td class="num">${d.count}</td>
+        <td class="num">${d.sensors}</td>
+      </tr>
+    `).join('');
+  }
+})();
+
+/* =========================================================================
+   2. 雷达图：方案对比
+   ========================================================================= */
+(function renderRadar(){
+  const svg = document.getElementById('radar');
+  if (!svg) return;
+  const dims = ['方案颗粒度','故障模型库深度','制药/化工经验','EAM/IP21 集成','防爆覆盖','一站式交付','本地化运维','价格性价比'];
+  // scores 1-10
+  const series = [
+    { name:'杭州和利时',  color:'#3ec6ff', vals:[9,8,7,8,8,9,8,7] },
+    { name:'信力共擎',    color:'#ff7e3d', vals:[6,9,6,6,7,6,7,6] },
+    { name:'自建-Mtell',  color:'#a855f7', vals:[5,9,9,9,7,5,5,5] },
+  ];
+  const cx=210, cy=200, r=140;
+  const n = dims.length;
+  let html = '';
+  // grid
+  for (let g=2; g<=10; g+=2) {
+    let pts = [];
+    for (let i=0;i<n;i++) {
+      const ang = -Math.PI/2 + i*2*Math.PI/n;
+      const rr = r*g/10;
+      pts.push((cx+rr*Math.cos(ang)).toFixed(1)+','+(cy+rr*Math.sin(ang)).toFixed(1));
+    }
+    html += `<polygon points="${pts.join(' ')}" fill="none" stroke="#e3e8f2"/>`;
+  }
+  // axes + labels
+  for (let i=0;i<n;i++) {
+    const ang = -Math.PI/2 + i*2*Math.PI/n;
+    const x = cx + r*Math.cos(ang);
+    const y = cy + r*Math.sin(ang);
+    html += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#e3e8f2"/>`;
+    const lx = cx + (r+22)*Math.cos(ang);
+    const ly = cy + (r+22)*Math.sin(ang);
+    html += `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#5b6a8a">${dims[i]}</text>`;
+  }
+  // series
+  series.forEach(s=>{
+    let pts = [];
+    s.vals.forEach((v,i)=>{
+      const ang = -Math.PI/2 + i*2*Math.PI/n;
+      const rr = r*v/10;
+      pts.push((cx+rr*Math.cos(ang)).toFixed(1)+','+(cy+rr*Math.sin(ang)).toFixed(1));
+    });
+    html += `<polygon points="${pts.join(' ')}" fill="${s.color}" fill-opacity="0.18" stroke="${s.color}" stroke-width="2"/>`;
+    s.vals.forEach((v,i)=>{
+      const ang = -Math.PI/2 + i*2*Math.PI/n;
+      const rr = r*v/10;
+      const x = cx+rr*Math.cos(ang);
+      const y = cy+rr*Math.sin(ang);
+      html += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="${s.color}"/>`;
+    });
+  });
+  // legend
+  series.forEach((s,i)=>{
+    html += `<rect x="${i*120+10}" y="360" width="12" height="12" fill="${s.color}" rx="2"/>`;
+    html += `<text x="${i*120+28}" y="370" font-size="12" fill="#0f1f3d">${s.name}</text>`;
+  });
+  svg.innerHTML = html;
+})();
+
+/* =========================================================================
+   3. 冰机 demo
+   ========================================================================= */
+const DAYS = 120;
+const ALARM_DAY = 95;   // 实际设备真正不可逆故障
+const PRED_DAY  = 62;   // 模型给出"轴承外圈早期异常"预警
+
+// 生成基线 + 渐进退化数据
+function genSeries(){
+  const data = [];
+  for (let d=0; d<DAYS; d++){
+    let degrade = 0;
+    if (d>=50 && d < ALARM_DAY) degrade = (d-50)/45;             // 0→1
+    else if (d>=ALARM_DAY) degrade = 1 + (d-ALARM_DAY)*0.15;     // 故障后剧烈
+    const noise = ()=> (Math.random()-0.5)*0.25;
+    const vrms  = 1.6 + degrade*3.5 + noise();             // mm/s
+    const arms  = 0.8 + degrade*4.0 + Math.abs(noise())*0.3;
+    const temp  = 52 + degrade*22 + noise()*1.5;
+    const bear  = Math.max(5, 95 - degrade*70 + noise()*2);  // 健康指标
+    let health  = Math.max(5, 96 - degrade*72 + noise()*1.5);
+    if (d>=PRED_DAY && d < ALARM_DAY) health -= 5; // 预警后系统打分更低
+    data.push({d, vrms, arms, temp, bear, health});
+  }
+  return data;
+}
+const series = genSeries();
+
+const events = [
+  { day: 0,    type:'info',   text:'冰机 #03 接入预测性维护平台，开始基线学习' },
+  { day: 28,   type:'info',   text:'基线建立完成，进入正常监控（绿色）' },
+  { day: 62,   type:'warn',   text:'⚠ 检测到轴承外圈特征频率 BPFO 边频带能量上升，健康分数下降 7 分 — 自动生成预警工单' },
+  { day: 75,   type:'warn',   text:'轴承健康指标进一步下滑至 65，建议在下次计划检修窗口安排轴承拆检' },
+  { day: 88,   type:'warn',   text:'振动烈度 vRMS 接近 ISO 10816-3 报警线 (4.5 mm/s)，建议两周内必须停机检修' },
+  { day: 95,   type:'danger', text:'✗ 振动烈度突变至 7.2 mm/s — 轴承不可逆损坏，触发紧急停机' },
+  { day: 96,   type:'info',   text:'若无 PdM：仅在 D88 触发烈度报警，距 D95 仅 7 天，备件来不及，将造成计划外停机' },
+];
+
+function renderTrend(curDay){
+  const svg = document.getElementById('trendChart');
+  if (!svg) return;
+  const W=1080, H=320, mL=50, mR=30, mT=20, mB=40;
+  const w = W-mL-mR, h = H-mT-mB;
+  const xScale = d => mL + (d/(DAYS-1))*w;
+  const yScale = v => mT + (1-v/100)*h;
+
+  let html = '';
+  // grid
+  for (let i=0;i<=10;i++){
+    const y = mT + i*h/10;
+    html += `<line class="grid" x1="${mL}" y1="${y}" x2="${W-mR}" y2="${y}"/>`;
+  }
+  // x labels
+  for (let i=0;i<=DAYS;i+=20){
+    const x = xScale(Math.min(i,DAYS-1));
+    html += `<line class="grid" x1="${x}" y1="${mT}" x2="${x}" y2="${H-mB}"/>`;
+    html += `<text x="${x}" y="${H-mB+14}" text-anchor="middle" fill="#5b6a8a" font-size="11">D${i}</text>`;
+  }
+  // y labels
+  for (let i=0;i<=10;i+=2){
+    const y = mT + i*h/10;
+    html += `<text x="${mL-8}" y="${y+4}" text-anchor="end" fill="#5b6a8a" font-size="11">${100-i*10}</text>`;
+  }
+  // alarm line at health=30
+  html += `<line class="l-thresh" x1="${mL}" y1="${yScale(30)}" x2="${W-mR}" y2="${yScale(30)}"/>`;
+  html += `<text x="${W-mR-4}" y="${yScale(30)-4}" fill="#ef4444" font-size="11" text-anchor="end">健康分数报警线 (30)</text>`;
+
+  // predict band (D62 - D95)
+  const xP = xScale(PRED_DAY), xA = xScale(ALARM_DAY);
+  html += `<rect class="a-band" x="${xP}" y="${mT}" width="${xA-xP}" height="${h}"/>`;
+  html += `<text x="${(xP+xA)/2}" y="${mT+14}" text-anchor="middle" fill="#a16207" font-size="11" font-weight="700">PdM 预警窗口（${ALARM_DAY-PRED_DAY} 天）</text>`;
+
+  // historical line (until curDay)
+  const ptsActual = [];
+  for (let i=0;i<=Math.min(curDay,DAYS-1);i++) ptsActual.push(`${xScale(i).toFixed(1)},${yScale(series[i].health).toFixed(1)}`);
+  html += `<polyline class="l-actual" points="${ptsActual.join(' ')}"/>`;
+
+  // prediction line (curDay -> end) only show when in window
+  if (curDay >= PRED_DAY && curDay < ALARM_DAY) {
+    const ptsPred = [];
+    for (let i=curDay; i<DAYS; i++) ptsPred.push(`${xScale(i).toFixed(1)},${yScale(series[i].health).toFixed(1)}`);
+    html += `<polyline class="l-pred" points="${ptsPred.join(' ')}"/>`;
+    html += `<text x="${xScale(DAYS-2)}" y="${yScale(series[DAYS-2].health)+4}" text-anchor="end" fill="#a16207" font-size="11">AI 预测轨迹</text>`;
+  }
+
+  // current marker
+  if (curDay <= DAYS-1) {
+    const cx = xScale(curDay), cy = yScale(series[curDay].health);
+    html += `<line x1="${cx}" y1="${mT}" x2="${cx}" y2="${H-mB}" stroke="#ff7e3d" stroke-width="1" stroke-dasharray="3 3"/>`;
+    html += `<circle cx="${cx}" cy="${cy}" r="6" fill="#ff7e3d" stroke="#fff" stroke-width="2"/>`;
+    html += `<text x="${cx+8}" y="${cy-8}" fill="#ff7e3d" font-size="11" font-weight="700">当前: D${curDay}</text>`;
+  }
+
+  // event markers on x-axis
+  events.forEach(e=>{
+    if (e.day > curDay) return;
+    const x = xScale(e.day);
+    const c = e.type==='danger' ? '#ef4444' : (e.type==='warn' ? '#fbbf24' : '#3ec6ff');
+    html += `<circle cx="${x}" cy="${H-mB-4}" r="4" fill="${c}" stroke="#0f1f3d" stroke-width="1"/>`;
+  });
+
+  // title
+  html += `<text x="${mL}" y="14" fill="#fff" font-size="13" font-weight="600">综合健康分数趋势（90 天历史 + 30 天 AI 预测）</text>`;
+  html += `<text x="${W-mR}" y="14" fill="#cbd5e1" font-size="11" text-anchor="end">蓝实线 = 历史观测；黄虚线 = AI 预测；红虚线 = 报警阈值</text>`;
+
+  svg.innerHTML = html;
+}
+
+function updateGauges(curDay){
+  const s = series[curDay];
+  const setG = (id, val, max, alarm, warn, suffix='') => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.querySelector('.g-val').textContent = val.toFixed(1) + suffix;
+    el.querySelector('.g-bar > div').style.width = Math.min(100, (val/max)*100) + '%';
+    el.classList.remove('ok','warn','danger');
+    if (val >= alarm) el.classList.add('danger');
+    else if (val >= warn) el.classList.add('warn');
+    else el.classList.add('ok');
+  };
+  setG('gauge-vrms', s.vrms, 8, 4.5, 2.8, '');
+  setG('gauge-arms', s.arms, 8, 4.5, 2.8, '');
+  setG('gauge-temp', s.temp, 90, 75, 65, '');
+
+  // 健康分数：值越低越差
+  const elB = document.getElementById('gauge-bear');
+  if (elB) {
+    elB.querySelector('.g-val').textContent = s.bear.toFixed(0);
+    elB.querySelector('.g-bar > div').style.width = s.bear + '%';
+    elB.classList.remove('ok','warn','danger');
+    if (s.bear < 30) elB.classList.add('danger');
+    else if (s.bear < 60) elB.classList.add('warn');
+    else elB.classList.add('ok');
+  }
+
+  // health banner
+  const hsEl = document.getElementById('healthScore');
+  if (hsEl) hsEl.textContent = s.health.toFixed(0);
+  const stEl = document.getElementById('healthStatus');
+  const dsEl = document.getElementById('healthDesc');
+  const rulEl = document.getElementById('rul');
+
+  if (curDay < PRED_DAY) {
+    stEl.textContent = '运行正常';
+    dsEl.textContent = '所有故障模式得分均 ≥ 80，无异常征兆。';
+    rulEl.textContent = '—';
+    rulEl.style.color = '#22d3ee';
+  } else if (curDay < ALARM_DAY) {
+    stEl.textContent = '⚠ 轴承外圈早期异常 (BPFO 边频带)';
+    dsEl.textContent = '建议在下次计划检修窗口安排轴承拆检，备件 6203-2RS 库存充足。';
+    rulEl.textContent = (ALARM_DAY - curDay).toString();
+    rulEl.style.color = '#fbbf24';
+  } else {
+    stEl.textContent = '✗ 轴承不可逆损坏';
+    dsEl.textContent = '振动烈度突变，必须立即停机检修。';
+    rulEl.textContent = '0';
+    rulEl.style.color = '#ef4444';
+  }
+}
+
+function updateLog(curDay){
+  const el = document.getElementById('eventLog');
+  if (!el) return;
+  const visible = events.filter(e=>e.day<=curDay).slice().reverse();
+  el.innerHTML = visible.map(e=>`
+    <div class="e ${e.type}">
+      <span class="t">D${String(e.day).padStart(3,'0')} · ${e.type==='danger'?'故障':e.type==='warn'?'预警':'记录'}</span>
+      <span>${e.text}</span>
+    </div>
+  `).join('') || '<div class="e"><span class="t">D000</span> 等待数据...</div>';
+}
+
+let curDay = 0;
+function updateAll(){
+  document.getElementById('timeLabel').textContent = 'D ' + curDay;
+  document.getElementById('timeSlider').value = curDay;
+  renderTrend(curDay);
+  updateGauges(curDay);
+  updateLog(curDay);
+}
+// 支持 URL ?day=NN 用于自动化截图演示
+(function(){
+  const m = (location.search||'').match(/[?&]day=(\d+)/);
+  if (m) {
+    const v = Math.min(DAYS-1, Math.max(0, parseInt(m[1],10)));
+    curDay = v;
+  }
+})();
+
+(function bindDemo(){
+  const slider = document.getElementById('timeSlider');
+  if (!slider) return;
+  slider.addEventListener('input', e=>{
+    curDay = parseInt(e.target.value, 10);
+    updateAll();
+  });
+  let timer = null;
+  document.getElementById('btnPlay').addEventListener('click', e=>{
+    if (timer) {
+      clearInterval(timer); timer=null;
+      e.target.textContent = '▶ 自动播放';
+      return;
+    }
+    e.target.textContent = '⏸ 暂停';
+    timer = setInterval(()=>{
+      curDay = (curDay+1) % DAYS;
+      updateAll();
+      if (curDay === 0) { /* loop */ }
+    }, 200);
+  });
+  document.getElementById('btnReset').addEventListener('click', ()=>{
+    curDay = 0; updateAll();
+  });
+  updateAll();
+})();
+
+/* =========================================================================
+   4. ROI calculator
+   ========================================================================= */
+function fmt(n) {
+  if (!isFinite(n)) return '∞';
+  if (Math.abs(n) >= 10000) return (n/10000).toFixed(2) + ' 亿';
+  return n.toFixed(0);
+}
+
+function recalcROI(){
+  const v = id => parseFloat(document.getElementById(id).value) || 0;
+  const capex = v('i_capex');
+  const opex  = v('i_opex');
+  const stops = v('i_avoidStops');
+  const cps   = v('i_costPerStop');
+  const spare = v('i_sparePart');
+  const labor = v('i_labor');
+  const safety= v('i_safety');
+
+  const stopBenefit = stops * cps;
+  const benefits = [
+    {label:'避免停机',  v: stopBenefit, color:'#22d3ee'},
+    {label:'备件/维修', v: spare,       color:'#3ec6ff'},
+    {label:'人力',       v: labor,       color:'#a855f7'},
+    {label:'安全',       v: safety,      color:'#fbbf24'},
+  ];
+  const totalBenefit = benefits.reduce((s,b)=>s+b.v,0);
+  const netAnnual = totalBenefit - opex;
+  const payback = netAnnual <= 0 ? Infinity : capex / netAnnual;
+  const fiveY = netAnnual * 5 - capex;
+
+  // 简化 IRR 估算（5 年期）
+  let irr = 0;
+  if (netAnnual > 0) {
+    let lo=-0.5, hi=2.0;
+    for (let i=0;i<60;i++) {
+      const mid = (lo+hi)/2;
+      let npv = -capex;
+      for (let y=1;y<=5;y++) npv += netAnnual / Math.pow(1+mid, y);
+      if (npv > 0) lo=mid; else hi=mid;
+    }
+    irr = (lo+hi)/2;
+  }
+
+  document.getElementById('o_benefit').textContent = fmt(totalBenefit) + (totalBenefit<10000?' 万':'');
+  document.getElementById('o_payback').textContent = isFinite(payback) ? payback.toFixed(2) : '—';
+  document.getElementById('o_5y').textContent = fmt(fiveY) + (Math.abs(fiveY)<10000?' 万':'');
+  document.getElementById('o_irr').textContent = netAnnual>0 ? (irr*100).toFixed(0)+'%' : '—';
+
+  // stack bar
+  const svg = document.getElementById('roiStack');
+  if (svg) {
+    let x = 0; const W=600, H=28;
+    let html = '';
+    benefits.forEach(b=>{
+      if (totalBenefit<=0) return;
+      const w = (b.v/totalBenefit)*W;
+      html += `<rect x="${x}" y="0" width="${w}" height="${H}" fill="${b.color}"/>`;
+      if (w > 60) html += `<text x="${x+w/2}" y="${H/2+4}" text-anchor="middle" fill="#0f1f3d" font-size="11" font-weight="700">${b.label}</text>`;
+      x += w;
+    });
+    svg.innerHTML = html;
+  }
+
+  // legend
+  const lg = document.getElementById('roiLegend');
+  if (lg) {
+    lg.innerHTML = benefits.map(b=>`
+      <span style="display:inline-block; margin-right:14px;">
+        <span style="display:inline-block; width:10px; height:10px; background:${b.color}; border-radius:2px; margin-right:5px;"></span>
+        ${b.label} ${b.v.toFixed(0)} 万 (${totalBenefit>0?(b.v/totalBenefit*100).toFixed(0):0}%)
+      </span>`).join('');
+  }
+}
+
+['i_capex','i_opex','i_avoidStops','i_costPerStop','i_sparePart','i_labor','i_safety'].forEach(id=>{
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', recalcROI);
+});
+recalcROI();
+
+/* =========================================================================
+   5. Deck mode
+   ========================================================================= */
+(function deck(){
+  const btn = document.getElementById('btnDeck');
+  const slides = document.querySelectorAll('section.slide');
+  document.getElementById('totPage').textContent = slides.length;
+  let cur = 0;
+  function showCur(){
+    slides.forEach((s,i)=>{
+      s.classList.toggle('active', i===cur);
+    });
+    document.getElementById('curPage').textContent = cur+1;
+    window.scrollTo({top:0});
+  }
+  btn.addEventListener('click', ()=>{
+    document.body.classList.toggle('deck');
+    if (document.body.classList.contains('deck')) {
+      btn.textContent = '✕ 退出演示';
+      cur = 0; showCur();
+    } else {
+      btn.textContent = '▶ 演示模式';
+    }
+  });
+  document.getElementById('btnPrev').addEventListener('click', ()=>{ cur=Math.max(0,cur-1); showCur();});
+  document.getElementById('btnNext').addEventListener('click', ()=>{ cur=Math.min(slides.length-1,cur+1); showCur();});
+  document.getElementById('btnExitDeck').addEventListener('click', ()=>{
+    document.body.classList.remove('deck');
+    btn.textContent = '▶ 演示模式';
+  });
+  document.addEventListener('keydown', e=>{
+    if (!document.body.classList.contains('deck')) return;
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { cur=Math.min(slides.length-1,cur+1); showCur();}
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { cur=Math.max(0,cur-1); showCur();}
+    if (e.key === 'Escape') { document.body.classList.remove('deck'); btn.textContent = '▶ 演示模式'; }
+  });
+})();
+</script>
+</body>
+</html>

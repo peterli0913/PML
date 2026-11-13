@@ -1,0 +1,32 @@
+<chrome current="queue" role="{{role}}">
+  <view class="page">
+    <view class="toast" wx:if="{{toast}}">{{toast}}</view>
+    <view class="filters">
+      <view class="chip {{filter === '全部' ? 'on' : ''}}" data-filter="全部" bindtap="onFilter">全部</view>
+      <view class="chip {{filter === '进厂' ? 'on' : ''}}" data-filter="进厂" bindtap="onFilter">进厂</view>
+      <view class="chip {{filter === '出厂' ? 'on' : ''}}" data-filter="出厂" bindtap="onFilter">出厂</view>
+    </view>
+    <view class="card" wx:for="{{rows}}" wx:key="id" data-id="{{item.id}}" bindtap="onOpen">
+      <view class="row">
+        <text class="plate">{{item.id}} · {{item.plate}}</text>
+        <text class="tag {{item.tag}}">{{item.status}}</text>
+      </view>
+      <view class="sub">{{item.kind}} · {{item.material}} {{item.qty}} 吨 · {{item.planTime}}</view>
+      <view class="sub">{{item.bay}} · {{item.tank}}</view>
+    </view>
+    <view class="card">
+      <view class="h2">新建工单</view>
+      <view class="note">供应链只填物料、吨数和大致时间。鹤位按物料固定。</view>
+      <view class="filters">
+        <view class="chip {{draftMaterial === '甲醇' ? 'on' : ''}}" data-material="甲醇" bindtap="onMaterial">甲醇</view>
+        <view class="chip {{draftMaterial === 'DMF' ? 'on' : ''}}" data-material="DMF" bindtap="onMaterial">DMF</view>
+        <view class="chip {{draftMaterial === '乙腈' ? 'on' : ''}}" data-material="乙腈" bindtap="onMaterial">乙腈</view>
+        <view class="chip {{draftMaterial === '废DMF' ? 'on' : ''}}" data-material="废DMF" bindtap="onMaterial">废DMF</view>
+        <view class="chip {{draftMaterial === '废IPAc' ? 'on' : ''}}" data-material="废IPAc" bindtap="onMaterial">废IPAc</view>
+      </view>
+      <view class="field"><text>吨数</text><input class="num" type="digit" value="{{draftQty}}" bindblur="onQty" /></view>
+      <view class="field"><text>大致时间</text><input class="num" type="text" value="{{draftTime}}" bindblur="onTime" /></view>
+      <button class="act" bindtap="onCreate">生成待确认工单</button>
+    </view>
+  </view>
+</chrome>

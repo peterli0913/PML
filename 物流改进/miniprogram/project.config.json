@@ -1,0 +1,19 @@
+{
+  "description": "TJ4 槽车转运微信小程序",
+  "packOptions": { "ignore": [], "include": [] },
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "postcss": true,
+    "minified": false,
+    "enhance": true,
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "disableSWC": true
+  },
+  "compileType": "miniprogram",
+  "libVersion": "3.5.5",
+  "appid": "touristappid",
+  "projectname": "tj4-tanker",
+  "condition": {}
+}

@@ -1,0 +1,214 @@
+{
+ "sampling_rows": [
+  [
+   "6",
+   "X",
+   "--",
+   "--",
+   "Reaction mixture/反应体系",
+   "HPLC",
+   "Fmoc-OSu area%≤0.05%",
+   "AM-138393-007"
+  ],
+  [
+   "7",
+   "X",
+   "--",
+   "--",
+   "Reaction mixture/反应体系",
+   "pH",
+   "6~7",
+   "--"
+  ],
+  [
+   "10",
+   "X",
+   "--",
+   "--",
+   "Reaction mixture/反应体系",
+   "pH",
+   "4~4.5",
+   "--"
+  ],
+  [
+   "",
+   "X",
+   "--",
+   "--",
+   "",
+   "pH",
+   "2.5~3.5",
+   "--"
+  ],
+  [
+   "12,16",
+   "X",
+   "--",
+   "--",
+   "Filter cake/滤饼",
+   "Solubility/溶解度",
+   "Clearly soluble/溶清",
+   "AM-380"
+  ],
+  [
+   "",
+   "X",
+   "--",
+   "--",
+   "",
+   "HPLC",
+   "138393 purity/138393纯度≥99.0%",
+   "AM-138393-004"
+  ],
+  [
+   "",
+   "X",
+   "--",
+   "--",
+   "",
+   "",
+   "Maximum single impurity/最大单杂 area%≤0.1%",
+   ""
+  ],
+  [
+   "",
+   "X",
+   "--",
+   "--",
+   "",
+   "HPLC",
+   "Fmoc-D-Ile-OH area%≤0.1%",
+   "AM-138393-005"
+  ],
+  [
+   "",
+   "X",
+   "--",
+   "--",
+   "",
+   "HPLC",
+   "L-Ile-OH wt%≤0.1%",
+   "AM-138393-006"
+  ],
+  [
+   "21",
+   "X",
+   "--",
+   "--",
+   "Solid/烘料固体",
+   "KF",
+   "KF≤0.5%",
+   "AM-003"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "GC",
+   "Ethanol residual/乙醇残留≤1000ppm",
+   "AM-020-01"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "Appearance/外观",
+   "White to off-white solid/白色至类白色固体",
+   "AM-001"
+  ],
+  [
+   "",
+   "",
+   "",
+   "",
+   "",
+   "HPLC",
+   "138393 assay/138393含量≥98.0%",
+   "AM-138393-004"
+  ],
+  [
+   "22",
+   "--",
+   "--",
+   "X",
+   "Product/产品138393",
+   "Refer to COA/参见COA"
+  ]
+ ],
+ "tech_sampling": [
+  {
+   "row": 2,
+   "steps_raw": "6",
+   "steps": [
+    "6"
+   ],
+   "optional_steps": [],
+   "method": "取样器5~10mL",
+   "handling": "过滤后取母液送样",
+   "tests": "Fmoc-OSu残留",
+   "ppe": "氯丁橡胶手套+正压呼吸器",
+   "source": "标准取样步骤表 第2行"
+  },
+  {
+   "row": 3,
+   "steps_raw": "7，10",
+   "steps": [
+    "7",
+    "10"
+   ],
+   "optional_steps": [],
+   "method": "取样器5~10mL",
+   "handling": "直接送样",
+   "tests": "pH（精密pH试纸检测）",
+   "ppe": "氯丁橡胶手套+正压呼吸器+黄色防化服",
+   "source": "标准取样步骤表 第3行"
+  },
+  {
+   "row": 4,
+   "steps_raw": "12、□16",
+   "steps": [
+    "12",
+    "16"
+   ],
+   "optional_steps": [
+    "16"
+   ],
+   "method": "药勺取5~10g",
+   "handling": "实验室吹干至恒重后送样",
+   "tests": "HPLC 138393纯度，单杂，对映异构体纯度，游离氨基酸残留，溶解度",
+   "ppe": "氯丁橡胶手套+正压呼吸器+黄色防化服",
+   "source": "标准取样步骤表 第4行"
+  },
+  {
+   "row": 5,
+   "steps_raw": "19",
+   "steps": [
+    "19"
+   ],
+   "optional_steps": [],
+   "method": "药勺取5~10g",
+   "handling": "直接送样",
+   "tests": "GC 乙醇残留 KF HPLC 138393含量 外观",
+   "ppe": "氯丁橡胶手套+正压呼吸器+黄色防化服",
+   "source": "标准取样步骤表 第5行"
+  },
+  {
+   "row": 6,
+   "steps_raw": "20",
+   "steps": [
+    "20"
+   ],
+   "optional_steps": [],
+   "method": "药勺取5~10g",
+   "handling": "直接送样",
+   "tests": "纯度，外标，单杂，对映异构体纯度，游离氨基酸残留",
+   "ppe": "氯丁橡胶手套+正压呼吸器+黄色防化服",
+   "source": "标准取样步骤表 第6行"
+  }
+ ],
+ "product_name_en": "(((9H-fluoren-9-yl)methoxy)carbonyl)-L-isoleucine"
+}

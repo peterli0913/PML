@@ -1,0 +1,11 @@
+# 资源路径（相对仓库根目录）。换模板或换库时只改这里。
+resources:
+  template: MOR相关/QF05098 v12.0 商业化(验证批)项目MOR模版-09-29-2026生效.docx
+  library: MOR相关/协助---a.双语MOR常用单元操作-09-29-2026.docx
+  materials: MOR相关/协助---MOR系统物料库+无机盐名称查询.xls
+
+# 默认项目类型，对应 rules/templates/ 下的同名文件
+default_template: commercial_validation
+
+knowledge_dir: qwen-skills/mor-generator/knowledge
+rules_dir: qwen-skills/mor-generator/rules

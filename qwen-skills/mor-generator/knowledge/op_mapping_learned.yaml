@@ -1,0 +1,110 @@
+加料:
+  variants:
+  - count: 10
+    sequence:
+    - title_cn: 加料
+      title_en: Add
+    sources:
+    - MOR-DH313839301.02_07-24-2026.docx
+    - MOR-DH313839301.03_10-21-2026.docx
+升温:
+  variants:
+  - count: 2
+    sequence:
+    - title_cn: 升温
+      title_en: Heat
+    sources:
+    - MOR-DH313839301.02_07-24-2026.docx
+    - MOR-DH313839301.03_10-21-2026.docx
+反应:
+  variants:
+  - count: 2
+    sequence:
+    - title_cn: 反应
+      title_en: React
+    sources:
+    - MOR-DH313839301.02_07-24-2026.docx
+    - MOR-DH313839301.03_10-21-2026.docx
+烘料:
+  variants:
+  - count: 4
+    sequence:
+    - title_cn: 装料
+      title_en: Load
+    - title_cn: 烘料
+      title_en: Dry
+    sources:
+    - MOR-DH313839301.02_07-24-2026.docx
+    - MOR-DH313839301.03_10-21-2026.docx
+离心&淋洗:
+  variants:
+  - count: 4
+    sequence:
+    - title_cn: 离心
+      title_en: Filter
+    sources:
+    - MOR-DH313839301.02_07-24-2026.docx
+    - MOR-DH313839301.03_10-21-2026.docx
+筛料:
+  variants:
+  - count: 2
+    sequence:
+    - title_cn: 筛料
+      title_en: Sieve
+    sources:
+    - MOR-DH313839301.02_07-24-2026.docx
+    - MOR-DH313839301.03_10-21-2026.docx
+设备确认:
+  variants:
+  - count: 4
+    sequence:
+    - title_cn: 设备确认
+      title_en: Confirm equipment
+    sources:
+    - MOR-DH313839301.02_07-24-2026.docx
+    - MOR-DH313839301.03_10-21-2026.docx
+调节pH:
+  variants:
+  - count: 4
+    sequence:
+    - title_cn: 调pH
+      title_en: Adjust pH
+    sources:
+    - MOR-DH313839301.02_07-24-2026.docx
+    - MOR-DH313839301.03_10-21-2026.docx
+过滤:
+  variants:
+  - count: 2
+    sequence:
+    - title_cn: 过滤
+      title_en: Filter
+    sources:
+    - MOR-DH313839301.02_07-24-2026.docx
+    - MOR-DH313839301.03_10-21-2026.docx
+配溶液:
+  variants:
+  - count: 2
+    sequence:
+    - title_cn: 加料
+      title_en: Add
+    sources:
+    - MOR-DH313839301.02_07-24-2026.docx
+    - MOR-DH313839301.03_10-21-2026.docx
+降温:
+  variants:
+  - count: 2
+    sequence:
+    - title_cn: 降温
+      title_en: Cool
+    sources:
+    - MOR-DH313839301.02_07-24-2026.docx
+    - MOR-DH313839301.03_10-21-2026.docx
+降温&收料:
+  variants:
+  - count: 2
+    sequence:
+    - title_cn: 收料& Analyze/检测
+      title_en: Collect
+    sources:
+    - MOR-DH313839301.02_07-24-2026.docx
+    - MOR-DH313839301.03_10-21-2026.docx

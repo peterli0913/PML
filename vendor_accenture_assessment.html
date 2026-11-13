@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>埃森哲咨询能力落地评估 · Accenture × Asymchem</title>
+<style>
+  :root {
+    --primary: #7c3aed;
+    --primary-deep: #5b21b6;
+    --primary-light: #a78bfa;
+    --primary-bg: #f5f3ff;
+    --text-main: #1a1d2e;
+    --text-sub: #3a4d72;
+    --text-muted: #5b6a8a;
+    --green: #10b981;
+    --orange: #ff7e3d;
+    --red: #dc2626;
+    --blue: #3b82f6;
+    --gold: #fbbf24;
+    --border: #e5e7eb;
+    --bg-card: #fafbfc;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f8fafc;
+    color: var(--text-main);
+    line-height: 1.6;
+  }
+  /* Topbar */
+  .topbar {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.96);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .brand { display:flex; align-items:center; gap:14px; }
+  .badge {
+    background: var(--primary);
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .topbar nav a {
+    color: var(--text-sub);
+    text-decoration: none;
+    margin-left: 18px;
+    font-size: 13px;
+  }
+  .topbar nav a:hover { color: var(--primary); }
+  .present-btn {
+    background: var(--text-main);
+    color: #fff;
+    border: 0;
+    padding: 6px 14px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  /* Slides */
+  .slide {
+    max-width: 1200px;
+    margin: 32px auto;
+    background: #fff;
+    border-radius: 14px;
+    padding: 40px 48px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+  .slide.cover {
+    background: linear-gradient(135deg, #1e1b4b 0%, #5b21b6 60%, #7c3aed 100%);
+    color: #fff;
+  }
+  .slide.cover .kicker { color: #c4b5fd; }
+  .slide.cover h1 { color: #fff; }
+  .slide.cover .lead { color: #ddd6fe; }
+  .kicker {
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-size: 32px;
+    color: var(--text-main);
+    margin-bottom: 16px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  h2 { font-size: 22px; color: var(--primary-deep); margin: 20px 0 12px; }
+  h3 { font-size: 17px; color: var(--text-main); margin: 14px 0 8px; }
+  .lead {
+    color: var(--text-sub);
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 12px 0;
+  }
+  .card.info { background: #eef2ff; border-color: #c7d2fe; }
+  .card.warn { background: #fff7ed; border-color: #fdba74; }
+  .card.danger { background: #fef2f2; border-color: #fca5a5; }
+  .card.success { background: #ecfdf5; border-color: #6ee7b7; }
+  .card.tip { background: #f5f3ff; border-color: #c4b5fd; }
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+  .grid-3 { display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+  .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap:12px; }
+  .tag {
+    display: inline-block;
+    background: var(--primary-bg);
+    color: var(--primary-deep);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-right: 4px;
+  }
+  .tag.green { background: #ecfdf5; color: #065f46; }
+  .tag.orange { background: #fff7ed; color: #9a3412; }
+  .tag.red { background: #fef2f2; color: #991b1b; }
+  .tag.blue { background: #eff6ff; color: #1e40af; }
+  ul.bul { padding-left: 22px; margin: 6px 0; }
+  ul.bul.tight li { margin: 2px 0; font-size: 13.5px; color: var(--text-sub); }
+  ul.bul li { margin: 4px 0; color: var(--text-sub); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 13.5px;
+  }
+  table th, table td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  table thead th {
+    background: var(--primary-bg);
+    color: var(--primary-deep);
+    font-weight: 600;
+  }
+  table tr:nth-child(even) td { background: #fafbfc; }
+  .pill {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11.5px;
+    font-weight: 600;
+  }
+  .pill.green { background: #d1fae5; color: #065f46; }
+  .pill.orange { background: #fed7aa; color: #9a3412; }
+  .pill.red { background: #fee2e2; color: #991b1b; }
+  .pill.blue { background: #dbeafe; color: #1e40af; }
+  .pill.gray { background: #e5e7eb; color: #4b5563; }
+  .page-num {
+    position: absolute;
+    bottom: 12px; right: 20px;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+  .slide { position: relative; }
+  /* Quote / callout */
+  .quote {
+    border-left: 4px solid var(--primary);
+    padding: 8px 16px;
+    background: #faf5ff;
+    margin: 12px 0;
+    color: var(--text-sub);
+    font-style: italic;
+    font-size: 14px;
+  }
+  .metric {
+    text-align: center;
+    padding: 12px;
+  }
+  .metric .num { font-size: 28px; font-weight: 700; color: var(--primary-deep); }
+  .metric .label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+  button.toggle {
+    background: #fff;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 6px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    margin: 4px;
+  }
+  button.toggle.active { background: var(--primary); color:#fff; }
+  /* Print */
+  @media print {
+    body { background:#fff; }
+    .topbar { display:none; }
+    .slide { box-shadow: none; page-break-after: always; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="badge">埃森哲 PoC 评估</span>
+  </div>
+  <nav>
+    <a href="#s-cover">封面</a>
+    <a href="#s-who">是谁</a>
+    <a href="#s-observation">关键观察</a>
+    <a href="#s-products">产品落地</a>
+    <a href="#s-advantage">独家优势</a>
+    <a href="#s-disadvantage">核心劣势</a>
+    <a href="#s-landscape">供应商定位</a>
+    <a href="#s-modes">合作模式</a>
+    <a href="#s-recommend">建议</a>
+    <a href="#s-appendix">附录</a>
+  </nav>
+  <button class="present-btn" onclick="document.body.requestFullscreen?.()">▶ 演示模式</button>
+</header>
+
+<!-- ============ S-cover ============ -->
+<section class="slide cover" id="s-cover" data-page="1">
+  <div class="kicker">VENDOR POC ASSESSMENT · ACCENTURE × ASYMCHEM</div>
+  <h1>埃森哲咨询能力落地评估<br>战略合作伙伴 vs 应用层供应商：定位、价值与风险</h1>
+  <p class="lead">
+    针对 IT 部门推荐的潜在合作商埃森哲（Accenture）的内部深度评估：基于其 2026-05-13《埃森哲 AI 能力与赋能制造介绍》PDF，
+    全面解读他们的<strong>能力边界、商业模式与对凯莱英 CDMO 的真实适配性</strong>。
+  </p>
+
+  <div style="margin-top: 28px; padding: 16px 20px; background: rgba(255,255,255,0.10); border-radius: 8px; backdrop-filter: blur(6px); font-size: 14px; line-height: 1.85;">
+    <strong>会前观察</strong>：埃森哲跟我们此前评估的所有供应商<strong>不在同一物种</strong>—— 不是算法供应商（智现未来 / 中控）、不是平台供应商（华为云 / AVEVA / Inmation）、更不是单点 OT 供应商（和利时 / 信力共擎）。<br>
+    <strong>本汇报立意</strong>：把"咨询 + 集成商 + 变革管理"这个独特物种讲清楚。在凯莱英 AI 战略地图里它应该占什么位置？什么场景用它、什么场景<strong>不能</strong>用它。<br>
+    <strong>核心结论</strong>：埃森哲<strong>最大的价值在战略层 + 集团级 AI 规划 + 跨部门变革管理</strong>，最大的风险在<strong>价格 + 算法非原创 + CDMO 制药案例空白</strong>。建议<strong>用对位置</strong>，而非"用满"或"不用"。<br>
+    <strong>包含</strong>：5 大产品逐项 CDMO 翻译 + 8 家供应商 2D 定位矩阵图 + 3 种合作模式成本-价值-风险对比 + 给埃森哲的 18 项尽调清单
+  </div>
+  <div class="page-num">01 / 10</div>
+</section>
+
+<!-- ============ S-who PART 01 ============ -->
+<section class="slide" id="s-who" data-page="2">
+  <div class="kicker">PART 01 · 埃森哲是谁 — 咨询业巨头的真实定位</div>
+  <h1>全球第一咨询公司 + 全球最大 IT 服务集成商 — 跟此前供应商完全不同的物种</h1>
+  <p class="lead">
+    很多人把埃森哲叫做 "AI 供应商"，这是误解。埃森哲的本质是<strong>全球咨询 + IT 集成 + 业务流程外包</strong>的全栈服务集团。
+    它不卖算法、不卖平台软件，它卖的是<strong>"端到端把战略变成结果"的能力</strong>—— 用别人的工具 + 自家的方法论 + 全球交付团队。
+  </p>
+
+  <div class="grid-4">
+    <div class="card metric"><div class="num">$697 亿</div><div class="label">2025 财年总收入</div></div>
+    <div class="card metric"><div class="num">77.9 万</div><div class="label">全球员工</div></div>
+    <div class="card metric"><div class="num">26 k+</div><div class="label">Industry X（智能制造）员工</div></div>
+    <div class="card metric"><div class="num">2,500+</div><div class="label">MES 实施项目</div></div>
+    <div class="card metric"><div class="num">650+</div><div class="label">OSI PI + IP.21 历史数据库项目</div></div>
+    <div class="card metric"><div class="num">20 k+</div><div class="label">Life Sciences 专属团队</div></div>
+    <div class="card metric"><div class="num">120+ 国</div><div class="label">全球交付网络</div></div>
+    <div class="card metric"><div class="num">#20</div><div class="label">BrandZ 2025 最具价值品牌</div></div>
+  </div>
+
+  <h2>埃森哲的"五条战线" — 一站式解决方案</h2>
+  <div class="grid-3">
+    <div class="card">
+      <h3 style="color:var(--primary-deep);">① Strategy & Consulting</h3>
+      <ul class="bul tight">
+        <li>企业增长 / 创新战略</li>
+        <li>财务与企业价值</li>
+        <li>供应链与运营战略</li>
+        <li>技术战略与咨询</li>
+        <li>可持续发展</li>
+      </ul>
+      <span class="tag">最贵 · 高级合伙人按人天计费</span>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--primary-deep);">② Song (Marketing & Design)</h3>
+      <ul class="bul tight">
+        <li>市场营销 / 全渠道商务</li>
+        <li>消费者服务</li>
+        <li>设计和数字产品</li>
+      </ul>
+      <span class="tag" style="color:#5b6a8a;">凯莱英低相关</span>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--primary-deep);">③ Technology</h3>
+      <ul class="bul tight">
+        <li>智能平台 SAP / Oracle / Workday / Salesforce</li>
+        <li>云：阿里云 / Azure / AWS</li>
+        <li><strong>人工智能与数据</strong></li>
+        <li>技术转型</li>
+        <li>应用 / 基础设施外包</li>
+      </ul>
+      <span class="tag green">凯莱英高相关</span>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--primary-deep);">④ Operations</h3>
+      <ul class="bul tight">
+        <li>财会运营 / 供应链运营</li>
+        <li>人才与人力资源运营</li>
+        <li>销售营销运营</li>
+        <li>全球共享服务</li>
+        <li>合规服务</li>
+      </ul>
+      <span class="tag">中后台 BPO</span>
+    </div>
+    <div class="card" style="grid-column: span 2; background:#faf5ff; border-color:var(--primary-light);">
+      <h3 style="color:var(--primary-deep);">⑤ Industry X — 智能制造 ★★★ 凯莱英最相关</h3>
+      <div class="grid-2" style="gap:10px;">
+        <ul class="bul tight" style="margin:0;">
+          <li>工程与研发数字化</li>
+          <li>智能互联产品设计与开发</li>
+          <li>产品平台开发与现代化</li>
+          <li>实现"产品即服务"</li>
+        </ul>
+        <ul class="bul tight" style="margin:0;">
+          <li>基础设施和资本项目</li>
+          <li><strong>数字化生产和运营</strong></li>
+          <li><strong>智能资产管理</strong></li>
+          <li><strong>自主机器人系统</strong></li>
+        </ul>
+      </div>
+      <span class="tag green">本次评估的核心 — 26k+ 员工 / 2500+ MES / 650+ OSI PI+IP.21 项目</span>
+    </div>
+  </div>
+
+  <div class="card info" style="margin-top:18px;">
+    <strong>🧭 30 秒认知校准</strong>
+    <p style="margin-top:6px;">把埃森哲跟此前供应商一起看：</p>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li><strong>智现未来</strong> = "做出"FDC 算法的人（自家工程师写代码、训练模型）</li>
+      <li><strong>华为云盘古制药</strong> = "做出"大模型的人（自家服务器跑、自家算法）</li>
+      <li><strong>艾默生 IP.21 / AVEVA PI</strong> = "做出"工业数据库底座的人（卖软件 license）</li>
+      <li><strong>和利时 / 信力共擎</strong> = "做出"PdM 单点产品的人（OT 厂商）</li>
+      <li><strong>埃森哲</strong> = <strong>"把上面所有人组合起来交付给你"</strong>的人，本质是<strong>项目经理 + 战略顾问 + 集成商</strong></li>
+    </ul>
+    <p style="margin-top:8px; color:var(--text-main);">
+      <strong>这意味着</strong>：埃森哲的核心价值不在"造轮子"，而在"知道造哪些轮子、按什么顺序造、谁来造、怎么落地、组织怎么配套"。
+      把它跟智现未来 / 华为云比较 "FDC 算法谁强" 是<strong>错位的比较</strong>——它们不在同一层。
+    </p>
+  </div>
+
+  <div class="page-num">02 / 10</div>
+</section>
+
+<!-- ============ S-observation PART 02 ============ -->
+<section class="slide" id="s-observation" data-page="3">
+  <div class="kicker">PART 02 · 关键观察 — 基于 PDF 自述的能力盘点</div>
+  <h1>埃森哲自己讲了什么 — 我们要看的 3 件事</h1>
+  <p class="lead">
+    34 页 PDF 自述很完整：公司简介 + AI 驱动企业重塑 + 生产运营案例。但要回答"凯莱英能不能用、怎么用"，
+    我们要把这份提案<strong>拆成 3 件事</strong>—— 能力盘点、行业相关性、合作模式。
+  </p>
+
+  <div class="grid-3">
+    <div class="card success">
+      <h3>✅ 讲得很清楚的部分</h3>
+      <ul class="bul tight">
+        <li>战略 / 5 阶段方法论（价值发现 → 业务流重塑 → 数字核心升级 → 人才团队重构 → 持续变革管理）</li>
+        <li>3 阶段实施路径（准备度评估 → 机会点设计 → 路径规划）</li>
+        <li>智能体 CoE 架构（协同智能体 + 超级智能体 + 实用智能体三层）</li>
+        <li>食品行业 4.0 示范项目（《财富》最具影响力创新奖）</li>
+        <li>制药 / 生命科学 5 大产品矩阵（含明确 ROI 数字）</li>
+        <li>ISA-95 L0-L4 全栈能力（DCS/SCADA → ERP）</li>
+      </ul>
+    </div>
+    <div class="card warn">
+      <h3>🟡 讲了但不够具体</h3>
+      <ul class="bul tight">
+        <li>"某客户通过 AI-enabled DM 项目带来 $2000 万收益"—— <strong>哪家客户？什么产品？什么工艺？</strong></li>
+        <li>5 大产品在制药里的<strong>具体场景</strong>没有逐项展开</li>
+        <li>连续流化学（凯莱英差异化优势）<strong>0 提及</strong></li>
+        <li>CDMO 业务模型<strong>0 提及</strong>（案例都是 Big Pharma 自有工厂）</li>
+        <li>客户工艺数据<strong>隔离机制</strong>未提</li>
+        <li>本地交付团队中<strong>制药 CDMO 经验</strong>占比未透露</li>
+      </ul>
+    </div>
+    <div class="card danger">
+      <h3>❌ 完全没讲（盲区）</h3>
+      <ul class="bul tight">
+        <li>价格区间 / 单项目预算量级 / 计费方式</li>
+        <li>算法 / 模型本身的<strong>知识产权归属</strong>—— 是埃森哲原创还是合作伙伴的？</li>
+        <li>跟其他 AI 供应商（智现未来 / 华为云 / Aizon / 中控 等）的<strong>合作 vs 替代</strong>关系</li>
+        <li>多客户 CDMO 业务里"咨询顾问跨项目流动"的<strong>客户保密机制</strong></li>
+        <li>项目失败 / 价值未达预期的<strong>责任承担机制</strong></li>
+        <li>本地交付团队<strong>具体名单 + 历史 CDMO 项目</strong></li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 style="margin-top:24px;">凯莱英对话姿态：3 个判断</h2>
+  <div class="grid-3">
+    <div class="card tip">
+      <strong>判断 1 · 埃森哲是合适的<span style="color:var(--primary);">战略层</span>伙伴</strong>
+      <p style="font-size:13px; margin-top:6px;">如果凯莱英要做<strong>集团级 AI 转型</strong>（不是单点项目），他们的方法论、跨行业经验、变革管理能力是国内本土公司难以替代的。</p>
+    </div>
+    <div class="card tip">
+      <strong>判断 2 · 不是合适的<span style="color:var(--orange);">单一算法/产品</span>供应商</strong>
+      <p style="font-size:13px; margin-top:6px;">如果凯莱英已经清楚要做 FDC 或 PdM 单点 PoC，<strong>直接找智现未来 / 华为云盘古更划算</strong>—— 埃森哲做单一交付性价比低。</p>
+    </div>
+    <div class="card tip">
+      <strong>判断 3 · 评估主动权依然在我们手里</strong>
+      <p style="font-size:13px; margin-top:6px;">埃森哲的方法论是"客户共创"—— 这意味着<strong>凯莱英自己要有清晰的业务问题表达和数据基础</strong>。否则共创会变成"埃森哲单方面输出 PPT"。</p>
+    </div>
+  </div>
+
+  <div class="page-num">03 / 10</div>
+</section>
+
+<!-- ============ S-products PART 03 ============ -->
+<section class="slide" id="s-products" data-page="4">
+  <div class="kicker">PART 03 · 5 大产品在凯莱英 CDMO 的落地翻译</div>
+  <h1>把 PDF 第 12 页的 5 大产品逐项翻译成 CDMO 场景 — 输入 / 处理 / 输出 / 解决什么</h1>
+  <p class="lead">
+    PDF 在 Life Sciences 板块列出 5 大产品，但没有展开"具体怎么用在凯莱英"。
+    我们逐项做<strong>从 Big Pharma 自营工厂 → CDMO 多客户代工</strong>的场景翻译，并给出每项产品的可移植性评估。
+  </p>
+
+  <!-- 产品 1 -->
+  <div class="card" style="border-left: 4px solid var(--primary);">
+    <h3>① AI-enabled Digital Manufacturing — 数字化制造平台
+      <span class="pill blue" style="margin-left:8px;">埃森哲 PDF 业绩：年 $2000 万收益 + 每年降本 $150 万</span>
+    </h3>
+    <div class="grid-2">
+      <div>
+        <strong style="font-size:13px;">埃森哲在 Big Pharma 怎么做的</strong>
+        <ul class="bul tight">
+          <li>把整条产线的工艺数据 / 设备状态 / 质量结果<strong>统一接入数据底座</strong>（IP.21 / OSI PI）</li>
+          <li>建<strong>数字孪生</strong>—— 物理产线在数字世界里有完整映像</li>
+          <li>叠加 AI 优化层（收率 / 工艺可变性 / 偏差预警）</li>
+          <li>项目周期 12-18 月，团队 30+ 人</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="font-size:13px;">翻译到凯莱英 CDMO</strong>
+        <ul class="bul tight">
+          <li><strong>核心适配性高</strong>—— 数字孪生 + 数据底座是任何 AI 战略的共同前置</li>
+          <li><strong>但</strong> CDMO 是<strong>多客户多产品代工</strong>，数字孪生颗粒度不同：
+            <ul><li>Big Pharma：1 个产品深耕 5-10 年</li><li>CDMO：1 个产品 1-2 年（甚至几个月）就换</li></ul>
+          </li>
+          <li>需要<strong>"模块化数字孪生 + 客户级隔离"</strong> 而不是单产品深度孪生</li>
+          <li>埃森哲此项产品<strong>需要重新参数化</strong>，但方法论可移植</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:10px;">
+      <span class="pill green">方法论可移植 ★★★</span>
+      <span class="pill orange">CDMO 参数重做 ★★</span>
+      <span class="pill red">连续流场景未提 ★</span>
+    </div>
+  </div>
+
+  <!-- 产品 2 -->
+  <div class="card" style="border-left: 4px solid var(--primary);">
+    <h3>② AI Manufacturing Production & Operations — AI 生产运营
+      <span class="pill blue" style="margin-left:8px;">PDF 业绩：年 $2000 万收益（产量 + 工艺理解提升）</span>
+    </h3>
+    <div class="grid-2">
+      <div>
+        <strong style="font-size:13px;">具体能力</strong>
+        <ul class="bul tight">
+          <li>"精益管理智能体" 体系（PDF 第 16 页）—— 4 层架构：
+            <ul><li>L1 班组实时执行</li><li>L2 持续改善（PDCA + SDCA 智能体）</li><li>L3 精益管理（4 类损失统计：物料 / 人工 / 能源 / 产能）</li><li>L4 财务管理（业财一体化）</li></ul>
+          </li>
+          <li>每个层级有专属 AI Agent 自动生成报告 + 根因分析</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="font-size:13px;">CDMO 适配点</strong>
+        <ul class="bul tight">
+          <li>"4 类损失统计 + 根因分析"<strong>可直接迁移</strong>—— 这是制造业通用语言</li>
+          <li>PDCA / SDCA 智能体架构<strong>跟 GMP CAPA 流程天然契合</strong></li>
+          <li><strong>但</strong> 需要凯莱英先有"班组级数字化执行"基础（电子批记录覆盖率、班组终端数据采集）</li>
+          <li>建议<strong>从单一车间</strong>试点（敦化 / 阜新 / 天津选其一）</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:10px;">
+      <span class="pill green">架构可移植 ★★★</span>
+      <span class="pill green">跟 GMP 契合 ★★★</span>
+      <span class="pill orange">前置依赖较多 ★★</span>
+    </div>
+  </div>
+
+  <!-- 产品 3 -->
+  <div class="card" style="border-left: 4px solid var(--primary);">
+    <h3>③ AI-enabled Advanced Process Control (APC) — 先进过程控制
+      <span class="pill blue" style="margin-left:8px;">PDF 业绩：增收 $1000 万 / 年</span>
+    </h3>
+    <div class="grid-2">
+      <div>
+        <strong style="font-size:13px;">埃森哲做的</strong>
+        <ul class="bul tight">
+          <li>多变量模型预测控制（MPC）取代单回路 PID</li>
+          <li>前馈优化：上游变化提前调整下游参数</li>
+          <li>"巧克力工厂 Giveaway 案例"（PDF 第 17 页）：
+            原来 SPC 抽样有 95 分钟延迟，AI 实时建议 &lt;1 分钟 = <strong>100X 加速</strong>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <strong style="font-size:13px;">CDMO 适配点</strong>
+        <ul class="bul tight">
+          <li><strong>跟连续流化学高度契合</strong>—— 但 PDF 没提制药里的连续流案例（食品行业的离散批次跟我们不一样）</li>
+          <li>反应釜温度 / pH / 加料速率多变量控制可移植</li>
+          <li><strong>注意</strong>：APC 这块<strong>中控 / Aspen 比埃森哲深得多</strong>—— 化工 APC 是他们老本行</li>
+          <li>建议<strong>不让埃森哲做 APC 实施</strong>，让他们做战略层把关 + 选型 + 集成</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:10px;">
+      <span class="pill orange">原创能力存疑 ★★</span>
+      <span class="pill red">化工 APC 不是埃森哲强项 ★</span>
+      <span class="pill green">建议交给中控/Aspen ★★★</span>
+    </div>
+  </div>
+
+  <!-- 产品 4 -->
+  <div class="card" style="border-left: 4px solid var(--primary);">
+    <h3>④ AI-enabled Planning & Scheduling — AI 计划与排程
+      <span class="pill blue" style="margin-left:8px;">PDF 业绩：lead time -25% + 年收益 $1000 万</span>
+    </h3>
+    <div class="grid-2">
+      <div>
+        <strong style="font-size:13px;">能力描述</strong>
+        <ul class="bul tight">
+          <li>原料到包装的多工厂排程优化</li>
+          <li>原液 + 制剂生产排程联动</li>
+          <li>缓冲液 / QC 实验室排程协同</li>
+          <li>供应链端到端的计划与排程</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="font-size:13px;">CDMO 适配点</strong>
+        <ul class="bul tight">
+          <li><strong>CDMO 排程跟 Big Pharma 完全不同</strong>—— 我们是多客户共享设备（一条产线服务 5-10 个不同项目）</li>
+          <li>排程不仅是<strong>效率</strong>问题，更是<strong>客户优先级 + 验证状态 + 清洁切换</strong>综合问题</li>
+          <li>埃森哲此产品<strong>需要大规模 CDMO 业务知识注入</strong>，PoC 周期更长</li>
+          <li>建议：先要他们提供 1-2 个 <strong>CDMO 排程</strong>案例验证</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:10px;">
+      <span class="pill orange">CDMO 适配工作量大 ★★</span>
+      <span class="pill green">价值潜力大 ★★★</span>
+      <span class="pill red">案例验证必须 ★</span>
+    </div>
+  </div>
+
+  <!-- 产品 5 -->
+  <div class="card" style="border-left: 4px solid var(--primary);">
+    <h3>⑤ AI Manufacturing Maintenance — AI 设备维护（PdM）
+      <span class="pill blue" style="margin-left:8px;">PDF 业绩：年降本 $332 万 + 设备可用性 +22 天</span>
+    </h3>
+    <div class="grid-2">
+      <div>
+        <strong style="font-size:13px;">能力描述</strong>
+        <ul class="bul tight">
+          <li>设备维护优化 → 提升 OEE</li>
+          <li>在线检测器 / 离心设备 / 层析系统的健康状态预测</li>
+          <li>最小化非计划停机时间</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="font-size:13px;">CDMO 适配点</strong>
+        <ul class="bul tight">
+          <li>这块凯莱英已在评估<strong>智现未来 / 和利时 / 信力共擎</strong>—— 都是 OT 厂商，更深</li>
+          <li>埃森哲的优势是<strong>跨车间统一 PdM 平台架构</strong>—— 而不是单项 PdM 算法</li>
+          <li><strong>建议</strong>：算法层用智现未来，平台架构层让埃森哲做战略对接</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:10px;">
+      <span class="pill red">单项 PdM 不如智现未来 ★</span>
+      <span class="pill green">跨车间架构整合 ★★★</span>
+    </div>
+  </div>
+
+  <div class="card info" style="margin-top:16px;">
+    <strong>💡 5 大产品综合判断</strong>
+    <p style="margin-top:6px;">埃森哲的 5 大产品<strong>有可移植性但需要重新参数化</strong>：</p>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li><strong>方法论层（数字孪生 + 智能体架构 + 4 层精益管理）</strong>：可直接迁移，凯莱英欠缺的就是这种"全局架构观"</li>
+      <li><strong>具体算法层（APC / PdM / FDC）</strong>：埃森哲不是原创者，最终落地谁来做要看选型 —— 我们建议用对位置</li>
+      <li><strong>排程层（CDMO 特殊性）</strong>：需要至少 6-9 个月 CDMO 业务知识注入，必须先看埃森哲是否有真实 CDMO 案例</li>
+    </ul>
+  </div>
+
+  <div class="page-num">04 / 10</div>
+</section>
+
+<!-- ============ S-advantage PART 04 ============ -->
+<section class="slide" id="s-advantage" data-page="5">
+  <div class="kicker">PART 04 · 埃森哲的 5 个独家优势 — 别人替代不了的</div>
+  <h1>战略层视野 + 全栈集成 + ISA-95 跨层能力 + 变革管理 + 中立性</h1>
+  <p class="lead">
+    把埃森哲跟此前评估的所有供应商对照，<strong>有 5 件事是只有它能做的</strong>—— 这是它的真正价值锚点。
+  </p>
+
+  <div class="grid-2" style="gap:18px;">
+    <div class="card" style="border-left: 4px solid var(--green);">
+      <h3>① 集团级 AI 战略视野</h3>
+      <p style="font-size:13.5px; color:var(--text-sub);">
+        <strong>独家原因</strong>：智现未来 / 华为云 / 中控都是"应用层供应商"—— 他们能讲清自家产品在某个工艺步骤怎么用，
+        但讲不清<strong>"凯莱英集团整体 AI 转型应该怎么走"</strong>。
+      </p>
+      <p style="font-size:13.5px; color:var(--text-sub); margin-top:6px;">
+        埃森哲服务了 BrandZ TOP 1000 中近 30% 企业，做过<strong>制药 / 化工 / 半导体 / 食品</strong>多个行业的集团级 AI 转型。
+        他们的方法论（5 阶段 + 3 周期 + 5 维 AI 准备度评估）是国内本土咨询难以替代的。
+      </p>
+      <p style="margin-top:8px;">
+        <span class="tag green">凯莱英价值</span> 让副总裁能拿到一份"3 年 AI 路线图 + ROI 预估 + 风险地图"，
+        而不是 10 份"单点 PoC 提案"。
+      </p>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--green);">
+      <h3>② ISA-95 全栈集成能力（L0/L1/L2/L3/L4）</h3>
+      <p style="font-size:13.5px; color:var(--text-sub);">
+        PDF 第 13 页明确展示：埃森哲覆盖<strong>从 PLC/DCS 现场（L0/L1）→ 监控 SCADA（L2）→ MES/Historian（L3）→ ERP/PLM/APS（L4）</strong>。
+      </p>
+      <p style="font-size:13.5px; color:var(--text-sub); margin-top:6px;">
+        2,500+ MES 实施项目 + 650+ OSI PI/IP.21 项目—— 这种<strong>跨 OT/IT 的横向打通能力</strong>，单一供应商做不到。
+      </p>
+      <p style="margin-top:8px;">
+        <span class="tag green">凯莱英价值</span> 当 AI 战略涉及"反应釜 → DCS → IP.21 → MES → SAP" 五层数据贯通时，
+        埃森哲是<strong>唯一一家能整条链路负责</strong>的玩家。
+      </p>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--green);">
+      <h3>③ 智能体 CoE 运营模式 — Agentic AI 时代的最早布局者</h3>
+      <p style="font-size:13.5px; color:var(--text-sub);">
+        PDF 第 22-26 页讲的非常清楚：2025 "智能体元年" — 从经典 AI 到生成式 AI 到 Agentic AI（智能体 AI）。
+        埃森哲已经把<strong>"协同智能体 + 超级智能体 + 实用智能体"三层架构</strong>体系化。
+      </p>
+      <p style="font-size:13.5px; color:var(--text-sub); margin-top:6px;">
+        企业级案例：营销 +40-60% / 数字产品研发 +30-40% / 财务 +20-40% / HR +30-50% 生产力提升。
+      </p>
+      <p style="margin-top:8px;">
+        <span class="tag green">凯莱英价值</span>—— 凯莱英非生产板块（财务 / HR / 商务 / 法务）的<strong>中后台提效</strong>很可能是 AI 落地最快的方向，
+        而这<strong>不是任何制药 AI 供应商的强项</strong>，是埃森哲的本行。
+      </p>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--green);">
+      <h3>④ 变革管理 + 人才转型方法论</h3>
+      <p style="font-size:13.5px; color:var(--text-sub);">
+        PDF 第 33 页"员工转型四路径"（机制 / 能力 / 行为 / 思维）—— 这是<strong>大集团 AI 转型最被低估的成败因素</strong>。
+      </p>
+      <p style="font-size:13.5px; color:var(--text-sub); margin-top:6px;">
+        所有 AI 项目 70% 失败的根因不是技术，是"组织/流程/文化跟不上"。
+        埃森哲做过 BMS / Mars / Pfizer / Merck 等多家集团级变革，方法论和工具包成熟。
+      </p>
+      <p style="margin-top:8px;">
+        <span class="tag green">凯莱英价值</span> 当 AI 项目要打破"研发墙 / 生产墙 / QA 墙 / IT 墙" 时，
+        埃森哲带<strong>跨部门变革方法论 + 培训体系</strong> —— 智现未来和华为云都没有。
+      </p>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--green);">
+      <h3>⑤ 中立性 — 不绑定单一软件 / 算法供应商</h3>
+      <p style="font-size:13.5px; color:var(--text-sub);">
+        埃森哲<strong>自己不卖 AI 模型 license、不卖工业软件</strong>。
+        他们是"用别人最好的产品 + 自己的方法论给你交付结果"的角色。
+      </p>
+      <p style="font-size:13.5px; color:var(--text-sub); margin-top:6px;">
+        合作伙伴：SAP / Oracle / Salesforce / 阿里云 / 微软 / AWS / 华为云 / NVIDIA / 智现未来等 6,000+ 加速器组合。
+        他们的 AI Refinery™ 平台是<strong>"超市"</strong>，不是<strong>"工厂"</strong>。
+      </p>
+      <p style="margin-top:8px;">
+        <span class="tag green">凯莱英价值</span> 当我们已经评估了 8-10 家应用层供应商需要"组合选型"时，
+        埃森哲是<strong>中立第三方</strong>—— 没有 "卖自家货" 的利益冲突。
+      </p>
+    </div>
+
+    <div class="card tip">
+      <h3>🎯 5 个优势综合定位</h3>
+      <p style="font-size:13.5px; margin-top:6px;">
+        埃森哲在凯莱英 AI 地图里的<strong>最佳位置</strong>是：
+      </p>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li><strong>战略层 / 集团 CoE</strong>—— 做 AI 转型规划、选型咨询、变革管理</li>
+        <li><strong>跨层集成</strong>—— OT/IT 全栈打通</li>
+        <li><strong>中后台 Agentic AI</strong>—— 营销 / 财务 / HR 智能体（这是埃森哲最强的板块）</li>
+      </ul>
+      <p style="margin-top:8px;">
+        <strong>不应该</strong>的位置：单一算法供应商（FDC / PdM / APC 单项 PoC）。
+      </p>
+    </div>
+  </div>
+
+  <div class="page-num">05 / 10</div>
+</section>
+
+<!-- ============ S-disadvantage PART 05 ============ -->
+<section class="slide" id="s-disadvantage" data-page="6">
+  <div class="kicker">PART 05 · 埃森哲的 6 个核心劣势 / 风险 — 必须正视</div>
+  <h1>价格 + 算法非原创 + CDMO 空白 + 连续流空白 + 数据保密 + 本地团队</h1>
+  <p class="lead">
+    没有完美供应商。把埃森哲<strong>用对位置</strong>的前提是<strong>清醒看到劣势</strong>。下面 6 条是我们要在 PoC 前对齐的。
+  </p>
+
+  <div class="grid-2" style="gap:18px;">
+    <div class="card" style="border-left: 4px solid var(--red);">
+      <h3>① 价格远高于本土供应商 + 应用层厂商</h3>
+      <p style="font-size:13.5px; color:var(--text-sub);">
+        埃森哲是全球咨询业头部，<strong>计费按"人天"</strong>。典型行情参考：
+      </p>
+      <ul class="bul tight">
+        <li>合伙人 / Senior Manager：6,000-15,000 元/人天</li>
+        <li>Manager / 资深顾问：3,500-6,000 元/人天</li>
+        <li>Consultant / Senior Analyst：1,500-3,500 元/人天</li>
+        <li>一个 12 周战略咨询项目（20-30 人）：<strong>预算量级 500-1,500 万元</strong></li>
+        <li>一个端到端实施项目（12-18 月）：<strong>预算量级 3,000-10,000 万元</strong></li>
+      </ul>
+      <p style="margin-top:8px; font-size:13px; color:var(--red);">
+        ⚠️ 对比智现未来 / 中控石化大模型这类应用层 PoC：<strong>50-300 万元/项目</strong>。
+        差距 10-30 倍。
+      </p>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--red);">
+      <h3>② 算法 / 模型本身不是埃森哲原创</h3>
+      <p style="font-size:13.5px; color:var(--text-sub);">
+        PDF 第 8 页明确："AI Refinery™ 6000+ AI 加速器"—— 这是<strong>"加速器组合"</strong>，意思是<strong>预集成各家供应商的产品</strong>。
+      </p>
+      <ul class="bul tight">
+        <li>FDC / APC 多变量算法：底层是 BISTel / Aspen / 中控等的产品</li>
+        <li>制药大模型：底层是 OpenAI / Anthropic / DeepSeek / 通义 / 盘古等的模型</li>
+        <li>数字孪生引擎：底层是 AVEVA / Siemens / Dassault 等的软件</li>
+      </ul>
+      <p style="margin-top:8px; font-size:13px; color:var(--text-main);">
+        <strong>这不是缺点本身</strong>—— 集成商不需要造轮子。但意味着<strong>"算法的命脉"还在原厂手里</strong>，
+        如果原厂涨价 / 停更，埃森哲也无能为力。
+      </p>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--red);">
+      <h3>③ CDMO 业务模型经验空白</h3>
+      <p style="font-size:13.5px; color:var(--text-sub);">
+        PDF 案例全部是<strong>Big Pharma 自有工厂</strong>类型（"某客户" = 默克 / 辉瑞 / GSK / BMS 这类），<strong>没有一个 CDMO 客户的明确案例</strong>。
+      </p>
+      <p style="font-size:13.5px; color:var(--text-sub); margin-top:6px;">
+        Big Pharma vs CDMO 的核心差异：
+      </p>
+      <ul class="bul tight">
+        <li>自家产品深耕 5-10 年 vs CDMO 1-2 年甚至几个月换项目</li>
+        <li>1 个客户的工艺数据 vs 多客户严格隔离</li>
+        <li>无客户优先级问题 vs CDMO 排程要兼顾客户级承诺</li>
+        <li>"通用"AI 模型 vs CDMO 必须客户专属模型</li>
+      </ul>
+      <p style="margin-top:8px; font-size:13px; color:var(--red);">
+        ⚠️ <strong>必问</strong>：埃森哲在 Catalent / Lonza / Samsung Biologics / WuXi STA 等 CDMO 企业有真实案例吗？
+      </p>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--red);">
+      <h3>④ 连续流化学经验空白</h3>
+      <p style="font-size:13.5px; color:var(--text-sub);">
+        凯莱英最大差异化优势是<strong>连续流（continuous flow chemistry）</strong>—— 这是产生高密度过程数据的工艺，AI 适配性最好。
+      </p>
+      <p style="font-size:13.5px; color:var(--text-sub); margin-top:6px;">
+        但 PDF 中：
+      </p>
+      <ul class="bul tight">
+        <li>0 次提到 "continuous flow" / "flow chemistry"</li>
+        <li>APC 案例是<strong>食品行业巧克力浇注</strong>—— 离散批次，跟连续流物理本质不同</li>
+        <li>PDF 第 13 页生命科学覆盖：医疗器械 / 生物制剂 / 制剂 / 疫苗 / 个性化医疗 / API / 数据分析 —— <strong>但没有连续流</strong></li>
+      </ul>
+      <p style="margin-top:8px; font-size:13px; color:var(--red);">
+        ⚠️ <strong>必问</strong>：连续流场景里，埃森哲的 5 大产品具体怎么改造？有没有连续流相关案例？
+      </p>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--red);">
+      <h3>⑤ 客户数据保密 / 跨项目顾问流动风险</h3>
+      <p style="font-size:13.5px; color:var(--text-sub);">
+        埃森哲咨询顾问会<strong>同时服务多家制药企业</strong>—— 这是咨询业商业模式的本质。
+        但凯莱英是 CDMO，客户工艺数据是商业机密 + 合同义务保护。
+      </p>
+      <p style="font-size:13.5px; color:var(--text-sub); margin-top:6px;">
+        潜在风险：
+      </p>
+      <ul class="bul tight">
+        <li>埃森哲顾问 A 月在凯莱英做项目，B 月去其他 CDMO / Big Pharma —— "经验"是否带过去？</li>
+        <li>AI 模型训练用的<strong>凯莱英客户数据</strong>，模型权重的归属和使用边界？</li>
+        <li>凯莱英自己客户（默克 / 辉瑞 / 礼来）合同里是否允许咨询商接触工艺数据？需要先核查</li>
+      </ul>
+      <p style="margin-top:8px; font-size:13px; color:var(--red);">
+        ⚠️ <strong>必约</strong>：合同里要<strong>明确顾问跨项目调动限制</strong> + <strong>知识产权归属</strong> + <strong>模型权重处置</strong>。
+      </p>
+    </div>
+
+    <div class="card" style="border-left: 4px solid var(--red);">
+      <h3>⑥ 本地交付团队需尽调</h3>
+      <p style="font-size:13.5px; color:var(--text-sub);">
+        埃森哲全球 77.9 万员工很厉害，但凯莱英真正能用到的是<strong>大中华区 Industry X 团队</strong>——
+        PDF 没有透露这块团队的<strong>制药 CDMO 经验占比</strong>。
+      </p>
+      <p style="font-size:13.5px; color:var(--text-sub); margin-top:6px;">
+        典型咨询业风险：
+      </p>
+      <ul class="bul tight">
+        <li>提案阶段派资深合伙人 + 海外案例顾问 —— "投标团队"</li>
+        <li>项目启动后<strong>实际派的是初级顾问</strong> —— "交付团队"</li>
+        <li>初级顾问<strong>没做过制药 CDMO</strong>—— 要从零学习</li>
+      </ul>
+      <p style="margin-top:8px; font-size:13px; color:var(--red);">
+        ⚠️ <strong>必约</strong>：合同里要<strong>锁定核心团队名单</strong>（Key Personnel Clause），不允许中途换人。
+      </p>
+    </div>
+  </div>
+
+  <div class="card warn" style="margin-top:18px;">
+    <strong>🎯 6 个劣势综合判断</strong>
+    <p style="margin-top:6px;">劣势<strong>不是"不能用埃森哲"</strong>，而是<strong>"用埃森哲必须设防"</strong>：</p>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li>预算上：先做<strong>小型咨询包</strong>（200-500 万），不要直接签大单</li>
+      <li>合同上：<strong>关键人员条款 + 知识产权归属 + 顾问跨项目限制</strong> 三项必须明确</li>
+      <li>能力上：在涉及<strong>原创算法 / CDMO 排程 / 连续流</strong>的场景，要把埃森哲限定为"集成商"角色而不是算法实现者</li>
+      <li>团队上：尽调本地 Industry X 制药 CDMO 经验团队，列出具体姓名 + 历史项目</li>
+    </ul>
+  </div>
+
+  <div class="page-num">06 / 10</div>
+</section>
+
+<!-- ============ S-landscape PART 06 ============ -->
+<section class="slide" id="s-landscape" data-page="7">
+  <div class="kicker">PART 06 · 埃森哲在凯莱英已评估供应商池里的位置</div>
+  <h1>2D 定位矩阵 — 咨询/集成深度 × 算法/产品深度 — 谁在哪里？</h1>
+  <p class="lead">
+    我们已经评估了 8+ 家供应商。把它们放到一张 2D 图里，<strong>看埃森哲跟谁互补、跟谁重叠、跟谁错位</strong>。
+  </p>
+
+  <!-- 2D 矩阵图 -->
+  <div style="background:#fff; border:1px solid var(--border); border-radius:10px; padding:24px; margin: 12px 0;">
+    <svg viewBox="0 0 800 520" style="width:100%; height:auto;">
+      <!-- 背景 -->
+      <rect x="80" y="40" width="680" height="440" fill="#fafbfc" stroke="#e5e7eb"/>
+      <!-- 四象限分割线 -->
+      <line x1="420" y1="40" x2="420" y2="480" stroke="#d1d5db" stroke-dasharray="4,4"/>
+      <line x1="80" y1="260" x2="760" y2="260" stroke="#d1d5db" stroke-dasharray="4,4"/>
+
+      <!-- X 轴 -->
+      <line x1="80" y1="480" x2="760" y2="480" stroke="#1a1d2e" stroke-width="2"/>
+      <polygon points="755,475 765,480 755,485" fill="#1a1d2e"/>
+      <text x="420" y="510" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1d2e">算法 / 产品原创深度 →</text>
+      <text x="85" y="500" font-size="11" fill="#5b6a8a">弱</text>
+      <text x="745" y="500" font-size="11" fill="#5b6a8a">强</text>
+
+      <!-- Y 轴 -->
+      <line x1="80" y1="40" x2="80" y2="480" stroke="#1a1d2e" stroke-width="2"/>
+      <polygon points="75,45 80,35 85,45" fill="#1a1d2e"/>
+      <text x="40" y="260" font-size="14" font-weight="700" fill="#1a1d2e" transform="rotate(-90 40 260)">咨询 / 集成 / 变革管理深度 →</text>
+      <text x="55" y="475" font-size="11" fill="#5b6a8a">弱</text>
+      <text x="55" y="55" font-size="11" fill="#5b6a8a">强</text>
+
+      <!-- 象限标签 -->
+      <text x="250" y="60" text-anchor="middle" font-size="12" font-weight="600" fill="#9ca3af">II 咨询/集成强 · 算法弱</text>
+      <text x="250" y="78" text-anchor="middle" font-size="11" fill="#9ca3af">（战略合作伙伴）</text>
+
+      <text x="590" y="60" text-anchor="middle" font-size="12" font-weight="600" fill="#9ca3af">I 双强（理想 — 但极少）</text>
+      <text x="590" y="78" text-anchor="middle" font-size="11" fill="#9ca3af">（全栈领导者）</text>
+
+      <text x="250" y="300" text-anchor="middle" font-size="12" font-weight="600" fill="#9ca3af">III 双弱</text>
+      <text x="250" y="318" text-anchor="middle" font-size="11" fill="#9ca3af">（PoC 玩家）</text>
+
+      <text x="590" y="300" text-anchor="middle" font-size="12" font-weight="600" fill="#9ca3af">IV 算法强 · 咨询弱</text>
+      <text x="590" y="318" text-anchor="middle" font-size="11" fill="#9ca3af">（应用层专精）</text>
+
+      <!-- 供应商点 -->
+      <!-- 埃森哲：第 II 象限顶端 -->
+      <g>
+        <circle cx="280" cy="100" r="14" fill="#7c3aed" stroke="#fff" stroke-width="3"/>
+        <text x="280" y="105" text-anchor="middle" font-size="11" fill="#fff" font-weight="700">A</text>
+        <text x="280" y="135" text-anchor="middle" font-size="13" font-weight="700" fill="#7c3aed">埃森哲</text>
+      </g>
+      <!-- 智现未来：第 IV 象限 -->
+      <g>
+        <circle cx="650" cy="380" r="11" fill="#dc2626" stroke="#fff" stroke-width="2"/>
+        <text x="650" y="408" text-anchor="middle" font-size="12" font-weight="600" fill="#dc2626">智现未来</text>
+      </g>
+      <!-- 华为云盘古制药 -->
+      <g>
+        <circle cx="600" cy="340" r="11" fill="#3b82f6" stroke="#fff" stroke-width="2"/>
+        <text x="600" y="365" text-anchor="middle" font-size="12" font-weight="600" fill="#3b82f6">华为云盘古</text>
+      </g>
+      <!-- 中控石化大模型 -->
+      <g>
+        <circle cx="640" cy="320" r="11" fill="#f97316" stroke="#fff" stroke-width="2"/>
+        <text x="640" y="293" text-anchor="middle" font-size="12" font-weight="600" fill="#f97316">中控</text>
+      </g>
+      <!-- Aizon / Mareana -->
+      <g>
+        <circle cx="560" cy="380" r="11" fill="#0ea5e9" stroke="#fff" stroke-width="2"/>
+        <text x="560" y="408" text-anchor="middle" font-size="12" font-weight="600" fill="#0ea5e9">Aizon/Mareana</text>
+      </g>
+      <!-- AVEVA / Aspen -->
+      <g>
+        <circle cx="580" cy="220" r="11" fill="#0284c7" stroke="#fff" stroke-width="2"/>
+        <text x="580" y="245" text-anchor="middle" font-size="12" font-weight="600" fill="#0284c7">AVEVA/Aspen</text>
+      </g>
+      <!-- 和利时 -->
+      <g>
+        <circle cx="460" cy="400" r="9" fill="#94a3b8" stroke="#fff" stroke-width="2"/>
+        <text x="460" y="425" text-anchor="middle" font-size="11" font-weight="600" fill="#64748b">和利时</text>
+      </g>
+      <!-- 信力共擎 -->
+      <g>
+        <circle cx="490" cy="420" r="9" fill="#94a3b8" stroke="#fff" stroke-width="2"/>
+        <text x="490" y="445" text-anchor="middle" font-size="11" font-weight="600" fill="#64748b">信力共擎</text>
+      </g>
+      <!-- 远景智能（IoT 平台，定位偏咨询弱+算法弱） -->
+      <g>
+        <circle cx="340" cy="280" r="10" fill="#10b981" stroke="#fff" stroke-width="2"/>
+        <text x="340" y="305" text-anchor="middle" font-size="11" font-weight="600" fill="#059669">远景智能</text>
+      </g>
+      <!-- etaONE -->
+      <g>
+        <circle cx="240" cy="280" r="9" fill="#a3a3a3" stroke="#fff" stroke-width="2"/>
+        <text x="240" y="305" text-anchor="middle" font-size="11" font-weight="600" fill="#525252">etaONE</text>
+      </g>
+      <!-- 海康威视 -->
+      <g>
+        <circle cx="200" cy="380" r="9" fill="#a3a3a3" stroke="#fff" stroke-width="2"/>
+        <text x="200" y="405" text-anchor="middle" font-size="11" font-weight="600" fill="#525252">海康威视</text>
+      </g>
+
+      <!-- 凯莱英标记 -->
+      <g>
+        <circle cx="170" cy="430" r="14" fill="none" stroke="#dc2626" stroke-width="3"/>
+        <text x="170" y="436" text-anchor="middle" font-size="11" font-weight="700" fill="#dc2626">我们</text>
+        <text x="170" y="460" text-anchor="middle" font-size="10" fill="#dc2626">凯莱英起点</text>
+      </g>
+
+      <!-- 箭头说明 -->
+      <line x1="170" y1="430" x2="270" y2="115" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <text x="160" y="225" font-size="10" fill="#7c3aed">+ 战略合作</text>
+
+      <line x1="170" y1="430" x2="635" y2="375" stroke="#dc2626" stroke-width="1.5" stroke-dasharray="3,3"/>
+      <text x="385" y="455" font-size="10" fill="#dc2626">+ 应用层组合</text>
+
+    </svg>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="color:var(--primary);">埃森哲（紫色 A · 第 II 象限）</h3>
+      <ul class="bul tight">
+        <li><strong>咨询/集成深度</strong>：★★★★★（全球第一）</li>
+        <li><strong>算法/产品深度</strong>：★★（不原创，是组合者）</li>
+        <li><strong>定位</strong>：战略合作伙伴</li>
+        <li><strong>跟其他供应商关系</strong>：互补 — 埃森哲做总集成，应用层用其他厂商</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="color:var(--red);">智现未来 / 华为云 / 中控（红蓝橙 · 第 IV 象限）</h3>
+      <ul class="bul tight">
+        <li><strong>咨询/集成深度</strong>：★★（只懂自家产品）</li>
+        <li><strong>算法/产品深度</strong>：★★★★（自家原创算法 / 模型）</li>
+        <li><strong>定位</strong>：应用层专精</li>
+        <li><strong>跟埃森哲关系</strong>：互补 — 他们做算法，埃森哲做集成</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card info" style="margin-top:14px;">
+    <strong>💡 矩阵图核心洞察</strong>
+    <p style="margin-top:6px;"><strong>第 I 象限（双强）几乎是空的</strong>—— 没有任何一家供应商既擅长咨询/集成又擅长算法/产品原创。<strong>这意味着凯莱英必须做"组合采购"</strong>。</p>
+    <p style="margin-top:6px;">最优组合策略：</p>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li><strong>战略层</strong> — 用<strong>埃森哲</strong>（II 象限）做总规划 + 总集成</li>
+      <li><strong>应用层 · 制药专精</strong> — 用<strong>智现未来 / 华为云盘古 / Aizon</strong>（IV 象限）做 FDC / 大模型 / GxP 偏差等</li>
+      <li><strong>应用层 · 化工专精</strong> — 用<strong>中控 / AVEVA / Aspen</strong>（IV/I 边界）做 APC / 历史数据库 / 排程</li>
+      <li><strong>OT 层</strong> — 用<strong>和利时 / 信力共擎</strong>（III 象限）做关键设备 PdM 单点</li>
+      <li><strong>能源辅助层</strong> — 用<strong>远景 / etaONE</strong>（III 象限）做能源 IoT</li>
+    </ul>
+    <p style="margin-top:8px;"><strong>埃森哲在这套组合里的独家价值是"项目群管理 + 跨厂商集成 + 内部变革管理"</strong>，不是替代任何应用层供应商。</p>
+  </div>
+
+  <div class="page-num">07 / 10</div>
+</section>
+
+<!-- ============ S-modes PART 07 ============ -->
+<section class="slide" id="s-modes" data-page="8">
+  <div class="kicker">PART 07 · 3 种合作模式 — 成本 / 价值 / 风险对比</div>
+  <h1>不同深度的合作 = 不同价格 / 不同价值 / 不同风险 — 选哪种？</h1>
+  <p class="lead">
+    跟埃森哲的合作有<strong>3 种典型深度</strong>。我们要选最匹配凯莱英当前阶段的那一种，不要被卖方推到"最贵的全栈方案"。
+  </p>
+
+  <!-- 模式选择器 -->
+  <div style="text-align:center; margin: 14px 0;">
+    <button class="toggle active" data-mode="A" onclick="showMode('A')">模式 A · 战略咨询型（建议）</button>
+    <button class="toggle" data-mode="B" onclick="showMode('B')">模式 B · 总集成型（中度）</button>
+    <button class="toggle" data-mode="C" onclick="showMode('C')">模式 C · 单一交付型（不建议）</button>
+  </div>
+
+  <!-- 模式 A -->
+  <div id="modeA" class="mode-panel">
+    <div class="card success">
+      <h3>模式 A · 战略咨询型合作（★ 强烈建议起步用这个）</h3>
+      <div class="grid-3">
+        <div>
+          <strong>埃森哲做什么</strong>
+          <ul class="bul tight">
+            <li>AI 准备度评估（5 维度）</li>
+            <li>3 年集团 AI 战略路线图</li>
+            <li>选型咨询（含其他供应商对标）</li>
+            <li>变革管理 + 培训体系搭建</li>
+            <li>中后台（HR / 财务 / 商务）Agentic AI 试点</li>
+          </ul>
+        </div>
+        <div>
+          <strong>预算 + 周期</strong>
+          <ul class="bul tight">
+            <li>预算：<strong>200-800 万元</strong></li>
+            <li>周期：<strong>3-6 月</strong></li>
+            <li>团队：10-15 人（合伙人 + Manager + 顾问）</li>
+            <li>付费方式：按月付费 + 阶段交付物</li>
+          </ul>
+        </div>
+        <div>
+          <strong>风险</strong>
+          <ul class="bul tight">
+            <li><strong>低</strong>—— 失败也只是 200-800 万沉没成本</li>
+            <li>交付物：报告 + 路线图 + 培训方案</li>
+            <li>不绑定后续项目</li>
+            <li>不影响其他应用层供应商选型</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:12px;">
+        <span class="pill green">价值 / 价格比 ★★★★★</span>
+        <span class="pill green">风险 ★（最低）</span>
+        <span class="pill blue">凯莱英推荐起点</span>
+      </div>
+    </div>
+
+    <div class="card tip" style="margin-top:14px;">
+      <strong>🎯 模式 A 的关键交付物</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>《凯莱英 AI 准备度评估报告》—— 端到端流程 / 数据与 AI 平台 / 赋能人才 / 智能体 CoE 4 维度</li>
+        <li>《集团 3 年 AI 重塑路径规划报告》—— 投资优先级 + ROI 预估 + 依赖关系</li>
+        <li>《AI 机会点和支撑保障设计报告》—— 选 2-3 个 L1 流程（如生产 / QA / 商务）做深度方案</li>
+        <li>《组织变革 + 人才能力转型路线图》</li>
+      </ul>
+      <p style="margin-top:8px;"><strong>这些交付物</strong>本身对凯莱英就是<strong>独立资产</strong>——
+      即使最终决定不再跟埃森哲合作，这套规划文档可以指导后续所有应用层供应商选型。</p>
+    </div>
+  </div>
+
+  <!-- 模式 B（默认隐藏） -->
+  <div id="modeB" class="mode-panel" style="display:none;">
+    <div class="card warn">
+      <h3>模式 B · 总集成型合作（中度 — 在确认价值后再考虑）</h3>
+      <div class="grid-3">
+        <div>
+          <strong>埃森哲做什么</strong>
+          <ul class="bul tight">
+            <li>模式 A 全部内容 +</li>
+            <li>多个 AI 应用方向的<strong>项目群管理</strong></li>
+            <li>跨厂商集成（智现未来 / 华为云 / 中控等）</li>
+            <li>数字孪生平台总集成</li>
+            <li>跨 IT/OT 数据底座搭建</li>
+            <li>持续变革管理 + 培训交付</li>
+          </ul>
+        </div>
+        <div>
+          <strong>预算 + 周期</strong>
+          <ul class="bul tight">
+            <li>预算：<strong>3,000-8,000 万元</strong></li>
+            <li>周期：<strong>18-36 月</strong></li>
+            <li>团队：30-60 人 +</li>
+            <li>付费方式：按里程碑 + 部分按效果</li>
+          </ul>
+        </div>
+        <div>
+          <strong>风险</strong>
+          <ul class="bul tight">
+            <li><strong>中-高</strong></li>
+            <li>"总集成绑架"风险 — 后期换商难</li>
+            <li>变革管理周期长 — 组织阻力</li>
+            <li>跨厂商协调失败 — 责任难判定</li>
+            <li>价值实现周期长 — 短期看不到效果</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:12px;">
+        <span class="pill orange">价值 / 价格比 ★★★</span>
+        <span class="pill orange">风险 ★★★（中-高）</span>
+        <span class="pill gray">模式 A 验证后再考虑</span>
+      </div>
+    </div>
+
+    <div class="card warn" style="margin-top:14px;">
+      <strong>⚠️ 模式 B 的关键防坑点</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li><strong>不要让埃森哲做平台底座</strong>—— 平台是 IP.21 / IP.21 / AVEVA 这种工业软件做底座，埃森哲做集成层</li>
+        <li><strong>核心算法不绑定埃森哲</strong>—— FDC / APC / 大模型这种算法 IP 归原厂（智现未来 / 中控 / 华为云）</li>
+        <li><strong>合同里要写清退出条款</strong>—— 任一阶段验收失败可以单方面退出，已交付的资产凯莱英保留</li>
+        <li><strong>不要跟单一咨询商深度绑定</strong>—— 后期总集成换商成本极高</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 模式 C（默认隐藏） -->
+  <div id="modeC" class="mode-panel" style="display:none;">
+    <div class="card danger">
+      <h3>模式 C · 单一交付型合作（❌ 不建议）</h3>
+      <div class="grid-3">
+        <div>
+          <strong>埃森哲做什么</strong>
+          <ul class="bul tight">
+            <li>某一具体 AI 应用（如 FDC / PdM / APC）从设计到落地</li>
+            <li>含数据采集 + 模型训练 + 部署 + 培训</li>
+            <li>类似传统集成商角色</li>
+          </ul>
+        </div>
+        <div>
+          <strong>预算 + 周期</strong>
+          <ul class="bul tight">
+            <li>预算：<strong>1,000-3,000 万元 / 个</strong></li>
+            <li>周期：<strong>12-18 月</strong></li>
+            <li>团队：10-25 人</li>
+          </ul>
+        </div>
+        <div>
+          <strong>为什么不建议</strong>
+          <ul class="bul tight">
+            <li>算法非埃森哲原创 — 中间商抽成 30-50%</li>
+            <li>同样的 PoC 智现未来 / 中控 直接做<strong>50-300 万</strong>即可</li>
+            <li>埃森哲的优势是"全栈 + 战略 + 变革"，不是"单点算法"</li>
+            <li>把屠龙刀用来切水果 = 浪费</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:12px;">
+        <span class="pill red">价值 / 价格比 ★★（差）</span>
+        <span class="pill red">风险 ★★★★（高）</span>
+        <span class="pill red">❌ 不建议</span>
+      </div>
+    </div>
+
+    <div class="card danger" style="margin-top:14px;">
+      <strong>📛 为什么模式 C 是凯莱英最差选择</strong>
+      <ol style="padding-left:22px; margin-top:6px; color:var(--text-sub);">
+        <li><strong>算法不原创</strong>—— 埃森哲做 FDC，底层是智现未来 / BISTel 的算法。中间商一层成本就上去 30-50%</li>
+        <li><strong>速度慢</strong>—— 大咨询商的项目流程极重，3 个月才进入实施。智现未来直接 PoC 1 个月就能跑起来</li>
+        <li><strong>能力错配</strong>—— 埃森哲最强的是"集团战略 + 跨部门变革"，不是单一工艺单元的算法调优</li>
+        <li><strong>定价不对等</strong>—— 单一 PoC 用埃森哲 = 用法拉利送外卖，方向和速度都错了</li>
+      </ol>
+    </div>
+  </div>
+
+  <script>
+    function showMode(m){
+      document.querySelectorAll('.mode-panel').forEach(p => p.style.display='none');
+      document.querySelectorAll('button.toggle').forEach(b => b.classList.remove('active'));
+      document.getElementById('mode'+m).style.display='block';
+      document.querySelector('button.toggle[data-mode="'+m+'"]').classList.add('active');
+    }
+  </script>
+
+  <div class="page-num">08 / 10</div>
+</section>
+
+<!-- ============ S-recommend PART 08 ============ -->
+<section class="slide" id="s-recommend" data-page="9">
+  <div class="kicker">PART 08 · 建议路径 + 给埃森哲的关键问题清单</div>
+  <h1>3 步走 + 18 项尽调清单 — 把"评估埃森哲"变成"用对埃森哲"</h1>
+
+  <h2>建议的 3 步走路径</h2>
+  <div class="grid-3">
+    <div class="card success">
+      <h3>STEP 1 · 邀请提案 + 团队尽调（2-4 周）</h3>
+      <ul class="bul tight">
+        <li>邀请埃森哲提交<strong>模式 A 战略咨询</strong>详细提案</li>
+        <li>要求<strong>本地交付团队具体名单 + 历史 CDMO 项目清单</strong></li>
+        <li>要求<strong>3-5 家可参考 CDMO 客户案例</strong>（哪怕保密简介）</li>
+        <li>同步收 2-3 家备选（如 IBM Consulting / Deloitte / 普华永道 Strategy&）做对照</li>
+        <li>明确 18 项尽调清单（见下）</li>
+      </ul>
+    </div>
+    <div class="card success">
+      <h3>STEP 2 · 启动模式 A 战略咨询（3-6 月）</h3>
+      <ul class="bul tight">
+        <li>合同金额封顶：<strong>500 万元以内</strong></li>
+        <li>合同关键条款：核心人员锁定 + 知识产权归属 + 顾问跨项目限制 + 阶段退出权</li>
+        <li>每月里程碑评审：凯莱英 CIMT 副总裁 + 跨部门评审委员会</li>
+        <li>同期：智现未来 / 华为云 / 中控等应用层供应商<strong>独立做 PoC</strong>，不让埃森哲绑定</li>
+      </ul>
+    </div>
+    <div class="card success">
+      <h3>STEP 3 · 评估升级或退出（第 6-9 月）</h3>
+      <ul class="bul tight">
+        <li>STEP 2 交付物质量 = 衡量是否升级模式 B 的核心依据</li>
+        <li>升级评估：3 年路线图是否可信、跨部门变革是否真落地、ROI 测算是否经得起推敲</li>
+        <li>不升级也没关系 — 模式 A 交付物本身是独立资产</li>
+        <li>如果升级模式 B：合同框架先做小范围（1-2 个应用方向项目群管理），不要一次签全栈</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2 style="margin-top:24px;">18 项尽调清单 — 给埃森哲的"反向规格书"</h2>
+  <p class="lead" style="margin-bottom:10px;">这是会前必须发给埃森哲的问题清单。回答质量 = 评估埃森哲是否真适合凯莱英的核心依据。</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width:5%;">#</th>
+        <th style="width:18%;">主题</th>
+        <th style="width:62%;">具体问题</th>
+        <th style="width:15%;">回答性质</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td colspan="4" style="background:#f5f3ff; color:var(--primary-deep); font-weight:600;">A 类 · 行业适配性（必答）</td></tr>
+      <tr><td>1</td><td>CDMO 案例</td><td>在 Catalent / Lonza / Samsung Biologics / WuXi STA / Boehringer Ingelheim 等 <strong>CDMO 客户</strong>有几个案例？请提供 3-5 个的脱敏简介（业务 / 范围 / ROI / 周期）</td><td>书面案例</td></tr>
+      <tr><td>2</td><td>连续流化学</td><td>在<strong>连续流化学（continuous flow chemistry）</strong>场景里有任何 AI 项目案例吗？如果没有，5 大产品怎么改造适配连续流？</td><td>书面方案</td></tr>
+      <tr><td>3</td><td>多客户隔离</td><td>多客户 CDMO 业务里，AI 模型训练数据 / 模型权重 / 顾问知识 如何<strong>跨客户隔离</strong>？是否有标准 SOP？</td><td>SOP 文档</td></tr>
+      <tr><td>4</td><td>API 制药</td><td>20k+ Life Sciences 团队里，<strong>API（化学合成）</strong>专精的占比？跟生物制剂 / 制剂 / 疫苗对比？</td><td>结构性数据</td></tr>
+      <tr><td>5</td><td>GMP / GxP 合规</td><td>埃森哲交付的 AI 系统中，有几个通过了 <strong>FDA / EMA / NMPA GMP 验证</strong>？是否做过 GAMP 5 / 21 CFR Part 11 验证？</td><td>具体清单</td></tr>
+
+      <tr><td colspan="4" style="background:#f5f3ff; color:var(--primary-deep); font-weight:600;">B 类 · 团队 + 交付能力</td></tr>
+      <tr><td>6</td><td>本地核心团队</td><td>大中华区 Industry X 26k 员工中，<strong>制药 CDMO 真实经验</strong>的有多少？拟派给凯莱英的具体团队名单 + LinkedIn / 简历？</td><td>名单 + 简历</td></tr>
+      <tr><td>7</td><td>合伙人投入</td><td>项目期间合伙人 / Senior Manager 投入比例（占人天）至少多少？写进合同？</td><td>合同条款</td></tr>
+      <tr><td>8</td><td>关键人员锁定</td><td>是否接受 "Key Personnel Clause" — 核心 5 人不可中途换？换人需凯莱英书面同意？</td><td>合同条款</td></tr>
+      <tr><td>9</td><td>顾问跨项目流动</td><td>项目期间核心顾问<strong>不允许同时服务其他制药 / CDMO 客户</strong>？项目结束后<strong>6 个月内</strong>不参与同类项目？</td><td>合同条款</td></tr>
+
+      <tr><td colspan="4" style="background:#f5f3ff; color:var(--primary-deep); font-weight:600;">C 类 · 商业条款</td></tr>
+      <tr><td>10</td><td>计费方式</td><td>能否接受<strong>按里程碑 + 部分按效果</strong>付费？哪些里程碑可绑定 ROI 实证？</td><td>报价 + 条款</td></tr>
+      <tr><td>11</td><td>价格透明</td><td>合伙人 / Manager / Consultant 三档人天单价能否在合同里写明？是否有<strong>折扣机制</strong>（如首期客户 / 中国战略客户）？</td><td>明细报价</td></tr>
+      <tr><td>12</td><td>阶段退出</td><td>每个阶段验收失败时，凯莱英能否<strong>单方面退出</strong>？已交付资产的归属？后续合作是否有任何捆绑义务？</td><td>合同条款</td></tr>
+
+      <tr><td colspan="4" style="background:#f5f3ff; color:var(--primary-deep); font-weight:600;">D 类 · 算法 / IP / 数据</td></tr>
+      <tr><td>13</td><td>算法原创</td><td>5 大产品里，<strong>哪些是埃森哲自研、哪些是合作伙伴的产品</strong>？合作伙伴清单？</td><td>清单</td></tr>
+      <tr><td>14</td><td>模型权重归属</td><td>凯莱英数据训练出的模型权重<strong>所有权归谁</strong>？凯莱英能否独立部署 / 二次开发？</td><td>合同条款</td></tr>
+      <tr><td>15</td><td>知识产权</td><td>项目共创出的<strong>方法论 / 模型 / 数据资产</strong> IP 归属？凯莱英是否有独家许可 / 排他权？</td><td>合同条款</td></tr>
+      <tr><td>16</td><td>项目失败责任</td><td>ROI 未达承诺时，<strong>退费比例</strong>？补救机制？</td><td>合同条款</td></tr>
+
+      <tr><td colspan="4" style="background:#f5f3ff; color:var(--primary-deep); font-weight:600;">E 类 · 跟其他供应商关系</td></tr>
+      <tr><td>17</td><td>多供应商集成</td><td>能否接受<strong>把智现未来 / 华为云 / 中控等的产品作为应用层组件</strong>？已有跟它们的合作经验？</td><td>合作清单</td></tr>
+      <tr><td>18</td><td>客户独立选型</td><td>埃森哲是否<strong>不绑定凯莱英只能用埃森哲生态的产品</strong>？支持凯莱英完全独立选型？</td><td>书面承诺</td></tr>
+    </tbody>
+  </table>
+
+  <div class="card info" style="margin-top:18px;">
+    <strong>💡 18 项问题的核心目的</strong>
+    <p style="margin-top:6px;">这套问题<strong>不是"刁难"埃森哲</strong>，而是<strong>把模糊的咨询合作变成可验证、可考核、可退出的工程项目</strong>。
+    一份认真回答的 18 题答卷，本身就证明埃森哲对凯莱英 CDMO 业务的真实理解程度。</p>
+    <p style="margin-top:6px;"><strong>预期质量分级</strong>：</p>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li>能逐项答出，且有具体案例 / 合同条款 / 数据支撑 → <strong>合作 ★★★★★</strong></li>
+      <li>能答 70% 以上，部分条款可谈判 → <strong>合作 ★★★★</strong>（推进模式 A）</li>
+      <li>仅答原则性、回避具体条款 → <strong>合作 ★★</strong>（需要追问 / 谈判 / 加备选）</li>
+      <li>回避商业条款 / 拒绝团队尽调 / 不愿写知识产权 → <strong>合作 ★</strong>（不建议）</li>
+    </ul>
+  </div>
+
+  <div class="page-num">09 / 10</div>
+</section>
+
+<!-- ============ S-appendix ============ -->
+<section class="slide" id="s-appendix" data-page="10">
+  <div class="kicker">附录 · 埃森哲术语速查 + ISA-95 工业架构速查</div>
+  <h1>常用术语 → 凯莱英能听懂的话</h1>
+
+  <h2>A. 埃森哲核心术语 → 凯莱英语境翻译</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>埃森哲术语</th>
+        <th>原文 / 全称</th>
+        <th>凯莱英能听懂的对应</th>
+        <th>一句话解释</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Industry X</td><td>—</td><td>智能制造事业部</td><td>26k+ 员工的智能制造咨询 + 实施团队</td></tr>
+      <tr><td>AI Refinery™</td><td>—</td><td>"AI 加速器超市"</td><td>6000+ 预集成 AI 组件 — 不是平台，是组合方法论</td></tr>
+      <tr><td>Agentic AI</td><td>Agentic Artificial Intelligence</td><td>智能体 AI</td><td>2025 "智能体元年"概念 — 自主推理 + 工具使用 + 协同</td></tr>
+      <tr><td>Orchestrator Agent</td><td>—</td><td>协同智能体</td><td>三层智能体架构的最上层 — 编排其他智能体</td></tr>
+      <tr><td>Super Agent</td><td>—</td><td>超级智能体</td><td>大粒度任务的执行者 — 2-4 个/场景</td></tr>
+      <tr><td>Utility Agent</td><td>—</td><td>实用智能体</td><td>原子级任务执行者 — 数据查询 / 文档生成等</td></tr>
+      <tr><td>CoE</td><td>Center of Excellence</td><td>卓越中心</td><td>跨部门的能力中台 — AI CoE = AI 卓越中心</td></tr>
+      <tr><td>北极星愿景</td><td>North Star Vision</td><td>3-5 年战略愿景</td><td>战略规划方法 — 设定终极目标后反向倒推路径</td></tr>
+      <tr><td>双轨转型</td><td>Two-Speed Transformation</td><td>—</td><td>AI 赋能现有业务 + AI 创造新业务 双轨并行</td></tr>
+      <tr><td>PDCA Agent</td><td>—</td><td>持续改善智能体</td><td>Plan-Do-Check-Act 循环的 AI 执行者</td></tr>
+      <tr><td>SDCA Agent</td><td>—</td><td>持续监控智能体</td><td>Standard-Do-Check-Act — 监控偏离标准 + 纠偏</td></tr>
+      <tr><td>价值发现 → 路径规划</td><td>5-Stage Methodology</td><td>5 阶段方法论</td><td>价值发现 → 业务流重塑 → 数字核心升级 → 人才团队重构 → 持续变革</td></tr>
+      <tr><td>AI 准备度评估</td><td>AI Readiness Assessment</td><td>—</td><td>4 维度评估：端到端流程 / 数据与 AI 平台 / 赋能人才 / CoE</td></tr>
+    </tbody>
+  </table>
+
+  <h2 style="margin-top:24px;">B. ISA-95 工业自动化分层架构速查</h2>
+  <table>
+    <thead>
+      <tr>
+        <th style="width:8%;">层级</th>
+        <th style="width:22%;">英文</th>
+        <th style="width:30%;">中文 + 代表系统</th>
+        <th style="width:40%;">凯莱英现状 + 埃森哲覆盖</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>L4</td><td>Enterprise Processes</td><td>企业层 — ERP / PLM / APS</td><td>已有 SAP；APS 排程是埃森哲强项</td></tr>
+      <tr><td>L3</td><td>Manufacturing Operations</td><td>制造运营层 — MES / EBR / LIMS / CMMS</td><td>MES 部分覆盖；埃森哲 2500+ MES 项目背书</td></tr>
+      <tr><td>L2</td><td>Monitoring & Supervisory</td><td>监控层 — SCADA / Historian (IP.21 / PI)</td><td>艾默生 IP.21；埃森哲 650+ IP.21 项目背书</td></tr>
+      <tr><td>L1</td><td>Sensing & Control</td><td>感知与控制层 — DCS / PLC</td><td>艾默生 DCS / 横河 / 西门子；埃森哲做接入集成</td></tr>
+      <tr><td>L0</td><td>Process</td><td>物理层 — 反应釜 / 传感器 / 电动阀</td><td>凯莱英自有；埃森哲不做硬件</td></tr>
+    </tbody>
+  </table>
+
+  <div class="card info" style="margin-top:18px;">
+    <strong>📌 ISA-95 模型对凯莱英的意义</strong>
+    <p style="margin-top:6px;">埃森哲<strong>覆盖 L1-L4 整条链路</strong> — 这是任何<strong>单一供应商做不到</strong>的：
+    智现未来强在 L2/L3 算法层；中控强在 L1/L2 化工控制层；华为云强在 L4 LLM 应用层。
+    要把这几层<strong>打通成一张图</strong>，埃森哲是<strong>少数有能力的玩家</strong>。</p>
+  </div>
+
+  <div class="page-num">10 / 10</div>
+</section>
+
+</body>
+</html>

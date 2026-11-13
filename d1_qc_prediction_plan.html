@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>凯莱英批次放行预测 + QC 报告 AI 起草 — 推进方案</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "HarmonyOS Sans SC", "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
+    color: #0f1f3d;
+    background: #f3f5fa;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  /* === Top nav === */
+  .topbar {
+    position: sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 10px 28px;
+    background: rgba(15,31,61,.96); color: #fff;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar .brand { font-weight:700; letter-spacing:.5px; font-size:14px;}
+  .topbar .brand .badge {
+    display:inline-block; padding:2px 8px; margin-left:8px;
+    background:#ff7e3d; color:#fff; border-radius:4px; font-size:11px; font-weight:600;
+  }
+  .topbar nav a {
+    color:#cdd6e8; font-size:12.5px; text-decoration:none;
+    margin: 0 8px; padding:6px 8px; border-radius:6px;
+  }
+  .topbar nav a:hover { background:#1d2f55; color:#fff; }
+  .topbar .modeswitch {
+    font-size:12px; cursor:pointer; padding:6px 12px;
+    border:1px solid #3b507e; color:#cdd6e8; border-radius:6px;
+    background:transparent;
+  }
+  .topbar .modeswitch:hover { background:#1d2f55; }
+
+  /* === Slide / section === */
+  main { max-width: 1240px; margin: 0 auto; padding: 0 24px 80px; }
+  section.slide {
+    background:#fff;
+    border-radius: 14px;
+    padding: 44px 52px 50px;
+    margin: 28px 0;
+    box-shadow: 0 6px 24px rgba(15,31,61,.07);
+    position: relative;
+    min-height: 540px;
+  }
+  section.slide.cover {
+    background: linear-gradient(135deg, #0f1f3d 0%, #1f3870 60%, #2a4d9c 100%);
+    color:#fff;
+  }
+  section.slide h2.kicker {
+    color:#ff7e3d; font-size: 13px; font-weight:700; letter-spacing: 4px;
+    margin: 0 0 6px; text-transform: uppercase;
+  }
+  section.slide h1 {
+    font-size: 30px; margin: 0 0 14px; font-weight:700;
+    border-left: 5px solid #ff7e3d; padding-left: 14px; line-height: 1.25;
+  }
+  section.slide.cover h1 { border:none; padding:0; font-size: 44px; line-height: 1.2;}
+  section.slide.cover .subtitle { font-size:18px; opacity:.85; margin-top:18px; max-width: 760px;}
+  section.slide.cover .meta { margin-top: 60px; font-size:13px; opacity:.75; }
+  section.slide.cover .meta div { margin: 4px 0;}
+  section.slide .lead { font-size: 16px; color:#3a4d72; margin: 0 0 24px; max-width: 920px;}
+
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 28px;}
+  .grid-3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;}
+  .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 16px;}
+
+  /* Cards & callouts */
+  .card {
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px;
+    padding: 20px 22px;
+  }
+  .card.accent { background: #fff7f1; border-color:#ffd8be;}
+  .card.danger { background: #fef2f2; border-color:#fecaca;}
+  .card.success { background: #f0fdf4; border-color:#bbf7d0;}
+  .card .num {
+    font-size: 32px; font-weight:800; color:#0f1f3d;
+    line-height: 1.1;
+  }
+  .card.accent .num { color:#ff7e3d; }
+  .card .num small { font-size:14px; font-weight:600; color:#7a89a8; margin-left:4px;}
+  .card .label { font-size:13px; color:#5b6a8a; margin-top:4px;}
+  .card .desc { font-size:13px; color:#3a4d72; margin-top:10px; line-height:1.5;}
+
+  /* tables */
+  table.kly { width:100%; border-collapse: collapse; font-size: 13.5px; }
+  table.kly th, table.kly td {
+    padding: 10px 12px; text-align:left;
+    border-bottom: 1px solid #e6ebf5;
+  }
+  table.kly thead th {
+    background:#0f1f3d; color:#fff; font-weight:600; font-size:12.5px;
+    letter-spacing:.5px;
+  }
+  table.kly tbody tr:nth-child(even) { background:#f7f9fc; }
+  table.kly td.num { text-align:right; font-variant-numeric: tabular-nums; }
+  table.kly .pill {
+    display:inline-block; padding:2px 9px; border-radius:99px; font-size:11.5px; font-weight:600;
+  }
+  .pill.ok    { background:#dcfce7; color:#166534; }
+  .pill.mid   { background:#fef9c3; color:#854d0e; }
+  .pill.warn  { background:#fee2e2; color:#991b1b; }
+  .pill.info  { background:#dbeafe; color:#1e3a8a; }
+
+  /* lists */
+  ul.bul { padding-left: 0; list-style:none; margin: 8px 0;}
+  ul.bul li { padding: 6px 0 6px 22px; position:relative; font-size:14px;}
+  ul.bul li:before {
+    content:""; position:absolute; left:4px; top:14px; width:8px; height:8px;
+    background:#ff7e3d; border-radius:2px; transform:rotate(45deg);
+  }
+  ul.bul.tight li { padding: 3px 0 3px 22px; font-size:13.5px; }
+  ul.bul.tight li:before { top:12px; }
+
+  .tag {
+    display:inline-block; padding:3px 10px; font-size:12px; border-radius:99px;
+    background:#e7eefb; color:#1e40af; font-weight:600; margin: 2px 4px 2px 0;
+  }
+  .tag.warn { background:#fef3c7; color:#92400e;}
+  .tag.danger { background:#fee2e2; color:#991b1b;}
+  .tag.ok { background:#dcfce7; color:#166534;}
+
+  /* Demo specific */
+  .demo-box {
+    background: linear-gradient(180deg,#0f1f3d 0%,#142a55 100%);
+    color:#fff; border-radius: 14px; padding: 24px;
+  }
+  .demo-box .demo-title { font-size: 14px; opacity:.7; margin-bottom: 10px;}
+  .gauges { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 14px; }
+  .gauge {
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px; padding: 14px;
+  }
+  .gauge .g-label { font-size: 11.5px; color: #9aabd6; text-transform: uppercase; letter-spacing: 1px;}
+  .gauge .g-val   { font-size: 28px; font-weight:800; margin: 6px 0 2px; }
+  .gauge .g-unit  { font-size: 12px; color: #9aabd6;}
+  .gauge .g-bar   { height: 5px; background: rgba(255,255,255,.1); border-radius: 4px; margin-top:8px; overflow:hidden;}
+  .gauge .g-bar > div { height:100%; background:#3ec6ff; transition: width .3s; }
+  .gauge.warn .g-val { color:#fbbf24; }
+  .gauge.warn .g-bar > div { background:#fbbf24; }
+  .gauge.danger .g-val { color:#ef4444; }
+  .gauge.danger .g-bar > div { background:#ef4444; }
+  .gauge.ok .g-val { color:#22d3ee; }
+
+  .health-banner {
+    background: rgba(255,255,255,.06); border-radius: 10px; padding: 14px 16px;
+    display:flex; gap:24px; align-items:center; margin-bottom: 14px;
+  }
+  .health-score {
+    font-size: 56px; font-weight: 800; line-height:1;
+    background: linear-gradient(135deg,#22d3ee,#3ec6ff);
+    -webkit-background-clip: text; background-clip: text; color:transparent;
+  }
+  .health-info { flex:1; }
+  .health-info .ttl { font-size: 13px; color:#9aabd6; text-transform: uppercase; letter-spacing: 1.5px;}
+  .health-info .stat { font-size: 18px; font-weight:600; margin: 4px 0;}
+  .health-info .desc { font-size: 13px; color:#cdd6e8; }
+  .countdown { text-align:center; padding: 0 18px; border-left: 1px solid rgba(255,255,255,.1);}
+  .countdown .num { font-size:34px; font-weight:800; color:#fbbf24;}
+  .countdown .lbl { font-size: 11.5px; color:#9aabd6;}
+
+  .demo-controls {
+    display:flex; gap: 10px; align-items:center; margin-top: 14px; flex-wrap: wrap;
+    background: rgba(255,255,255,.04); border-radius:10px; padding:12px 14px;
+  }
+  .demo-controls label { font-size: 12.5px; color:#9aabd6; }
+  .demo-controls input[type=range] { flex:1; max-width: 600px; accent-color: #ff7e3d;}
+  .demo-controls .btn {
+    padding: 6px 14px; font-size: 12.5px; border-radius: 6px;
+    background: #ff7e3d; color:#fff; border:none; cursor:pointer; font-weight:600;
+  }
+  .demo-controls .btn:hover { background:#ff9359;}
+  .demo-controls .btn.ghost { background:transparent; color:#9aabd6; border:1px solid rgba(255,255,255,.18);}
+  .demo-controls .btn.ghost:hover { color:#fff;}
+
+  .event-log {
+    margin-top: 14px; max-height: 180px; overflow-y: auto;
+    background: rgba(255,255,255,.04); border-radius: 10px; padding: 8px 14px;
+    font-size:12.5px;
+  }
+  .event-log .e { padding: 6px 0; border-bottom: 1px dashed rgba(255,255,255,.08);}
+  .event-log .e:last-child { border:none;}
+  .event-log .e .t { color:#9aabd6; margin-right:10px; font-variant-numeric: tabular-nums;}
+  .event-log .e.warn .t { color:#fbbf24;}
+  .event-log .e.danger .t { color:#ef4444;}
+
+  /* ROI */
+  .roi-grid { display:grid; grid-template-columns: 380px 1fr; gap: 28px; }
+  .roi-input {
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px;
+    padding: 22px;
+  }
+  .roi-input .field { margin-bottom: 12px;}
+  .roi-input .field label {
+    display:block; font-size: 12.5px; color:#5b6a8a;
+    margin-bottom: 4px; font-weight: 500;
+  }
+  .roi-input .field input {
+    width:100%; padding: 8px 10px; font-size: 14px;
+    border: 1px solid #d4dbed; border-radius:6px;
+    font-variant-numeric: tabular-nums;
+  }
+  .roi-input .field .hint { font-size: 11.5px; color:#7a89a8; margin-top:2px;}
+  .roi-out {
+    background: linear-gradient(135deg, #0f1f3d, #1f3870);
+    color:#fff; border-radius:12px; padding: 22px;
+    display:grid; grid-template-rows: auto 1fr;
+  }
+  .roi-out .ttl { font-size: 13px; color:#9aabd6; text-transform: uppercase; letter-spacing: 2px;}
+  .roi-numbers { display:grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top:14px;}
+  .roi-numbers .item { background: rgba(255,255,255,.06); padding:14px; border-radius:10px; }
+  .roi-numbers .item .v { font-size:30px; font-weight:800; color:#22d3ee;}
+  .roi-numbers .item .v.orange { color:#fbbf24; }
+  .roi-numbers .item .l { font-size:12px; color:#9aabd6; margin-top:4px;}
+  .roi-bar-row { margin-top:14px; }
+  .roi-bar-row .lbl { font-size: 12px; color:#9aabd6; margin-bottom:4px;}
+  .roi-bar { background: rgba(255,255,255,.08); height: 16px; border-radius:8px; overflow:hidden; position:relative;}
+  .roi-bar > div { height:100%; background: linear-gradient(90deg,#22d3ee,#3ec6ff); transition: width .3s;}
+  .roi-bar .marker {
+    position:absolute; top:-4px; bottom:-4px; width:2px; background:#ff7e3d;
+  }
+  .roi-bar .marker:after {
+    content:""; position:absolute; top:-4px; left:-4px; width:10px; height:10px;
+    background:#ff7e3d; border-radius:50%;
+  }
+
+  /* Roadmap */
+  .roadmap { display:grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top:8px;}
+  .roadmap .stage {
+    background:#fff; border:1px solid #e3e8f2; border-radius:10px;
+    padding: 16px 14px;
+    position: relative;
+  }
+  .roadmap .stage:before {
+    content:""; position:absolute; top: 50%; right:-7px; width:14px; height:14px;
+    background:#ff7e3d; border-radius: 50%; transform: translateY(-50%);
+    border: 3px solid #fff; box-shadow: 0 0 0 1px #ffaa7a;
+    z-index:2;
+  }
+  .roadmap .stage:last-child:before { display:none;}
+  .roadmap .stage .month { font-size: 12px; color:#ff7e3d; font-weight:700;}
+  .roadmap .stage .ttl { font-size: 14px; font-weight:700; margin: 4px 0; }
+  .roadmap .stage .det { font-size: 12px; color:#5b6a8a;}
+
+  /* SVG charts */
+  svg.chart text { font-family: inherit; }
+  svg.chart .grid line { stroke: #e3e8f2; stroke-dasharray: 2 3;}
+  svg.chart .axis  line, svg.chart .axis path { stroke: #94a3b8; }
+  svg.chart .axis text { fill:#5b6a8a; font-size: 11px;}
+  svg.chart .l-actual { fill:none; stroke:#3ec6ff; stroke-width:2;}
+  svg.chart .l-pred   { fill:none; stroke:#fbbf24; stroke-width:2; stroke-dasharray: 4 4;}
+  svg.chart .l-thresh { stroke:#ef4444; stroke-dasharray: 5 4; stroke-width:1.5; }
+  svg.chart .a-band   { fill: rgba(251,191,36,.15);}
+
+  /* footer */
+  .footnote { font-size: 11.5px; color:#7a89a8; margin-top: 14px; line-height: 1.5;}
+
+  /* slide deck mode */
+  body.deck main { padding: 0; max-width: none;}
+  body.deck section.slide {
+    margin: 0; min-height: 100vh; border-radius: 0;
+    display: none;
+    padding: 60px 80px 60px;
+  }
+  body.deck section.slide.active { display:block; }
+  body.deck .topbar { display:flex; }
+  body.deck .deck-nav { display:flex !important;}
+  .deck-nav {
+    display:none;
+    position: fixed; bottom: 18px; right: 18px; z-index: 60;
+    background: rgba(15,31,61,.92); padding: 6px 10px; border-radius: 999px;
+    color:#fff; font-size: 12.5px; gap: 8px; align-items:center;
+  }
+  .deck-nav button {
+    background: transparent; border: none; color:#fff; cursor:pointer;
+    padding: 4px 10px; border-radius: 6px; font-weight: 600;
+  }
+  .deck-nav button:hover { background: rgba(255,255,255,.1);}
+  .deck-nav .pages { font-variant-numeric: tabular-nums; opacity: .8;}
+
+  /* Responsive */
+  @media (max-width: 980px){
+    .grid-2, .grid-3, .grid-4, .roadmap { grid-template-columns: 1fr;}
+    .roi-grid { grid-template-columns: 1fr;}
+    section.slide { padding: 28px 22px;}
+    .gauges { grid-template-columns: repeat(2,1fr);}
+  }
+  /* print */
+  @media print {
+    .topbar, .deck-nav { display:none !important;}
+    section.slide { box-shadow:none; page-break-after: always; margin: 0; border-radius: 0;}
+    body { background:#fff;}
+  }
+</style></head><body>
+<div class="topbar">
+  <div class="brand">凯莱英 · AI 落地推进 <span class="badge">方向 ① · QC 预测</span></div>
+  <nav>
+    <a href="#cover">封面</a><a href="#why">背景</a><a href="#status">现状</a><a href="#scope">范围</a>
+    <a href="#tech">技术路线</a><a href="#demo">演示</a><a href="#vendor">供应商</a><a href="#roi">ROI</a>
+    <a href="#roadmap">路径</a><a href="#risk">风险</a><a href="#decision">决策</a>
+  </nav>
+  <button class="modeswitch" onclick="document.body.classList.toggle('deck')">演示模式</button>
+</div>
+<main>
+
+<section class="slide cover" id="cover">
+  <h2 class="kicker">BATCH RELEASE PREDICTION · BDCT UPGRADE</h2>
+  <h1>凯莱英批次放行预测 + QC 报告 AI 起草<br/>推进方案</h1>
+  <div class="subtitle">让批次放行从<br/><span style="color:#ff9b6b;">"测完才知道"走向"做的时候就知道"</span></div>
+  <div class="subtitle" style="font-size:15px; margin-top:14px; opacity:.75;">
+    用历史同类批次 + 本批实时工艺数据 + 在线 PAT，<strong>在批结束前甚至批中期就给出 QC 预测</strong>；
+    自动生成 QC 报告草稿与放行建议；高风险批早期干预，低风险批加速放行。
+  </div>
+  <div class="meta">
+    <div>方向编号：① · 长期战略（GMP 强监管）</div>
+    <div>主导部门：QC / QA / 工艺研发 / IT</div>
+    <div>预计 PoC 周期：3 个月 · Pilot 周期：4-6 个月</div>
+    <div>本方案版本：v1.0 · BDCT 升级</div>
+  </div>
+</section>
+
+<section class="slide" id="why">
+  <h2 class="kicker">PART 01 · 为什么是现在</h2>
+  <h1>"测完才知道"是 CDMO 业务最大的反应式痛点</h1>
+  <p class="lead">凯莱英年商业化生产 800 批左右 × 单批 200 万价值。<strong>1% 报废率 = 1600 万损失/年</strong>。
+  报废的 80% 是 QC 检测后才发现的 —— 如果能在批中期或结束前 AI 预测出风险，提前干预，可以挽救 50%+。</p>
+  <div class="grid-4" style="margin-top:14px;">
+    <div class="card accent"><div class="num">~800 批 / 年</div><div class="label">凯莱英年商业化生产批次</div><div class="desc">含 API / 中间体等</div></div>
+    <div class="card accent"><div class="num">~200 万</div><div class="label">单批商业化产品价值</div><div class="desc">50-200kg × 2-10 万/kg</div></div>
+    <div class="card accent"><div class="num">7-10 天</div><div class="label">现状批结束到放行周期</div><div class="desc">取样 → 全检 → QA 审核 → 放行</div></div>
+    <div class="card accent"><div class="num">~1-2%</div><div class="label">行业平均报废率</div><div class="desc">凯莱英可能更低，但仍有几百万损失/年</div></div>
+  </div>
+  <h2 style="margin-top:24px; font-size:18px; color:#0f1f3d;">业务痛点</h2>
+  <div class="grid-3">
+    <div class="card danger"><strong style="color:#991b1b;">🔴 报废发现太晚</strong>
+      <ul class="bul tight"><li>QC 检测在批结束后 3-7 天才出结果</li><li>发现不合格 → 只能降级 / 返工 / 报废</li><li>"做完一批才知道这批不行"的损失最大</li></ul></div>
+    <div class="card danger"><strong style="color:#991b1b;">🔴 QC 等待拖累客户交付</strong>
+      <ul class="bul tight"><li>放行慢 → 客户拿货慢 → 影响下单 / 复购</li><li>放行慢 → 仓储成本上升 → 资金占用</li><li>不能"先发货后放行"（GMP 强约束）</li></ul></div>
+    <div class="card danger"><strong style="color:#991b1b;">🔴 QC 工程师"机械汇编"工时高</strong>
+      <ul class="bul tight"><li>检测结果填表 / 拼报告 / 趋势对比占 50% 工时</li><li>资深 QC 应该做"异常解读"而非"数据搬运"</li><li>跟方向 ② 报告 AI 撰写同源问题</li></ul></div>
+  </div>
+  <div class="card success" style="margin-top:18px;">
+    <strong style="color:#166534;">💡 升级思路</strong>
+    <ul class="bul tight">
+      <li>批生产<strong>中期 / 结束前</strong>，AI 用历史批 + 本批工艺数据预测 QC 结果范围</li>
+      <li>给"<strong>高概率合格 / 重点关注 X 项 / 高风险</strong>"三级判断</li>
+      <li>同时自动生成 QC 报告草稿（结构化 + 数据图表 + 合规声明）</li>
+      <li>高风险批 → 工艺工程师介入早期干预；低风险批 → 走加速放行</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" id="status">
+  <h2 class="kicker">PART 02 · 凯莱英现状盘点</h2>
+  <h1>底座完备 · 缺的是"预测算法 + 跟 LIMS 工作台集成"</h1>
+  <table class="kly">
+    <thead><tr><th style="width:18%;">维度</th><th style="width:24%;">现有基础</th><th style="width:24%;">缺什么</th><th>评估</th></tr></thead>
+    <tbody>
+      <tr><td><strong>历史批数据</strong></td><td>LIMS / MES 5+ 年历史</td><td>跨系统统一查询 + 结构化标注</td><td><span class="pill ok">就绪</span></td></tr>
+      <tr><td><strong>实时工艺数据</strong></td><td>IP.21 / DCS 完整接入</td><td>—</td><td><span class="pill ok">就绪</span></td></tr>
+      <tr><td><strong>原料 COA</strong></td><td>SAP / QC 部分对接</td><td>原料供应商批号、含量、杂质数据完整接入</td><td><span class="pill mid">部分</span></td></tr>
+      <tr><td><strong>过程 PAT</strong></td><td>部分项目有在线 IR / Raman</td><td>PAT 数据归档 + 跟工艺数据时间对齐</td><td><span class="pill mid">部分</span></td></tr>
+      <tr><td><strong>AI 预测算法</strong></td><td>—</td><td>多变量预测 + 贝叶斯先验 + 迁移学习</td><td><span class="pill warn">缺失</span></td></tr>
+      <tr><td><strong>LIMS 工作台集成</strong></td><td>LIMS 在用</td><td>嵌入"AI 预测"卡片 + 引用源链路</td><td><span class="pill warn">需开发</span></td></tr>
+      <tr><td><strong>GMP 验证</strong></td><td>GAMP 5 框架已建立</td><td>AI 系统验证模板（针对 LLM / ML）</td><td><span class="pill warn">需补</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide" id="scope">
+  <h2 class="kicker">PART 03 · 试点覆盖范围</h2>
+  <h1>从"1 项目 × 3 CQA"扩展到"10-20 项目 × 全 CQA"</h1>
+  <div class="roadmap" style="grid-template-columns:repeat(3,1fr); margin-top:14px;">
+    <div class="stage"><div class="month">PoC · M6-M9</div><div class="ttl">1 项目 × 3 CQA</div><div class="det">某主力 API（≥30 批）<br/>预测含量 / 杂质 A / 水分<br/>纯历史回测<br/><strong style="color:#ff7e3d;">准确率 ≥80%</strong></div></div>
+    <div class="stage"><div class="month">Pilot · M10-M16</div><div class="ttl">3 项目 × 5+ CQA</div><div class="det">扩 3 个项目<br/>覆盖 5+ CQA<br/>LIMS 嵌入<br/>QC 工程师 3 月对照</div></div>
+    <div class="stage"><div class="month">Scale · Y2 H2+</div><div class="ttl">10-20 项目 × 全 CQA</div><div class="det">所有商业化项目<br/>GAMP 5 验证完成<br/>客户审计应对</div></div>
+  </div>
+  <div class="grid-2" style="margin-top:18px;">
+    <div class="card success"><strong style="color:#166534;">✅ MVP 做的</strong>
+      <ul class="bul tight">
+        <li>1 个商业化项目（数据完整 + ≥30 批历史）</li>
+        <li>3 个核心 CQA：含量 / 杂质 A / 水分</li>
+        <li>预测窗口：批结束前 2 步 / 完批时</li>
+        <li>LIMS 嵌入"AI 预测"区块（不替换检测）</li>
+        <li>QC 工程师审核签字流程<strong>完全保留</strong></li>
+      </ul>
+    </div>
+    <div class="card danger"><strong style="color:#991b1b;">❌ MVP 不做的</strong>
+      <ul class="bul tight">
+        <li>不做"用 AI 替代 QC 检测"</li>
+        <li>不做跨客户数据混训</li>
+        <li>不做晶型 / 粒度等复杂 CQA（V2）</li>
+        <li>不做 AI 自动放行（永远人工签字）</li>
+        <li>不做实时干预（先被动预测，不做停机报警）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="slide" id="tech">
+  <h2 class="kicker">PART 04 · 技术路线</h2>
+  <h1>多源数据汇集 → 预测模型 → 置信度评估 → QC 报告草稿</h1>
+  <p class="lead">技术上有<strong>3 个核心挑战</strong>：① 单项目数据稀疏（30 批"小数据"）；② 跨项目隔离限制学习；③ 偏差批样本少。
+  解决方案是<strong>贝叶斯先验 + 迁移学习 + 主动学习</strong>。</p>
+  <svg viewBox="0 0 1100 300" style="width:100%; height:auto; margin-top:8px;">
+    <rect x="20" y="40" width="200" height="240" fill="#eff6ff" stroke="#3b82f6" rx="8"/>
+    <text x="120" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#1e40af">📥 数据源</text>
+    <text x="35" y="90" font-size="11" fill="#1e3a8a">• 历史同类批 IPC + QC</text>
+    <text x="35" y="108" font-size="11" fill="#1e3a8a">• 本批 DCS 实时（IP.21）</text>
+    <text x="35" y="126" font-size="11" fill="#1e3a8a">• 原料 COA（SAP）</text>
+    <text x="35" y="144" font-size="11" fill="#1e3a8a">• 在线 PAT（IR/Raman）</text>
+    <text x="35" y="162" font-size="11" fill="#1e3a8a">• 设备状态 + 清洁记录</text>
+    <text x="35" y="180" font-size="11" fill="#1e3a8a">• 环境（温湿度/洁净度）</text>
+    <text x="35" y="200" font-size="11" fill="#1e3a8a">• CPP / CQA 字典</text>
+    <text x="35" y="230" font-size="10" font-style="italic" fill="#7c2d12">IT 主责</text>
+    <polygon points="220,140 250,140 245,135 245,145" fill="#3b82f6"/>
+
+    <rect x="260" y="40" width="240" height="240" fill="#f5f3ff" stroke="#7c3aed" rx="8"/>
+    <text x="380" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#5b21b6">🤖 AI 模型层</text>
+    <text x="275" y="90" font-size="11" fill="#3a4d72">① 特征工程</text>
+    <text x="275" y="108" font-size="11" fill="#3a4d72">  - 时序统计量提取</text>
+    <text x="275" y="128" font-size="11" fill="#3a4d72">② 贝叶斯先验启动</text>
+    <text x="275" y="146" font-size="11" fill="#3a4d72">  - 数据少时用先验</text>
+    <text x="275" y="166" font-size="11" fill="#3a4d72">③ 迁移学习</text>
+    <text x="275" y="184" font-size="11" fill="#3a4d72">  - 相似反应跨项目（限制）</text>
+    <text x="275" y="204" font-size="11" fill="#3a4d72">④ 置信区间评估</text>
+    <text x="275" y="222" font-size="11" fill="#3a4d72">  - 输出"X ± Y% (置信 P%)"</text>
+    <text x="275" y="246" font-size="11" fill="#3a4d72">⑤ 根因分析（高风险时）</text>
+    <text x="275" y="265" font-size="10" font-style="italic" fill="#5b21b6">联合（外采 + IT 集成）</text>
+    <polygon points="500,140 530,140 525,135 525,145" fill="#7c3aed"/>
+
+    <rect x="540" y="40" width="220" height="240" fill="#ecfdf5" stroke="#10b981" rx="8"/>
+    <text x="650" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#065f46">👤 业务工作层</text>
+    <text x="555" y="90" font-size="11" fill="#3a4d72">• LIMS 内嵌"AI 预测"卡片</text>
+    <text x="555" y="108" font-size="11" fill="#3a4d72">• 每 CQA 项预测值 + 置信</text>
+    <text x="555" y="128" font-size="11" fill="#3a4d72">• 风险等级标签</text>
+    <text x="555" y="148" font-size="11" fill="#3a4d72">• 引用源链路（可点击）</text>
+    <text x="555" y="168" font-size="11" fill="#3a4d72">• 工艺工程师干预入口</text>
+    <text x="555" y="188" font-size="11" fill="#3a4d72">• QA 审核 + 签字</text>
+    <text x="555" y="218" font-size="10" font-style="italic" fill="#065f46">QC + QA + 工艺主操作</text>
+    <polygon points="760,140 790,140 785,135 785,145" fill="#10b981"/>
+
+    <rect x="800" y="40" width="280" height="240" fill="#fff7ed" stroke="#f59e0b" rx="8"/>
+    <text x="940" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="#92400e">📤 输出 / 合规层</text>
+    <text x="815" y="90" font-size="11" fill="#3a4d72">• QC 报告草稿（自动）</text>
+    <text x="815" y="108" font-size="11" fill="#3a4d72">• 放行建议三级（🟢🟡🔴）</text>
+    <text x="815" y="126" font-size="11" fill="#3a4d72">• 根因 Top-3（高风险时）</text>
+    <text x="815" y="146" font-size="11" fill="#3a4d72">• 工程师干预建议</text>
+    <text x="815" y="168" font-size="11" fill="#3a4d72">• 审计日志 + 数据血缘</text>
+    <text x="815" y="186" font-size="11" fill="#3a4d72">• GAMP 5 类别 4 验证</text>
+    <text x="815" y="208" font-size="11" fill="#3a4d72">• 21 CFR Part 11 兼容</text>
+    <text x="815" y="226" font-size="11" fill="#3a4d72">• EU GMP Annex 22 路径</text>
+    <text x="815" y="252" font-size="10" font-style="italic" fill="#92400e">客户审计 / FDA 应对</text>
+  </svg>
+  <div class="card success" style="margin-top:14px;">
+    <strong style="color:#166534;">💡 三个核心技术挑战的应对</strong>
+    <ul class="bul tight">
+      <li><strong>挑战 1 · 数据稀疏</strong>：单项目 30 批属"小数据" → 用<strong>贝叶斯先验启动</strong> + <strong>主动学习</strong>（每批反馈调模型）</li>
+      <li><strong>挑战 2 · 客户隔离</strong>：不能跨客户混训 → 只学<strong>"工艺规律"</strong>不学"具体参数" → <strong>联邦学习 + 差分隐私</strong></li>
+      <li><strong>挑战 3 · 偏差样本少</strong>：负样本（不合格批）罕见 → <strong>合成数据扩充</strong> + <strong>异常检测算法</strong>（不依赖大量负样本）</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" id="demo">
+  <h2 class="kicker">PART 05 · 演示</h2>
+  <h1>实时演示：API 项目 X-2026-Q3 第 18 批生产中 — 4 个阶段</h1>
+  <p class="lead">看 AI 在不同生产节点给出的<strong>实时建议</strong>如何演进。</p>
+  <div class="demo-box" style="margin-top:12px;">
+    <div class="demo-title">🧪 实时 QC 预测演示 · API 项目 X-2026-Q3 第 18 批</div>
+    <div style="margin-bottom:12px;">
+      <button class="btn" data-d1="early" onclick="d1Show('early')">🟡 阶段 1 · 反应中期 (步骤 4/10)</button>
+      <button class="btn ghost" data-d1="mid" onclick="d1Show('mid')">🟠 阶段 2 · 反应后期 (7/10)</button>
+      <button class="btn ghost" data-d1="late" onclick="d1Show('late')">🟢 阶段 3 · 即将完批 (10/10)</button>
+      <button class="btn ghost" data-d1="alert" onclick="d1Show('alert')">🔴 阶段 4 · 异常情景</button>
+    </div>
+    <div id="d1-out"></div>
+  </div>
+</section>
+
+<script>
+const d1Data = {
+  early:{title:'🟡 反应中期 · 步骤 4/10 · T+ 2.5h',
+    sensors:[['反应温度','68.2 ℃ (CPP 60-70)',true],['压力','2.1 bar',true],['加料速率','12.5 kg/h',true],['pH','7.4',true],['IPC 杂质 A','0.04% (限 ≤0.15)',true],['转化率','58% (期望步骤 8 达 95%)',true]],
+    predict:'过程数据正常但反应未完成，<strong>暂不出具 QC 预测</strong>。AI 当前作用：盯关键参数偏离 + 跟历史 17 批同类批"温度-压力-加料"轨迹比对。',
+    qc:null, root:null, sug:{c:'#9a3412',bg:'#fff7ed',icon:'🟡',t:'继续生产·AI 持续监控',d:'当前所有 CPP 在范围内 + 跟历史 17 批轨迹高度一致；预计步骤 8 完成后给首次 QC 预测'}
+  },
+  mid:{title:'🟠 反应后期 · 步骤 7/10 · T+ 5.2h',
+    sensors:[['反应温度','66.8 ℃',true],['压力','2.3 bar',true],['加料速率','已停止',true],['pH','7.6',true],['IPC 杂质 A','0.09% (限 ≤0.15)',true],['转化率','94.2% (期望 ≥95)',true]],
+    predict:'反应接近完成，AI 给<strong>首次 QC 预测</strong>（基于本批前 7 步 + 17 批历史）：',
+    qc:[['含量 (HPLC)','99.1 ± 0.4%','≥ 98.0%','low'],['杂质 A','0.10 ± 0.03%','≤ 0.15%','low'],['杂质 B','0.05 ± 0.02%','≤ 0.10%','low'],['水分','0.18 ± 0.04%','≤ 0.30%','low'],['残留溶剂 甲苯','380 ± 80 ppm','≤ 890','low']],
+    root:null, sug:{c:'#065f46',bg:'#ecfdf5',icon:'🟢',t:'预测 5/5 项合格·标准流程',d:'AI 置信度高（17 批历史 + 本批 7 步轨迹高度吻合）'}
+  },
+  late:{title:'🟢 即将完批 · 步骤 10/10 · T+ 7.8h',
+    sensors:[['反应温度','25.0 ℃ (已降)',true],['压力','常压',true],['终点判定','反应完成 + 取样确认',true],['IPC 杂质 A','0.10%',true],['IPC 转化率','98.8%',true],['结晶 D90','45 μm (规格 30-60)',true]],
+    predict:'AI 输出 <strong>QC 报告草稿 v1.0</strong>（含 7 项 CQA + 完整附件），待 QC 工程师审核签字：',
+    qc:[['含量 HPLC 主峰','99.2%','≥ 98.0%','pass'],['杂质 A','0.10%','≤ 0.15%','pass'],['杂质 B','0.05%','≤ 0.10%','pass'],['水分 KF','0.18%','≤ 0.30%','pass'],['残留溶剂','380 ppm','≤ 890','pass'],['粒度 D90','45 μm','30-60','pass'],['晶型 XRD','晶型 I','晶型 I','pass']],
+    root:null, sug:{c:'#065f46',bg:'#ecfdf5',icon:'🟢',t:'AI 建议·走标准放行',d:'7/7 预测合格 · 跟历史 17 批均值偏差 < 0.1σ · 模型置信度 91%'}
+  },
+  alert:{title:'🔴 异常情景 · 步骤 7/10 · T+ 5.5h（杂质 A 偏高预警）',
+    sensors:[['反应温度','71.2 ℃ (CPP 60-70 偏离！)',false],['压力','2.4 bar',true],['加料速率','已停止',true],['pH','8.1 (CPP 7.0-8.0 偏离！)',false],['IPC 杂质 A','0.18% (限 ≤0.15 已超！)',false],['转化率','92% (低于期望 95%)',false]],
+    predict:'AI 检出多项偏离 → <strong>本批最终 QC 预测高风险</strong>：',
+    qc:[['含量 HPLC','97.8 ± 0.5%','≥ 98.0%','high'],['杂质 A','0.22 ± 0.04%','≤ 0.15%','high'],['杂质 B','0.07 ± 0.02%','≤ 0.10%','low'],['水分','0.20 ± 0.05%','≤ 0.30%','low']],
+    root:'AI 识别最可能的 3 个根因（按概率排序）：<br/>① <strong>温度过冲</strong>（55%）：步骤 5 温度峰值 73℃ 超 CPP，触发副反应路径 → 杂质 A 生成<br/>② <strong>pH 偏碱</strong>（25%）：pH > 8 → 加速杂质 A 生成<br/>③ <strong>原料杂质</strong>（20%）：原料 LOT-789012 活泼杂质 C 偏高 → 复查 COA',
+    sug:{c:'#991b1b',bg:'#fef2f2',icon:'🔴',t:'高风险·工艺工程师立即介入',d:'选项 A：现场调整（降温 + 调 pH）尝试挽救；选项 B：提前完批 + 全检 + 启动 OOS；选项 C：报废本批，损失 ≈ 150-200 万'}
+  }
+};
+function d1Show(k){
+  document.querySelectorAll('button[data-d1]').forEach(b=>b.classList.add('ghost'));
+  document.querySelector('button[data-d1="'+k+'"]').classList.remove('ghost');
+  const s = d1Data[k];
+  let h = '<div style="background:rgba(255,255,255,.04); border-radius:10px; padding:14px;">';
+  h += '<div style="font-size:13px; color:#fbbf24; margin-bottom:10px;">'+s.title+'</div>';
+  h += '<div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">';
+  h += '<div style="background:rgba(255,255,255,.04); padding:10px; border-radius:6px;"><div style="color:#9aabd6; font-size:11px; margin-bottom:6px;">📡 现场实时数据</div>';
+  s.sensors.forEach(sn=>{
+    const col = sn[2]?'#22d3ee':'#ef4444';
+    const bg = sn[2]?'rgba(34,211,238,.06)':'rgba(239,68,68,.12)';
+    h += '<div style="display:flex; justify-content:space-between; padding:4px 6px; margin:2px 0; background:'+bg+'; border-radius:3px; font-size:11.5px;"><span style="color:#9aabd6;">'+sn[0]+'</span><span style="color:'+col+'; font-weight:600;">'+sn[1]+'</span></div>';
+  });
+  h += '</div>';
+  h += '<div style="background:rgba(255,255,255,.04); padding:10px; border-radius:6px;"><div style="color:#9aabd6; font-size:11px; margin-bottom:6px;">🤖 AI 实时输出</div>';
+  h += '<div style="font-size:12px; color:#cdd6e8; line-height:1.6;">'+s.predict+'</div>';
+  if (s.qc){
+    h += '<table style="margin-top:8px; font-size:11px; width:100%; border-collapse:collapse;">';
+    h += '<tr style="background:rgba(255,255,255,.06);"><th style="text-align:left; padding:4px;">CQA</th><th style="padding:4px;">预测值</th><th style="padding:4px;">限度</th><th style="padding:4px;">判定</th></tr>';
+    s.qc.forEach(q=>{
+      const icons = {low:'✓低风险',high:'⚠高风险',pass:'✓合格'};
+      const cols = {low:'#22d3ee',high:'#ef4444',pass:'#22d3ee'};
+      h += '<tr><td style="padding:3px 4px; color:#cdd6e8;">'+q[0]+'</td><td style="padding:3px 4px; color:#fff; font-weight:600;">'+q[1]+'</td><td style="padding:3px 4px; color:#9aabd6;">'+q[2]+'</td><td style="padding:3px 4px; color:'+cols[q[3]]+';">'+icons[q[3]]+'</td></tr>';
+    });
+    h += '</table>';
+  }
+  if (s.root) h += '<div style="margin-top:8px; padding:8px; background:rgba(239,68,68,.1); border-left:3px solid #ef4444; border-radius:3px; font-size:11.5px; color:#fff; line-height:1.7;">'+s.root+'</div>';
+  h += '</div>';
+  h += '</div>';
+  h += '<div style="margin-top:10px; padding:10px 14px; background:'+s.sug.bg.replace('#','rgba(').replace('ecfdf5','16,185,129,.1').replace('fff7ed','251,191,36,.1').replace('fef2f2','239,68,68,.12')+'); border-left:3px solid '+s.sug.c+'; border-radius:4px;"><strong style="color:'+s.sug.c+';">'+s.sug.icon+' AI 建议: '+s.sug.t+'</strong><div style="font-size:11.5px; color:#cdd6e8; margin-top:4px;">'+s.sug.d+'</div></div></div>';
+  document.getElementById('d1-out').innerHTML = h;
+}
+d1Show('early');
+</script>
+
+<section class="slide" id="vendor">
+  <h2 class="kicker">PART 06 · 三条路线对比</h2>
+  <h1>智现未来 FDC · 华为云盘古制药 · Aizon GxP · 自建</h1>
+  <table class="kly" style="margin-top:14px;">
+    <thead><tr><th style="width:14%;">维度</th><th style="width:22%;">智现未来 FDC (半导体跨域)</th><th style="width:22%;">华为云盘古制药</th><th style="width:21%;">Aizon (医药 GxP 原生)</th><th>自建 (IT + 算法外采)</th></tr></thead>
+    <tbody>
+      <tr><td><strong>背景</strong></td><td>半导体晶圆厂多变量 FDC 强项</td><td>华为云医药行业大模型</td><td>美国医药 GxP 原生 AI 平台</td><td>凯莱英 IT + 算法 SaaS</td></tr>
+      <tr><td><strong>多变量 FDC 算法</strong></td><td>★★★★ 业界顶级</td><td>★★ 一般</td><td>★★ 一般</td><td>需自建</td></tr>
+      <tr><td><strong>制药 / GxP 经验</strong></td><td>0 制药案例</td><td>有（盘古制药已有翰宇等案例）</td><td>★★★ 全部都是医药</td><td>需自建合规框架</td></tr>
+      <tr><td><strong>客户隔离架构</strong></td><td>半导体 Foundry 经验可迁</td><td>华为云租户隔离</td><td>原生支持 CDMO</td><td>自建</td></tr>
+      <tr><td><strong>PoC 投入</strong></td><td>200-500 万</td><td>150-400 万</td><td>300-600 万</td><td>50-150 万 + IT 工时</td></tr>
+      <tr><td><strong>跨域适配工作</strong></td><td>★★★ 大（凯莱英承担）</td><td>★ 小</td><td>★ 小</td><td>—</td></tr>
+      <tr><td><strong>推荐</strong></td><td>FDC 算法 PoC 单独评估</td><td>★ 制药 LLM + 报告联动</td><td>QA + 偏差 Copilot 备选</td><td>Pilot 后降本路径</td></tr>
+    </tbody>
+  </table>
+  <div class="card success" style="margin-top:14px;">
+    <strong style="color:#166534;">💡 推荐路线：多供应商混合 + 自建底座</strong>
+    <ul class="bul tight" style="margin-top:6px;">
+      <li><strong>核心 FDC 算法</strong>：智现未来做 PoC 对照（半导体跨域算法强 + 凯莱英作为"制药首席客户"有谈判筹码）</li>
+      <li><strong>LLM + RAG（报告生成 + 根因分析）</strong>：跟方向 ② 共用底座，路线 A+D 混合（DeepSeek 私有化 + 通用 LLM API）</li>
+      <li><strong>客户隔离</strong>：参考智现未来半导体 Foundry 经验 + Aizon CDMO 原生方案</li>
+      <li><strong>合规验证</strong>：GAMP 5 类别 4 验证，独立做 — 不绑定任何供应商</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide" id="roi">
+  <h2 class="kicker">PART 07 · 投资回报测算</h2>
+  <h1>试点投入 vs 年化收益</h1>
+  <div class="roi-grid" style="margin-top:12px;">
+    <div class="roi-input">
+      <div class="field"><label>年商业化批次（批）</label><input type="number" id="r-batches" value="800" min="100" max="3000" oninput="d1Roi()"></div>
+      <div class="field"><label>单批价值（万元）</label><input type="number" id="r-batch-val" value="200" min="50" max="1000" oninput="d1Roi()"></div>
+      <div class="field"><label>现状报废率（%）</label><input type="number" id="r-fail" value="1" min="0.1" max="5" step="0.1" oninput="d1Roi()"></div>
+      <div class="field"><label>AI 后报废率（%）</label><input type="number" id="r-fail2" value="0.5" min="0.05" max="2" step="0.05" oninput="d1Roi()"></div>
+      <div class="field"><label>QC 工时节省（万元/年）</label><input type="number" id="r-qc" value="100" min="20" max="500" oninput="d1Roi()"></div>
+      <div class="field"><label>放行加速带来产能提升（万元/年）</label><input type="number" id="r-prod" value="200" min="0" max="1000" oninput="d1Roi()"></div>
+      <div class="field"><label>项目总投入（万元，3 年）</label><input type="number" id="r-cost" value="1500" min="500" max="5000" oninput="d1Roi()"></div>
+    </div>
+    <div class="roi-out">
+      <div class="ttl">📊 年化收益</div>
+      <div class="roi-numbers">
+        <div class="item"><div class="v" id="r-save-fail">800</div><div class="l">防报废收益（万元/年）</div></div>
+        <div class="item"><div class="v orange" id="r-save-other">300</div><div class="l">QC 工时 + 放行加速</div></div>
+        <div class="item"><div class="v" id="r-total">1100</div><div class="l">年化总收益</div></div>
+        <div class="item"><div class="v orange" id="r-payback">1.4</div><div class="l">回本周期（年）</div></div>
+      </div>
+      <div class="roi-bar-row"><div class="lbl">3 年累计 ROI</div><div class="roi-bar"><div id="r-bar" style="width:100%;"></div><div class="marker" style="left:33%;"></div></div></div>
+      <div style="margin-top:18px; font-size:12px; color:#9aabd6;">
+        <strong style="color:#fff;">注</strong>：本方向 ROI 主要来自"<strong>防报废</strong>"，单点价值最高（单次挽救 100-2000 万）。
+        是 6 方向里 ROI 最大但落地难度也最高的。
+      </div>
+    </div>
+  </div>
+  <script>
+  function d1Roi(){
+    const b=+document.getElementById('r-batches').value;
+    const v=+document.getElementById('r-batch-val').value;
+    const f1=+document.getElementById('r-fail').value;
+    const f2=+document.getElementById('r-fail2').value;
+    const qc=+document.getElementById('r-qc').value;
+    const p=+document.getElementById('r-prod').value;
+    const c=+document.getElementById('r-cost').value;
+    const failSave = b*v*(f1-f2)/100;
+    const other = qc+p;
+    const total = failSave + other;
+    document.getElementById('r-save-fail').textContent = failSave.toFixed(0);
+    document.getElementById('r-save-other').textContent = other.toFixed(0);
+    document.getElementById('r-total').textContent = total.toFixed(0);
+    document.getElementById('r-payback').textContent = (c/total).toFixed(1);
+    document.getElementById('r-bar').style.width = Math.min((total*3/c)*33.3, 100)+'%';
+  }
+  d1Roi();
+  </script>
+</section>
+
+<section class="slide" id="roadmap">
+  <h2 class="kicker">PART 08 · 落地路径</h2>
+  <h1>18+ 个月分阶段落地 · 长期战略 不急于求成</h1>
+  <div class="roadmap" style="margin-top:10px;">
+    <div class="stage"><div class="month">M1-M5</div><div class="ttl">底座建设</div><div class="det">跟方向 ② 共建 LLM + RAG<br/>数据中间层<br/>客户隔离架构</div></div>
+    <div class="stage"><div class="month">M6-M9</div><div class="ttl">PoC</div><div class="det">1 项目 × 3 CQA<br/>历史回测<br/><strong style="color:#ff7e3d;">准确率 ≥80%</strong></div></div>
+    <div class="stage"><div class="month">M10-M13</div><div class="ttl">Pilot 准备</div><div class="det">LIMS 嵌入<br/>QC 工程师试用<br/>GAMP 5 验证启动</div></div>
+    <div class="stage"><div class="month">M14-M18</div><div class="ttl">Pilot</div><div class="det">3 项目 × 5+ CQA<br/>QC 试用 + 对照<br/>客户审计应对</div></div>
+    <div class="stage"><div class="month">Y2 H2+</div><div class="ttl">Scale</div><div class="det">10-20 项目<br/>GAMP 5 验证完成<br/>常态运行</div></div>
+  </div>
+</section>
+
+<section class="slide" id="risk">
+  <h2 class="kicker">PART 09 · 风险与控制</h2>
+  <h1>主要风险与对应控制措施</h1>
+  <table class="kly" style="margin-top:10px;">
+    <thead><tr><th style="width:18%;">风险</th><th style="width:30%;">表现</th><th>控制措施</th></tr></thead>
+    <tbody>
+      <tr><td><strong>① 数据稀疏（单项目 30 批）</strong></td><td>模型方差大，置信度差</td><td>① 选商业化稳定项目（≥30 批）；② 贝叶斯先验启动；③ 主动学习不断调优</td></tr>
+      <tr><td><strong>② 跨项目客户隔离</strong></td><td>AI 经验不能跨客户复用</td><td>① 每客户独立模型；② 共享底层算法 + 不共享具体参数；③ 合同附件明确</td></tr>
+      <tr><td><strong>③ GMP 合规</strong></td><td>QC 报告 + 放行是 GMP 强监管，FDA / 客户审计应对</td><td>① 早期介入 QA + 法规事务；② GAMP 5 类别 4 验证；③ AI 起草 ≠ AI 决策，永远人工签字</td></tr>
+      <tr><td><strong>④ QC 部门抗拒</strong></td><td>"AI 黑盒" → 不信任 → 不用</td><td>① 强制可解释性；② QC 工程师参与训练数据筛选；③ AI 辅助非替代</td></tr>
+      <tr><td><strong>⑤ 偏差批样本少</strong></td><td>负样本不足，模型对异常不敏感</td><td>① 合成数据扩充；② 异常检测算法不依赖负样本；③ 主动学习</td></tr>
+      <tr><td><strong>⑥ 误判损失</strong></td><td>AI 说"低风险"实际不合格 → 漏检风险</td><td>① AI 永不替代检测，仅做"预测 + 建议"；② 所有批仍全检；③ 模型监控 + 周期再训练</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="slide" id="decision">
+  <h2 class="kicker">PART 10 · 决策建议</h2>
+  <h1>重点决策 5 件事</h1>
+  <div class="grid-2" style="margin-top:14px;">
+    <div class="card accent"><div style="font-size:32px; color:#ff7e3d; font-weight:800;">①</div><div style="font-size:17px; font-weight:700; margin:4px 0 6px;">立项 — 长期战略，M6 启动 PoC</div><p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">本方向是 6 方向里<strong>ROI 最大但落地最难</strong>的（长期战略）。建议 M1-M5 跟方向 ② 共建底座，<strong>M6 启动 PoC</strong>，不要急着上。</p></div>
+    <div class="card accent"><div style="font-size:32px; color:#ff7e3d; font-weight:800;">②</div><div style="font-size:17px; font-weight:700; margin:4px 0 6px;">PoC 项目选定 — 1 个商业化稳定项目</div><p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">选标准：① ≥30 批历史；② 数据完整（IPC + QC + 原料 COA + PAT）；③ 工艺研发愿意配合 ≥4 个月。建议工艺研发 + QC + QA 联合提名 3 个候选，副总裁拍板。</p></div>
+    <div class="card accent"><div style="font-size:32px; color:#ff7e3d; font-weight:800;">③</div><div style="font-size:17px; font-weight:700; margin:4px 0 6px;">技术路线 — 多供应商混合 + 自建底座</div><p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">① 智现未来做 FDC 算法 PoC 对照；② LLM + RAG 跟方向 ② 共用；③ GAMP 5 验证自建。<strong>不让单一供应商绑定</strong>。</p></div>
+    <div class="card accent"><div style="font-size:32px; color:#ff7e3d; font-weight:800;">④</div><div style="font-size:17px; font-weight:700; margin:4px 0 6px;">监管路径 — 早期 QA + 法规事务介入</div><p style="font-size:13.5px; color:#3a4d72; line-height:1.7;">放行决策是 GMP 强监管项。QA + 法规事务必须从 PoC 起就介入，提前对齐"AI 草稿 + 人工签字"+ GAMP 5 验证方案 + 客户合同附件。</p></div>
+    <div class="card accent" style="grid-column: span 2;"><div style="font-size:32px; color:#ff7e3d; font-weight:800;">⑤</div><div style="font-size:17px; font-weight:700; margin:4px 0 6px;">底线 — AI 永远不替代 QC 检测和人工签字</div><p style="font-size:13.5px; color:#3a4d72; line-height:1.7;"><strong>这是不可妥协的底线</strong>。AI 只做 ①预测 ②报告草稿 ③放行建议，<strong>所有批仍 100% 全检</strong>，<strong>所有放行仍 QC + QA 双签字</strong>。
+    对外宣称定位为"<strong>QC 工程师辅助工具</strong>"，不宣称"AI 放行"。</p></div>
+  </div>
+</section>
+
+</main></body></html>

@@ -1,0 +1,31 @@
+<chrome current="queue" role="{{role}}">
+  <view class="page" wx:if="{{!missing}}">
+    <view class="toast" wx:if="{{toast}}">{{toast}}</view>
+    <view class="card">
+      <view class="row">
+        <text class="plate">{{id}}</text>
+        <text class="tag">{{status}}</text>
+      </view>
+      <view class="sub">{{kind}} · {{material}} {{qty}} 吨 · {{planTime}}</view>
+      <view class="sub">{{plate}} · {{driver}}</view>
+      <view class="sub">{{bay}} · {{tank}}</view>
+    </view>
+    <button wx:if="{{canAllow}}" class="act" bindtap="onAllow">允许进入</button>
+    <button wx:if="{{canLeave}}" class="act" bindtap="onLeave">已离开</button>
+    <button wx:if="{{canPull}}" class="act ghost" bindtap="onPull">从门户带出车牌</button>
+    <view class="card">
+      <view class="h2">随车资料</view>
+      <view class="note">给综合办和库房进门核对。这里不办取样和放行。</view>
+      <view class="field"><text>门户单号</text><text>{{shipmentNo}}</text></view>
+      <view class="field"><text>COA</text><text>{{coa}}</text></view>
+      <view class="field"><text>车辆资质</text><text>{{qualification}}</text></view>
+    </view>
+    <view class="card">
+      <view class="h2">临时换车</view>
+      <view class="note">只改车牌，工单号不变。</view>
+      <input class="num" type="text" placeholder="新车牌" value="{{plateDraft}}" bindblur="onPlate" />
+      <button class="act ghost" bindtap="onSavePlate">保存车牌</button>
+    </view>
+    <view class="note">{{audit}}</view>
+  </view>
+</chrome>

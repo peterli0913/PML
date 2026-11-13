@@ -1,0 +1,20 @@
+# 厂区代码 → MOR 首页和页脚的地址。工艺里没有地址，按厂区选择（批注 2，会议 00:09）。
+# 只填了样例里出现过的 DH3。其他厂区请按公司正式地址补充，未补充时 MOR 中会高亮待补。
+DH3:
+  address: "Asymchem Laboratories (Jilin) Co., Ltd. (No.899, Xingqi Road, High-tech Industrial Zone, Dunhua, Jilin, 133700, China) (Referred as DH3)"
+TJ1:
+  address: ""
+TJ2:
+  address: ""
+TJ3:
+  address: ""
+TJ4:
+  address: ""
+FX1:
+  address: ""
+FX2:
+  address: ""
+DH1:
+  address: ""
+DH2:
+  address: ""

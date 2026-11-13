@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI 辅助 MOR 编写 · 专家入门</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #0b1630; overflow: hidden;
+    font-family: "PingFang SC", "Microsoft YaHei", "Source Han Sans CN", sans-serif; color: #0f1f3d; }
+  #stage { position: absolute; left: 50%; top: 50%; width: 1280px; height: 720px; transform-origin: center center; }
+  .slide { position: absolute; inset: 0; background: #fff; border-radius: 14px; padding: 48px 64px 56px;
+    display: none; flex-direction: column; overflow: hidden; }
+  .slide.active { display: flex; }
+  .slide.dark { background: linear-gradient(135deg, #0f1f3d 0%, #1f3870 60%, #2a4d9c 100%); color: #fff; }
+  .tag { font-size: 13px; font-weight: 700; letter-spacing: 3px; color: #ff7e3d; margin-bottom: 6px; }
+  h1 { font-size: 34px; margin: 0 0 22px; border-left: 6px solid #ff7e3d; padding-left: 16px; line-height: 1.3; }
+  .dark h1 { border: none; padding: 0; font-size: 46px; }
+  .lead { font-size: 20px; color: #3a4d72; margin: 0 0 18px; line-height: 1.6; }
+  .dark .lead { color: #d8e1f2; }
+  .small { font-size: 14px; color: #5b6a8a; }
+  .foot { position: absolute; left: 64px; right: 64px; bottom: 18px; display: flex; justify-content: space-between;
+    font-size: 12px; color: #9aa7c2; }
+  .dark .foot { color: #8fa3cc; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .card { background: #f5f7fc; border: 1px solid #e1e7f2; border-radius: 12px; padding: 18px 20px; }
+  .card h3 { margin: 0 0 8px; font-size: 19px; color: #1e40af; }
+  .card p { margin: 0; font-size: 15.5px; color: #3a4d72; line-height: 1.6; }
+  .card.hl { background: #fff7f1; border-color: #ffd8be; }
+  .card.hl h3 { color: #d9590f; }
+  .big { font-size: 26px; font-weight: 700; line-height: 1.5; }
+  .orange { color: #ff7e3d; }
+  table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  th, td { padding: 9px 12px; border-bottom: 1px solid #e6ebf5; text-align: left; vertical-align: top; line-height: 1.5; }
+  thead th { background: #0f1f3d; color: #fff; font-size: 14px; }
+  tbody tr:nth-child(even) { background: #f7f9fc; }
+  .flow { display: flex; align-items: stretch; gap: 8px; margin: 6px 0 14px; }
+  .flow .n { flex: 1; border-radius: 12px; padding: 14px 10px; text-align: center; background: #eff3fa; border: 1px solid #d7deec; }
+  .flow .n.ai { background: #0f1f3d; color: #fff; border-color: #0f1f3d; }
+  .flow .n.ex { background: #fff1e6; border-color: #ffc59c; }
+  .flow .n b { display: block; font-size: 17px; margin-bottom: 4px; }
+  .flow .n span { font-size: 13px; opacity: .85; }
+  .flow .ar { display: flex; align-items: center; color: #ff7e3d; font-size: 22px; font-weight: 700; }
+  .legend { display: flex; gap: 16px; font-size: 13px; color: #5b6a8a; margin-bottom: 10px; }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+  .src { background: #f3f5fa; border-radius: 10px; padding: 16px 18px; font-size: 16px; line-height: 1.9; }
+  .num { background: #ffe7d6; color: #b34700; padding: 0 4px; border-radius: 4px; font-weight: 600; }
+  .tpl { color: #1e40af; }
+  .fill { background: #ffe7d6; color: #b34700; padding: 0 3px; border-radius: 3px; font-weight: 600; }
+  .todo { background: #fde2e2; color: #c0262d; padding: 0 3px; border-radius: 3px; font-weight: 600; }
+  .ai { background: #eceff5; color: #4b5873; padding: 0 3px; border-radius: 3px; }
+  .rec { font-family: Consolas, "Microsoft YaHei", monospace; font-size: 14px; color: #3a4d72; background: #fafbfd;
+    border: 1px dashed #c9d3e6; border-radius: 8px; padding: 8px 12px; margin-top: 8px; }
+  .mor { border: 2px solid #0f1f3d; border-radius: 10px; padding: 14px 18px; font-size: 16px; line-height: 1.85; }
+  .badge { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-right: 6px; }
+  .b-err { background: #fde2e2; color: #c0262d; } .b-warn { background: #fff3d6; color: #a86a00; } .b-todo { background: #e5ecfb; color: #1e40af; }
+  .step { display: grid; grid-template-columns: 54px 1fr 190px; gap: 14px; align-items: center; padding: 11px 0; border-bottom: 1px solid #e6ebf5; }
+  .step .i { width: 44px; height: 44px; border-radius: 50%; background: #ff7e3d; color: #fff; font-weight: 800; font-size: 20px;
+    display: flex; align-items: center; justify-content: center; }
+  .step b { font-size: 18px; } .step p { margin: 2px 0 0; font-size: 14.5px; color: #5b6a8a; }
+  .step .t { font-size: 14px; color: #1e40af; text-align: right; }
+  .bad, .good { border-radius: 12px; padding: 16px 18px; font-size: 16px; line-height: 1.7; }
+  .bad { background: #fdf0f0; border: 1px solid #f5c2c2; } .good { background: #eefaf2; border: 1px solid #b9e6c8; }
+  .bad h3, .good h3 { margin: 0 0 8px; font-size: 18px; } .bad h3 { color: #c0262d; } .good h3 { color: #17803d; }
+  .tree { font-family: Consolas, "Microsoft YaHei", monospace; font-size: 15px; line-height: 1.8; background: #0f1f3d; color: #e6ecf7;
+    border-radius: 12px; padding: 16px 20px; }
+  .tree .c { color: #ffb48a; }
+  .path { display: flex; align-items: stretch; gap: 6px; }
+  .path .p { flex: 1; border-radius: 10px; padding: 10px 8px; text-align: center; font-size: 14px; background: #eff3fa; border: 1px solid #d7deec; }
+  .path .p b { display: block; font-size: 15.5px; margin-bottom: 3px; color: #0f1f3d; }
+  .path .ar { display: flex; align-items: center; color: #ff7e3d; font-weight: 700; }
+  .risk li { margin: 3px 0; }
+  ul.tight { margin: 4px 0 0; padding-left: 20px; font-size: 15px; color: #3a4d72; line-height: 1.6; }
+  #nav { position: fixed; bottom: 14px; right: 18px; display: flex; gap: 8px; z-index: 10; opacity: 0; transition: opacity .3s; }
+  #nav.show { opacity: 1; }
+  #nav button { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.25); border-radius: 8px;
+    padding: 6px 14px; font-size: 14px; cursor: pointer; }
+  #nav button:hover { background: #ff7e3d; border-color: #ff7e3d; }
+  #counter { position: fixed; bottom: 20px; left: 20px; color: #8fa3cc; font-size: 13px; z-index: 10; }
+  @media print {
+    html, body { overflow: visible; height: auto; background: #fff; }
+    #stage { position: static; transform: none !important; width: auto; height: auto; }
+    .slide { display: flex !important; position: relative; width: 1280px; height: 720px; page-break-after: always; border-radius: 0; }
+    #nav, #counter { display: none; }
+    @page { size: 1280px 720px; margin: 0; }
+  }
+</style>
+</head>
+<body>
+<div id="stage">
+
+<!-- 1 封面 -->
+<section class="slide dark">
+  <div style="margin-top:120px">
+    <div class="tag">MOR × AI · 专家入门</div>
+    <h1>AI 辅助 MOR 编写</h1>
+    <p class="lead" style="font-size:24px">AI 负责抄、套、查；专家负责判断和把关</p>
+    <div class="grid2" style="margin-top:56px; max-width:820px">
+      <div class="card" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.2)">
+        <h3 style="color:#ffb48a">第一部分</h3><p style="color:#e6ecf7">AI 怎么写 MOR，需要专家做什么（附示例）</p></div>
+      <div class="card" style="background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.2)">
+        <h3 style="color:#ffb48a">第二部分</h3><p style="color:#e6ecf7">千问办公怎么用，以及怎么一起开发这个能力</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>AI 工作组</span><span>示例均为虚构工艺，不含任何项目信息</span></div>
+</section>
+
+<!-- 2 一句话 -->
+<section class="slide">
+  <div class="tag">第一部分 · 思路</div>
+  <h1>不是让 AI 替代写 MOR，而是让它干"机械活"</h1>
+  <p class="lead">写一份 MOR 的工作，可以分成下面几类。AI 擅长的是左边三类，专家的经验用在右边三类。</p>
+  <div class="grid2" style="margin-top:6px">
+    <div class="card hl"><h3>交给 AI</h3>
+      <ul class="tight" style="font-size:17px">
+        <li><b>读工艺、抄参数</b>：温度、时间、投料量、IPC 标准</li>
+        <li><b>套标准段落</b>：投料、升温、过滤等固定写法</li>
+        <li><b>逐项核对</b>：数字是否一致、有没有漏步骤、签字点是否齐全</li>
+      </ul></div>
+    <div class="card"><h3>专家负责</h3>
+      <ul class="tight" style="font-size:17px">
+        <li><b>工艺没写的内容</b>：设备分配、车间特有要求</li>
+        <li><b>特殊操作的写法</b>：非常规步骤、安全要点</li>
+        <li><b>最终把关</b>：是否符合 GMP 和公司规范</li>
+      </ul></div>
+  </div>
+  <p class="big" style="margin-top:26px">目标：<span class="orange">专家从"写"转为"审"</span>，把时间花在真正需要经验的地方。</p>
+  <div class="foot"><span>AI 辅助 MOR 编写</span><span>2</span></div>
+</section>
+
+<!-- 3 五步流程 -->
+<section class="slide">
+  <div class="tag">第一部分 · 流程</div>
+  <h1>五步：把 MOR 拆成零件，AI 拼装和核对</h1>
+  <div class="flow">
+    <div class="n"><b>工艺文件</b><span>输入</span></div><div class="ar">→</div>
+    <div class="n ai"><b>① 解析</b><span>AI 抽成步骤表</span></div><div class="ar">→</div>
+    <div class="n ex"><b>② 确认</b><span>专家核对表格<br>约 10 分钟</span></div><div class="ar">→</div>
+    <div class="n ai"><b>③ 组装</b><span>按模板填空</span></div><div class="ar">→</div>
+    <div class="n ai"><b>④ 核对</b><span>程序逐项比对</span></div><div class="ar">→</div>
+    <div class="n ex"><b>⑤ 批注</b><span>专家审改<br>沉淀为规则</span></div>
+  </div>
+  <table>
+    <thead><tr><th style="width:15%">环节</th><th style="width:20%">谁做</th><th>为什么这样设计</th></tr></thead>
+    <tbody>
+      <tr><td>① 解析</td><td>AI</td><td>工艺里的步骤、参数、物料、IPC 抽成一张表，后面都以这张表为准</td></tr>
+      <tr><td>② 确认</td><td>专家</td><td>在表格里核数字，比在几百页 MOR 里核快得多；AI 抽错的数字在这里被拦住</td></tr>
+      <tr><td>③ 组装</td><td>模板为主，AI 为辅</td><td>标准段落用公司模板填空，保证用语统一；AI 只写衔接和特殊说明</td></tr>
+      <tr><td>④ 核对</td><td>程序</td><td>数字、步骤、单位、签字点逐项比对，输出核对报告</td></tr>
+      <tr><td>⑤ 批注</td><td>专家 → AI</td><td>每条批注都变成规则或模板的修订，下次自动生效</td></tr>
+    </tbody>
+  </table>
+  <div class="foot"><span>AI 辅助 MOR 编写</span><span>3</span></div>
+</section>
+
+<!-- 4 示例一 -->
+<section class="slide">
+  <div class="tag">第一部分 · 示例 1/3</div>
+  <h1>工艺原文 → AI 解析出的步骤表</h1>
+  <div class="grid2" style="grid-template-columns: 0.9fr 1.1fr">
+    <div>
+      <p class="small">工艺描述（虚构示例）　<span class="num">橙色</span> = AI 抽出的数值</p>
+      <div class="src">
+        <b>步骤 3　缩合反应</b><br>
+        向反应釜中加入中间体 A <span class="num">50.0 kg</span> 和乙腈 <span class="num">250 L（5 V）</span>，开启搅拌，氮气保护下升温至 <span class="num">60 ℃（55–65 ℃）</span>，保温反应 <span class="num">4 h</span>。取样 HPLC 检测，中间体 A <span class="num">≤ 1.0%</span> 为反应终点；不合格则延长保温 <span class="num">1 h</span> 后复测。
+      </div>
+      <p class="small" style="margin-top:12px">一段话里有 5 个动作，AI 会拆成 5 行；<br>每个数字都标出处，没写的内容（如设备）标"待补"。</p>
+    </div>
+    <div>
+      <table style="font-size:14px">
+        <thead><tr><th>步骤</th><th>单元操作</th><th>物料 / 参数</th><th>出处</th></tr></thead>
+        <tbody>
+          <tr><td>S3.1</td><td>投料</td><td>中间体 A 50.0 kg<br><span class="todo">设备：待补</span></td><td>P5 ¶2</td></tr>
+          <tr><td>S3.2</td><td>溶剂加入</td><td>乙腈 250 L（5 V）</td><td>P5 ¶2</td></tr>
+          <tr><td>S3.3</td><td>升温</td><td>内温 60 ℃（55–65 ℃）<br>氮气保护</td><td>P5 ¶2</td></tr>
+          <tr><td>S3.4</td><td>保温反应</td><td>4 h</td><td>P5 ¶2</td></tr>
+          <tr><td>S3.5</td><td>IPC 取样</td><td>HPLC，中间体 A ≤ 1.0%<br>不合格：延长 1 h 复测</td><td>P5 ¶2</td></tr>
+        </tbody>
+      </table>
+      <div class="card hl" style="margin-top:12px; padding:12px 16px"><p><b>专家在这一步做什么：</b>看表格里的数字和拆分对不对，补上"待补"项，约 10 分钟。</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>AI 辅助 MOR 编写</span><span>4</span></div>
+</section>
+
+<!-- 5 示例二 -->
+<section class="slide">
+  <div class="tag">第一部分 · 示例 2/3</div>
+  <h1>步骤表 → MOR 草稿：模板填空为主</h1>
+  <div class="legend"><span><i style="background:#1e40af"></i>公司模板原文</span><span><i style="background:#ffb48a"></i>从步骤表填入</span><span><i style="background:#f3a3a6"></i>待补（AI 不猜）</span><span><i style="background:#c9cfdb"></i>AI 写的衔接句（专家重点看）</span></div>
+  <div class="grid2" style="grid-template-columns: 0.8fr 1.2fr">
+    <div class="card">
+      <h3>单元操作模板：投料</h3>
+      <p style="font-size:15px">核对{物料名称}的物料编码、批号及状态标识无误后，称取{物料名称}{用量}，经{加料方式}加入{设备}。</p>
+      <div class="rec">记录项：批号 / 称量值 / 操作人 / 复核人</div>
+      <h3 style="margin-top:16px">单元操作模板：IPC 取样</h3>
+      <p style="font-size:15px">取样检测{检测项}（{方法}），标准：{标准}。符合后进入下一步；不符合时{处理方式}。</p>
+      <div class="rec">记录项：取样时间 / 结果 / 判定 / 取样人</div>
+    </div>
+    <div class="mor">
+      <b>3.1</b>　<span class="tpl">核对</span><span class="fill">中间体 A</span><span class="tpl">的物料编码、批号及状态标识无误后，称取</span><span class="fill">中间体 A 50.0 kg</span><span class="tpl">，经</span><span class="todo">【待补：加料方式】</span><span class="tpl">加入</span><span class="todo">【待补：反应釜编号】</span><span class="tpl">。</span>
+      <div class="rec">批号 ______　称量值 ______ kg　操作人 ______　复核人 ______　〔工艺 S3.1 / P5〕</div>
+      <div style="margin-top:12px"><b>3.5</b>　<span class="ai">保温结束后，</span><span class="tpl">取样检测</span><span class="fill">中间体 A 残留</span><span class="tpl">（</span><span class="fill">HPLC</span><span class="tpl">），标准：</span><span class="fill">≤ 1.0%</span><span class="tpl">。符合后进入下一步；不符合时</span><span class="fill">延长保温 1 h 后复测</span><span class="tpl">。</span></div>
+      <div class="rec">取样时间 ______　结果 ______ %　判定 □合格 □不合格　取样人 ______　〔工艺 S3.5 / P5〕</div>
+    </div>
+  </div>
+  <p class="small" style="margin-top:12px">每一步末尾都带出处〔工艺 S3.x〕，专家可以一键对照原文。模板的写法以公司规范为准，由专家审定。</p>
+  <div class="foot"><span>AI 辅助 MOR 编写</span><span>5</span></div>
+</section>
+
+<!-- 6 示例三 -->
+<section class="slide">
+  <div class="tag">第一部分 · 示例 3/3</div>
+  <h1>自动核对报告：把"找错"交给程序</h1>
+  <p class="lead">假设有人把草稿改动了几处，核对程序会对照步骤表逐项检查：</p>
+  <table>
+    <thead><tr><th style="width:12%">级别</th><th style="width:12%">位置</th><th>发现的问题</th><th style="width:28%">工艺依据</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge b-err">错误</span></td><td>3.3</td><td>MOR 写"升温至 65 ℃"，与目标值不一致</td><td>目标 60 ℃（55–65 ℃）</td></tr>
+      <tr><td><span class="badge b-err">错误</span></td><td>3.5</td><td>缺少"不合格时延长保温 1 h 复测"的处理</td><td>工艺 S3.5</td></tr>
+      <tr><td><span class="badge b-err">错误</span></td><td>3.2</td><td>MOR 写"乙腈 200 L"，与工艺不一致</td><td>250 L（5 V × 50.0 kg）</td></tr>
+      <tr><td><span class="badge b-warn">提示</span></td><td>3.1</td><td>投料步骤缺"复核人"签字栏</td><td>编写规则：投料需双人复核</td></tr>
+      <tr><td><span class="badge b-todo">待补</span></td><td>3.1</td><td>加料方式、反应釜编号</td><td>工艺未写，需专家或设备库补充</td></tr>
+    </tbody>
+  </table>
+  <div class="grid3" style="margin-top:18px">
+    <div class="card"><h3>数字锁定</h3><p>MOR 里每个数字都必须能在工艺中找到出处，否则标红</p></div>
+    <div class="card"><h3>不猜内容</h3><p>工艺没写的一律标"待补"，不让 AI 自行补全</p></div>
+    <div class="card"><h3>只是草稿</h3><p>输出仍按现有 SOP 编写、审核、批准</p></div>
+  </div>
+  <div class="foot"><span>AI 辅助 MOR 编写</span><span>6</span></div>
+</section>
+
+<!-- 7 专家要做的事 -->
+<section class="slide">
+  <div class="tag">第一部分 · 需要两位专家做的事</div>
+  <h1>5 件事：前期给"教材"，后期做"阅卷"</h1>
+  <div class="step"><div class="i">1</div><div><b>定范围</b><p>先做哪类产品、哪些章节（建议先做"操作步骤"章节）</p></div><div class="t">阶段 0 · 一次会议</div></div>
+  <div class="step"><div class="i">2</div><div><b>给教材</b><p>提供 20–30 对"工艺文件 + 对应 MOR"，以及 MOR 模板和编写规范</p></div><div class="t">阶段 0</div></div>
+  <div class="step"><div class="i">3</div><div><b>做对照</b><p>挑 3 对代表性文件，标出"工艺第几段 ↔ MOR 第几步"，并指出哪些内容工艺里没有</p></div><div class="t">阶段 1</div></div>
+  <div class="step"><div class="i">4</div><div><b>审零件</b><p>审核 AI 整理出的单元操作模板和编写规则，改成公司标准写法</p></div><div class="t">阶段 2</div></div>
+  <div class="step"><div class="i">5</div><div><b>试用批注</b><p>先对比 AI 稿和自己手写稿；再在实际工作中用 AI 出草稿，直接在钉钉文档里修改、批注</p></div><div class="t">阶段 3–4</div></div>
+  <p class="small" style="margin-top:14px">不需要懂 AI 技术，只需要像带新人一样：给范本、指出错误、说清楚规矩。</p>
+  <div class="foot"><span>AI 辅助 MOR 编写</span><span>7</span></div>
+</section>
+
+<!-- 8 时间安排 -->
+<section class="slide">
+  <div class="tag">第一部分 · 时间安排</div>
+  <h1>开发约 9 周，迭代约 7 周</h1>
+  <table>
+    <thead><tr><th style="width:18%">阶段</th><th style="width:14%">时间</th><th>专家参与</th><th style="width:28%">产出</th></tr></thead>
+    <tbody>
+      <tr><td>0 立项准备</td><td>第 1–2 周</td><td>定范围、提供配对文件和规范</td><td>范围说明、资料目录</td></tr>
+      <tr><td>1 结构分析</td><td>第 2–4 周</td><td>标注 3 对文件的对应关系（可线上）</td><td>MOR 结构规范、单元操作清单</td></tr>
+      <tr><td>2 建知识底座</td><td>第 4–7 周</td><td>审核单元操作模板和编写规则（可线上）</td><td>单元操作库、规则库</td></tr>
+      <tr><td>3 生成工具</td><td>第 6–9 周</td><td>给测试结果打分："改一改就能用"吗</td><td>MOR 生成 skill</td></tr>
+      <tr><td>4 试用迭代</td><td>第 9–14 周</td><td>影子模式对比 → 实际使用并批注</td><td>每周一版规则更新</td></tr>
+      <tr><td>5 验收推广</td><td>第 14–16 周</td><td>参与效果评估</td><td>效果报告、使用指导</td></tr>
+    </tbody>
+  </table>
+  <div class="card hl" style="margin-top:18px"><p><b>影子模式：</b>前两周专家照常手写，AI 同时生成一份，事后对比差异。系统性问题修好之后，再进入"用 AI 出草稿"的阶段，避免"改 AI 稿比自己写还慢"。</p></div>
+  <div class="foot"><span>AI 辅助 MOR 编写</span><span>8</span></div>
+</section>
+
+<!-- 9 千问办公 -->
+<section class="slide">
+  <div class="tag">第二部分 · 千问办公</div>
+  <h1>千问办公：在钉钉里就能用的 AI 助手</h1>
+  <p class="lead">上传文件或直接粘贴文字，用中文提要求即可。下面这些场景今天就能用：</p>
+  <div class="grid3">
+    <div class="card"><h3>读文件、提重点</h3><p>"这份工艺描述有几步？列出每步的关键参数和 IPC。"</p></div>
+    <div class="card"><h3>两版对比</h3><p>"对比新旧两版 MOR，列出所有改动，按步骤号排序。"</p></div>
+    <div class="card"><h3>查错</h3><p>"检查这份 MOR 的单位、全角符号、步骤号是否连续，只报问题。"</p></div>
+    <div class="card"><h3>中英对照</h3><p>"把第 3 章译成英文，术语按附件词表，数字和单位不要改。"</p></div>
+    <div class="card"><h3>整理纪要</h3><p>"把这段会议录音整理成一页纪要：结论、行动项、负责人。"</p></div>
+    <div class="card"><h3>起草邮件</h3><p>"根据这张问题清单，起草一封给项目组的邮件，语气客气、简洁。"</p></div>
+  </div>
+  <p class="small" style="margin-top:16px">AI 的回答一定要自己核对，尤其是数字。它是助手，不是审核人。</p>
+  <div class="foot"><span>AI 辅助 MOR 编写</span><span>9</span></div>
+</section>
+
+<!-- 10 怎么问 -->
+<section class="slide">
+  <div class="tag">第二部分 · 怎么问</div>
+  <h1>问法决定质量：背景 + 任务 + 格式 + 约束</h1>
+  <div class="grid2">
+    <div class="bad"><h3>✗ 效果差的问法</h3>
+      <p style="font-size:18px">"帮我看看这个 MOR 有没有问题。"</p>
+      <p class="small" style="margin-top:10px">AI 不知道该对照什么、查哪类问题、用什么格式回答，往往泛泛而谈，还可能改写原文。</p></div>
+    <div class="good"><h3>✓ 效果好的问法</h3>
+      <p><b>背景：</b>你是原料药 MOR 审核员。附件 1 是工艺描述，附件 2 是 MOR 草稿。<br>
+      <b>任务：</b>逐步核对 MOR 中的温度、时间、投料量和 IPC 标准是否与工艺一致，并检查有没有漏步骤。<br>
+      <b>格式：</b>用表格输出：MOR 步骤号｜问题｜工艺原文｜建议。<br>
+      <b>约束：</b>只报问题，不改写原文；在工艺里找不到出处的数字写"待确认"。</p></div>
+  </div>
+  <div class="grid3" style="margin-top:18px">
+    <div class="card"><h3>一次只做一件事</h3><p>长任务拆成几步问，比一次全问更准</p></div>
+    <div class="card"><h3>给范本</h3><p>附一段"标准写法"，让 AI 照着写</p></div>
+    <div class="card"><h3>好用的问法存下来</h3><p>下次直接复用，也是以后做 skill 的素材</p></div>
+  </div>
+  <div class="foot"><span>AI 辅助 MOR 编写</span><span>10</span></div>
+</section>
+
+<!-- 11 skill -->
+<section class="slide">
+  <div class="tag">第二部分 · 开发能力</div>
+  <h1>skill = 写给 AI 的"岗位说明书"</h1>
+  <div class="grid2" style="grid-template-columns: 1fr 1fr">
+    <div>
+      <p class="lead" style="font-size:18px">把好用的问法、模板、规则和范例整理成一个文件夹，千问办公就能"学会"一项固定工作，以后说一句话就按这套方法做。</p>
+      <div class="tree">
+mor-generator/<br>
+├─ SKILL.md　　　　　　<span class="c"># 工作流程：先解析，确认后再组装</span><br>
+├─ references/<br>
+│　├─ 单元操作库.md　　<span class="c"># 投料、升温…的标准写法 ← 专家审</span><br>
+│　├─ 编写规则.md　　　<span class="c"># 数值、单位、签字点 ← 专家定</span><br>
+│　└─ 核对清单.md　　　<span class="c"># 要查哪些错误</span><br>
+└─ examples/　　　　　 <span class="c"># 好的范例 ← 专家提供</span>
+      </div>
+    </div>
+    <div>
+      <div class="card"><h3>怎么安装</h3><p>把文件夹放进千问办公的项目文件夹，对它说："我在 XX 文件夹里上传了 mor-generator，帮我安装这个 skill"。</p></div>
+      <div class="card" style="margin-top:14px"><h3>怎么使用</h3><p>说"生成 MOR""工艺转 MOR""学习这份 MOR 的批注"，它就会按说明书执行。</p></div>
+      <div class="card hl" style="margin-top:14px"><h3>专家的位置</h3><p>说明书里最有价值的"模板、规则、范例"三部分，都来自专家的经验。</p></div>
+    </div>
+  </div>
+  <div class="foot"><span>AI 辅助 MOR 编写</span><span>11</span></div>
+</section>
+
+<!-- 12 经验变能力 -->
+<section class="slide">
+  <div class="tag">第二部分 · 开发能力</div>
+  <h1>一条批注，下次自动生效</h1>
+  <div class="path" style="margin:6px 0 18px">
+    <div class="p"><b>① 专家批注</b>在钉钉文档里直接改或写评论</div><div class="ar">→</div>
+    <div class="p"><b>② AI 分类</b>模板 / 规则 / 个案 / 错误</div><div class="ar">→</div>
+    <div class="p"><b>③ 写入规则库</b>先"试用"</div><div class="ar">→</div>
+    <div class="p"><b>④ 连续 3 次没被推翻</b>转为"生效"</div><div class="ar">→</div>
+    <div class="p" style="background:#fff1e6;border-color:#ffc59c"><b>⑤ 下次自动用上</b>同类问题不再出现</div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>例：专家的一条评论</h3>
+      <p style="font-size:16px">"<b>#规则</b> 温度范围统一写'55–65 ℃'，不要写'60 ± 5 ℃'。"</p>
+      <h3 style="margin-top:14px">AI 生成的规则卡</h3>
+      <div class="rec">类别：数值写法　状态：试用<br>规则：温度范围用"下限–上限 ℃"表示<br>来源：某 MOR 第 3.3 步批注</div></div>
+    <div class="card"><h3>评论开头加标签，分类更准</h3>
+      <table style="font-size:14.5px; margin-top:4px">
+        <tbody>
+          <tr><td><b>#模板</b></td><td>这类操作的标准写法要改</td></tr>
+          <tr><td><b>#规则</b></td><td>通用写法规范，所有 MOR 适用</td></tr>
+          <tr><td><b>#个案</b></td><td>只适用于这个产品，不要推广</td></tr>
+          <tr><td><b>#错误</b></td><td>AI 抄错或理解错</td></tr>
+        </tbody>
+      </table>
+      <p class="small" style="margin-top:8px">不加标签也可以，AI 会自己判断，专家再确认。</p></div>
+  </div>
+  <div class="foot"><span>AI 辅助 MOR 编写</span><span>12</span></div>
+</section>
+
+<!-- 13 安全 -->
+<section class="slide">
+  <div class="tag">第二部分 · 安全与合规</div>
+  <h1>数据会经过哪里，有什么风险</h1>
+  <div class="path" style="margin-bottom:12px">
+    <div class="p"><b>你的电脑</b>项目文件夹里的文件<br>（千问能读写这个文件夹）</div><div class="ar">→</div>
+    <div class="p"><b>加密传输</b>TLS 加密</div><div class="ar">→</div>
+    <div class="p"><b>千问办公云服务</b>境内存储；对话、文件、结果<br>保存在你的账户下</div><div class="ar">→</div>
+    <div class="p"><b>模型服务</b>完成推理后返回结果</div><div class="ar">→</div>
+    <div class="p"><b>钉钉（用到时）</b>调用钉钉文档、表格、消息</div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>官方承诺</h3>
+      <ul class="tight">
+        <li>用户内容<b>不用于模型训练</b></li>
+        <li>数据存储在<b>中国境内</b>，组织之间隔离</li>
+        <li>传输和存储都加密</li>
+      </ul>
+      <h3 style="margin-top:12px">需要知道的风险</h3>
+      <ul class="tight risk">
+        <li>标准版运行在公有云，文件会离开公司内网</li>
+        <li>对话和文件会留存；管理员可查看使用日志；部分日志因审计需要保留</li>
+        <li>千问能操作本地文件夹，可能误改、误删文件</li>
+        <li>AI 可能"一本正经地写错"</li>
+      </ul></div>
+    <div class="card hl"><h3>我们的做法</h3>
+      <ul class="tight">
+        <li><b>单独建一个工作文件夹</b>，只放本次要处理的文件，不关联共享盘或整个硬盘</li>
+        <li><b>原件留底</b>，给千问的永远是副本</li>
+        <li><b>客户机密和未脱敏的批记录不上传</b>；工艺文件按公司批准的范围使用</li>
+        <li><b>删除、批量修改、对外发消息</b>之前先人工确认</li>
+        <li><b>AI 输出一律人工审核</b>后再进入正式文件和审批流程</li>
+      </ul></div>
+  </div>
+  <div class="foot"><span>依据：千问办公服务协议第 1.8、4.4、7.8、10.3 条；千问办公帮助中心《隐私与安全》</span><span>13</span></div>
+</section>
+
+</div>
+<div id="counter"></div>
+<div id="nav"><button onclick="go(-1)">← 上一页</button><button onclick="go(1)">下一页 →</button><button onclick="fs()">全屏</button></div>
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  let cur = 0;
+  function show(i) {
+    cur = Math.max(0, Math.min(slides.length - 1, i));
+    slides.forEach((s, k) => s.classList.toggle('active', k === cur));
+    document.getElementById('counter').textContent = (cur + 1) + ' / ' + slides.length;
+    location.hash = cur + 1;
+  }
+  function go(d) { show(cur + d); }
+  function fs() { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+  function fit() {
+    const s = Math.min(window.innerWidth / 1300, window.innerHeight / 740);
+    document.getElementById('stage').style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+  }
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(1); }
+    if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); go(-1); }
+    if (e.key === 'f' || e.key === 'F') fs();
+  });
+  document.getElementById('stage').addEventListener('click', e => { if (!e.target.closest('button')) go(e.clientX > window.innerWidth / 2 ? 1 : -1); });
+  window.addEventListener('resize', fit);
+  window.addEventListener('hashchange', () => { const n = (parseInt(location.hash.slice(1)) || 1) - 1; if (n !== cur) show(n); });
+  let hideTimer;
+  document.addEventListener('mousemove', () => {
+    const nav = document.getElementById('nav');
+    nav.classList.add('show');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => nav.classList.remove('show'), 2000);
+  });
+  fit();
+  show((parseInt(location.hash.slice(1)) || 1) - 1);
+</script>
+</body>
+</html>

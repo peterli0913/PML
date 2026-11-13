@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>生产管理 AI 表格使用说明</title>
+<style>
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:"PingFang SC","Microsoft YaHei","Source Han Sans CN",sans-serif; color:#0f1f3d;
+         background:#f3f5fa; line-height:1.75; }
+  .topbar { position:sticky; top:0; z-index:50; display:flex; gap:4px; align-items:center; flex-wrap:wrap;
+            padding:8px 24px; background:rgba(15,31,61,.96); box-shadow:0 2px 10px rgba(0,0,0,.15); }
+  .topbar a { color:#cdd6e8; font-size:12.5px; text-decoration:none; padding:5px 10px; border-radius:6px; }
+  .topbar a:hover { background:#1d2f55; color:#fff; }
+  main { max-width:1180px; margin:0 auto; padding:0 24px 80px; }
+  header.cover { margin:24px 0; padding:36px 44px; border-radius:14px; color:#fff;
+                 background:linear-gradient(135deg,#0f1f3d 0%,#1f3870 60%,#2a4d9c 100%); }
+  header.cover h1 { margin:0 0 8px; font-size:28px; }
+  header.cover p { color:#dbe3f3; margin:6px 0; font-size:14px; }
+  header.cover .quote { background:rgba(255,255,255,.1); color:#eef2fa; border-left-color:#ff7e3d; }
+  section.card { background:#fff; border-radius:14px; padding:32px 44px 36px; margin:22px 0;
+                 box-shadow:0 6px 24px rgba(15,31,61,.07); }
+  h2 { font-size:22px; margin:0 0 16px; border-left:5px solid #ff7e3d; padding-left:12px; }
+  h3 { font-size:16px; color:#1e40af; margin:22px 0 8px; }
+  p { font-size:14px; color:#3a4d72; margin:8px 0; }
+  code { background:#eef2fb; color:#1e40af; padding:1px 6px; border-radius:4px; font-size:12.5px; }
+  .quote { background:#fff7f1; border-left:4px solid #ff7e3d; padding:12px 18px; margin:12px 0;
+           border-radius:0 8px 8px 0; color:#3a4d72; font-size:14px; }
+  .tbl { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; font-size:13px; margin:10px 0 16px; }
+  th, td { padding:8px 11px; text-align:left; border-bottom:1px solid #e6ebf5; vertical-align:top; line-height:1.65; }
+  thead th { background:#0f1f3d; color:#fff; font-weight:600; font-size:12px; white-space:nowrap; }
+  tbody tr:nth-child(even) { background:#f7f9fc; }
+  ul.bul { list-style:none; padding-left:0; margin:6px 0; }
+  ul.bul li { position:relative; padding:3px 0 3px 22px; font-size:14px; color:#3a4d72; }
+  ul.bul li:before { content:""; position:absolute; left:4px; top:13px; width:7px; height:7px; background:#ff7e3d;
+                     border-radius:2px; transform:rotate(45deg); }
+  ul.bul li.numbered:before { display:none; }
+  ul.bul li.numbered { padding-left:4px; }
+  ul.bul li .num { color:#ff7e3d; font-weight:700; }
+  ul.bul li.sub { margin-left:24px; font-size:13.5px; }
+  ul.bul li.sub:before { width:5px; height:5px; background:#9aa7c2; top:14px; }
+  .code { position:relative; margin:10px 0 16px; }
+  .code pre { background:#0f1f3d; color:#e6ecf7; padding:16px 18px; border-radius:10px; font-size:12.5px;
+              line-height:1.6; white-space:pre-wrap; word-break:break-word; margin:0;
+              font-family:Consolas,"Microsoft YaHei",monospace; }
+  .code button { position:absolute; top:8px; right:8px; background:#ff7e3d; color:#fff; border:none;
+                 border-radius:6px; padding:4px 12px; font-size:12px; cursor:pointer; }
+  @media print { .topbar, .code button { display:none; } body { background:#fff; }
+                 section.card { box-shadow:none; } }
+</style></head>
+<body>
+<div class="topbar"><a href="#s1">整体流程</a><a href="#s2">表说明</a><a href="#s3">视图说明</a><a href="#s4">填写规范</a><a href="#s5">预警和统计口径</a><a href="#s6">常见问题</a></div>
+<main><header class="cover"><h1>生产管理 AI 表格使用说明</h1><p class="meta">v1 ｜ 2026-11-10 ｜ Base：生产管理（试点）</p><div class="quote">一句话：计划员排批次，车间更新执行情况、登记进展和延误；日报、周计划、月计划、预警和统计都由系统自动生成。</div></header><section class="card" id="s1"><h2>一、整体流程</h2><div class="code"><button onclick="copyCode(this)">复制</button><pre>① 一次性准备      车间（生产文员）            延误原因（已导入，26 类）
+② 订单            订单同步（自动同步，不手填）
+③ 立项            项目（项目组）  ── 关联订单
+④ 工艺准备        工艺步骤（项目组 + 生产部）  标准系数、标准周期、排产参数
+⑤ 排产            批次（计划员）  参考&quot;建议计划&quot;填写 V1 和最新计划
+⑥ 执行            批次（车间）    每天更新状态、实际开始/结束、产量
+                  现场记录（车间）有进展或延误时登记一条
+⑦ 查看与预警      报表视图（📋）、统计视图（📈）、仪表盘；每天 08:30 推送预警</pre></div><p class=""><strong>按角色的日常工作</strong></p><div class="tbl"><table><thead><tr><th>角色</th><th>每天</th><th>每周</th><th>每月 / 不定期</th></tr></thead><tbody><tr><td>生产文员</td><td>—</td><td>—</td><td>新增或调整车间；维护生产经理</td></tr><tr><td>项目组</td><td>关注项目统计和预警</td><td>查看 📋 下周计划</td><td>立项时建项目、工艺步骤</td></tr><tr><td>生产计划员</td><td>处理预警，调整最新计划</td><td>周五检查下周计划</td><td>新项目排产，填 V1 计划</td></tr><tr><td>车间</td><td>在 ✏️ 车间更新里改状态；在 ✏️ 现场填报里登记进展和延误</td><td>—</td><td>月底补三废数量</td></tr><tr><td>管理人员</td><td>看 📋 预警清单、仪表盘&quot;生产总览&quot;</td><td>看 📈 车间统计、📋 本周未完成</td><td>看 📋 本月计划、仪表盘&quot;延误分析&quot;</td></tr></tbody></table></div></section><section class="card" id="s2"><h2>二、表说明</h2><p class="">字段分两类：<strong>【填写】</strong>是人填的，字段描述里写明了由谁填；<strong>【自动】</strong>是系统计算的，不需要填，也改不了。每张表都有&quot;✏️&quot;开头的填写视图，里面只显示要填的字段，日常填写尽量在这些视图里操作。</p><h3>2.1 车间</h3><ul class="bul"><li class=""><strong>是什么</strong>：每个车间一行，是基础数据，同时承载车间统计。</li><li class=""><strong>谁填</strong>：生产文员，一次性填好。</li><li class=""><strong>要填</strong>：车间编码（格式&quot;厂区-车间&quot;，如 DH1-二车间）、厂区、车间名称、生产经理。生产经理会收到本车间批次的预警消息。</li><li class=""><strong>自动生成</strong>：批次总数、在制批次数、红色预警数、本周和本月的投入、结束、计件统计及完成率、延误合计。</li></ul><h3>2.2 延误原因</h3><ul class="bul"><li class=""><strong>是什么</strong>：26 类延误原因，并归入 8 个大类，已导入。</li><li class=""><strong>用法</strong>：登记延误时从这里选择原因。不建议随意增删，否则历史统计会对不上；确实需要调整时，由生产部统一修改。</li></ul><h3>2.3 订单同步</h3><ul class="bul"><li class=""><strong>是什么</strong>：订单部门 AI 表格的同步副本，每张订单一行。</li><li class=""><strong>用法</strong>：只读，不要手工修改，字段描述都标了【同步】。项目表通过&quot;关联订单&quot;引用这里的交期。</li><li class=""><strong>现状</strong>：同步方式还在和订单部门确认。确认之前，如需测试，可以临时手工录入几条。</li></ul><h3>2.4 项目</h3><ul class="bul"><li class=""><strong>是什么</strong>：每个项目（一次生产）一行，连接订单和生产，同时承载项目统计。</li><li class=""><strong>谁填</strong>：项目组，立项时填写。</li><li class=""><strong>要填</strong>：项目号（如 CPo127075-04）、项目类型、项目类别、GMP级别、项目主管、Coreteam、Coreteam负责人、生产配对负责人、主生产厂区、项目状态、关联订单。</li><li class=""><strong>自动生成</strong>：客户要求交期、内部承诺交期（取自订单）；批次数、已完成批次、完成进度；实际开始日期、预计完成日期（所有批次最新计划结束中最晚的一个）；交付风险；累计延误；红色预警批次。</li></ul><h3>2.5 工艺步骤</h3><ul class="bul"><li class=""><strong>是什么</strong>：项目的每个步骤一行，提供计件系数、标准周期和排产参数。</li><li class=""><strong>谁填</strong>：项目组和生产部，排产前填写。</li><li class=""><strong>要填</strong>：</li><li class="sub">基本信息：步骤ID（项目号-S步骤号，如 CPo127075-04-S4）、所属项目、步骤号、是否终产品、批次数；</li><li class="sub">产量与计件：单批投料量、单批产量、预期收率、标准系数（计件用）；</li><li class="sub">排产参数：标准批次周期（单批天数）、首批计划开始、批次投料间隔、放行等待、上游步骤；</li><li class="sub">风险信息：敏感化学品、是否三废、主反应釜规格、风险点、规避措施。</li><li class=""><strong>自动生成</strong>：首批建议结束、末批建议结束、上游首批建议结束、最早可开始、排产检查（首批排得早于上游放行时显示&quot;⚠ 早于上游放行&quot;）。</li></ul><h3>2.6 批次（中枢）</h3><ul class="bul"><li class=""><strong>是什么</strong>：每个批次一行，是整个系统的中枢。原来的日报、周计划、月计划都从这张表生成。</li><li class=""><strong>计划员填</strong>（在 ✏️ 排产录入里）：批次ID（项目号-S步骤号-B两位批次号）、所属项目、所属步骤、主车间、批次号、计划版本、V1计划开始/结束、最新计划开始/结束、计划变更原因、拆分说明。</li><li class=""><strong>车间填</strong>（在 ✏️ 车间更新里）：状态、当前进展、进展说明、实际开始（投料当天）、实际结束（收料当天）、实际产量；月底补三废数量。</li><li class=""><strong>自动生成</strong>：</li><li class="sub">排产：建议计划开始/结束、标准批次周期；</li><li class="sub">延误：开始延误、计划周期、实际周期、周期延误、较V1延误、延误合计、延误次数、未解决延误数；</li><li class="sub">结果：实际收率、预警等级、预警说明、AI风险提示；</li><li class="sub">统计标记：本周/下周/本月相关标记、本月计件批次、本月完成计件（这些用于报表筛选和统计，不需要看）。</li></ul><h3>2.7 现场记录</h3><ul class="bul"><li class=""><strong>是什么</strong>：车间的进展和延误登记，一次一条。合并了原来的进展日志和延误记录。</li><li class=""><strong>谁填</strong>：车间，在 ✏️ 现场填报表单里填写。</li><li class=""><strong>要填</strong>：</li><li class="sub">每条都填：批次、记录类型（进展/延误）、发生时间、当前工序、记录说明；</li><li class="sub">延误时加填：延误时长(h)、原因分类、负责人、责任人、是否解决（未解决/已解决）、解决措施；</li><li class="sub">进展记录的&quot;是否解决&quot;选&quot;不适用&quot;。</li><li class=""><strong>自动生成</strong>：AI建议分类（根据记录说明推荐延误原因，供参考）、大类、项目号、车间、批次状态。</li></ul></section><section class="card" id="s3"><h2>三、视图说明</h2><div class="tbl"><table><thead><tr><th>视图</th><th>所在表</th><th>是什么</th><th>谁用</th></tr></thead><tbody><tr><td>✏️ 项目登记</td><td>项目</td><td>只含项目组要填的字段</td><td>项目组</td></tr><tr><td>✏️ 步骤登记</td><td>工艺步骤</td><td>只含要填的字段，按项目分组；附排产检查结果</td><td>项目组、生产部</td></tr><tr><td>✏️ 排产录入</td><td>批次</td><td>计划员填计划的地方，旁边显示系统建议的计划时间</td><td>计划员</td></tr><tr><td>✏️ 车间更新</td><td>批次</td><td>未完成的批次，按车间分组，车间在这里改状态和实际时间</td><td>车间</td></tr><tr><td>✏️ 现场填报</td><td>现场记录</td><td>表单，登记进展或延误；可以分享链接或放进钉钉工作台</td><td>车间</td></tr><tr><td>📋 生产日报</td><td>批次</td><td>对应原生产日报：在制批次的三套时间、延误天数、进展、收率</td><td>生产部、项目组</td></tr><tr><td>📋 本周计划</td><td>批次</td><td>对应原周计划：计划时间与本周有交集的批次，可导出 Excel</td><td>生产部、厂区</td></tr><tr><td>📋 本周未完成</td><td>批次</td><td>对应原&quot;每周未完成批次分析&quot;：本周该投料没投、该结束没结束的批次</td><td>生产部、管理人员</td></tr><tr><td>📋 下周计划</td><td>批次</td><td>下周要做的批次，每周六推送</td><td>项目组、车间</td></tr><tr><td>📋 本月计划</td><td>批次</td><td>对应原月计划上传：本月涉及的批次，含计件和三废</td><td>生产部</td></tr><tr><td>📋 排产甘特</td><td>批次</td><td>按车间分组的甘特图</td><td>计划员</td></tr><tr><td>📋 预警清单</td><td>批次</td><td>红色、黄色预警批次及原因，附 AI 风险提示</td><td>生产经理、项目主管</td></tr><tr><td>📋 未解决延误</td><td>现场记录</td><td>还没解决的延误，按发生时间排序</td><td>负责人、生产部</td></tr><tr><td>📈 车间统计</td><td>车间</td><td>每个车间的在制、预警、本周投入/结束完成率、本月计件完成率、延误</td><td>生产部、管理人员</td></tr><tr><td>📈 项目统计</td><td>项目</td><td>每个项目的完成进度、预计完成、交付风险、累计延误</td><td>项目主管、管理人员</td></tr></tbody></table></div><p class="">仪表盘有 3 个：<strong>生产总览</strong>（在制、预警、各车间状态、本周投入）、<strong>延误分析</strong>（原因排行、大类占比、车间对比、月度趋势）、<strong>交付</strong>（各项目交付风险）。</p></section><section class="card" id="s4"><h2>四、填写规范</h2><h3>4.1 编码</h3><div class="tbl"><table><thead><tr><th>对象</th><th>规则</th><th>示例</th></tr></thead><tbody><tr><td>项目号</td><td>类别 + 编号 - 生产次数</td><td>CPo127075-04</td></tr><tr><td>步骤号</td><td>只写数字；合并步骤用&quot;&amp;&quot;</td><td>4、2&amp;3</td></tr><tr><td>步骤 ID</td><td>项目号-S步骤号</td><td>CPo127075-04-S4</td></tr><tr><td>批次号</td><td>整数，不写&quot;Batch&quot;</td><td>1、2</td></tr><tr><td>批次 ID</td><td>项目号-S步骤号-B两位批次号</td><td>CPo127075-04-S4-B01</td></tr></tbody></table></div><h3>4.2 三套计划时间</h3><ul class="bul"><li class=""><strong>V1 计划</strong>：首次审批的计划，审批后不再修改，用来衡量&quot;比原计划晚了多少&quot;（较V1延误）。</li><li class=""><strong>最新计划</strong>：当前执行的计划。改动时同时更新&quot;计划版本&quot;，并写明&quot;计划变更原因&quot;。</li><li class=""><strong>实际时间</strong>：车间填写。实际开始填投料当天，实际结束填收料当天。</li></ul><p class="">所有延误、预警和完成率都以<strong>最新计划</strong>为准。</p><h3>4.3 批次状态怎么改</h3><div class="code"><button onclick="copyCode(this)">复制</button><pre>未开始 → 备料中 → 进行中 → 已完成
+              ↘ 暂停 ↗       （任何阶段都可改为&quot;取消&quot;）</pre></div><ul class="bul"><li class="">开始投料时：状态改为&quot;进行中&quot;，并填写实际开始。</li><li class="">收料完成时：状态改为&quot;已完成&quot;，并填写实际结束和实际产量。</li><li class="">当前进展随工序更新（备料、投料、反应、后处理、离心过滤、干燥、收料、已结束）。</li></ul><h3>4.4 什么时候登记现场记录</h3><ul class="bul"><li class=""><strong>延误</strong>：只要影响了计划时间就登记，一次延误登记一条，写清楚原因和时长；解决后把&quot;是否解决&quot;改为&quot;已解决&quot;，并填写解决措施。</li><li class=""><strong>进展</strong>：关键节点（投料、转工序、收料）或有需要留痕的情况时登记一条，不需要每小时都记。</li></ul><h3>4.5 跨车间批次</h3><p class="">一个批次按比例在两个车间生产时，&quot;主车间&quot;只选一个，在&quot;拆分说明&quot;里写清比例（如&quot;二车间40%/六车间60%&quot;）。一期的车间统计按主车间计算。</p></section><section class="card" id="s5"><h2>五、预警和统计口径</h2><h3>5.1 预警等级</h3><div class="tbl"><table><thead><tr><th>等级</th><th>条件</th></tr></thead><tbody><tr><td>🔴 红</td><td>已过最新计划结束日仍未完成；或开始延误 ≥ 2 天；或周期超出 ≥ 2 天</td></tr><tr><td>🟡 黄</td><td>开始延误 1 天；或周期超出 1 天；或有未解决的延误记录</td></tr><tr><td>🟢 绿</td><td>其他在计划内的批次</td></tr><tr><td>⚪ 关闭</td><td>已完成或已取消</td></tr></tbody></table></div><h3>5.2 自动消息</h3><div class="tbl"><table><thead><tr><th>时间 / 触发</th><th>内容</th><th>接收人</th></tr></thead><tbody><tr><td>每天 08:30</td><td>红色、黄色预警批次及原因</td><td>生产经理、项目主管</td></tr><tr><td>新增延误记录时</td><td>延误批次、时长、原因、说明</td><td>负责人、责任人</td></tr><tr><td>每周六 09:00</td><td>本周未完成批次、下周计划批次</td><td>项目主管</td></tr></tbody></table></div><h3>5.3 统计口径</h3><ul class="bul"><li class=""><strong>本周</strong>：周一至周日。<strong>本周计划投入</strong>指最新计划开始在本周的批次，<strong>本周实际投入</strong>指其中已填写实际开始的批次。&quot;结束&quot;同理。</li><li class=""><strong>本周未完成</strong>：本周该投料的已过计划开始日仍未投料，或本周该结束的已过计划结束日仍未结束。</li><li class=""><strong>本月计件</strong>：最新计划结束在本月的批次，计件批次数按标准系数计算；本月完成计件指其中在本月实际结束的批次。</li><li class=""><strong>完成率</strong>对比的是最新计划，不是月初或周初冻结的计划。</li><li class=""><strong>交付风险</strong>：项目预计完成日（各批次最新计划结束中最晚的一个）对比内部承诺交期。晚于交期显示&quot;🔴 预计超期&quot;，余量不足 7 天显示&quot;🟡&quot;。</li></ul></section><section class="card" id="s6"><h2>六、常见问题</h2><div class="tbl"><table><thead><tr><th>问题</th><th>怎么办</th></tr></thead><tbody><tr><td>某个批次没出现在&quot;本周计划&quot;里</td><td>检查最新计划开始和结束是否已填写，以及是否与本周有交集。已经超过计划结束日、还在进行中的批次，在&quot;预警清单&quot;里看</td></tr><tr><td>计划要调整</td><td>只改&quot;最新计划开始/结束&quot;，同时更新计划版本、写明变更原因；V1 计划不要改</td></tr><tr><td>预警等级、延误天数每天在变</td><td>正常。这些字段按&quot;今天&quot;自动计算</td></tr><tr><td>想改自动计算的字段</td><td>改不了，也不需要改。改对应的填写字段（计划时间、实际时间、状态），自动字段会随之更新</td></tr><tr><td>延误原因选不准</td><td>先参考&quot;AI建议分类&quot;，拿不准就选最接近的一类，并在记录说明里写清楚</td></tr><tr><td>订单交期没显示</td><td>检查项目的&quot;关联订单&quot;是否已选择，以及订单同步表里是否有这张订单</td></tr><tr><td>原来的 Excel 模板还要不要</td><td>试点期间并行使用，报表视图可以直接导出 Excel；试点验收后停用</td></tr></tbody></table></div></section></main>
+<script>
+function copyCode(btn) {
+  const text = btn.nextElementSibling.innerText;
+  navigator.clipboard.writeText(text).then(() => { btn.textContent = "已复制"; setTimeout(() => btn.textContent = "复制", 1500); });
+}
+</script>
+</body></html>

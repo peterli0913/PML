@@ -1,0 +1,2631 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>智现未来产品落地评估 — CDMO 平移可行性与基础设施需求</title>
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    font-family: "PingFang SC", "Microsoft YaHei", "HarmonyOS Sans SC", "Source Han Sans CN", "Noto Sans CJK SC", sans-serif;
+    color: #0f1f3d;
+    background: #f3f5fa;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.6;
+  }
+  .topbar {
+    position: sticky; top:0; z-index:50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 10px 28px;
+    background: rgba(15,31,61,.96); color: #fff;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 10px rgba(0,0,0,.15);
+  }
+  .topbar .brand { font-weight:700; letter-spacing:.5px; font-size:14px;}
+  .topbar .brand .badge {
+    display:inline-block; padding:2px 8px; margin-left:8px;
+    background:#7c3aed; color:#fff; border-radius:4px; font-size:11px; font-weight:600;
+  }
+  .topbar nav a {
+    color:#cdd6e8; font-size:12px; text-decoration:none;
+    margin: 0 5px; padding:6px 7px; border-radius:6px;
+  }
+  .topbar nav a:hover { background:#1d2f55; color:#fff; }
+  .topbar .modeswitch {
+    font-size:12px; cursor:pointer; padding:6px 12px;
+    border:1px solid #3b507e; color:#cdd6e8; border-radius:6px;
+    background:transparent;
+  }
+  .topbar .modeswitch:hover { background:#1d2f55; }
+
+  main { max-width: 1320px; margin: 0 auto; padding: 0 24px 80px; }
+  section.slide {
+    background:#fff;
+    border-radius: 14px;
+    padding: 44px 52px 50px;
+    margin: 28px 0;
+    box-shadow: 0 6px 24px rgba(15,31,61,.07);
+    position: relative;
+    min-height: 540px;
+  }
+  section.slide.cover {
+    background: linear-gradient(135deg, #1a0a3d 0%, #2a1a55 50%, #3a2a6d 100%);
+    color:#fff;
+  }
+  section.slide h2.kicker {
+    color:#a855f7; font-size: 13px; font-weight:700; letter-spacing: 4px;
+    margin: 0 0 6px; text-transform: uppercase;
+  }
+  section.slide h1 {
+    font-size: 28px; margin: 0 0 14px; font-weight:700;
+    border-left: 5px solid #a855f7; padding-left: 14px; line-height: 1.3;
+  }
+  section.slide.cover h1 { border:none; padding:0; font-size: 40px; line-height: 1.2;}
+  section.slide.cover .subtitle { font-size:18px; opacity:.85; margin-top:18px; max-width: 880px;}
+  section.slide.cover .meta { margin-top: 40px; font-size:13px; opacity:.8; max-width: 920px; line-height: 1.8;}
+
+  section.slide .lead { font-size: 15px; color:#3a4d72; margin: 0 0 22px; max-width: 1100px;}
+
+  .grid-2 { display:grid; grid-template-columns: 1fr 1fr; gap: 28px;}
+  .grid-3 { display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px;}
+  .grid-4 { display:grid; grid-template-columns: repeat(4, 1fr); gap: 14px;}
+
+  .card {
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px;
+    padding: 16px 20px;
+  }
+  .card.purple { background: #f5f3ff; border-color:#ddd6fe;}
+  .card.accent { background: #f0fdf4; border-color:#bbf7d0;}
+  .card.warn { background: #fff7f1; border-color:#ffd8be;}
+  .card.danger { background: #fef2f2; border-color:#fecaca;}
+  .card.info  { background: #eff6ff; border-color:#bfdbfe;}
+  .card .num {
+    font-size: 26px; font-weight:800; color:#0f1f3d;
+    line-height: 1.1;
+  }
+  .card.purple .num { color:#7c3aed; }
+  .card.accent .num { color:#10b981; }
+  .card.warn .num { color:#ff7e3d; }
+  .card .num small { font-size:13px; font-weight:600; color:#7a89a8; margin-left:4px;}
+  .card .label { font-size:13px; color:#5b6a8a; margin-top:4px;}
+  .card .desc { font-size:13px; color:#3a4d72; margin-top:8px; line-height:1.55;}
+
+  table.kly { width:100%; border-collapse: collapse; font-size: 13px; }
+  table.kly th, table.kly td {
+    padding: 9px 11px; text-align:left; vertical-align: top;
+    border-bottom: 1px solid #e6ebf5;
+  }
+  table.kly thead th {
+    background:#0f1f3d; color:#fff; font-weight:600; font-size:12.5px;
+    letter-spacing:.5px;
+  }
+  table.kly tbody tr:nth-child(even) { background:#f7f9fc; }
+  table.kly td.num { text-align:right; font-variant-numeric: tabular-nums; }
+  .pill {
+    display:inline-block; padding:2px 9px; border-radius:99px; font-size:11.5px; font-weight:600;
+  }
+  .pill.ok    { background:#dcfce7; color:#166534; }
+  .pill.mid   { background:#fef9c3; color:#854d0e; }
+  .pill.warn  { background:#fee2e2; color:#991b1b; }
+  .pill.info  { background:#dbeafe; color:#1e3a8a; }
+  .pill.purple{ background:#ede9fe; color:#6b21a8; }
+  .pill.gray  { background:#e5e7eb; color:#374151; }
+
+  ul.bul { padding-left: 0; list-style:none; margin: 8px 0;}
+  ul.bul li { padding: 5px 0 5px 22px; position:relative; font-size:14px;}
+  ul.bul li:before {
+    content:""; position:absolute; left:4px; top:13px; width:8px; height:8px;
+    background:#a855f7; border-radius:2px; transform:rotate(45deg);
+  }
+  ul.bul.tight li { padding: 3px 0 3px 22px; font-size:13.5px; }
+  ul.bul.tight li:before { top:12px; }
+
+  .tag {
+    display:inline-block; padding:3px 10px; font-size:12px; border-radius:99px;
+    background:#ede9fe; color:#6b21a8; font-weight:600; margin: 2px 4px 2px 0;
+  }
+  .tag.warn { background:#fef3c7; color:#92400e;}
+  .tag.danger { background:#fee2e2; color:#991b1b;}
+  .tag.info { background:#dbeafe; color:#1e3a8a;}
+  .tag.ok { background:#dcfce7; color:#166534;}
+
+  /* ====== FDC Demo ====== */
+  .fdc-box {
+    background: linear-gradient(180deg,#1a0a3d 0%,#2a1a55 100%);
+    color:#fff; border-radius: 14px; padding: 22px;
+  }
+  .fdc-grid {
+    display:grid; grid-template-columns: 280px 1fr; gap: 20px;
+  }
+  .fdc-side {
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px; padding: 14px;
+  }
+  .fdc-status {
+    font-size: 11.5px; color:#cdd6e8; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 4px;
+  }
+  .fdc-bigstat {
+    font-size: 32px; font-weight: 800; line-height:1.1; margin-bottom: 10px;
+  }
+  .fdc-bigstat.ok { color:#22d3ee; }
+  .fdc-bigstat.warn { color:#fbbf24; }
+  .fdc-bigstat.alarm { color:#ef4444; }
+  .fdc-sensor-list .row {
+    display:grid; grid-template-columns: 80px 1fr 60px;
+    font-size:11.5px; padding:4px 0; border-bottom: 1px dashed rgba(255,255,255,.08);
+    align-items:center;
+  }
+  .fdc-sensor-list .row:last-child { border:none;}
+  .fdc-sensor-list .lbl { color:#9aabd6;}
+  .fdc-sensor-list .val { text-align:right; color:#fff; font-weight:600; font-variant-numeric: tabular-nums;}
+  .fdc-sensor-list .bar { background: rgba(255,255,255,.1); height: 4px; border-radius: 2px; margin: 0 6px; position: relative; overflow:visible;}
+  .fdc-sensor-list .bar > .fill { height:100%; background: #22d3ee; border-radius:2px;}
+  .fdc-sensor-list .bar > .fill.warn { background: #fbbf24;}
+  .fdc-sensor-list .bar > .fill.alarm { background: #ef4444;}
+
+  .fdc-events {
+    margin-top: 14px; padding: 10px 14px;
+    background: rgba(255,255,255,.04); border-radius: 8px;
+    max-height: 140px; overflow-y: auto;
+    font-size: 12px;
+  }
+  .fdc-events .ev {
+    padding: 4px 0; border-bottom: 1px dashed rgba(255,255,255,.08);
+  }
+  .fdc-events .ev:last-child { border:none;}
+  .fdc-events .ev .t { color:#9aabd6; margin-right:8px; font-variant-numeric: tabular-nums;}
+  .fdc-events .ev.warn .t { color:#fbbf24;}
+  .fdc-events .ev.alarm .t { color:#ef4444;}
+
+  .fdc-controls {
+    display:flex; gap: 10px; align-items: center; margin-top: 14px; flex-wrap: wrap;
+    padding: 10px 14px;
+    background: rgba(255,255,255,.04); border-radius: 8px;
+  }
+  .fdc-controls label { font-size: 12px; color:#9aabd6; }
+  .fdc-controls input[type=range] { flex:1; max-width: 480px; accent-color: #a855f7;}
+  .fdc-controls .btn {
+    padding: 6px 14px; font-size: 12.5px; border-radius: 6px;
+    background: #a855f7; color:#fff; border:none; cursor:pointer; font-weight:600;
+  }
+  .fdc-controls .btn:hover { background:#9333ea;}
+  .fdc-controls .btn.ghost { background:transparent; color:#9aabd6; border:1px solid rgba(255,255,255,.18);}
+  .fdc-controls .btn.ghost:hover { color:#fff;}
+
+  /* ====== Translation Table ====== */
+  table.xlate {
+    width: 100%; border-collapse: collapse; font-size: 13px;
+  }
+  table.xlate th { background: #1f3870; color:#fff; padding: 10px 12px; text-align:left; font-weight:600;}
+  table.xlate td { padding: 10px 12px; border-bottom: 1px solid #e3e8f2; vertical-align: top;}
+  table.xlate tbody tr:hover { background: #f5f3ff;}
+  table.xlate .semi { color:#1e40af; font-weight:600;}
+  table.xlate .pharma { color:#7c3aed; font-weight:600;}
+  table.xlate .note { font-size: 12px; color: #5b6a8a; }
+
+  /* ====== Iso Architecture SVG ====== */
+  svg.chart text { font-family: inherit; }
+  svg.chart .grid line { stroke: #e3e8f2; stroke-dasharray: 2 3;}
+  svg.chart .axis text { fill:#5b6a8a; font-size: 11px;}
+
+  /* ====== Infrastructure tree ====== */
+  .infra-tree {
+    background:#f7f9fc; border:1px solid #e3e8f2; border-radius:12px;
+    padding: 20px;
+  }
+  .infra-cat {
+    margin-bottom: 14px;
+    background:#fff; border-radius: 10px; padding: 14px 18px;
+    border-left: 4px solid #a855f7;
+  }
+  .infra-cat.A { border-color: #f59e0b; }
+  .infra-cat.B { border-color: #3b82f6; }
+  .infra-cat.C { border-color: #10b981; }
+  .infra-cat.D { border-color: #ef4444; }
+  .infra-cat .h {
+    display:flex; justify-content: space-between; align-items: center; cursor: pointer;
+  }
+  .infra-cat .h .ttl { font-size: 16px; font-weight: 700;}
+  .infra-cat .h .sum { font-size: 13px; color: #5b6a8a;}
+  .infra-cat .items {
+    margin-top: 12px;
+    display: none;
+  }
+  .infra-cat.open .items { display: block; }
+  .infra-cat .item {
+    display: grid; grid-template-columns: 1fr 100px 130px;
+    padding: 8px 12px; border-bottom: 1px solid #e3e8f2;
+    font-size: 13px; align-items: center;
+  }
+  .infra-cat .item:last-child { border:none;}
+  .infra-cat .item .nm { color: #0f1f3d; font-weight: 600;}
+  .infra-cat .item .why { font-size: 11.5px; color: #5b6a8a; margin-top: 2px; grid-column: 1;}
+  .infra-cat .item .pri { color: #7c3aed; font-size: 12px; font-weight: 600; text-align: right;}
+  .infra-cat .item .when { color: #5b6a8a; font-size: 12px; text-align: right;}
+
+  /* ====== Radar ====== */
+  svg.radar text { font-family: inherit; }
+
+  /* ====== Footnote ====== */
+  .footnote { font-size: 11.5px; color:#7a89a8; margin-top: 14px; line-height: 1.6;}
+
+  /* ====== Deck mode ====== */
+  body.deck main { padding: 0; max-width: none;}
+  body.deck section.slide {
+    margin: 0; min-height: 100vh; border-radius: 0;
+    display: none;
+    padding: 60px 80px 60px;
+  }
+  body.deck section.slide.active { display:block; }
+  body.deck .deck-nav { display:flex !important;}
+  .deck-nav {
+    display:none;
+    position: fixed; bottom: 18px; right: 18px; z-index: 60;
+    background: rgba(15,31,61,.92); padding: 6px 10px; border-radius: 999px;
+    color:#fff; font-size: 12.5px; gap: 8px; align-items:center;
+  }
+  .deck-nav button {
+    background: transparent; border: none; color:#fff; cursor:pointer;
+    padding: 4px 10px; border-radius: 6px; font-weight: 600;
+  }
+  .deck-nav button:hover { background: rgba(255,255,255,.1);}
+  .deck-nav .pages { font-variant-numeric: tabular-nums; opacity: .8;}
+
+  @media (max-width: 1024px){
+    .grid-2, .grid-3, .grid-4, .fdc-grid { grid-template-columns: 1fr;}
+    section.slide { padding: 28px 22px;}
+  }
+  @media print {
+    .topbar, .deck-nav { display:none !important;}
+    section.slide { box-shadow:none; page-break-after: always; margin: 0; border-radius: 0;}
+    body { background:#fff;}
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="badge">智现未来 PoC 评估</span>
+  </div>
+  <nav>
+    <a href="#s-cover">封面</a>
+    <a href="#s-product">产品</a>
+    <a href="#s-gap">关键问题</a>
+    <a href="#s-scenarios">4 场景</a>
+    <a href="#s-infra">基础设施</a>
+    <a href="#s-iso">数据隔离</a>
+    <a href="#s-diff">原理异同</a>
+    <a href="#s-compare">行业对比</a>
+    <a href="#s-appendix">附录</a>
+  </nav>
+  <button class="modeswitch" id="btnDeck">▶ 演示模式</button>
+</header>
+
+<main>
+
+<!-- ============ S1 封面 ============ -->
+<section class="slide cover" id="s-cover" data-page="1">
+  <h2 class="kicker">Vendor PoC Assessment · FutureFab × Asymchem</h2>
+  <h1>智现未来产品落地评估<br/><span style="color:#c4b5fd;">CDMO 平移可行性、基础设施需求与决策建议</span></h1>
+  <div class="subtitle">
+    智现未来现场交流后的内部深度评估：把 <strong>FDC / RMS / APC / 技术转移 / 问答模型 / PdM / Intelligence Hub</strong>
+    从半导体晶圆厂"平移"到凯莱英 CDMO 制药生产 —— **技术原理是否相通、凯莱英要投入什么、客户数据怎么隔离、跟其他供应商比怎么选**。
+  </div>
+  <div class="meta">
+    <div><strong>会后观察</strong>：智现未来对自家产品讲得清楚，但未能给出"如何平移到 CDMO"和"凯莱英需准备什么基础设施"的具体路径</div>
+    <div><strong>本汇报立意</strong>：评估责任在凯莱英自己 — 不等供应商方案，主动设计平移逻辑、基础设施清单、数据隔离架构</div>
+    <div><strong>核心结论</strong>：业务逻辑可平移（Foundry ↔ CDMO 同构）、技术算法可平移、合规和领域知识需重做；建议双方向小规模 PoC + 同步多供应商对照</div>
+    <div><strong>包含</strong>：4 个交互 demo（FDC / 技术转移 / Q&A LLM / PdM）+ 1 个互动雷达图 + 跟华为云盘古制药 / Aizon / AVEVA / 中控 等行业标杆横向对比</div>
+  </div>
+</section>
+
+<!-- ============ S2 智现未来产品矩阵速览 ============ -->
+<section class="slide" id="s-product" data-page="2">
+  <h2 class="kicker">PART 01 · 智现未来产品矩阵速览</h2>
+  <h1>他们是国内做 12 吋晶圆厂 AI 软件最深的公司之一</h1>
+  <p class="lead">
+    智现未来脱胎于韩国 BISTel（2021 年中国业务重组），是<strong>国内唯一上线多条 12 吋量产产线的国产工业软件供应商</strong>，
+    服务三星、海力士、长鑫存储、晶合集成等 180+ 家半导体客户。他们做的不是 dashboard，而是工艺工程师每天用的"决策工具"。
+  </p>
+
+  <div class="grid-4" style="margin-bottom: 18px;">
+    <div class="card purple">
+      <div style="font-weight:700; color:#7c3aed; font-size:14px;">① FDC（故障检测与分类）</div>
+      <div style="font-size:11.5px; color:#5b6a8a; letter-spacing:.5px; margin-bottom:6px;">Fault Detection &amp; Classification</div>
+      <div style="font-size:12.5px;">多变量实时异常检测 + 自动分类。秒级捕捉"每个参数都正常但组合反常"的早期偏差</div>
+      <div style="margin-top:8px;"><span class="tag">★★★ 成熟度高</span></div>
+    </div>
+    <div class="card purple">
+      <div style="font-weight:700; color:#7c3aed; font-size:14px;">② 技术转移 / 黄金路径</div>
+      <div style="font-size:11.5px; color:#5b6a8a; letter-spacing:.5px; margin-bottom:6px;">Tech Transfer / WRA（晶圆履历分析）+ Golden Path（黄金路径）</div>
+      <div style="font-size:12.5px;">晶圆履历分析 + 黄金路径推荐。一个新产品从研发到量产的工艺移植加速</div>
+      <div style="margin-top:8px;"><span class="tag">★★ 算法深</span></div>
+    </div>
+    <div class="card purple">
+      <div style="font-weight:700; color:#7c3aed; font-size:14px;">③ 问答模型</div>
+      <div style="font-size:11.5px; color:#5b6a8a; letter-spacing:.5px; margin-bottom:6px;">"灵犀" 半导体专属 LLM（大语言模型）</div>
+      <div style="font-size:12.5px;">2022-09 业界首个半导体专属大模型。基于 20+ 年行业语料 + RAG（检索增强生成），工艺答疑 + 报告生成</div>
+      <div style="margin-top:8px;"><span class="tag">★★ 行业首创</span></div>
+    </div>
+    <div class="card purple">
+      <div style="font-weight:700; color:#7c3aed; font-size:14px;">④ 预测性维护（PdM）</div>
+      <div style="font-size:11.5px; color:#5b6a8a; letter-spacing:.5px; margin-bottom:6px;">Predictive Maintenance</div>
+      <div style="font-size:12.5px;">关键设备（光刻机 / 刻蚀机 / 真空泵）健康监测 + 故障预测，避免计划外停机</div>
+      <div style="margin-top:8px;"><span class="tag">★★★</span></div>
+    </div>
+    <div class="card">
+      <div style="font-weight:700; color:#0f1f3d; font-size:14px;">客户证明</div>
+      <div style="font-size:12.5px; margin-top: 6px;">三星、SK 海力士、长鑫存储、晶合集成、华虹、合肥晶合等<strong> 180+ 家</strong>半导体厂；多条 12 吋量产产线在用</div>
+      <div style="margin-top:8px;"><span class="tag info">"专精特新小巨人"</span></div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="card accent">
+      <strong>关键优势</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>12 吋晶圆厂是国内工业 AI 难度最高场景之一</li>
+        <li>算法工程实力可能强于本土多数工业 AI 公司</li>
+        <li>"灵犀"是国内最早的行业专属大模型</li>
+        <li>韩国 BISTel 20+ 年技术积淀</li>
+        <li>国产化背景 + 政策红利</li>
+      </ul>
+    </div>
+    <div class="card warn">
+      <strong>关键短板</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>制药行业 <strong>0 公开案例</strong></li>
+        <li>合规体系完全不同（IATF/ISO ≠ GMP/Part 11/GAMP 5）</li>
+        <li>"灵犀"语料是半导体的，制药需重训</li>
+        <li>工程师不懂 GMP 术语</li>
+        <li>制药 DCS 协议未做过适配</li>
+      </ul>
+    </div>
+    <div class="card info">
+      <strong>对凯莱英的特殊价值</strong>
+      <ul class="bul tight" style="margin-top:6px;">
+        <li>半导体 Foundry ↔ CDMO 业务模型<strong>意外同构</strong></li>
+        <li>"灵犀"方法论可复用为"凯莱英制药专属大模型"</li>
+        <li>凯莱英可作"首席客户"获取产品定义权</li>
+        <li>FDC / R2R 算法直接对应 CDMO 偏差检测 / 反应 BO</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S3 关键问题 ============ -->
+<section class="slide" id="s-gap" data-page="3">
+  <h2 class="kicker">PART 02 · 现场交流后的关键观察</h2>
+  <h1>智现未来讲清了"他们有什么"，"我们怎么用"还有 3 个方向需要进一步深化</h1>
+
+  <div class="grid-3" style="margin-top: 20px;">
+    <div class="card danger">
+      <div style="font-size:32px; font-weight:800; color:#dc2626;">?</div>
+      <strong style="font-size:15px;">问题 1 · 平移路径</strong>
+      <p style="font-size:13px; margin-top:6px;">
+        "FDC / RMS / APC / Intelligence Hub 等产品在半导体很成熟，但<strong>具体怎么在 CDMO 工艺/反应/QA 流程里跑起来</strong>？"
+        —— 现场未给出场景化 + 输入输出级别的回答
+      </p>
+    </div>
+    <div class="card danger">
+      <div style="font-size:32px; font-weight:800; color:#dc2626;">?</div>
+      <strong style="font-size:15px;">问题 2 · 凯莱英要准备什么</strong>
+      <p style="font-size:13px; margin-top:6px;">
+        "我们需要做什么样的<strong>自动化改造、数据治理、网络、服务器准备</strong>，才能让你们的产品跑起来？" —— 现场未给出基础设施清单和分阶段建设方案
+      </p>
+    </div>
+    <div class="card danger">
+      <div style="font-size:32px; font-weight:800; color:#dc2626;">?</div>
+      <strong style="font-size:15px;">问题 3 · 多客户数据隔离</strong>
+      <p style="font-size:13px; margin-top:6px;">
+        CDMO 业务命脉是<strong>不同客户经验不能互通</strong>。客户 A 工艺参数不能进入客户 B 的 AI 建议。但 AI 模型本质上喜欢"跨客户学经验"
+        —— 现场未给出数据隔离方案
+      </p>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; background: linear-gradient(135deg, #1a0a3d, #2a1a55); color:#fff; border-radius:14px; padding:24px 28px;">
+    <h3 style="margin-top:0; color:#fbbf24; font-size:15px;">所以本次评估的责任结构是这样的</h3>
+    <p style="font-size:15px; line-height: 1.75; max-width:1100px;">
+      <strong>不能等智现未来给我们答案</strong>。他们对半导体很深，但对 CDMO 是空白；要他们写一份"如何把产品移植到凯莱英"的方案，
+      他们写出来的可能性、准确性都不高。
+      <strong>这次评估的主动权必须在凯莱英自己手里</strong> —— 我们自己设计平移逻辑、自己列基础设施清单、自己设计数据隔离方案，
+      然后用这套"<strong>需求规格书</strong>"反过来考核智现未来能不能配合实现。
+    </p>
+  </div>
+</section>
+
+<!-- ============ S5-S11 七大场景 — 详细输入输出 ============ -->
+<section class="slide" id="s-scenarios" data-page="4">
+  <h2 class="kicker">PART 03 · 智现未来产品在凯莱英的应用场景</h2>
+  <h1>每个场景:输入 → AI 处理 → 输出 → 解决什么 → 工作流程 → demo</h1>
+  <p class="lead">
+    覆盖 <strong>4 个产品</strong>的应用场景（FDC、技术转移、问答模型、预测性维护）；
+    每个按"工艺工程师能验收的颗粒度"写，后续配 4 个交互 demo（FDC 实时检测、技术转移设备等效性、Q&A 对话流、PdM 健康分数）。
+  </p>
+
+  <!-- 场景 1: FDC -->
+  <div class="card" style="margin-bottom: 16px; border-left: 5px solid #7c3aed; padding: 18px 22px;">
+    <div style="display:flex; justify-content: space-between; align-items: baseline;">
+      <h3 style="margin: 0; color:#7c3aed;">① FDC → 反应/结晶过程的多变量偏差实时监控</h3>
+      <span class="pill purple">优先级 ★★★ 强烈推荐第一个 PoC</span>
+    </div>
+    <p style="font-size:14px; margin: 8px 0;">
+      在反应过程中实时融合温度、压力、流量、pH、UV、IR 等 20-50 个传感器数据，
+      用<strong>多变量异常检测</strong>（PCA / Autoencoder / Hotelling T²）发现"每个参数单看都正常、但组合起来反常"的早期偏差，
+      并自动分类成已知偏差模式，秒级推送给工艺工程师。
+    </p>
+
+    <div class="grid-3" style="margin-top: 12px;">
+      <div class="card info" style="margin:0;">
+        <strong style="font-size:13px;">输入</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • DCS 实时数据（20-50 tag × 秒级）<br/>
+          • 在线 PAT（IR / 拉曼 / HPLC）<br/>
+          • 历史批次偏差标注库<br/>
+          • 当前批次工艺配方
+        </div>
+      </div>
+      <div class="card purple" style="margin:0;">
+        <strong style="font-size:13px;">AI 处理</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • 多变量统计模型（PCA / T² / SPE）<br/>
+          • 异常检测（Autoencoder / LSTM）<br/>
+          • 已知偏差分类器（已训练）<br/>
+          • RCA 关联检索
+        </div>
+      </div>
+      <div class="card accent" style="margin:0;">
+        <strong style="font-size:13px;">输出</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • 异常事件 + 严重等级 + 时间戳<br/>
+          • 自动分类的偏差类型<br/>
+          • 推荐响应动作（推 SCADA + 移动 APP）<br/>
+          • 偏差调查初稿（推 QA Copilot）
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top: 12px;">
+      <div>
+        <strong style="font-size:13px;">解决什么问题</strong>
+        <ul class="bul tight" style="margin-top:4px;">
+          <li>传统 SCADA 单点阈值报警漏报误报多（典型漏报率 30%+）</li>
+          <li>偏差发现时机晚（人工注意到时往往已不可逆）</li>
+          <li>QA 偏差调查从手工 30-90 天压到草稿 5-15 天</li>
+          <li>重复偏差自动识别避免漏看</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="font-size:13px;">边界 / 凯莱英要做的事</strong>
+        <ul class="bul tight" style="margin-top:4px;">
+          <li>历史偏差标注库（6-12 月由资深 QA 配合做）</li>
+          <li>反应釜 DCS 数据齐整（缺 tag 要补传感器）</li>
+          <li>第一阶段定位"决策辅助"，不进 GMP 控制回路</li>
+          <li>模型对从未见过的"新偏差"召回率有限</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FDC Demo（实时仿真）合并到场景①内 -->
+    <div style="margin-top: 16px;">
+      <p class="lead">
+    下面是一个模拟的连续流氢化反应（基于公开工艺特征）。AI 在 8 个传感器数据流上做多变量异常检测。
+    <strong>请点击"开始播放"或拖动时间轴</strong> — 重点观察 90 分钟前后：每个参数单看都在范围内、
+    但参数之间的<strong>相关性</strong>已经变了，AI 在 90 分钟检出异常，传统单点阈值要到 130+ 分钟才能触发。
+  </p>
+      <div class="fdc-box">
+    <div style="font-size:12.5px; opacity:.7; margin-bottom:12px;">
+      模拟对象：DH 连续流氢化反应器 R-201（Buchwald 加氢，250kW）；监测 8 个关键传感器；
+      AI 模型：PCA Hotelling T² 多变量异常检测 + 已学习的偏差分类器（"催化剂活性衰减"等 12 类）
+    </div>
+
+    <div class="fdc-grid">
+      <!-- 左侧：状态板 -->
+      <div>
+        <div class="fdc-side">
+          <div class="fdc-status">综合健康状态 / 时间 <span id="fdcTime" style="color:#fff; font-weight:600;">T+0 min</span></div>
+          <div class="fdc-bigstat ok" id="fdcOverall">正常</div>
+          <div style="font-size:12px; color:#cdd6e8; margin-bottom:8px;" id="fdcDesc">
+            8 个传感器全部在正常范围。多变量 T² 统计量 = 1.23（阈值 9.0）
+          </div>
+          <div style="font-size:11px; color:#9aabd6; padding-top:6px; border-top:1px dashed rgba(255,255,255,.1);">
+            T² 统计量 <span id="fdcT2" style="color:#22d3ee; font-weight:700;">1.23</span> / 阈值 9.00
+          </div>
+        </div>
+
+        <div class="fdc-side" style="margin-top: 12px;">
+          <div class="fdc-status">8 个传感器实时</div>
+          <div class="fdc-sensor-list" id="fdcSensors"></div>
+        </div>
+
+        <div class="fdc-side" style="margin-top: 12px;">
+          <div class="fdc-status">传统单点阈值 vs AI 多变量</div>
+          <div style="font-size:11.5px; color:#cdd6e8; line-height: 1.6;">
+            ❌ 单点阈值 T1 &gt; 82 ℃：<span id="fdcThresh" style="color:#fbbf24;">未触发</span><br/>
+            ✓ AI 多变量异常：<span id="fdcAi" style="color:#22d3ee;">监测中</span><br/>
+            <span style="color:#9aabd6; font-size:11px;">AI 比单点阈值 <strong style="color:#22d3ee;" id="fdcLead">— 提前</strong> 检出偏差</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右侧：图表 + 事件 -->
+      <div>
+        <svg class="chart" id="fdcChart" viewBox="0 0 720 380" style="width:100%; height:auto;"></svg>
+        <div class="fdc-events" id="fdcLog"></div>
+      </div>
+    </div>
+
+    <div class="fdc-controls">
+      <label>时间：<span id="fdcLabel" style="color:#fff; font-weight:600;">T+0 min</span></label>
+      <input type="range" id="fdcSlider" min="0" max="180" value="0" step="1"/>
+      <button class="btn" id="fdcPlay">▶ 自动播放</button>
+      <button class="btn ghost" id="fdcReset">重置</button>
+    </div>
+  </div>
+
+  <div class="grid-3" style="margin-top:20px;">
+    <div class="card accent">
+      <strong>关键观察 1 · 多变量异常的本质</strong>
+      <p style="font-size:13px; margin-top:6px;">
+        T+60 起催化剂开始失活。T1 / P / H2 流量都<strong>仍在正常范围</strong>。
+        但 PCA Hotelling T² 已经超阈值 — 因为参数之间的"协方差结构"变了。
+      </p>
+    </div>
+    <div class="card warn">
+      <strong>关键观察 2 · 单点阈值的局限</strong>
+      <p style="font-size:13px; margin-top:6px;">
+        传统 SCADA 只会在 T+135 才触发"T1 &gt; 82 ℃"告警 — 因为系统在自补偿。
+        到那时杂质已经形成，整批已经报废。
+      </p>
+    </div>
+    <div class="card purple">
+      <strong>关键观察 3 · 提前 45 分钟的业务价值</strong>
+      <p style="font-size:13px; margin-top:6px;">
+        提前 45 分钟检出 = <strong>降温补料挽救整批</strong>，按一批氢化产品 50-200 kg、市场价 2-10 万/kg 算，
+        一次成功捕捉 = <strong>挽回 100-2000 万元损失</strong>。这是 FDC 的核心价值。
+      </p>
+    </div>
+  </div>
+      <div style="margin-top: 18px;">
+        
+      </div>
+    </div>
+
+    <!-- FDC 半导体 vs CDMO 深度分析 -->
+    <div class="card warn" style="margin-top: 18px; padding: 18px 22px;">
+      <strong style="font-size:14px; color:#9a3412;">🔬 FDC 在半导体 vs CDMO 的深度差异 — 基于实际操作的风险与克服</strong>
+      <table class="kly" style="margin-top: 10px; font-size:12.5px;">
+        <thead>
+          <tr>
+            <th style="width:18%;">维度</th>
+            <th style="width:27%;">半导体晶圆厂（智现未来主场）</th>
+            <th style="width:27%;">凯莱英 CDMO 制药</th>
+            <th>对凯莱英的风险 + 克服思路</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>数据量级</strong></td>
+            <td>单厂 ~3000+ 设备 × 数百 tag × 毫秒级采样；模型可见数百万批次（wafer）历史</td>
+            <td>单厂 ~100-300 反应器 × 几十到一百多 tag × 秒级采样；可见数千到数万批次历史</td>
+            <td><strong>风险</strong>：训练样本量比半导体少 100-1000 倍，FDC 模型泛化能力可能下降<br/><strong>克服</strong>：用迁移学习（先在半导体 FDC 模型上预训练再 CDMO 微调）+ 合成数据扩充 + 主动学习（让模型先标"不确定"的样本让 QA 优先确认）</td>
+          </tr>
+          <tr>
+            <td><strong>过程性质</strong></td>
+            <td>多个独立工艺步骤（光刻 / 刻蚀 / 镀膜 / CMP），每步独立监控；步骤之间有"清洗 + 检测"的明确边界</td>
+            <td>反应过程连续渐进（升温 → 反应 → 降温），<strong>没有明确的"步骤边界"</strong>；催化剂活性、反应速率、副产物形成是缓慢的物理化学耦合</td>
+            <td><strong>风险</strong>：FDC 在"步骤明确"场景成熟，应对"连续渐变"需要时序模型加强（LSTM / TCN）；早期"亚阈值漂移"难分类<br/><strong>克服</strong>：把每个反应过程切成"逻辑阶段"（加料 / 升温 / 保温 / 冷却 / 出料）做分段监控；引入工艺机理特征（反应动力学 / 传热 / 物料平衡）作为模型输入</td>
+          </tr>
+          <tr>
+            <td><strong>异常标注库</strong></td>
+            <td>晶圆厂有标准化 OOS（Out-Of-Spec，超规）+ 缺陷分类编码（如 KLA Defect Map），客户审计要求强迫数据结构化</td>
+            <td>偏差报告以 PDF / Word 自由文本为主；分类靠 QA 工程师经验；同一类偏差不同人写法差异大</td>
+            <td><strong>风险</strong>：FDC 监督学习需要大量"已标注的偏差样本"，凯莱英历史偏差库结构化程度不够，直接训练精度不够<br/><strong>克服</strong>：① 启动"偏差库标注专项"，资深 QA 用 6-12 个月把近 3 年 1000+ 起偏差按统一分类法重新打标 ② 用大语言模型先做"偏差自动归类"草稿，QA 复核（成本 −80%）</td>
+          </tr>
+          <tr>
+            <td><strong>客户隔离</strong></td>
+            <td>Foundry 模式有成熟客户隔离机制（项目 ID / 数据库 schema）；但模型层混训常见</td>
+            <td>CDMO 业务里<strong>不同客户工艺数据严禁交叉学习</strong>；连"哪批料是哪个客户"都属于敏感信息</td>
+            <td><strong>风险</strong>：FDC 模型需要"跨批次学经验"，但不能跨客户混训，单客户样本量更小<br/><strong>克服</strong>：使用联邦学习（客户域内训练 + 加密参数聚合）+ 差分隐私 + 知识蒸馏（详见 PART 05 数据隔离）</td>
+          </tr>
+          <tr>
+            <td><strong>异常对应的处置</strong></td>
+            <td>大多数 OOS 可在线调整（如等离子功率±5%），实时反馈快</td>
+            <td>反应已发生的偏差不可逆（反应釜里的物料无法"撤销"）；处置主要靠"提前预警 + 取样验证 + GMP 偏差调查 + CAPA"流程</td>
+            <td><strong>风险</strong>：FDC 价值高度依赖"提前预警时间窗"，若预警只提前 5-10 分钟价值打折<br/><strong>克服</strong>：① 模型设计目标改为"提前 30-60 分钟预警" ② 配合在线 PAT（红外/拉曼）的 CQA 软测量减少滞后 ③ 把 FDC 跟 QA Copilot（场景③）联动，预警立刻生成偏差调查初稿</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 场景 4: 技术转移 -->
+  <div class="card" style="margin-bottom: 16px; border-left: 5px solid #7c3aed; padding: 18px 22px;">
+    <div style="display:flex; justify-content: space-between; align-items: baseline;">
+      <h3 style="margin: 0; color:#7c3aed;">② 技术转移 / Golden Path → R&D 到生产的工艺移植加速</h3>
+      <span class="pill purple">优先级 ★★★ CDMO 业务核心</span>
+    </div>
+    <p style="font-size:14px; margin: 8px 0;">
+      半导体里 WRA + Golden Path 推荐：根据历史成功 wafer 的工艺路径，给新产品推荐最佳生产路径。
+      CDMO 对应：研发到中试到商业化的工艺包移植 + 设备等效性比对 + 黄金批次推荐。
+      <strong>这一项对 CDMO 业务的杠杆最大</strong> — 缩短 NPI 时间 = 提前确认收入 + 客户复购。
+    </p>
+
+    <div class="grid-3" style="margin-top: 12px;">
+      <div class="card info" style="margin:0;">
+        <strong style="font-size:13px;">输入</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • 研发实验数据（小试/中试）<br/>
+          • 设备能力库（不同反应釜的搅拌/传热）<br/>
+          • 商业化车间设备清单<br/>
+          • 历史相似项目放大数据
+        </div>
+      </div>
+      <div class="card purple" style="margin:0;">
+        <strong style="font-size:13px;">AI 处理</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • 设备等效性比对（雷诺数、传热系数）<br/>
+          • 历史项目相似度检索<br/>
+          • 工艺参数自动外推<br/>
+          • 放大风险识别
+        </div>
+      </div>
+      <div class="card accent" style="margin:0;">
+        <strong style="font-size:13px;">输出</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • 商业化车间工艺包草案<br/>
+          • 放大风险清单<br/>
+          • 设备改造建议<br/>
+          • 同类历史项目偏差档案链接
+        </div>
+      </div>
+    </div>
+
+    <!-- Tech Transfer Demo (互动): 设备等效性 + Golden Path 推荐 -->
+    <div style="margin-top: 16px; background: linear-gradient(180deg,#1a0a3d 0%,#2a1a55 100%); color:#fff; border-radius: 12px; padding: 20px;">
+      <div style="font-size:12.5px; color:#cdd6e8; margin-bottom: 12px;">
+        <strong style="color:#c4b5fd;">📊 互动 Demo · 设备等效性比对 + 黄金路径（Golden Path）推荐</strong>　|　
+        <span style="opacity:0.85;">选择下方研发反应器 + 目标商业化反应器，AI 实时计算等效性和推荐参数。</span>
+      </div>
+
+      <!-- 互动控件 -->
+      <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:12px; margin-bottom: 14px; padding: 12px 14px; background: rgba(255,255,255,0.04); border-radius: 8px;">
+        <div>
+          <label style="font-size:11.5px; color:#9aabd6; display:block; margin-bottom:4px;">研发反应器规模</label>
+          <select id="ttRdSize" style="width:100%; padding:6px 8px; font-size:13px; background:#1a0a3d; color:#fff; border:1px solid #3b507e; border-radius:6px;">
+            <option value="50">50 L 玻璃夹套釜（小试）</option>
+            <option value="200">200 L 玻璃 / 不锈钢釜（中试）</option>
+            <option value="500">500 L 不锈钢夹套釜（放大）</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11.5px; color:#9aabd6; display:block; margin-bottom:4px;">商业化反应器规模</label>
+          <select id="ttProdSize" style="width:100%; padding:6px 8px; font-size:13px; background:#1a0a3d; color:#fff; border:1px solid #3b507e; border-radius:6px;">
+            <option value="2000">2000 L 不锈钢釜</option>
+            <option value="5000" selected>5000 L 不锈钢釜</option>
+            <option value="10000">10000 L 不锈钢釜</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11.5px; color:#9aabd6; display:block; margin-bottom:4px;">反应类型</label>
+          <select id="ttReactionType" style="width:100%; padding:6px 8px; font-size:13px; background:#1a0a3d; color:#fff; border:1px solid #3b507e; border-radius:6px;">
+            <option value="hydro">Buchwald 加氢（放热）</option>
+            <option value="conden">缩合反应（中等放热）</option>
+            <option value="cryst">结晶 / 重结晶（吸热）</option>
+          </select>
+        </div>
+      </div>
+
+      <svg id="ttSvg" viewBox="0 0 1200 380" style="width:100%; height:auto;"></svg>
+
+      <div style="margin-top: 10px; padding: 8px 14px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: #cdd6e8;">
+        <strong style="color:#22d3ee;">工作流程</strong>：研发把工艺包提交 → AI 自动比对设备等效性（搅拌 / 传热 / 物料）→ 检索历史相似项目找黄金批次 → 自动外推参数 + 风险点 → 工程师审核签发商业化工艺包。
+        典型项目 NPI（新产品引入）时间从 6-9 个月压到 3-4 个月（参考 BMS Devens NPI −42%）。
+      </div>
+    </div>
+
+    <!-- 技术转移 半导体 vs CDMO 深度分析 -->
+    <div class="card warn" style="margin-top: 14px; padding: 18px 22px;">
+      <strong style="font-size:14px; color:#9a3412;">🔬 技术转移在半导体 vs CDMO 的深度差异 — 基于实际操作的风险与克服</strong>
+      <table class="kly" style="margin-top: 10px; font-size:12.5px;">
+        <thead>
+          <tr>
+            <th style="width:18%;">维度</th>
+            <th style="width:27%;">半导体晶圆厂</th>
+            <th style="width:27%;">凯莱英 CDMO 制药</th>
+            <th>对凯莱英的风险 + 克服思路</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>放大本质</strong></td>
+            <td>"工艺步骤复制" — 200mm → 300mm wafer，每步操作几乎相同；设备结构不变，仅尺寸变化</td>
+            <td>"物理过程外推" — 50L → 5000L，物理过程（搅拌、传热、放热、停留时间分布）<strong>规律差异巨大</strong>；不同体积反应器结构和材质都不同</td>
+            <td><strong>风险</strong>：智现未来 Golden Path 算法擅长"工艺参数轨迹匹配"，对"物理外推"（搅拌雷诺数 / 传热系数 / Damköhler 数）能力较弱<br/><strong>克服</strong>：在 Golden Path 之上<strong>叠加化工传质传热机理模型</strong>（CFD 仿真 + Aspen Plus / gPROMS 流程模拟）作为算法输入；用机理 + 数据双模型</td>
+          </tr>
+          <tr>
+            <td><strong>设备多样性</strong></td>
+            <td>设备型号有限 — 全行业就那几款光刻机（ASML / Nikon）、刻蚀机（AMAT / Lam），数据集中</td>
+            <td>反应器型号极多 — 玻璃 / 不锈钢 / 哈氏合金，夹套 / 内盘管 / 外循环，机械搅拌器 8+ 种类型；<strong>同一客户不同项目用不同反应器</strong></td>
+            <td><strong>风险</strong>：半导体的"小样本学大数据"在 CDMO 失效（CDMO 每种反应器都是小样本）<br/><strong>克服</strong>：建凯莱英自己的<strong>设备能力库 / 标准化设备特征向量</strong>（每个反应器抽象为 30+ 个工程参数）；AI 学的不是"具体设备型号"，是"设备特征 → 反应行为"的映射</td>
+          </tr>
+          <tr>
+            <td><strong>客户数据隔离</strong></td>
+            <td>Foundry 客户工艺数据隔离严，但物理工艺步骤相似（都是光刻 / 刻蚀）— 跨客户学"工艺通用规律"可行</td>
+            <td>同一反应器为不同客户做不同产品；客户工艺参数（CPP / CQA）<strong>是商业绝密</strong> — 严禁跨客户学习"具体参数值"</td>
+            <td><strong>风险</strong>：直接迁移半导体 Foundry 的隔离机制不够 — 制药客户连"哪批料是哪个客户"都不能让算法看到<br/><strong>克服</strong>：客户工艺数据强隔离 + 学习"<strong>工程规律</strong>"（如搅拌-传热关系）而非"<strong>具体参数</strong>"；学完后做客户脱敏（详见 PART 05）</td>
+          </tr>
+          <tr>
+            <td><strong>放大风险点</strong></td>
+            <td>失败成本：少量 wafer 报废，几万到几十万美元</td>
+            <td>失败成本：单批料几十万到几百万美元；客户首批失败可能丢单 + 影响后续合作</td>
+            <td><strong>风险</strong>：CDMO 对"AI 推荐错误"零容忍，监管 + 客户审计追溯<br/><strong>克服</strong>：AI 仅作"推荐"，<strong>必须有资深工艺工程师签字</strong>；引入分级置信度（如 AI 标"高置信"项目直接采纳，"低置信"项目人工补充工艺试验）</td>
+          </tr>
+          <tr>
+            <td><strong>数据沉淀</strong></td>
+            <td>晶圆每片都有完整数字化履历；历史数据百万级 wafer</td>
+            <td>历史批记录大量为 PDF / 纸质；项目级别"放大经验"分散在不同化学家头脑里（隐性知识）</td>
+            <td><strong>风险</strong>：智现未来需要"标准化结构化数据"，凯莱英现有数据需要大量整理才能喂模型<br/><strong>克服</strong>：① 启动"<strong>历史项目数字化专项</strong>"，3-5 年项目纸质数据 OCR + 结构化 ② 资深化学家"隐性知识访谈"转结构化（专家系统 + 案例库）</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-2" style="margin-top: 12px;">
+      <div>
+        <strong style="font-size:13px;">解决什么</strong>
+        <ul class="bul tight" style="margin-top:4px;">
+          <li>NPI 时间长（参考 BMS NPI −42%）</li>
+          <li>首批成功率低、客户交付延期</li>
+          <li>工艺包不完整、隐性知识丢失</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="font-size:13px;">边界 / 凯莱英要做的事</strong>
+        <ul class="bul tight" style="margin-top:4px;">
+          <li>需要凯莱英历史项目数据沉淀（数百个项目）</li>
+          <li>设备能力库要标准化（搅拌雷诺数等参数）</li>
+          <li>需 R&D 部门 + 生产部门 KPI 对齐配合</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 场景 5: Q&A LLM -->
+  <div class="card" style="margin-bottom: 16px; border-left: 5px solid #7c3aed; padding: 18px 22px;">
+    <div style="display:flex; justify-content: space-between; align-items: baseline;">
+      <h3 style="margin: 0; color:#7c3aed;">③ "灵犀" 问答模型 → QA 偏差 Copilot + SOP 助手 + 监管文档生成</h3>
+      <span class="pill purple">监管时间窗已打开</span>
+    </div>
+    <p style="font-size:14px; margin: 8px 0;">
+      智现未来"灵犀"是半导体专属 LLM。在凯莱英应用为<strong>制药专属 LLM</strong> — 基于凯莱英历史偏差库 + SOP + MBR + 工艺包向量化，
+      用 <strong>RAG（检索增强生成）</strong>给 QA 工程师做偏差调查 / CAPA 拟稿 / 历史相似偏差检索。
+      AI 不替代签字，但把"找历史、写草稿、填模板"80% 的体力活省下来。
+    </p>
+
+    <div class="card info" style="margin: 10px 0;">
+      <strong style="font-size:13px;">📋 关于"监管时间窗已打开"——什么是 FDA CSA 和 EU Annex 22</strong>
+      <p style="font-size:13px; margin: 6px 0 0; line-height: 1.7;">
+        过去 GxP（药品 GMP）领域对 AI/ML 应用的合规要求一直模糊，监管不确定性是各家药企不敢落地 AI 的最大顾虑。
+        2025 年起两份关键文件正式生效，<strong>第一次明确告诉行业"AI 在 GxP 用什么条件下合规"</strong>——
+      </p>
+      <ul class="bul tight" style="margin-top:8px;">
+        <li>
+          <strong>FDA CSA（Computer Software Assurance）</strong>
+          <span style="color:#5b6a8a;">— 2025-09 终稿发布</span>
+          <a href="https://www.fda.gov/regulatory-information/search-fda-guidance-documents/computer-software-assurance-production-and-quality-system-software" target="_blank" rel="noopener" style="color:#3b82f6; font-size:12px;">[FDA 官方原文 ↗]</a><br/>
+          <span style="font-size:12.5px; color:#3a4d72;">
+            美国 FDA 关于"计算机化系统验证"的新指南。
+            把传统 GAMP 5 "证明一切系统都对"的笨重模式，改成"基于风险的、聚焦核心功能"的轻量模式。
+            <strong>明确支持 AI/ML 在 GxP 活动中的使用</strong>，鼓励"先用、迭代、有审计追踪即可"。
+          </span>
+        </li>
+        <li>
+          <strong>EU GMP Annex 22</strong>
+          <span style="color:#5b6a8a;">— 2025 起施行</span>
+          <a href="https://health.ec.europa.eu/medicinal-products/eudralex/eudralex-volume-4_en" target="_blank" rel="noopener" style="color:#3b82f6; font-size:12px;">[EU EudraLex Volume 4 ↗]</a><br/>
+          <span style="font-size:12.5px; color:#3a4d72;">
+            欧盟 GMP 指南<strong>第一次正式承认 AI 系统</strong>可作为药品放行决策的辅助工具。
+            要求"风险分级 + 透明可解释 + 人工最终签字 + 持续监控漂移"四个原则。
+          </span>
+        </li>
+      </ul>
+      <p style="font-size:13px; margin: 10px 0 0; color:#1e3a8a;">
+        <strong>对凯莱英的意义</strong>：现在做 AI QA Copilot <strong>有了明确合规路径</strong>——
+        早做的人吃到"合规先发优势"红利，晚做要在监管检查时面对越来越严的"为什么你们没做"的反向问询。
+      </p>
+    </div>
+
+    <div class="grid-3" style="margin-top: 12px;">
+      <div class="card info" style="margin:0;">
+        <strong style="font-size:13px;">输入</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • 当前偏差描述<br/>
+          • 该批次 DCS 实时数据<br/>
+          • 历史偏差库（向量化）<br/>
+          • SOP / MBR / 工艺包知识库
+        </div>
+      </div>
+      <div class="card purple" style="margin:0;">
+        <strong style="font-size:13px;">AI 处理</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • RAG 检索 Top-K 相似偏差<br/>
+          • LLM 综合生成根因建议<br/>
+          • 根据 SOP / CAPA 模板拟稿<br/>
+          • 标出所有引用源
+        </div>
+      </div>
+      <div class="card accent" style="margin:0;">
+        <strong style="font-size:13px;">输出</strong>
+        <div style="font-size:12.5px; margin-top:6px;">
+          • 偏差调查初稿<br/>
+          • CAPA 模板（已填关键字段）<br/>
+          • 同类历史偏差关联链接<br/>
+          • 引用源文档 + 条款
+        </div>
+      </div>
+    </div>
+
+    <!-- Q&A LLM 互动 Demo: 偏差调查对话流 -->
+    <div style="margin-top: 16px; background: linear-gradient(180deg,#1a0a3d 0%,#2a1a55 100%); color:#fff; border-radius: 12px; padding: 20px;">
+      <div style="font-size:12.5px; color:#cdd6e8; margin-bottom: 12px;">
+        <strong style="color:#c4b5fd;">💬 互动 Demo · QA 偏差 Copilot 对话流</strong>　|　
+        <span style="opacity:0.85;">选择下方一个真实场景，AI 会演示完整的偏差调查流程（输入 → 处理 → 输出）。</span>
+      </div>
+
+      <!-- 互动场景按钮 -->
+      <div style="display:flex; gap:8px; flex-wrap: wrap; margin-bottom: 14px; padding: 10px 12px; background: rgba(255,255,255,0.04); border-radius: 8px;">
+        <button class="qa-scene-btn" data-scene="torque" style="padding:8px 14px; font-size:12.5px; background:#a855f7; color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:600;">场景 A · 搅拌扭矩瞬时下降</button>
+        <button class="qa-scene-btn" data-scene="temp" style="padding:8px 14px; font-size:12.5px; background:transparent; color:#c4b5fd; border:1px solid #a855f7; border-radius:6px; cursor:pointer;">场景 B · 反应温度过冲</button>
+        <button class="qa-scene-btn" data-scene="impurity" style="padding:8px 14px; font-size:12.5px; background:transparent; color:#c4b5fd; border:1px solid #a855f7; border-radius:6px; cursor:pointer;">场景 C · 杂质 A 超规</button>
+        <button id="qaPlay" style="padding:8px 14px; font-size:12.5px; background:#10b981; color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:600; margin-left:auto;">▶ 播放 AI 检索动画</button>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+        <!-- 用户输入 -->
+        <div style="background: rgba(34,211,238,0.08); border: 1px solid #22d3ee; border-radius: 8px; padding: 14px;">
+          <div style="font-size:11px; color:#22d3ee; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom:6px;">👤 QA 工程师输入</div>
+          <div id="qaInput" style="background: rgba(0,0,0,0.2); border-radius:6px; padding: 10px; font-family: monospace; font-size: 12.5px; line-height: 1.6;"></div>
+        </div>
+
+        <!-- AI 处理过程 -->
+        <div style="background: rgba(168,85,247,0.10); border: 1px solid #a855f7; border-radius: 8px; padding: 14px;">
+          <div style="font-size:11px; color:#c4b5fd; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom:6px;">🤖 灵犀 RAG（检索增强生成）处理 <span id="qaTime" style="color:#9aabd6;">2.3 秒内</span></div>
+          <div id="qaProcess" style="font-size:12px; line-height: 1.7;"></div>
+        </div>
+      </div>
+
+      <!-- AI 输出 -->
+      <div style="margin-top: 12px; background: rgba(16,185,129,0.10); border: 1px solid #10b981; border-radius: 8px; padding: 14px;">
+        <div style="font-size:11px; color:#10b981; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom:8px;">📄 AI 输出 · 偏差调查初稿（QA 工程师审核签字前）</div>
+        <div id="qaOutput" style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; font-size:12px;"></div>
+        <div style="margin-top: 10px; padding: 8px 12px; background: rgba(0,0,0,0.2); border-radius: 6px; font-size: 11.5px; color: #94a3b8;">
+          ⚠ <strong style="color:#fbbf24;">注</strong>：以上为 AI 草稿，<strong>需 QA 工程师审核签字</strong>。所有结论可追溯到引用源文档。审计追踪记录到 GxP（药品生产质量管理规范）合规系统。
+        </div>
+      </div>
+      <div style="margin-top: 10px; padding: 8px 14px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: #cdd6e8;">
+        <strong style="color:#22d3ee;">工作流程</strong>：QA 描述事件 → AI 2-3 秒检索 + 生成草稿 → 工程师审核（约 15-30 分钟）→ 签发偏差报告 + CAPA（纠正预防措施）工单。
+        相比手工调查（30-90 天），AI 把"找历史 + 写草稿 + 填模板"的体力活省掉，工程师只做判断和签字。
+      </div>
+    </div>
+
+    <div class="grid-2" style="margin-top: 12px;">
+      <div>
+        <strong style="font-size:13px;">解决什么</strong>
+        <ul class="bul tight" style="margin-top:4px;">
+          <li>偏差关闭周期从 30-90 天压到 5-15 天</li>
+          <li>批审核工时 −50%（行业基线）</li>
+          <li>PQR / 年度报告自动化（Sanofi 案例 −70%）</li>
+        </ul>
+      </div>
+      <div>
+        <strong style="font-size:13px;">凯莱英要做的事</strong>
+        <ul class="bul tight" style="margin-top:4px;">
+          <li>"灵犀"在制药语料上继续训练（凯莱英语料 + 公开制药文献）</li>
+          <li>历史偏差库电子化 + 结构化标注</li>
+          <li>合规：AI 输出必须可追溯到原始数据</li>
+          <li>客户级数据隔离（见 PART 05）</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 场景 6: PdM -->
+  <div class="card" style="margin-bottom: 16px; border-left: 5px solid #7c3aed; padding: 18px 22px;">
+    <div style="display:flex; justify-content: space-between; align-items: baseline;">
+      <h3 style="margin: 0; color:#7c3aed;">④ 预测性维护 (PdM) → 关键设备健康监测 + 剩余寿命预测</h3>
+      <span class="pill purple">智现未来核心算法 — 可移植性强</span>
+    </div>
+    <p style="font-size:14px; margin: 8px 0;">
+      智现未来在半导体里给光刻机、刻蚀机、真空泵、CMP 等高价设备做 PdM——
+      数千个 tag × 多变量 + 时序模型预测<strong>剩余寿命 (RUL, Remaining Useful Life)</strong>。
+      用的算法（LSTM 时序模型 + 多变量异常检测 + 故障模式分类器）与 CDMO 关键设备<strong>完全通用</strong>。
+    </p>
+
+    <div class="grid-2" style="margin-top: 12px;">
+      <div class="card purple" style="margin:0;">
+        <strong style="font-size:13px;">智现未来已有算法的核心优势</strong>
+        <ul class="bul tight" style="margin-top:6px;">
+          <li>12 吋晶圆厂关键设备 PdM 经验积累 20+ 年（含 BISTel 时期）</li>
+          <li>多变量时序模型（LSTM / TCN）+ 故障模式聚类</li>
+          <li>剩余寿命 RUL 预测带<strong>不确定性置信区间</strong>（不是单点预测）</li>
+          <li>设备健康得分（0-100）与运维工单系统联动</li>
+          <li>跨设备类型的<strong>迁移学习</strong>能力（光刻机 → 刻蚀机）</li>
+        </ul>
+      </div>
+      <div class="card info" style="margin:0;">
+        <strong style="font-size:13px;">CDMO 上对应的高价值设备</strong>
+        <ul class="bul tight" style="margin-top:6px;">
+          <li><strong>反应釜搅拌器</strong>（机械密封 / 减速机 / 电机）— 单次失效 = 整批料报废</li>
+          <li><strong>离心机</strong>（高速旋转部件 / 振动）— 故障可能引发安全事故</li>
+          <li><strong>冰机 / 螺杆压缩机</strong>— 公辅核心，失效 = 全厂停产</li>
+          <li><strong>真空泵</strong>— 多用途，故障导致工艺中断</li>
+          <li><strong>纯水系统泵 / 膜组件</strong>— 微生物风险高</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="background:#f5f3ff; margin-top:14px;">
+      <strong style="font-size:13px; color:#6b21a8;">可移植性论证：</strong>
+      <span style="font-size:13px;">
+        半导体光刻机 → CDMO 反应釜的迁移在<strong>算法层是零成本</strong>，只需要把振动 / 温度 / 电流 / 声纹等传感器数据接入，
+        模型参数会自动重训。智现未来的"<strong>跨设备类型迁移学习</strong>"框架可以复用——
+        这是他们的成熟算法资产，相对其他通用 PdM 供应商有明显的方法论优势。
+      </span>
+    </div>
+
+    <!-- PdM 互动 Demo: 设备健康分数曲线 + RUL 预测 -->
+    <div style="margin-top: 16px; background: linear-gradient(180deg,#1a0a3d 0%,#2a1a55 100%); color:#fff; border-radius: 12px; padding: 20px;">
+      <div style="font-size:12.5px; color:#cdd6e8; margin-bottom: 12px;">
+        <strong style="color:#c4b5fd;">📈 互动 Demo · 关键设备健康分数 + 剩余寿命 RUL（Remaining Useful Life）预测</strong>　|　
+        <span style="opacity:0.85;">点击下方任一设备卡片，查看该设备的 90 天历史 + 30 天 AI 预测曲线。</span>
+      </div>
+
+      <!-- 4 台关键设备状态卡片（可点击切换） -->
+      <div id="pdmCards" style="display:grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 14px;"></div>
+
+      <!-- 健康分数趋势 SVG（动态切换） -->
+      <svg id="pdmSvg" viewBox="0 0 1100 280" style="width:100%; height:auto;"></svg>
+
+      <div style="margin-top: 10px; padding: 8px 14px; background: rgba(255,255,255,0.05); border-radius: 6px; font-size: 12px; color: #cdd6e8;">
+        <strong style="color:#22d3ee;">智现未来算法的两个特点</strong>：
+        ① <strong>带置信区间的 RUL 预测</strong>（不是单点预测，给出 "11 ± 3 天" 这种带不确定性的判断）；
+        ② 跨设备类型的<strong>迁移学习</strong>——半导体光刻机上学到的"渐进失效模式识别"能力，可直接迁移到冰机、搅拌器、真空泵。这是相对通用 PdM 供应商（单一振动维度）的核心方法论优势。
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ============ S7 基础设施（简化版） ============ -->
+<section class="slide" id="s-infra" data-page="5">
+  <h2 class="kicker">PART 04 · 凯莱英需要投入的软硬件基础设施</h2>
+  <h1>4 大类基础设施清单 — 每项支撑哪些 AI 功能</h1>
+  <p class="lead">
+    无论选哪家供应商，这 4 类基础设施都是 AI 落地的前置条件。每项明确<strong>支撑哪些 AI 应用</strong>，避免重复投资。
+    网络 / 服务器有"基础 / 进阶"两套方案选。
+  </p>
+
+  <div class="infra-tree">
+
+    <!-- ============ A. 自动化改造 ============ -->
+    <div class="infra-cat A open" data-cat="A">
+      <div class="h" onclick="this.parentElement.classList.toggle('open')">
+        <div>
+          <div class="ttl">🔧 A. 自动化改造（OT 现场层）</div>
+          <div class="sum">AI 模型要从 DCS（分布式控制系统）取实时数据，老车间往往缺测点</div>
+        </div>
+        <div style="color:#f59e0b; font-size: 13px; font-weight: 700;">详见展开</div>
+      </div>
+      <div class="items">
+        <div class="item-full" style="padding: 12px 14px; border-bottom:1px solid #e3e8f2; display:grid; grid-template-columns: 1fr 220px; gap:14px; align-items: start;">
+          <div>
+            <div style="font-weight:600; color:#0f1f3d;">反应釜传感器补齐</div>
+            <div style="font-size:11.5px; color:#5b6a8a; margin-top:3px;">补 20-50 测点 / 釜：温度多点 / 压力 / 流量 / pH / 电导率 / 扭矩 → 上传 IP.21 实时数据库</div>
+          </div>
+          <div style="font-size:11px;">
+            <span class="tag" style="padding:1px 6px;">FDC</span>
+            <span class="tag" style="padding:1px 6px;">Q&amp;A RAG</span>
+            <span class="tag" style="padding:1px 6px;">技术转移</span>
+          </div>
+        </div>
+        <div class="item-full" style="padding: 12px 14px; border-bottom:1px solid #e3e8f2; display:grid; grid-template-columns: 1fr 220px; gap:14px; align-items: start;">
+          <div>
+            <div style="font-weight:600; color:#0f1f3d;">在线 PAT（过程分析技术）部署 — IR / 拉曼 / NIR</div>
+            <div style="font-size:11.5px; color:#5b6a8a; margin-top:3px;">连续流车间部分有；批次车间需补。实时算收率 / 杂质 / 含量，是 FDC + RTRT 的关键数据源</div>
+          </div>
+          <div style="font-size:11px;">
+            <span class="tag" style="padding:1px 6px;">FDC</span>
+            <span class="tag" style="padding:1px 6px;">技术转移</span>
+          </div>
+        </div>
+        <div class="item-full" style="padding: 12px 14px; display:grid; grid-template-columns: 1fr 220px; gap:14px; align-items: start;">
+          <div>
+            <div style="font-weight:600; color:#0f1f3d;">关键设备 PdM 传感器</div>
+            <div style="font-size:11.5px; color:#5b6a8a; margin-top:3px;">振动 / 电流 / 温度 / 声纹。每台关键设备 4-12 个测点</div>
+          </div>
+          <div style="font-size:11px;">
+            <span class="tag" style="padding:1px 6px;">PdM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ B. 数据基础设施 ============ -->
+    <div class="infra-cat B" data-cat="B">
+      <div class="h" onclick="this.parentElement.classList.toggle('open')">
+        <div>
+          <div class="ttl">🗄 B. 数据基础设施（IT 数据层）</div>
+          <div class="sum">每项明确告诉凯莱英要交付哪些数据、格式要求、数据量级</div>
+        </div>
+        <div style="color:#3b82f6; font-size: 13px; font-weight: 700;">详见展开</div>
+      </div>
+      <div class="items">
+
+        <div class="item-full" style="padding: 14px 16px; border-bottom:1px solid #e3e8f2;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px;">
+            <div style="flex:1;">
+              <div style="font-weight:700; color:#0f1f3d; font-size:14px;">B1 · IP.21（实时历史数据库）完整化</div>
+              <div style="font-size:12px; color:#5b6a8a; margin-top:3px;">已规划 Step 1，需加速。是所有方向的"地基"</div>
+            </div>
+            <div style="font-size:11px;">
+              <span class="tag" style="padding:1px 6px;">所有 AI 应用基础</span>
+            </div>
+          </div>
+          <div style="margin-top:8px; padding:10px 12px; background:#eff6ff; border-radius:6px; font-size:12px; color:#1e3a8a;">
+            <strong>凯莱英要交付的数据</strong>：
+            <ul style="margin: 6px 0 0 18px; padding:0; line-height:1.7;">
+              <li>各 DCS / PLC / SCADA / BMS 的测点清单（点名 + 单位 + 量程 + 工程量纲）</li>
+              <li>历史数据导出格式：CSV 或 OPC HDA 接口，时间戳 ISO 8601（如 <code>2026-05-18T01:23:45Z</code>），<strong>秒级或分钟级采样</strong></li>
+              <li>标准协议要求：OPC UA（首选）/ OPC DA / Modbus / Profibus</li>
+              <li>覆盖范围：反应车间 + 公辅区 + 在线 PAT 全部接入</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="item-full" style="padding: 14px 16px; border-bottom:1px solid #e3e8f2;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px;">
+            <div style="flex:1;">
+              <div style="font-weight:700; color:#0f1f3d; font-size:14px;">B2 · 数据湖 + 向量库</div>
+              <div style="font-size:12px; color:#5b6a8a; margin-top:3px;">存非结构化文档（批记录 PDF、SOP、专利、工艺文献）+ LLM RAG 的向量索引</div>
+            </div>
+            <div style="font-size:11px;">
+              <span class="tag" style="padding:1px 6px;">Q&amp;A RAG</span>
+              <span class="tag" style="padding:1px 6px;">技术转移检索</span>
+            </div>
+          </div>
+          <div style="margin-top:8px; padding:10px 12px; background:#eff6ff; border-radius:6px; font-size:12px; color:#1e3a8a;">
+            <strong>凯莱英要交付的数据</strong>：
+            <ul style="margin: 6px 0 0 18px; padding:0; line-height:1.7;">
+              <li>历史批记录 PDF（建议每份带"项目号 + 客户 ID + 批号"元数据）</li>
+              <li>SOP / 工艺文件 Word / PDF（统一目录结构）</li>
+              <li>客户工艺包（结构化 Excel 模板或 PDF + 元数据）</li>
+              <li>凯莱英内部文献库（如 STAR 项目论文 / 连续氢化技术文档）</li>
+            </ul>
+            <strong>格式要求</strong>：PDF 需可文字提取（非纯扫描，否则需 OCR 见 B4）；图片质量 ≥ 300 DPI；元数据写入文件名或 JSON 索引；50 TB 起步存储；建议数据量约 100-500 TB（取决于覆盖年限）
+          </div>
+        </div>
+
+        <div class="item-full" style="padding: 14px 16px; border-bottom:1px solid #e3e8f2;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px;">
+            <div style="flex:1;">
+              <div style="font-weight:700; color:#0f1f3d; font-size:14px;">B3 · 主数据 / 批次结构治理</div>
+              <div style="font-size:12px; color:#5b6a8a; margin-top:3px;">把分散的数据"打标签"，让 AI 知道哪批料是哪个客户、哪个项目、哪步反应。是 AI 学习的"骨架"</div>
+            </div>
+            <div style="font-size:11px;">
+              <span class="tag" style="padding:1px 6px;">FDC</span>
+              <span class="tag" style="padding:1px 6px;">技术转移</span>
+              <span class="tag" style="padding:1px 6px;">Q&amp;A</span>
+            </div>
+          </div>
+          <div style="margin-top:8px; padding:10px 12px; background:#eff6ff; border-radius:6px; font-size:12px; color:#1e3a8a;">
+            <strong>凯莱英要交付的数据</strong>：
+            <ul style="margin: 6px 0 0 18px; padding:0; line-height:1.7;">
+              <li>设备主数据清单（反应釜型号 / 容积 / 搅拌器类型 / 材质）— Excel</li>
+              <li>工艺步骤主数据（每个项目的反应 / 结晶 / 干燥 / 离心步骤标准化命名）— Excel</li>
+              <li>CPP（关键工艺参数）/ CQA（关键质量属性）字典 — 项目级 Excel</li>
+              <li>客户 / 项目编号体系（客户脱敏 ID + 项目分类）</li>
+            </ul>
+            <strong>格式要求</strong>：Excel 表头标准化，每行一个对象（设备 / 步骤 / 参数）；编号唯一不重复；客户 ID 用脱敏代码（如 C001 / C002，不直接写客户名）；遵循 ISA-88 批次模型 + ICH Q11/Q12 框架
+          </div>
+        </div>
+
+        <div class="item-full" style="padding: 14px 16px;">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:14px;">
+            <div style="flex:1;">
+              <div style="font-weight:700; color:#0f1f3d; font-size:14px;">B4 · 历史批记录数字化（OCR + NLP）</div>
+              <div style="font-size:12px; color:#5b6a8a; margin-top:3px;">凯莱英 5-10 年历史预计百万级 PDF 页。是 LLM RAG 的关键语料</div>
+            </div>
+            <div style="font-size:11px;">
+              <span class="tag" style="padding:1px 6px;">Q&amp;A RAG</span>
+              <span class="tag" style="padding:1px 6px;">技术转移</span>
+            </div>
+          </div>
+          <div style="margin-top:8px; padding:10px 12px; background:#eff6ff; border-radius:6px; font-size:12px; color:#1e3a8a;">
+            <strong>凯莱英要交付的数据</strong>：
+            <ul style="margin: 6px 0 0 18px; padding:0; line-height:1.7;">
+              <li>历史批记录纸质或扫描件清单（按车间分类）</li>
+              <li>每份带元数据：项目 / 批号 / 日期 / 设备</li>
+            </ul>
+            <strong>评估范围量化</strong>：先做样本（如 1000 页）OCR 准确率评估，确认 ≥ 95% 后再启动全量
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ C. 网络基础设施 ============ -->
+    <div class="infra-cat C" data-cat="C">
+      <div class="h" onclick="this.parentElement.classList.toggle('open')">
+        <div>
+          <div class="ttl">🌐 C. 网络基础设施 — 基础方案 / 进阶方案</div>
+          <div class="sum">FDC 实时检测要低延迟，多厂区数据汇聚要专线，OT/IT 隔离要做合规。两套方案二选一</div>
+        </div>
+        <div style="color:#10b981; font-size: 13px; font-weight: 700;">详见展开</div>
+      </div>
+      <div class="items">
+        <div class="grid-2" style="padding: 12px 14px; gap:14px;">
+          <!-- 基础方案 -->
+          <div class="card accent" style="margin:0;">
+            <div style="font-weight:700; color:#10b981; font-size:14px;">🟢 基础方案 — 单厂区试点（推荐 PoC 阶段）</div>
+            <div style="font-size:12px; color:#5b6a8a; margin-top:4px;">
+              覆盖 1 个 PoC 车间。投入轻、上线快、风险低。
+            </div>
+            <ul class="bul tight" style="margin-top:10px;">
+              <li>OT 网络环网（工业以太 1G）</li>
+              <li>OT / IT 隔离 — 一台 DMZ（隔离区）防火墙</li>
+              <li>车间到数据机房光纤 1G</li>
+            </ul>
+            <div style="margin-top:10px; padding-top:8px; border-top:1px dashed #bbf7d0; font-size:12px;">
+              <span class="tag" style="padding:1px 6px;">单厂 PoC 足够</span>
+              <span class="tag" style="padding:1px 6px;">FDC 实时性</span>
+            </div>
+          </div>
+          <!-- 进阶方案 -->
+          <div class="card warn" style="margin:0;">
+            <div style="font-weight:700; color:#f59e0b; font-size:14px;">🟡 进阶方案 — 多厂区规模化</div>
+            <div style="font-size:12px; color:#5b6a8a; margin-top:4px;">
+              覆盖天津 / 敦化 / 吉林 / 江苏多厂区 + 集团数据中心汇聚。一旦 PoC 通过、规模化推广时需要。
+            </div>
+            <ul class="bul tight" style="margin-top:10px;">
+              <li>OT 网络冗余环网（工业以太 10G）</li>
+              <li>OT / IT 隔离 — HA（高可用）双机 DMZ + IDS（入侵检测）</li>
+              <li>多厂区 SD-WAN（软件定义广域网）</li>
+              <li>数据加密 + 审计 + DLP（数据泄露防护）</li>
+            </ul>
+            <div style="margin-top:10px; padding-top:8px; border-top:1px dashed #ffd8be; font-size:12px;">
+              <span class="tag warn" style="padding:1px 6px;">规模化阶段</span>
+              <span class="tag" style="padding:1px 6px;">数据安全</span>
+            </div>
+          </div>
+        </div>
+        <div style="padding: 8px 16px 14px; font-size:12px; color:#5b6a8a; font-style: italic;">
+          <strong>建议</strong>：第一阶段（M0-M9 PoC）做基础方案即可；进阶方案在第二阶段（M9 后规模化时）启动。
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ D. 服务器 + 算力 ============ -->
+    <div class="infra-cat D" data-cat="D">
+      <div class="h" onclick="this.parentElement.classList.toggle('open')">
+        <div>
+          <div class="ttl">⚡ D. 服务器 + 算力</div>
+          <div class="sum">应用服务器、GPU 服务器、边缘计算节点、备份灾备</div>
+        </div>
+        <div style="color:#ef4444; font-size: 13px; font-weight: 700;">详见展开</div>
+      </div>
+      <div class="items">
+        <div class="item-full" style="padding: 12px 14px; border-bottom:1px solid #e3e8f2; display:grid; grid-template-columns: 1fr 220px; gap:14px; align-items: start;">
+          <div>
+            <div style="font-weight:600; color:#0f1f3d;">D1 · 应用服务器集群</div>
+            <div style="font-size:11.5px; color:#5b6a8a; margin-top:3px;">FDC 监控、Q&amp;A 检索、技术转移工具等应用部署</div>
+          </div>
+          <div style="font-size:11px;">
+            <span class="tag" style="padding:1px 6px;">所有应用</span>
+          </div>
+        </div>
+        <div class="item-full" style="padding: 12px 14px; border-bottom:1px solid #e3e8f2; display:grid; grid-template-columns: 1fr 220px; gap:14px; align-items: start;">
+          <div>
+            <div style="font-weight:600; color:#0f1f3d;">D2 · GPU 服务器（LLM 推理算力）</div>
+            <div style="font-size:11.5px; color:#5b6a8a; margin-top:3px;">"灵犀" / DeepSeek 等大语言模型私有化部署的算力底座</div>
+          </div>
+          <div style="font-size:11px;">
+            <span class="tag" style="padding:1px 6px;">Q&amp;A LLM</span>
+          </div>
+        </div>
+        <div class="item-full" style="padding: 12px 14px; border-bottom:1px solid #e3e8f2; display:grid; grid-template-columns: 1fr 220px; gap:14px; align-items: start;">
+          <div>
+            <div style="font-weight:600; color:#0f1f3d;">D3 · 边缘计算节点</div>
+            <div style="font-size:11.5px; color:#5b6a8a; margin-top:3px;">车间本地推理，FDC 实时报警、PdM 状态监控需要低延迟</div>
+          </div>
+          <div style="font-size:11px;">
+            <span class="tag" style="padding:1px 6px;">FDC</span>
+            <span class="tag" style="padding:1px 6px;">PdM</span>
+          </div>
+        </div>
+        <div class="item-full" style="padding: 12px 14px; display:grid; grid-template-columns: 1fr 220px; gap:14px; align-items: start;">
+          <div>
+            <div style="font-weight:600; color:#0f1f3d;">D4 · 备份 / 灾备</div>
+            <div style="font-size:11.5px; color:#5b6a8a; margin-top:3px;">所有 AI 数据 + 模型 + 配置异地备份。GMP 法规要求</div>
+          </div>
+          <div style="font-size:11px;">
+            <span class="tag" style="padding:1px 6px;">合规必投</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="footnote">
+    <strong>读这张表的方式</strong>：
+    ① 看每项<strong>支撑哪些功能</strong>（紫色标签），同一笔投入支撑多个 AI 应用、避免重复花钱；
+    ② 网络看<strong>基础 / 进阶</strong>两套方案；
+    ③ 服务器 D2（GPU）和 LLM 模型选型是耦合的，立项时一并规划。
+    <br/><br/>
+    <strong>关键判断</strong>：A 类是"必投"（无 OT 数据 = 无 AI）；B 类是"投了万年用"（数据治理收益最长，<strong>且与任何 AI 供应商无关，必投</strong>）；
+    C 类基础方案 PoC 用足够；D2 GPU 服务器是 LLM 应用的核心瓶颈，但 PoC 阶段可<strong>租用云 GPU 替代</strong>。
+  </div>
+</section>
+
+<!-- ============ S8 数据隔离 ============ -->
+<section class="slide" id="s-iso" data-page="6">
+  <h2 class="kicker">PART 05 · 数据安全 & 客户版权隔离</h2>
+  <h1>CDMO 业务命脉 — 不同客户的经验不能互通，AI 也不能</h1>
+  <p class="lead">
+    凯莱英给客户 A 做了一个反应工艺，从中积累了"催化剂 X 在 80℃ 这种条件下副产物 Y 高"的经验。
+    这条经验<strong>能不能用在客户 B 的项目上</strong>？— 法律和商业道德都不允许直接用。
+    但 AI 模型天然喜欢"跨客户学经验"，<strong>这是 CDMO 用 AI 最大的伦理 + 法律风险</strong>。本部分给出三层隔离方案。
+  </p>
+
+  <svg id="isoArch" viewBox="0 0 1240 540" style="width:100%; height:auto; background:#f7f9fc; border-radius:12px; border:1px solid #e3e8f2;"></svg>
+
+  <h3 style="margin-top:24px; font-size:16px;">三层隔离的具体实现</h3>
+
+  <table class="kly">
+    <thead>
+      <tr>
+        <th style="width:18%;">隔离层</th>
+        <th style="width:32%;">实现方式</th>
+        <th style="width:25%;">解决的风险</th>
+        <th>合同 / 流程支持</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>L1 · 物理 / 逻辑数据隔离</strong></td>
+        <td>
+          • 每个客户独立数据库 schema 或独立集群<br/>
+          • 客户访问严格按"项目权限"过滤<br/>
+          • 审计日志追到"用户 × 客户 × 操作"
+        </td>
+        <td>"原始数据不出客户域"</td>
+        <td>客户合同明确数据归属；ISO 27001 + Part 11 审计</td>
+      </tr>
+      <tr>
+        <td><strong>L2 · 模型 / 参数隔离</strong></td>
+        <td>
+          • 客户专属微调模型不混用<br/>
+          • 联邦学习 / 差分隐私训练<br/>
+          • 共享层仅是<strong>通用底层算法</strong>（如 PCA / Transformer 架构本身）
+        </td>
+        <td>"模型参数不暴露客户数据细节"</td>
+        <td>合同写入"AI 模型训练许可" + "不得对外提供训练后模型"</td>
+      </tr>
+      <tr>
+        <td><strong>L3 · 经验 / 知识沉淀脱敏</strong></td>
+        <td>
+          • 设"知识沉淀脱敏委员会"评议每条经验是否可外传<br/>
+          • <strong>可跨客户共享</strong>：方法论 / SOP 模板 / 设备参数库（不含工艺细节）<br/>
+          • <strong>不能共享</strong>：CPP 数值 / 杂质谱 / 催化剂体系 / 产物结构
+        </td>
+        <td>"经验抽象可共享、具体细节不可"</td>
+        <td>客户合同"脱敏经验沉淀许可"；IP 影响评估流程</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-3" style="margin-top: 20px;">
+    <div class="card warn">
+      <strong>关键风险 1 · 联邦学习不是万能</strong>
+      <p style="font-size:13px; margin-top:6px;">
+        联邦学习理论可让"数据不出客户域、模型参数互通"。但模型参数本身可能<strong>反推出训练数据特征</strong>（model inversion attack）。
+        必须叠加差分隐私 + 严格审计。
+      </p>
+    </div>
+    <div class="card warn">
+      <strong>关键风险 2 · 智现未来现场没回答这个</strong>
+      <p style="font-size:13px; margin-top:6px;">
+        现场我们提出客户数据隔离问题，对方未给出明确方案。
+        这是 <strong>PoC 启动前必须落实的硬指标</strong>，应作为合同附件。
+      </p>
+    </div>
+    <div class="card purple">
+      <strong>关键参考 · 半导体 Foundry 已有成熟方案</strong>
+      <p style="font-size:13px; margin-top:6px;">
+        台积电 / 三星给数百家 IC 设计公司代工，半导体 Foundry 客户数据隔离方案是行业最严的之一。
+        <strong>智现未来在这一块的经验可以直接迁移</strong> — 但需要他们主动给方案。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ S9 原理异同 ============ -->
+<section class="slide" id="s-diff" data-page="7">
+  <h2 class="kicker">PART 06 · 半导体 → CDMO 原理异同</h2>
+  <h1>哪些可以直接迁移、哪些要重做、谁来做、做多久</h1>
+
+  <table class="kly">
+    <thead>
+      <tr>
+        <th style="width:20%;">维度</th>
+        <th style="width:24%;">半导体（智现未来主场）</th>
+        <th style="width:24%;">CDMO 制药</th>
+        <th style="width:8%;">异同</th>
+        <th>跨域工作要点（谁做，多久）</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="background:#f0fdf4;">
+        <td><strong>AI 算法层</strong></td>
+        <td>PCA / Autoencoder / LSTM / RL / MPC / LLM</td>
+        <td>同类算法完全适用</td>
+        <td><span class="pill ok">同</span></td>
+        <td><strong>智现未来侧</strong>：无需改算法核心；只需<strong>用 CDMO 数据重新训练参数</strong>。耗时 1-3 月/方向</td>
+      </tr>
+      <tr style="background:#f0fdf4;">
+        <td><strong>业务模型</strong></td>
+        <td>Foundry 代工模式（产线复用 + 客户隔离）</td>
+        <td>CDMO 代工模式（同上）</td>
+        <td><span class="pill ok">同</span></td>
+        <td><strong>智现未来侧</strong>：Foundry 经验直接迁移；客户隔离 SOP 可借鉴；耗时 1-2 月</td>
+      </tr>
+      <tr style="background:#f0fdf4;">
+        <td><strong>批次 / 履历</strong></td>
+        <td>Lot Genealogy + WRA</td>
+        <td>Batch Record + 物料谱系</td>
+        <td><span class="pill ok">同</span></td>
+        <td><strong>双方协作</strong>：数据 schema 重新设计；耗时 2-3 月</td>
+      </tr>
+      <tr style="background:#fff7ed;">
+        <td><strong>"灵犀" LLM 语料</strong></td>
+        <td>20+ 年半导体语料</td>
+        <td>制药语料完全不同</td>
+        <td><span class="pill mid">需重训</span></td>
+        <td><strong>双方协作</strong>：凯莱英提供制药语料（历史批记录 / SOP / 专利 / 工艺文献），智现未来做继续训练；耗时 4-6 月</td>
+      </tr>
+      <tr style="background:#fff7ed;">
+        <td><strong>偏差 / OOS 分类体系</strong></td>
+        <td>半导体缺陷分类（电性能 / 几何 / 形貌）</td>
+        <td>制药偏差分类（工艺 / 杂质 / 设备 / 人员）</td>
+        <td><span class="pill mid">需重做</span></td>
+        <td><strong>双方协作</strong>：凯莱英 QA 配合标注历史偏差库；耗时 6-12 月</td>
+      </tr>
+      <tr style="background:#fef2f2;">
+        <td><strong>合规体系</strong></td>
+        <td>IATF / ISO 9001 / 客户审计</td>
+        <td>21 CFR Part 11 / GAMP 5 / GMP / NMPA</td>
+        <td><span class="pill warn">完全不同</span></td>
+        <td><strong>智现未来主做</strong>：必须重新做 GAMP 5 类别 4 验证；需第三方审计机构；耗时 12-18 月 + 高成本</td>
+      </tr>
+      <tr style="background:#fef2f2;">
+        <td><strong>设备 / 物理过程</strong></td>
+        <td>光刻 / 刻蚀 / 镀膜 / CMP</td>
+        <td>化学反应 / 结晶 / 干燥 / 离心</td>
+        <td><span class="pill warn">完全不同</span></td>
+        <td><strong>智现未来主做</strong>：工程师需培训化工反应基础；耗时 3-6 月</td>
+      </tr>
+      <tr style="background:#fef2f2;">
+        <td><strong>DCS / OT 协议</strong></td>
+        <td>SEMI E10/E30/E40/E87 （半导体专属）</td>
+        <td>OPC UA + DCS 厂商专属（Honeywell / 横河 / Emerson / 西门子）</td>
+        <td><span class="pill warn">完全不同</span></td>
+        <td><strong>智现未来主做</strong>：开发制药 DCS 接口适配器；耗时 3-6 月（每种 DCS 1-2 月）</td>
+      </tr>
+      <tr style="background:#fef2f2;">
+        <td><strong>应用工程师</strong></td>
+        <td>半导体工艺工程师 + 设备工程师</td>
+        <td>化学工程师 + QA + 监管事务</td>
+        <td><span class="pill warn">完全不同</span></td>
+        <td><strong>智现未来主做</strong>：招聘 / 培养制药行业应用工程师；或<strong>跟第三方制药顾问合作</strong>；耗时 6-12 月</td>
+      </tr>
+      <tr style="background:#fef2f2;">
+        <td><strong>客户 / 项目隔离细则</strong></td>
+        <td>半导体客户 mask 设计完全保密；Foundry 已有方案</td>
+        <td>制药客户工艺 / IP 完全保密；CDMO 一致需求</td>
+        <td><span class="pill warn">需对接</span></td>
+        <td><strong>双方协作</strong>：方案借鉴 + 凯莱英合同 / 流程定制；耗时 3-6 月</td>
+      </tr>
+    </tbody>
+  </table>
+
+</section>
+
+<!-- ============ S10 同行对比 ============ -->
+<section class="slide" id="s-compare" data-page="8">
+  <h2 class="kicker">PART 07 · 智现未来 vs 行业标杆能力对比</h2>
+  <h1>跟华为云盘古制药 / Aizon-Mareana / AVEVA-Aspen / 中控 横向比 — 能力差异在哪</h1>
+  <p class="lead">
+    把"工业大模型 + 工艺工程 AI"赛道的主要供应商放一起比，看每家能力的边界。
+    <strong>勾选下面 candidate 决定显示哪些</strong>，雷达图会即时重绘。
+  </p>
+
+  <!-- 勾选 candidate -->
+  <div class="card" style="background:#f5f3ff; margin: 14px 0; padding: 14px 18px;">
+    <strong style="font-size:13px; color:#6b21a8;">对比对象 · 选择想看的供应商（默认全选）</strong>
+    <div id="radarCandidates" style="margin-top:10px; display:flex; flex-wrap:wrap; gap:18px;"></div>
+  </div>
+
+  <div class="grid-2">
+    <div>
+      <h3 style="font-size:16px;">8 维度雷达图</h3>
+      <svg class="radar" id="radarCompare" viewBox="0 0 540 480" style="width:100%; max-width:540px;"></svg>
+      <div class="footnote">维度评分 1-10，基于公开案例 + 公开技术资料。仅作辅助判断，立项时需详细测算。</div>
+    </div>
+    <div>
+      <h3 style="font-size:16px;">关键差异速览</h3>
+      <table class="kly">
+        <thead><tr><th>对比维度</th><th>智现未来</th><th>建议替代/对照</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>制药行业案例</td>
+            <td><span class="pill warn">0 公开</span></td>
+            <td>华为云盘古制药（翰宇 +45%）、Aizon、Mareana（医药原生）</td>
+          </tr>
+          <tr>
+            <td>工艺工程算法深度</td>
+            <td><span class="pill ok">★★★ 12 吋晶圆经验</span></td>
+            <td>无人能完全对标</td>
+          </tr>
+          <tr>
+            <td>大模型 / LLM</td>
+            <td><span class="pill ok">"灵犀" 行业首创</span></td>
+            <td>华为云盘古、阿里通义私有化</td>
+          </tr>
+          <tr>
+            <td>GMP / Part 11 合规</td>
+            <td><span class="pill warn">需补</span></td>
+            <td>Aizon / Mareana 原生合规</td>
+          </tr>
+          <tr>
+            <td>国内本地化</td>
+            <td><span class="pill ok">★★★</span></td>
+            <td>华为云 / 中控 / 创新奇智都强</td>
+          </tr>
+          <tr>
+            <td>开放生态</td>
+            <td><span class="pill mid">中等</span></td>
+            <td>AVEVA PI / Aspen 开放性强</td>
+          </tr>
+          <tr>
+            <td>价格档次</td>
+            <td><span class="pill mid">中等</span></td>
+            <td>Aizon / Mareana 较贵；中控相近</td>
+          </tr>
+          <tr>
+            <td>跨行业迁移风险</td>
+            <td><span class="pill warn">高</span></td>
+            <td>华为云中等；Aizon / Mareana 无</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <h3 style="margin-top: 26px; font-size:16px;">能力对比矩阵 — 按 AI 应用方向看哪家强</h3>
+  <table class="kly">
+    <thead>
+      <tr><th>AI 应用方向</th><th>能力领先方</th><th>能力次之 / 对照</th><th>能力差异说明</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>① FDC 过程偏差监控</td>
+        <td><strong style="color:#7c3aed;">智现未来</strong></td>
+        <td>中控石化大模型 / 自研</td>
+        <td>智现未来 FDC 算法最深；需评估制药适配</td>
+      </tr>
+
+
+      <tr>
+        <td>④ 技术转移 / Golden Path</td>
+        <td><strong style="color:#7c3aed;">智现未来</strong></td>
+        <td>Aizon Tech Transfer / Mareana</td>
+        <td>智现未来 WRA + Golden Path 方法论可直接迁移</td>
+      </tr>
+      <tr>
+        <td>⑤ QA Copilot / LLM</td>
+        <td><strong style="color:#3b82f6;">华为云盘古制药</strong> 或 <strong style="color:#10b981;">Mareana</strong></td>
+        <td>智现未来 "灵犀"（需重训）</td>
+        <td>华为 / Mareana 在医药 LLM 上已有案例</td>
+      </tr>
+      <tr>
+        <td>⑥ PdM 预测性维护</td>
+        <td><strong style="color:#7c3aed;">智现未来</strong>（多变量时序 + 迁移学习强）</td>
+        <td>SKF / Honeywell Sentience / ABB Ability</td>
+        <td>智现未来在半导体高价设备（光刻机 / 刻蚀机）已有 20+ 年 RUL 预测经验，多变量时序模型 + 迁移学习方法论可直接迁移；通用 PdM 厂商偏振动单一维度</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+</section>
+
+<!-- ============ S-appendix 附录: 半导体 ↔ CDMO 制药 术语对照 ============ -->
+<section class="slide" id="s-appendix" data-page="9">
+  <h2 class="kicker">附录 · 半导体 ↔ CDMO 制药 术语对照</h2>
+  <h1>智现未来"行话" → 凯莱英能听懂的话 — 平移可行性的基础</h1>
+  <p class="lead">
+    业界很少有人把这两个行业放在一起讲，但<strong>"软"的逻辑层（数据建模、批次追溯、根因分析、AI 算法）出奇地相似</strong>，
+    "硬"的物理层（设备、工艺、合规）完全不同。读懂这张表是理解前面所有方案的前提。
+  </p>
+
+<table class="xlate">
+    <thead>
+      <tr>
+        <th style="width:20%;">概念域</th>
+        <th style="width:22%;">半导体（智现未来主场）</th>
+        <th style="width:22%;">CDMO 制药（凯莱英）</th>
+        <th>相似度 / 差异说明</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>生产单元</strong></td>
+        <td><span class="semi">Wafer / Lot</span>（晶圆 / 批次，每片或每盒 25 片）</td>
+        <td><span class="pharma">Batch / Lot</span>（批次，每批数百公斤到吨级）</td>
+        <td><span class="pill ok">★★★ 高度同构</span><br/><span class="note">都是"独立可追溯的最小生产单元"，都有 ID、家谱、产出物属性</span></td>
+      </tr>
+      <tr>
+        <td><strong>生产履历</strong></td>
+        <td><span class="semi">Lot Genealogy + WRA</span>（Wafer Run-time Analysis）</td>
+        <td><span class="pharma">Batch Record (MBR/EBR) + 物料谱系</span></td>
+        <td><span class="pill ok">★★★</span><br/><span class="note">都是"完整记录每一步操作 + 参数 + 设备"</span></td>
+      </tr>
+      <tr>
+        <td><strong>最优生产路径</strong></td>
+        <td><span class="semi">Golden Path</span>（黄金路径，最佳工艺组合）</td>
+        <td><span class="pharma">Golden Batch</span>（黄金批次 / Optimal Run）</td>
+        <td><span class="pill ok">★★★</span><br/><span class="note">逻辑完全一致，都是"找出历史最好批次的工艺参数轨迹作为新批次模板"</span></td>
+      </tr>
+      <tr>
+        <td><strong>实时多参数监控</strong></td>
+        <td><span class="semi">FDC</span>（Fault Detection & Classification）</td>
+        <td><span class="pharma">过程偏差实时监控</span>（业界还在初级阶段，多数厂仍是单点阈值）</td>
+        <td><span class="pill ok">★★★</span><br/><span class="note">CDMO 比半导体落后 5-10 年，引入后效益巨大</span></td>
+      </tr>
+      <tr>
+        <td><strong>工艺配方</strong></td>
+        <td><span class="semi">Recipe</span>（每步几十个参数）</td>
+        <td><span class="pharma">MBR + SOP + CPP/CQA</span></td>
+        <td><span class="pill mid">★★ 概念同构、形式不同</span><br/><span class="note">CDMO 配方有 GMP 监管要求，每个变更都要 Change Control</span></td>
+      </tr>
+      <tr>
+        <td><strong>批间反馈优化</strong></td>
+        <td><span class="semi">R2R</span>（Run-to-Run Control）</td>
+        <td><span class="pharma">DoE 自动化 / 贝叶斯优化 / 黄金批次反馈</span></td>
+        <td><span class="pill ok">★★★</span><br/><span class="note">凯莱英连续流是天然的 R2R 平台</span></td>
+      </tr>
+      <tr>
+        <td><strong>异常 / 超规</strong></td>
+        <td><span class="semi">OOS / Excursion</span>（Out-Of-Spec）</td>
+        <td><span class="pharma">Deviation / OOS</span></td>
+        <td><span class="pill ok">★★★</span><br/><span class="note">流程相似（发现 → 调查 → CAPA），CDMO 多了 GMP 文档体系</span></td>
+      </tr>
+      <tr>
+        <td><strong>根因分析</strong></td>
+        <td><span class="semi">RCA Auto-Trace</span>（YES 自动溯因）</td>
+        <td><span class="pharma">CAPA Root Cause</span></td>
+        <td><span class="pill ok">★★★</span><br/><span class="note">智现未来 YES 自动溯因可直接迁移为 CAPA Copilot</span></td>
+      </tr>
+      <tr>
+        <td><strong>业务模型</strong></td>
+        <td><span class="semi">Foundry</span>（代工模式，同产线为多个 IC 设计公司代工）</td>
+        <td><span class="pharma">CDMO</span>（代工模式，同产线为多个药企代工）</td>
+        <td><span class="pill ok">★★★ 高度同构</span><br/><span class="note">"产线复用 + 客户隔离"的核心管理逻辑相同</span></td>
+      </tr>
+      <tr>
+        <td><strong>客户数据</strong></td>
+        <td><span class="semi">Customer Wafer Design</span>（客户产品设计绝密）</td>
+        <td><span class="pharma">客户 API / 工艺包</span>（客户产品工艺绝密）</td>
+        <td><span class="pill ok">★★★ 同构</span><br/><span class="note">客户隔离要求严苛程度相同；解决方案可借鉴</span></td>
+      </tr>
+      <tr>
+        <td><strong>设备类型</strong></td>
+        <td><span class="semi">光刻机 / 刻蚀机 / CVD / CMP</span></td>
+        <td><span class="pharma">反应釜 / 结晶器 / 干燥机 / 离心机</span></td>
+        <td><span class="pill warn">★ 完全不同</span><br/><span class="note">物理层、传感器、控制系统差异巨大，要重做</span></td>
+      </tr>
+      <tr>
+        <td><strong>合规体系</strong></td>
+        <td><span class="semi">IATF / ISO 9001 / 客户审计</span></td>
+        <td><span class="pharma">21 CFR Part 11 + GAMP 5 + GMP + NMPA</span></td>
+        <td><span class="pill warn">★ 完全不同</span><br/><span class="note">CDMO 合规要求严得多；智现未来需补 GAMP 5 类别 4 验证</span></td>
+      </tr>
+      <tr>
+        <td><strong>DCS / OT 协议</strong></td>
+        <td><span class="semi">SEMI E10/E30/E40/E87</span>（半导体专属）</td>
+        <td><span class="pharma">OPC UA + Modbus + DCS 厂商专属</span>（Honeywell / 横河 / Emerson / 西门子）</td>
+        <td><span class="pill warn">★ 完全不同</span><br/><span class="note">智现未来产品需做制药 DCS 接口适配</span></td>
+      </tr>
+      <tr>
+        <td><strong>AI 算法适用性</strong></td>
+        <td><span class="semi">PCA / Autoencoder / LSTM / RL / MPC / 大模型 + RAG</span></td>
+        <td><span class="pharma">同类算法直接适用</span></td>
+        <td><span class="pill ok">★★★ 完全相同</span><br/><span class="note">数学模型层无任何差异</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footnote">
+    一句话总结：业务逻辑层和算法层 <strong>可平移</strong>；物理设备层、合规层、协议层 <strong>需重做</strong>。
+    平移工作的 <strong>70% 难度</strong>在"重做"那 3 层。
+  </div>
+</section>
+
+</main>
+
+<div class="deck-nav" id="deckNav">
+  <button id="btnPrev">◀ 上一页</button>
+  <span class="pages"><span id="curPage">1</span> / <span id="totPage">12</span></span>
+  <button id="btnNext">下一页 ▶</button>
+  <button id="btnExitDeck">退出</button>
+</div>
+
+<script>
+/* =========================================================================
+   FDC Demo — 连续流氢化反应多变量异常检测
+   ========================================================================= */
+const FDC_MIN = 180;
+const sensors = [
+  { id:'T1', name:'反应釜温度 T1', unit:'℃', low:78, high:82, target:80 },
+  { id:'T2', name:'出口温度 T2',   unit:'℃', low:78, high:82, target:80 },
+  { id:'P',  name:'釜压 P',         unit:'bar', low:4.5, high:5.5, target:5.0 },
+  { id:'H2', name:'H₂ 流量',        unit:'NL/min', low:90, high:110, target:100 },
+  { id:'CAT', name:'催化剂活性',    unit:'%', low:90, high:100, target:95 },
+  { id:'UV', name:'UV 出口指示',    unit:'%', low:92, high:97, target:95 },
+  { id:'IR', name:'IR 杂质 A',     unit:'%', low:0.2, high:0.5, target:0.3 },
+  { id:'TQ', name:'搅拌扭矩',       unit:'N·m', low:14, high:18, target:16 },
+];
+
+// 在每分钟生成 8 个参数
+// 故事:
+//   0-60: 正常运行 (轻微噪声)
+//   60-95: 催化剂缓慢失活 (CAT 下降, UV 下降, IR 上升, H2 微增, T1/T2/P 仍正常范围)
+//   95-130: 失活加速,但单参数仍未超阈值
+//   130: 单点阈值才触发 (T1 > 82)
+//   135+: 整批料受损
+function genSeries(){
+  const data = [];
+  const rng = (a,b) => a + Math.random()*(b-a);
+  for (let t=0; t<=FDC_MIN; t++){
+    let deg = 0;
+    if (t >= 60 && t < 130) deg = (t-60)/70;       // 0 -> 1 缓慢
+    else if (t >= 130) deg = 1 + (t-130)*0.05;     // 加速
+
+    // 各传感器随时间漂移
+    const T1 = 80 + deg*2.6 + rng(-0.2, 0.2);                    // 80 -> 82.6+
+    const T2 = T1 - 0.5 + rng(-0.15, 0.15);
+    const P  = 5.0 + deg*0.25 + rng(-0.05, 0.05);
+    const H2 = 100 + deg*8 + rng(-1.5, 1.5);                     // 系统补偿 H2 上升
+    const CAT = 95 - deg*15 + rng(-0.5, 0.5);                    // 95 -> 80
+    const UV = 95 - deg*5 + rng(-0.3, 0.3);
+    const IR = 0.3 + deg*0.25 + rng(-0.02, 0.02);
+    const TQ = 16 + deg*0.8 + rng(-0.2, 0.2);
+
+    data.push({ t, T1, T2, P, H2, CAT, UV, IR, TQ });
+  }
+  return data;
+}
+const fdcData = genSeries();
+
+// T² 统计量 — 简化为加权偏离 + 强相关项
+function computeT2(d){
+  const dev = [
+    Math.pow((d.T1-80)/1.0, 2),
+    Math.pow((d.T2-80)/1.0, 2),
+    Math.pow((d.P-5)/0.3, 2),
+    Math.pow((d.H2-100)/5, 2),
+    Math.pow((d.CAT-95)/3, 2),     // 强权重
+    Math.pow((d.UV-95)/1.5, 2),    // 强权重
+    Math.pow((d.IR-0.3)/0.06, 2),  // 强权重
+    Math.pow((d.TQ-16)/0.5, 2),
+  ];
+  return dev.reduce((a,b)=>a+b, 0);
+}
+
+// 事件:
+// AI 在 T² 首次超过 9 的时间点 (约 t=85-95)
+// 单点阈值在 T1 > 82 的时间点 (约 t=130+)
+let firstAiAlert = -1;
+let firstThreshAlert = -1;
+for (let i=0;i<fdcData.length;i++){
+  if (firstAiAlert<0 && computeT2(fdcData[i]) > 9) firstAiAlert = i;
+  if (firstThreshAlert<0 && fdcData[i].T1 > 82) firstThreshAlert = i;
+}
+
+const fdcEvents = [
+  { t: 0,   type:'info', text:'连续流氢化反应启动。8 个传感器接入,AI 监控开始' },
+  { t: 25,  type:'info', text:'基线学习完成,所有参数在目标范围内' },
+  { t: firstAiAlert, type:'warn', text:`⚠ AI 多变量异常检出:T² 统计量超阈值 9。CAT/UV/IR/H2 的协方差结构改变` },
+  { t: firstAiAlert+5, type:'warn', text:'自动分类:"催化剂活性衰减前兆"(已学习类型 #3)' },
+  { t: firstAiAlert+10, type:'warn', text:'推荐响应:① 取样送 GC-MS 验证 ② 准备催化剂补充 ③ 降温降压备用' },
+  { t: firstThreshAlert, type:'alarm', text:`✗ 传统单点阈值触发:T1 > 82 ℃。此时杂质已经形成,挽救空间小` },
+  { t: firstThreshAlert+5, type:'alarm', text:'若无 FDC 提前 ' + (firstThreshAlert - firstAiAlert) + ' 分钟预警,本批料预计损失 100-2000 万元' },
+];
+
+function renderFdcChart(curT){
+  const svg = document.getElementById('fdcChart');
+  const W=720, H=380, mL=50, mR=20, mT=24, mB=40;
+  const w = W-mL-mR, h = H-mT-mB;
+  const xS = t => mL + (t/FDC_MIN) * w;
+  const yS = v => mT + (1 - v) * h;   // v in [0,1]
+
+  // 多个传感器归一化绘制 + T² 单独绘制
+  let html = '';
+
+  // grid
+  for (let i=0;i<=4;i++){
+    const y = mT + i*h/4;
+    html += `<line class="grid" x1="${mL}" y1="${y}" x2="${W-mR}" y2="${y}" stroke="#374b76" stroke-dasharray="2 3"/>`;
+  }
+  for (let i=0;i<=FDC_MIN;i+=30){
+    const x = xS(i);
+    html += `<line class="grid" x1="${x}" y1="${mT}" x2="${x}" y2="${H-mB}" stroke="#374b76" stroke-dasharray="2 3"/>`;
+    html += `<text x="${x}" y="${H-mB+14}" text-anchor="middle" fill="#9aabd6" font-size="11">T+${i}m</text>`;
+  }
+
+  // 3 条关键传感器线 (归一化到 0-1)
+  const drawLine = (key, color, normFn) => {
+    let pts = [];
+    for (let i=0;i<=curT;i++){
+      const v = normFn(fdcData[i][key]);
+      pts.push(`${xS(i).toFixed(1)},${yS(v).toFixed(1)}`);
+    }
+    return `<polyline fill="none" stroke="${color}" stroke-width="1.8" points="${pts.join(' ')}"/>`;
+  };
+
+  // CAT 0-100 -> 0-1 (注意反向: 高 = 健康)
+  html += drawLine('CAT', '#22d3ee', v => (v-70)/30);
+  // UV 90-97 -> 0-1
+  html += drawLine('UV', '#a855f7', v => (v-90)/8);
+  // IR 0.2-0.7 -> 0-1
+  html += drawLine('IR', '#fbbf24', v => 1 - (v-0.2)/0.5);
+  // T1 78-85 -> 0-1
+  html += drawLine('T1', '#fb7185', v => 1 - (v-78)/7);
+
+  // T² 阈值线 (归一化)
+  const t2Vals = fdcData.slice(0, curT+1).map(computeT2);
+  const t2Norm = v => Math.min(1, Math.max(0, 1 - v/30));
+  let t2Pts = t2Vals.map((v,i) => `${xS(i).toFixed(1)},${yS(t2Norm(v)).toFixed(1)}`);
+  if (t2Pts.length>0) html += `<polyline fill="none" stroke="#10b981" stroke-width="2.5" points="${t2Pts.join(' ')}"/>`;
+  // T² 阈值 9 标记
+  html += `<line x1="${mL}" y1="${yS(t2Norm(9))}" x2="${W-mR}" y2="${yS(t2Norm(9))}" stroke="#10b981" stroke-dasharray="4 4" stroke-width="1"/>`;
+  html += `<text x="${W-mR-4}" y="${yS(t2Norm(9))-4}" text-anchor="end" fill="#10b981" font-size="11">T² 阈值=9</text>`;
+
+  // AI 告警标记
+  if (firstAiAlert>=0 && curT >= firstAiAlert) {
+    html += `<line x1="${xS(firstAiAlert)}" y1="${mT}" x2="${xS(firstAiAlert)}" y2="${H-mB}" stroke="#fbbf24" stroke-width="1.5" stroke-dasharray="3 3"/>`;
+    html += `<text x="${xS(firstAiAlert)+4}" y="${mT+12}" fill="#fbbf24" font-size="11" font-weight="700">AI 告警 T+${firstAiAlert}m</text>`;
+  }
+  if (firstThreshAlert>=0 && curT >= firstThreshAlert) {
+    html += `<line x1="${xS(firstThreshAlert)}" y1="${mT}" x2="${xS(firstThreshAlert)}" y2="${H-mB}" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="3 3"/>`;
+    html += `<text x="${xS(firstThreshAlert)+4}" y="${mT+12}" fill="#ef4444" font-size="11" font-weight="700">单点告警 T+${firstThreshAlert}m</text>`;
+  }
+
+  // 当前时间指示
+  html += `<line x1="${xS(curT)}" y1="${mT}" x2="${xS(curT)}" y2="${H-mB}" stroke="#fff" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/>`;
+
+  // 图例
+  html += `<g font-size="11" font-weight="600">`;
+  html += `<rect x="${mL}" y="${H-mB+24}" width="12" height="2" fill="#22d3ee"/><text x="${mL+18}" y="${H-mB+29}" fill="#cdd6e8">CAT 催化剂活性</text>`;
+  html += `<rect x="${mL+130}" y="${H-mB+24}" width="12" height="2" fill="#a855f7"/><text x="${mL+148}" y="${H-mB+29}" fill="#cdd6e8">UV 收率指示</text>`;
+  html += `<rect x="${mL+250}" y="${H-mB+24}" width="12" height="2" fill="#fbbf24"/><text x="${mL+268}" y="${H-mB+29}" fill="#cdd6e8">IR 杂质 A</text>`;
+  html += `<rect x="${mL+360}" y="${H-mB+24}" width="12" height="2" fill="#fb7185"/><text x="${mL+378}" y="${H-mB+29}" fill="#cdd6e8">T1 温度</text>`;
+  html += `<rect x="${mL+450}" y="${H-mB+24}" width="12" height="3" fill="#10b981"/><text x="${mL+468}" y="${H-mB+29}" fill="#cdd6e8">T² 异常分</text>`;
+  html += `</g>`;
+
+  // 标题
+  html += `<text x="${mL}" y="14" fill="#fff" font-size="12" font-weight="600">8 传感器归一化 + 多变量 T² 异常分</text>`;
+
+  svg.innerHTML = html;
+}
+
+function renderFdcSensors(curT){
+  const el = document.getElementById('fdcSensors');
+  const d = fdcData[curT];
+  let html = '';
+  sensors.forEach(s => {
+    const v = d[s.id];
+    const range = s.high - s.low;
+    const pct = Math.min(1, Math.max(0, (v - s.low) / range));
+    let cls = '';
+    if (s.id === 'IR') {
+      if (v > 0.45) cls = 'alarm';
+      else if (v > 0.38) cls = 'warn';
+    } else if (s.id === 'CAT') {
+      if (v < 82) cls = 'alarm';
+      else if (v < 88) cls = 'warn';
+    } else if (s.id === 'UV') {
+      if (v < 92) cls = 'alarm';
+      else if (v < 93.5) cls = 'warn';
+    } else if (s.id === 'T1' && v > 82) {
+      cls = 'alarm';
+    }
+    html += `<div class="row">
+      <span class="lbl">${s.id}</span>
+      <span class="bar"><span class="fill ${cls}" style="width:${(pct*100).toFixed(0)}%;"></span></span>
+      <span class="val">${v.toFixed(s.id==='IR' ? 2 : 1)}</span>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+function renderFdcStatus(curT){
+  const t2 = computeT2(fdcData[curT]);
+  document.getElementById('fdcT2').textContent = t2.toFixed(2);
+  const stat = document.getElementById('fdcOverall');
+  const desc = document.getElementById('fdcDesc');
+
+  let state = 'ok';
+  if (firstThreshAlert >= 0 && curT >= firstThreshAlert) state = 'alarm';
+  else if (firstAiAlert >= 0 && curT >= firstAiAlert) state = 'warn';
+
+  stat.className = 'fdc-bigstat ' + state;
+  if (state === 'ok') {
+    stat.textContent = '正常';
+    desc.textContent = `8 个传感器全部在正常范围。多变量 T² 统计量 = ${t2.toFixed(2)}(阈值 9.0)`;
+  } else if (state === 'warn') {
+    stat.textContent = '⚠ AI 检出异常';
+    desc.textContent = `催化剂活性衰减前兆。T² = ${t2.toFixed(2)} > 9.0。建议立即采取响应措施`;
+  } else {
+    stat.textContent = '✗ 严重偏差';
+    desc.textContent = `T1 已超 82℃,杂质快速形成。建议紧急降温 + 切换催化剂`;
+  }
+
+  // 单点 vs AI 状态
+  document.getElementById('fdcThresh').textContent =
+    (firstThreshAlert>=0 && curT>=firstThreshAlert) ? `T+${firstThreshAlert}m 触发` : '未触发';
+  document.getElementById('fdcThresh').style.color =
+    (firstThreshAlert>=0 && curT>=firstThreshAlert) ? '#ef4444' : '#fbbf24';
+
+  document.getElementById('fdcAi').textContent =
+    (firstAiAlert>=0 && curT>=firstAiAlert) ? `T+${firstAiAlert}m 检出` : '监测中';
+  document.getElementById('fdcAi').style.color =
+    (firstAiAlert>=0 && curT>=firstAiAlert) ? '#22d3ee' : '#22d3ee';
+
+  if (firstAiAlert>=0 && firstThreshAlert>=0 && curT>=firstThreshAlert) {
+    document.getElementById('fdcLead').textContent = `${firstThreshAlert - firstAiAlert} 分钟`;
+  } else {
+    document.getElementById('fdcLead').textContent = '—';
+  }
+
+  document.getElementById('fdcTime').textContent = `T+${curT} min`;
+  document.getElementById('fdcLabel').textContent = `T+${curT} min`;
+}
+
+function renderFdcLog(curT){
+  const el = document.getElementById('fdcLog');
+  const visible = fdcEvents.filter(e => e.t <= curT && e.t >= 0).slice().reverse();
+  el.innerHTML = visible.map(e => `
+    <div class="ev ${e.type}">
+      <span class="t">T+${String(e.t).padStart(3,'0')}m</span>
+      <span>${e.text}</span>
+    </div>`).join('') || '<div class="ev"><span class="t">T+000m</span> 等待数据...</div>';
+}
+
+let fdcT = 0;
+function updateFdc(){
+  document.getElementById('fdcSlider').value = fdcT;
+  renderFdcChart(fdcT);
+  renderFdcSensors(fdcT);
+  renderFdcStatus(fdcT);
+  renderFdcLog(fdcT);
+}
+
+document.getElementById('fdcSlider').addEventListener('input', e => {
+  fdcT = parseInt(e.target.value);
+  updateFdc();
+});
+
+let fdcTimer = null;
+document.getElementById('fdcPlay').addEventListener('click', e => {
+  if (fdcTimer) {
+    clearInterval(fdcTimer);
+    fdcTimer = null;
+    e.target.textContent = '▶ 自动播放';
+    return;
+  }
+  e.target.textContent = '⏸ 暂停';
+  fdcTimer = setInterval(() => {
+    fdcT = (fdcT + 1) % (FDC_MIN+1);
+    updateFdc();
+  }, 100);
+});
+
+document.getElementById('fdcReset').addEventListener('click', () => {
+  fdcT = 0;
+  updateFdc();
+});
+
+updateFdc();
+
+// 支持 URL ?fdc=NN 用于截图
+(function(){
+  const m = (location.search||'').match(/[?&]fdc=(\d+)/);
+  if (m) {
+    fdcT = Math.min(FDC_MIN, Math.max(0, parseInt(m[1])));
+    updateFdc();
+  }
+})();
+
+/* =========================================================================
+   Tech Transfer 互动 Demo: 设备等效性 + Golden Path
+   ========================================================================= */
+function renderTechTransfer() {
+  const rd = parseInt(document.getElementById('ttRdSize').value);   // 50/200/500
+  const prod = parseInt(document.getElementById('ttProdSize').value); // 2000/5000/10000
+  const rxn = document.getElementById('ttReactionType').value;
+
+  // R&D 设备参数
+  const rdProps = {
+    50:  { name:'50 L 玻璃夹套釜（小试）',     stirrer:'锚式',  rpm:200, re:12500, hav:3.2, U:450, jacket:'油浴 80℃', tau:4.0, mat:'玻璃' },
+    200: { name:'200 L 玻璃 / SS 釜（中试）',  stirrer:'锚式',  rpm:180, re:18000, hav:2.5, U:430, jacket:'油浴 80℃', tau:4.2, mat:'玻璃' },
+    500: { name:'500 L SS 夹套釜（放大）',     stirrer:'桨式',  rpm:150, re:22000, hav:2.0, U:420, jacket:'油浴 80℃', tau:4.4, mat:'不锈钢' },
+  }[rd];
+
+  // 商业化设备参数（依据规模）
+  const prodProps = {
+    2000:  { name:'2000 L 不锈钢釜',  stirrer:'推进式', baseRpm:150, hav:1.9, U:410, mat:'不锈钢' },
+    5000:  { name:'5000 L 不锈钢釜',  stirrer:'推进式', baseRpm:120, hav:1.6, U:395, mat:'不锈钢' },
+    10000: { name:'10000 L 不锈钢釜', stirrer:'推进式', baseRpm:95,  hav:1.3, U:380, mat:'不锈钢' },
+  }[prod];
+
+  // 反应类型对应的风险点 + 参数调整
+  const rxnProps = {
+    hydro:  { label:'Buchwald 加氢',  risk:'放热不均（建议增加釜内 3 个温度测点）+ H₂ 进料浓度梯度', tauFactor:1.20, tempDelta:-5 },
+    conden: { label:'缩合反应',        risk:'副产物（水）需在线脱除，建议加 Dean-Stark 装置 + 在线 KF',  tauFactor:1.15, tempDelta:-3 },
+    cryst:  { label:'结晶 / 重结晶',  risk:'晶种添加时机敏感（建议在线 FBRM 监控粒度分布）', tauFactor:1.35, tempDelta:0 },
+  }[rxn];
+
+  const newRpm = Math.round(prodProps.baseRpm);
+  const newRe = Math.round(rdProps.re * prodProps.hav / rdProps.hav * 0.7);
+  const newTau = (rdProps.tau * rxnProps.tauFactor).toFixed(1);
+  const newJacketTemp = 80 + rxnProps.tempDelta;
+  const havDiff = Math.round((1 - prodProps.hav / rdProps.hav) * 100);
+  const uDiff = Math.round((1 - prodProps.U / rdProps.U) * 100);
+
+  const yieldVal = (90 + (rxn === 'cryst' ? 4 : 2)).toFixed(1);
+  const impVal = (0.18 + (rxn === 'hydro' ? 0 : 0.04)).toFixed(2);
+
+  const svg = document.getElementById('ttSvg');
+  if (!svg) return;
+
+  let html = `
+    <!-- 左侧研发设备 -->
+    <rect x="40" y="20" width="280" height="340" rx="10" fill="rgba(34,211,238,0.08)" stroke="#22d3ee" stroke-width="2"/>
+    <text x="180" y="46" text-anchor="middle" font-size="14" font-weight="700" fill="#22d3ee">🧪 研发反应器 (R&amp;D)</text>
+    <text x="180" y="64" text-anchor="middle" font-size="11" fill="#9aabd6">${rdProps.name}</text>
+    <g font-size="12" fill="#fff">
+      <text x="60" y="100">搅拌器: ${rdProps.stirrer}</text>
+      <text x="60" y="124">转速: ${rdProps.rpm} rpm</text>
+      <text x="60" y="148">搅拌雷诺数 Re: <tspan fill="#22d3ee" font-weight="700">${rdProps.re.toLocaleString()}</tspan></text>
+      <text x="60" y="172">传热面积/体积: <tspan fill="#22d3ee" font-weight="700">${rdProps.hav} m²/m³</tspan></text>
+      <text x="60" y="196">传热系数 U: <tspan fill="#22d3ee" font-weight="700">${rdProps.U} W/m²·K</tspan></text>
+      <text x="60" y="220">夹套介质: ${rdProps.jacket}</text>
+      <text x="60" y="244">停留时间: ${rdProps.tau} h</text>
+      <text x="60" y="268">材质: ${rdProps.mat}</text>
+    </g>
+    <rect x="60" y="290" width="240" height="55" rx="6" fill="rgba(34,211,238,0.15)"/>
+    <text x="180" y="312" text-anchor="middle" font-size="11" fill="#22d3ee" font-weight="700">实测最佳批次（10 批均值）</text>
+    <text x="180" y="330" text-anchor="middle" font-size="12" fill="#fff">收率 92.5% · 杂质 A 0.18%</text>
+
+    <!-- 中间 AI 处理 -->
+    <g transform="translate(360, 70)">
+      <rect width="280" height="260" rx="10" fill="rgba(168,85,247,0.15)" stroke="#a855f7" stroke-width="2"/>
+      <text x="140" y="32" text-anchor="middle" font-size="14" font-weight="700" fill="#c4b5fd">🤖 智现未来 WRA + Golden Path</text>
+      <g font-size="11.5" fill="#fff">
+        <text x="20" y="62">① 设备能力比对</text>
+        <text x="32" y="80" fill="#cbd5e1" font-size="11">→ Re 比研发降至 ${newRe.toLocaleString()}</text>
+        <text x="32" y="96" fill="#cbd5e1" font-size="11">→ 传热面积/体积 差 ${havDiff}%</text>
+        <text x="32" y="112" fill="#cbd5e1" font-size="11">→ 传热系数差 ${uDiff}%</text>
+        <text x="20" y="138">② 历史相似项目检索</text>
+        <text x="32" y="156" fill="#cbd5e1" font-size="11">→ ${rxn==='hydro'?'17':rxn==='conden'?'12':'8'} 个历史相似项目</text>
+        <text x="32" y="172" fill="#cbd5e1" font-size="11">→ Top 3 项目作为黄金批次</text>
+        <text x="20" y="198">③ 参数自动外推 + 风险识别</text>
+        <text x="32" y="216" fill="#cbd5e1" font-size="11">→ 反应时间延长系数 ×${rxnProps.tauFactor}</text>
+        <text x="32" y="232" fill="#cbd5e1" font-size="11">→ ${rxnProps.label} 专属风险点</text>
+      </g>
+    </g>
+    <path d="M325,180 L355,180" stroke="#94a3b8" stroke-width="2" marker-end="url(#tt-arr)"/>
+    <path d="M645,180 L675,180" stroke="#94a3b8" stroke-width="2" marker-end="url(#tt-arr)"/>
+    <defs>
+      <marker id="tt-arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+        <path d="M0,0 L8,4 L0,8 Z" fill="#94a3b8"/>
+      </marker>
+    </defs>
+
+    <!-- 右侧商业化设备推荐 -->
+    <rect x="680" y="20" width="480" height="340" rx="10" fill="rgba(251,191,36,0.08)" stroke="#fbbf24" stroke-width="2"/>
+    <text x="920" y="46" text-anchor="middle" font-size="14" font-weight="700" fill="#fbbf24">🏭 商业化反应器（推荐方案）</text>
+    <text x="920" y="64" text-anchor="middle" font-size="11" fill="#9aabd6">${prodProps.name} + AI 推荐工艺参数</text>
+    <g font-size="12" fill="#fff">
+      <text x="700" y="100">搅拌器: ${prodProps.stirrer}</text>
+      <text x="700" y="124">转速: <tspan fill="#fbbf24" font-weight="700">${newRpm} rpm</tspan> <tspan fill="#cbd5e1" font-size="11">（AI 建议；保证湍流）</tspan></text>
+      <text x="700" y="148">搅拌雷诺数 Re: <tspan fill="#fbbf24" font-weight="700">${newRe.toLocaleString()}</tspan> <tspan fill="#cbd5e1" font-size="11">（${newRe>4000?'湍流 ✓':'⚠ 偏层流'}）</tspan></text>
+      <text x="700" y="172">传热面积/体积: <tspan fill="#fbbf24" font-weight="700">${prodProps.hav} m²/m³</tspan> <tspan fill="#cbd5e1" font-size="11">（差 ${havDiff}%）</tspan></text>
+      <text x="700" y="196">传热系数 U: <tspan fill="#fbbf24" font-weight="700">${prodProps.U} W/m²·K</tspan></text>
+      <text x="700" y="220">夹套介质: <tspan fill="#fbbf24" font-weight="700">油浴 ${newJacketTemp}℃</tspan> <tspan fill="#cbd5e1" font-size="11">（${rxnProps.tempDelta<0?'AI 建议下调 '+Math.abs(rxnProps.tempDelta)+'℃ 补偿':'与研发相同'}）</tspan></text>
+      <text x="700" y="244">停留时间: <tspan fill="#fbbf24" font-weight="700">${newTau} h</tspan> <tspan fill="#cbd5e1" font-size="11">（AI 建议 ×${rxnProps.tauFactor}）</tspan></text>
+      <text x="700" y="268">材质: ${prodProps.mat}</text>
+    </g>
+    <rect x="700" y="290" width="440" height="55" rx="6" fill="rgba(251,191,36,0.15)"/>
+    <text x="920" y="310" text-anchor="middle" font-size="11" fill="#fbbf24" font-weight="700">⚠ AI 识别风险点</text>
+    <text x="920" y="328" text-anchor="middle" font-size="11.5" fill="#fff">${rxnProps.risk}</text>
+  `;
+  svg.innerHTML = html;
+}
+document.getElementById('ttRdSize').addEventListener('change', renderTechTransfer);
+document.getElementById('ttProdSize').addEventListener('change', renderTechTransfer);
+document.getElementById('ttReactionType').addEventListener('change', renderTechTransfer);
+renderTechTransfer();
+
+/* =========================================================================
+   Q&A LLM 互动 Demo
+   ========================================================================= */
+const qaScenes = {
+  torque: {
+    input: '<span style="color:#94a3b8;">[2026-05-15 14:32]</span><br/>"今天上午 11:17，反应器 R-201 跑批次 <strong style="color:#fbbf24;">B240515-03</strong> 时，搅拌器扭矩在反应 3 小时左右<strong style="color:#fbbf24;">突然降到正常值的 60%</strong>，持续约 45 秒后恢复。事件期间温度、压力、流量都在 SOP 规定范围内。<strong style="color:#fbbf24;">这是偏差吗？根因可能是什么？需要写 CAPA 吗？</strong>"',
+    process: [
+      '步骤 1：向量检索历史偏差库 → 找到 <strong style="color:#22d3ee;">8 条相似事件</strong>（搅拌扭矩瞬时下降）',
+      '步骤 2：检索 SOP-R201-V3 + MBR（主批记录）+ 工艺机理库',
+      '步骤 3：分析 DCS 实时数据（扭矩 / 温度 / 流量 / 物料指标）',
+      '步骤 4：根因假设排序 + CAPA 草稿生成',
+    ],
+    cite: 'D-202401-17、D-202309-22、D-202203-08、SOP-R201-V3 §4.2、MBR B240515-03、ICH Q9 风险评估',
+    output: {
+      cls: 'Minor Deviation（轻微偏差）',
+      clsDesc: '偏差等级评估：低风险（参考 ICH Q9 + 历史 8/8 例均未影响产品质量）',
+      causes: [
+        '<span style="color:#fbbf24;">75%</span> 机械密封短暂卡涩（D-202401-17 同型号设备 6 例）',
+        '<span style="color:#fbbf24;">15%</span> 物料粘度瞬时变化（CPP 表 §3.1 临界值附近）',
+        '<span style="color:#fbbf24;">10%</span> 传感器漂移（建议校准对比）',
+      ],
+      capa: [
+        '取样 GC-MS 验证本批含量与杂质（确认产品质量）',
+        '下批前对 R-201 搅拌器做机械密封点检',
+        '调取 R-201 近 30 天扭矩趋势看是否有缓慢漂移',
+        '若产品 OK，归档为 Minor Deviation 不影响放行',
+      ],
+    },
+  },
+  temp: {
+    input: '<span style="color:#94a3b8;">[2026-05-16 09:48]</span><br/>"反应器 R-105 批次 <strong style="color:#fbbf24;">B240516-02</strong> 加料阶段结束后，温度<strong style="color:#fbbf24;">从设定 60℃ 一度冲高到 67.5℃</strong>，持续约 90 秒后才回到 60±0.5℃ 范围。SOP 规定上限 65℃。<strong style="color:#fbbf24;">这次过冲会不会影响产品质量？要不要回收？</strong>"',
+    process: [
+      '步骤 1：检索历史温度过冲偏差 → 找到 <strong style="color:#22d3ee;">12 条相似事件</strong>',
+      '步骤 2：拉取本批 DCS 数据 + 加料速度曲线 + 夹套温度',
+      '步骤 3：检索 ICH Q1A 稳定性 + 产品工艺杂质机理库',
+      '步骤 4：评估超温对杂质 B 形成的影响（动力学外推）',
+    ],
+    cite: 'D-202310-04、D-202405-18、SOP-R105-V2、MBR B240516-02、ICH Q1A 稳定性指南、Process Robustness Study 2023',
+    output: {
+      cls: 'Major Deviation（重大偏差）',
+      clsDesc: '偏差等级评估：中风险 — 超 SOP 上限 2.5℃ × 90s，可能促进杂质 B 形成',
+      causes: [
+        '<span style="color:#fbbf24;">60%</span> 加料速度过快（看 DCS：实际比 SOP 快 25%）',
+        '<span style="color:#fbbf24;">25%</span> 夹套冷却响应滞后（冷冻水流量临时偏低）',
+        '<span style="color:#fbbf24;">15%</span> 物料初始温度偏高（上批清洗未充分冷却）',
+      ],
+      capa: [
+        '立即取样测杂质 B 含量（GC-MS 法）— 决定是否放行',
+        '若杂质超规：本批降级处理或回收纯化',
+        '修订 SOP-R105：明确加料速度上限和分段加料',
+        '加装温度软测量预警（提前 2 分钟告警 65℃ 趋势）',
+      ],
+    },
+  },
+  impurity: {
+    input: '<span style="color:#94a3b8;">[2026-05-17 16:05]</span><br/>"批次 <strong style="color:#fbbf24;">B240517-01</strong> 离线 HPLC 检测显示<strong style="color:#fbbf24;">杂质 A 含量 0.42%</strong>，标准上限 0.30%（超规）。同步同设备前批 B240516-04 杂质 A 0.21%。本批和前批工艺参数、原料批号基本一致。<strong style="color:#fbbf24;">为什么会超？根因是什么？产品能放行吗？</strong>"',
+    process: [
+      '步骤 1：检索历史"杂质 A 突然超规"偏差 → 找到 <strong style="color:#22d3ee;">6 条相似事件</strong>',
+      '步骤 2：对比 B240517-01 vs B240516-04 全部参数（200+ tag 差异）',
+      '步骤 3：检索原料批号谱（含活泼杂质 C、催化剂活性指标）',
+      '步骤 4：调用反应动力学模型推杂质 A 形成原因',
+    ],
+    cite: 'D-202203-15、D-202407-02、SOP-R301-V4、MBR B240517-01 / B240516-04、原料 COA-LOT-789012、ICH Q3A 杂质指南',
+    output: {
+      cls: 'OOS（超规）→ 必须做 CAPA',
+      clsDesc: '偏差等级评估：高风险 — 产品 OOS，不可直接放行，需调查 + 决策',
+      causes: [
+        '<span style="color:#fbbf24;">70%</span> 原料批号 LOT-789012 的活泼杂质 C 高 30%（同样原料历史也曾导致超规）',
+        '<span style="color:#fbbf24;">20%</span> 反应温度区间略偏（63.5℃ vs 设定 62℃，加速了副反应）',
+        '<span style="color:#fbbf24;">10%</span> 搅拌混合效率下降（机械密封磨损前兆）',
+      ],
+      capa: [
+        '本批产品 OOS — 不放行，启动 OOS 调查（含原料追溯 + 设备点检）',
+        '联系原料供应商 — 提供 LOT-789012 的活泼杂质 C 详细 COA',
+        '修订原料验收 SOP：增加活泼杂质 C 入厂检测',
+        '本批可考虑纯化回收，或降级用于其他不严苛项目',
+      ],
+    },
+  },
+};
+
+let qaCurrentScene = 'torque';
+let qaAnimationTimer = null;
+
+function renderQaScene(sceneKey) {
+  const s = qaScenes[sceneKey];
+  qaCurrentScene = sceneKey;
+
+  // 高亮按钮
+  document.querySelectorAll('.qa-scene-btn').forEach(b => {
+    if (b.dataset.scene === sceneKey) {
+      b.style.background = '#a855f7'; b.style.color = '#fff'; b.style.fontWeight = '600';
+      b.style.border = 'none';
+    } else {
+      b.style.background = 'transparent'; b.style.color = '#c4b5fd'; b.style.fontWeight = 'normal';
+      b.style.border = '1px solid #a855f7';
+    }
+  });
+
+  // 输入
+  document.getElementById('qaInput').innerHTML = s.input;
+
+  // 处理步骤（默认全部显示）
+  document.getElementById('qaProcess').innerHTML =
+    s.process.map(step => `<div>✓ <strong>${step}</strong></div>`).join('') +
+    `<div style="margin-top: 8px; padding: 6px 10px; background: rgba(0,0,0,0.2); border-radius:6px; font-size: 11.5px; color:#cbd5e1;">` +
+    `<span style="color:#22d3ee;">引用源</span>：${s.cite}</div>`;
+
+  document.getElementById('qaTime').textContent = '已完成 2.3 秒';
+
+  // 输出
+  document.getElementById('qaOutput').innerHTML = `
+    <div>
+      <strong style="color:#a7f3d0;">事件分类</strong><br/>
+      <span style="color:#fff;">⚠ ${s.output.cls}</span><br/>
+      <span style="color:#cbd5e1; font-size:11px;">${s.output.clsDesc}</span>
+    </div>
+    <div>
+      <strong style="color:#a7f3d0;">根因假设（按概率排序）</strong>
+      <ol style="margin: 4px 0 0 16px; padding: 0; font-size:11.5px; line-height:1.6;">
+        ${s.output.causes.map(c => `<li>${c}</li>`).join('')}
+      </ol>
+    </div>
+    <div>
+      <strong style="color:#a7f3d0;">CAPA 建议（草稿）</strong>
+      <ol style="margin: 4px 0 0 16px; padding: 0; font-size:11.5px; line-height:1.6;">
+        ${s.output.capa.map(c => `<li>✓ ${c}</li>`).join('')}
+      </ol>
+    </div>
+  `;
+}
+
+function playQaAnimation() {
+  if (qaAnimationTimer) { clearInterval(qaAnimationTimer); qaAnimationTimer = null; }
+  const s = qaScenes[qaCurrentScene];
+  const procEl = document.getElementById('qaProcess');
+  const timeEl = document.getElementById('qaTime');
+  let i = 0;
+
+  document.getElementById('qaOutput').innerHTML = '<div style="grid-column: 1/-1; padding: 20px; text-align:center; color:#94a3b8; font-size:13px;">⏳ 等待 AI 完成处理...</div>';
+  procEl.innerHTML = '';
+  timeEl.textContent = '正在处理...';
+
+  qaAnimationTimer = setInterval(() => {
+    if (i < s.process.length) {
+      procEl.innerHTML += `<div>✓ <strong>${s.process[i]}</strong></div>`;
+      i++;
+    } else if (i === s.process.length) {
+      procEl.innerHTML += `<div style="margin-top: 8px; padding: 6px 10px; background: rgba(0,0,0,0.2); border-radius:6px; font-size: 11.5px; color:#cbd5e1;">` +
+        `<span style="color:#22d3ee;">引用源</span>：${s.cite}</div>`;
+      i++;
+    } else {
+      clearInterval(qaAnimationTimer); qaAnimationTimer = null;
+      timeEl.textContent = '已完成 2.3 秒';
+      document.getElementById('qaOutput').innerHTML = `
+        <div>
+          <strong style="color:#a7f3d0;">事件分类</strong><br/>
+          <span style="color:#fff;">⚠ ${s.output.cls}</span><br/>
+          <span style="color:#cbd5e1; font-size:11px;">${s.output.clsDesc}</span>
+        </div>
+        <div>
+          <strong style="color:#a7f3d0;">根因假设（按概率排序）</strong>
+          <ol style="margin: 4px 0 0 16px; padding: 0; font-size:11.5px; line-height:1.6;">
+            ${s.output.causes.map(c => `<li>${c}</li>`).join('')}
+          </ol>
+        </div>
+        <div>
+          <strong style="color:#a7f3d0;">CAPA 建议（草稿）</strong>
+          <ol style="margin: 4px 0 0 16px; padding: 0; font-size:11.5px; line-height:1.6;">
+            ${s.output.capa.map(c => `<li>✓ ${c}</li>`).join('')}
+          </ol>
+        </div>
+      `;
+    }
+  }, 500);
+}
+
+document.querySelectorAll('.qa-scene-btn').forEach(b => {
+  b.addEventListener('click', () => renderQaScene(b.dataset.scene));
+});
+document.getElementById('qaPlay').addEventListener('click', playQaAnimation);
+renderQaScene('torque');
+
+/* =========================================================================
+   PdM 互动 Demo: 设备切换 + 健康分数曲线
+   ========================================================================= */
+const pdmEquipments = {
+  r201: {
+    name: '反应釜 R-201 搅拌器', code: 'R-201', score: 94, status: '正常', color: '#22d3ee',
+    rul: '> 180 天', rulColor: '#fff',
+    // 90 天历史 + 30 天预测
+    history: [{d:0,h:96},{d:15,h:96},{d:30,h:95},{d:45,h:95},{d:60,h:95},{d:75,h:94.5},{d:90,h:94}],
+    forecast: [{d:90,h:94},{d:105,h:93},{d:120,h:92}],
+    forecastUpper: [{d:90,h:94},{d:105,h:95},{d:120,h:96}],
+    forecastLower: [{d:90,h:94},{d:105,h:91},{d:120,h:88}],
+    breakD: null, story: '近 90 天健康分数缓慢从 96 降到 94，处于正常磨损范围；预测 30 天后仍 > 90。下次预防性维护建议在 D+150 之后。'
+  },
+  c303: {
+    name: '离心机 C-303', code: 'C-303', score: 71, status: '⚠ 关注', color: '#fbbf24',
+    rul: '42 ± 8 天', rulColor: '#fbbf24',
+    history: [{d:0,h:92},{d:15,h:90},{d:30,h:87},{d:45,h:84},{d:60,h:80},{d:75,h:76},{d:90,h:71}],
+    forecast: [{d:90,h:71},{d:105,h:65},{d:120,h:60}],
+    forecastUpper: [{d:90,h:71},{d:105,h:69},{d:120,h:66}],
+    forecastLower: [{d:90,h:71},{d:105,h:61},{d:120,h:54}],
+    breakD: 132, story: '健康分数 90 天内从 92 降到 71，下降速率近期变快；预测 42±8 天后跌破维护建议线 60。建议安排预防性检修。'
+  },
+  ch101: {
+    name: '冰机 CH-101', code: 'CH-101', score: 38, status: '✗ 警告', color: '#ef4444',
+    rul: '11 ± 3 天', rulColor: '#ef4444',
+    history: [{d:0,h:92},{d:15,h:90},{d:30,h:86},{d:45,h:80},{d:60,h:70},{d:75,h:55},{d:90,h:38}],
+    forecast: [{d:90,h:38},{d:105,h:24},{d:120,h:14}],
+    forecastUpper: [{d:90,h:38},{d:105,h:30},{d:120,h:22}],
+    forecastLower: [{d:90,h:38},{d:105,h:18},{d:120,h:8}],
+    breakD: 101, story: '健康分数过去 30 天加速下降，从 70 跌至 38；预测 11±3 天内健康分跌破 30 红线。必须紧急停机检修，避免计划外故障。'
+  },
+  vp401: {
+    name: '真空泵 VP-401', code: 'VP-401', score: 88, status: '正常', color: '#22d3ee',
+    rul: '120 ± 20 天', rulColor: '#fff',
+    history: [{d:0,h:96},{d:15,h:95},{d:30,h:94},{d:45,h:93},{d:60,h:91},{d:75,h:90},{d:90,h:88}],
+    forecast: [{d:90,h:88},{d:105,h:85},{d:120,h:82}],
+    forecastUpper: [{d:90,h:88},{d:105,h:88},{d:120,h:87}],
+    forecastLower: [{d:90,h:88},{d:105,h:82},{d:120,h:77}],
+    breakD: null, story: '健康分数稳定在 88-96 之间；预测 120 天内不会触发维护建议线。常规巡检即可。'
+  },
+};
+
+let pdmCurrentEq = 'ch101';
+
+function renderPdmCards() {
+  const el = document.getElementById('pdmCards');
+  el.innerHTML = Object.entries(pdmEquipments).map(([key, eq]) => {
+    const active = key === pdmCurrentEq;
+    const bg = active ? `rgba(168,85,247,0.25)` : `rgba(${eq.color === '#22d3ee'?'34,211,238':eq.color==='#fbbf24'?'251,191,36':'239,68,68'},0.10)`;
+    const borderC = active ? '#a855f7' : eq.color;
+    const borderW = active ? '2.5' : '1';
+    return `
+      <div data-eq="${key}" class="pdm-card" style="background:${bg}; border:${borderW}px solid ${borderC}; border-radius: 8px; padding: 12px; cursor: pointer; transition: all 0.15s;">
+        <div style="font-size:11px; color:#9aabd6; text-transform: uppercase;">${eq.name}</div>
+        <div style="font-size:30px; font-weight:800; color:${eq.color}; line-height:1.2; margin-top:4px;">${eq.score}</div>
+        <div style="font-size:11.5px; color:#cdd6e8;">健康分 · <strong style="color:${eq.color};">${eq.status}</strong></div>
+        <div style="margin-top:6px; padding-top:6px; border-top: 1px dashed rgba(255,255,255,0.1); font-size:11px; color:#94a3b8;">
+          RUL: <strong style="color:${eq.rulColor};">${eq.rul}</strong>
+        </div>
+      </div>`;
+  }).join('');
+  el.querySelectorAll('.pdm-card').forEach(c => {
+    c.addEventListener('click', () => {
+      pdmCurrentEq = c.dataset.eq;
+      renderPdmCards();
+      renderPdmSvg();
+    });
+  });
+}
+
+function renderPdmSvg() {
+  const eq = pdmEquipments[pdmCurrentEq];
+  const svg = document.getElementById('pdmSvg');
+  if (!svg) return;
+
+  const W = 1100, H = 280;
+  const mL = 60, mR = 20, mT = 40, mB = 70;
+  const w = W - mL - mR;
+  const h = H - mT - mB;
+  const xS = d => mL + (d / 120) * w;
+  const yS = v => mT + (1 - v / 100) * h;
+
+  let html = `<text x="20" y="20" fill="#fff" font-size="13" font-weight="700">📉 ${eq.name} · 健康分数 90 天历史 + 30 天 AI 预测（含置信区间）</text>`;
+
+  // 网格
+  for (let i = 25; i <= 100; i += 25) {
+    html += `<line x1="${mL}" y1="${yS(i)}" x2="${W-mR}" y2="${yS(i)}" stroke="#374b76" stroke-dasharray="2 3" opacity="0.5"/>`;
+    html += `<text x="${mL-10}" y="${yS(i)+4}" text-anchor="end" fill="#9aabd6" font-size="11">${i}</text>`;
+  }
+
+  // 健康阈值 30
+  html += `<line x1="${mL}" y1="${yS(30)}" x2="${W-mR}" y2="${yS(30)}" stroke="#ef4444" stroke-dasharray="4 4" stroke-width="1.5"/>`;
+  html += `<text x="${W-mR-5}" y="${yS(30)-4}" text-anchor="end" fill="#ef4444" font-size="10.5">健康阈值 30</text>`;
+
+  // 维护建议 60
+  html += `<line x1="${mL}" y1="${yS(60)}" x2="${W-mR}" y2="${yS(60)}" stroke="#fbbf24" stroke-dasharray="4 4" stroke-width="1.5"/>`;
+  html += `<text x="${W-mR-5}" y="${yS(60)-4}" text-anchor="end" fill="#fbbf24" font-size="10.5">维护建议 60</text>`;
+
+  // X 轴
+  [0,30,60,90].forEach(d => {
+    html += `<text x="${xS(d)}" y="${H-mB+25}" text-anchor="middle" fill="#9aabd6" font-size="11">D−${90-d}</text>`;
+  });
+  html += `<text x="${xS(90)}" y="${H-mB+25}" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">当前 D0</text>`;
+  html += `<text x="${xS(120)}" y="${H-mB+25}" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="700">D+30 (预测)</text>`;
+
+  // 当前时间分隔线
+  html += `<line x1="${xS(90)}" y1="${mT}" x2="${xS(90)}" y2="${H-mB}" stroke="#fff" stroke-width="1" stroke-dasharray="3 3" opacity="0.5"/>`;
+
+  // 历史轨迹
+  const histPts = eq.history.map(p => `${xS(p.d)},${yS(p.h)}`).join(' ');
+  html += `<polyline points="${histPts}" stroke="#22d3ee" stroke-width="2.5" fill="none"/>`;
+
+  // 预测中央线
+  const fcPts = eq.forecast.map(p => `${xS(p.d)},${yS(p.h)}`).join(' ');
+  html += `<polyline points="${fcPts}" stroke="#fbbf24" stroke-width="2.5" stroke-dasharray="5 4" fill="none"/>`;
+
+  // 置信区间灰带
+  const upperPts = eq.forecastUpper.map(p => `${xS(p.d)},${yS(p.h)}`).join(' ');
+  const lowerPts = eq.forecastLower.slice().reverse().map(p => `${xS(p.d)},${yS(p.h)}`).join(' ');
+  html += `<polygon points="${upperPts} ${lowerPts}" fill="#fbbf24" opacity="0.15"/>`;
+
+  // 当前点标注
+  html += `<circle cx="${xS(90)}" cy="${yS(eq.score)}" r="6" fill="#fbbf24" stroke="#fff" stroke-width="2"/>`;
+  html += `<text x="${xS(90)+10}" y="${yS(eq.score)-8}" fill="#fbbf24" font-size="11" font-weight="700">当前 健康分 ${eq.score}</text>`;
+
+  // 预计跌破阈值标注
+  if (eq.breakD) {
+    html += `<line x1="${xS(eq.breakD)}" y1="${mT}" x2="${xS(eq.breakD)}" y2="${H-mB}" stroke="#ef4444" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.7"/>`;
+    const daysLeft = eq.breakD - 90;
+    const ll = eq.breakD === 132 ? '健康分跌破 60' : '健康分跌破 30';
+    html += `<text x="${xS(eq.breakD)-8}" y="${mT+15}" text-anchor="end" fill="#ef4444" font-size="11" font-weight="700">预计 D+${daysLeft}±${eq.code==='CH-101'?3:eq.code==='C-303'?8:5} 天</text>`;
+    html += `<text x="${xS(eq.breakD)-8}" y="${mT+30}" text-anchor="end" fill="#ef4444" font-size="11" font-weight="700">${ll}</text>`;
+  }
+
+  // 故事文字
+  html += `<text x="${mL}" y="${H-15}" fill="#9aabd6" font-size="11">${eq.story}</text>`;
+
+  svg.innerHTML = html;
+}
+
+renderPdmCards();
+renderPdmSvg();
+
+/* =========================================================================
+   Iso Architecture SVG
+   ========================================================================= */
+(function renderIsoArch(){
+  const svg = document.getElementById('isoArch');
+  if (!svg) return;
+  const W = 1240, H = 540;
+  let html = '';
+
+  // 3 个客户域
+  const clients = [
+    { x:60,  color:'#3b82f6', name:'客户 A · 工艺数据' },
+    { x:460, color:'#10b981', name:'客户 B · 工艺数据' },
+    { x:860, color:'#f59e0b', name:'客户 C · 工艺数据' },
+  ];
+
+  clients.forEach((c, i) => {
+    html += `<rect x="${c.x}" y="40" width="320" height="120" rx="10" fill="${c.color}" opacity="0.15" stroke="${c.color}" stroke-width="2"/>`;
+    html += `<text x="${c.x+160}" y="65" text-anchor="middle" font-size="13" font-weight="700" fill="${c.color}">${c.name}</text>`;
+    html += `<text x="${c.x+20}" y="92" font-size="11" fill="#0f1f3d">• 批记录 / 工艺包 / CPP·CQA</text>`;
+    html += `<text x="${c.x+20}" y="110" font-size="11" fill="#0f1f3d">• 实时 DCS 数据</text>`;
+    html += `<text x="${c.x+20}" y="128" font-size="11" fill="#0f1f3d">• AI 训练标注库(项目级)</text>`;
+    html += `<text x="${c.x+20}" y="146" font-size="11" fill="#0f1f3d">• 客户专属微调模型参数</text>`;
+  });
+
+  // L1 隔离层
+  html += `<rect x="60" y="190" width="1120" height="60" rx="8" fill="#fee2e2" stroke="#fca5a5" stroke-width="2"/>`;
+  html += `<text x="80" y="215" font-size="13" font-weight="700" fill="#991b1b">🔒 L1 · 物理 / 逻辑数据隔离层</text>`;
+  html += `<text x="80" y="235" font-size="11.5" fill="#991b1b">独立数据库 schema / 多租户架构 / 项目级权限 / 审计日志追到"用户 × 客户 × 操作"</text>`;
+
+  // L2 模型层
+  html += `<rect x="60" y="270" width="1120" height="60" rx="8" fill="#fed7aa" stroke="#fb923c" stroke-width="2"/>`;
+  html += `<text x="80" y="295" font-size="13" font-weight="700" fill="#9a3412">🛡 L2 · 模型 / 参数隔离层</text>`;
+  html += `<text x="80" y="315" font-size="11.5" fill="#9a3412">客户专属微调模型不混用 / 联邦学习 + 差分隐私 / 共享层只是通用底层算法(PCA、Transformer 架构本身)</text>`;
+
+  // L3 知识沉淀层
+  html += `<rect x="60" y="350" width="1120" height="60" rx="8" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/>`;
+  html += `<text x="80" y="375" font-size="13" font-weight="700" fill="#1e40af">📚 L3 · 经验 / 知识沉淀脱敏层</text>`;
+  html += `<text x="80" y="395" font-size="11.5" fill="#1e40af">委员会评议每条经验是否可共享 / 可共享:方法论·SOP 模板·设备参数库 / 不可共享:CPP 数值·杂质谱·催化剂体系</text>`;
+
+  // 凯莱英共享底座
+  html += `<rect x="60" y="430" width="1120" height="80" rx="8" fill="#f5f3ff" stroke="#a855f7" stroke-width="2"/>`;
+  html += `<text x="80" y="455" font-size="13" font-weight="700" fill="#6b21a8">🧠 凯莱英 AI 共享底座(可跨客户)</text>`;
+  html += `<text x="80" y="478" font-size="11.5" fill="#6b21a8">通用算法 (PCA / Autoencoder / LSTM / Transformer 架构) · 通用知识图谱 · 公开制药文献 · 设备参数库 · 监管规则库</text>`;
+  html += `<text x="80" y="498" font-size="11.5" fill="#6b21a8">→ 智现未来的"灵犀"基础模型 + 凯莱英自研脱敏知识库,都属于此层</text>`;
+
+  // 客户域 → L1 箭头
+  clients.forEach(c => {
+    html += `<path d="M${c.x+160},160 L${c.x+160},190" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3 2" fill="none" marker-end="url(#iso-arr)"/>`;
+  });
+
+  // 整体下行
+  html += `<defs><marker id="iso-arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+    <path d="M0,0 L8,4 L0,8 Z" fill="#64748b"/></marker></defs>`;
+
+  svg.innerHTML = html;
+})();
+
+/* =========================================================================
+   Radar — 供应商对比
+   ========================================================================= */
+const radarDims = ['工艺工程算法','制药行业经验','大模型 / LLM','GMP / Part 11 合规','国内本地化','开放生态','跨行业风险(反)','价格性价比'];
+const radarSeries = [
+  { id:'ff',   name:'智现未来',          color:'#a855f7', vals:[9, 1, 8, 3, 9, 6, 3, 7], on:true },
+  { id:'hw',   name:'华为云盘古制药',     color:'#1e40af', vals:[7, 7, 9, 6, 9, 7, 7, 5], on:true },
+  { id:'aiz',  name:'Aizon / Mareana',  color:'#10b981', vals:[6, 9, 7, 9, 5, 7, 9, 4], on:true },
+  { id:'av',   name:'AVEVA / Aspen',    color:'#f59e0b', vals:[7, 8, 5, 9, 6, 9, 8, 4], on:true },
+  { id:'sd',   name:'中控石化大模型',     color:'#3b82f6', vals:[7, 3, 7, 5, 9, 6, 5, 6], on:true },
+];
+
+function renderRadarChart(){
+  const svg = document.getElementById('radarCompare');
+  if (!svg) return;
+  const cx=270, cy=240, r=160;
+  const n = radarDims.length;
+  let html = '';
+
+  for (let g=2; g<=10; g+=2) {
+    let pts = [];
+    for (let i=0;i<n;i++) {
+      const ang = -Math.PI/2 + i*2*Math.PI/n;
+      const rr = r*g/10;
+      pts.push((cx+rr*Math.cos(ang)).toFixed(1)+','+(cy+rr*Math.sin(ang)).toFixed(1));
+    }
+    html += `<polygon points="${pts.join(' ')}" fill="none" stroke="#e3e8f2"/>`;
+  }
+
+  for (let i=0;i<n;i++) {
+    const ang = -Math.PI/2 + i*2*Math.PI/n;
+    const x = cx + r*Math.cos(ang);
+    const y = cy + r*Math.sin(ang);
+    html += `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#e3e8f2"/>`;
+    const lx = cx + (r+20)*Math.cos(ang);
+    const ly = cy + (r+20)*Math.sin(ang);
+    html += `<text x="${lx}" y="${ly}" text-anchor="middle" dominant-baseline="middle" font-size="11" fill="#5b6a8a">${radarDims[i]}</text>`;
+  }
+
+  const visible = radarSeries.filter(s => s.on);
+  visible.forEach(s => {
+    let pts = [];
+    s.vals.forEach((v, i) => {
+      const ang = -Math.PI/2 + i*2*Math.PI/n;
+      const rr = r * v/10;
+      pts.push((cx+rr*Math.cos(ang)).toFixed(1)+','+(cy+rr*Math.sin(ang)).toFixed(1));
+    });
+    const isFf = s.id === 'ff';
+    const opacity = isFf ? 0.4 : 0.12;
+    html += `<polygon points="${pts.join(' ')}" fill="${s.color}" fill-opacity="${opacity}" stroke="${s.color}" stroke-width="${isFf?2.5:1.3}"/>`;
+  });
+
+  visible.forEach((s, i) => {
+    const y = 415 + (i%3)*22;
+    const x = 30 + Math.floor(i/3)*250;
+    html += `<rect x="${x}" y="${y}" width="12" height="12" fill="${s.color}" rx="2"/>`;
+    html += `<text x="${x+18}" y="${y+10}" font-size="11.5" fill="#0f1f3d">${s.name}</text>`;
+  });
+
+  svg.innerHTML = html;
+}
+
+function renderRadarCandidates(){
+  const el = document.getElementById('radarCandidates');
+  if (!el) return;
+  el.innerHTML = radarSeries.map(s => `
+    <label style="display:inline-flex; align-items:center; gap:6px; font-size:13px; cursor:pointer; user-select:none;">
+      <input type="checkbox" data-id="${s.id}" ${s.on?'checked':''} style="accent-color:${s.color}; width:16px; height:16px;"/>
+      <span style="display:inline-block; width:10px; height:10px; background:${s.color}; border-radius:2px;"></span>
+      <span style="color:#0f1f3d; font-weight:${s.id==='ff'?700:500};">${s.name}</span>
+    </label>
+  `).join('');
+  el.querySelectorAll('input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', e => {
+      const id = e.target.dataset.id;
+      const s = radarSeries.find(x => x.id === id);
+      if (s) { s.on = e.target.checked; renderRadarChart(); }
+    });
+  });
+}
+
+renderRadarCandidates();
+renderRadarChart();
+
+/* =========================================================================
+   Roadmap SVG (Step 1/2/3)
+   ========================================================================= */
+(function renderRoadmap(){
+  const svg = document.getElementById('roadmapSvg');
+  if (!svg) return;
+  const W = 1240, H = 360;
+  let html = '';
+
+  // 时间轴
+  html += `<line x1="60" y1="320" x2="${W-60}" y2="320" stroke="#94a3b8" stroke-width="2"/>`;
+  for (let m=0; m<=18; m+=3) {
+    const x = 60 + (W-120) * m / 18;
+    html += `<line x1="${x}" y1="316" x2="${x}" y2="324" stroke="#94a3b8" stroke-width="1"/>`;
+    html += `<text x="${x}" y="340" text-anchor="middle" fill="#5b6a8a" font-size="11">M${m}</text>`;
+  }
+
+  // 3 步
+  const steps = [
+    { start:0, end:3,  y:50,  color:'#a855f7', name:'Step 1 · 底盘梳理', sub:'内部对齐 + 基础设施立项 + 数据隔离方案' },
+    { start:3, end:12, y:130, color:'#3b82f6', name:'Step 2 · 双方向 PoC', sub:'方向 A: FDC + 方向 B: 技术转移' },
+    { start:12, end:18, y:210, color:'#10b981', name:'Step 3 · 评议 + 规模化', sub:'对照其他供应商 + 决定规模化' },
+    { start:3, end:18, y:262, color:'#f59e0b', name:'并行 · 多供应商评估', sub:'华为云 / Aizon / Mareana 同期 PoC 对照' },
+  ];
+  steps.forEach(s => {
+    const x1 = 60 + (W-120) * s.start / 18;
+    const x2 = 60 + (W-120) * s.end / 18;
+    html += `<rect x="${x1}" y="${s.y}" width="${x2-x1}" height="44" rx="8" fill="${s.color}" opacity="0.85"/>`;
+    html += `<text x="${x1+16}" y="${s.y+20}" font-size="14" font-weight="700" fill="#fff">${s.name}</text>`;
+    html += `<text x="${x1+16}" y="${s.y+38}" font-size="11" fill="#fff" opacity="0.9">${s.sub}</text>`;
+  });
+
+  // 关键里程碑
+  const milestones = [
+    { m:3,  text:'基础设施立项 / 隔离方案 v1' },
+    { m:9,  text:'FDC PoC 中期评审' },
+    { m:12, text:'双方向 PoC 完成 / 反向需求规格书回复' },
+    { m:18, text:'规模化决策' },
+  ];
+  milestones.forEach(ms => {
+    const x = 60 + (W-120) * ms.m / 18;
+    html += `<circle cx="${x}" cy="320" r="6" fill="#dc2626" stroke="#fff" stroke-width="2"/>`;
+    html += `<text x="${x}" y="${ms.m <= 3 ? '300' : '380'}" text-anchor="middle" font-size="10.5" fill="#dc2626" font-weight="600">★ ${ms.text}</text>`;
+  });
+
+  // 标题
+  html += `<text x="60" y="24" fill="#0f1f3d" font-size="14" font-weight="700">3 步走 + 多供应商并行评估时间轴</text>`;
+
+  svg.innerHTML = html;
+})();
+
+/* =========================================================================
+   Deck mode
+   ========================================================================= */
+(function deck(){
+  const btn = document.getElementById('btnDeck');
+  const slides = document.querySelectorAll('section.slide');
+  document.getElementById('totPage').textContent = slides.length;
+  let cur = 0;
+  function showCur(){
+    slides.forEach((s,i)=>s.classList.toggle('active', i===cur));
+    document.getElementById('curPage').textContent = cur+1;
+    window.scrollTo({top:0});
+  }
+  btn.addEventListener('click', ()=>{
+    document.body.classList.toggle('deck');
+    if (document.body.classList.contains('deck')) {
+      btn.textContent = '✕ 退出演示';
+      cur = 0; showCur();
+    } else {
+      btn.textContent = '▶ 演示模式';
+    }
+  });
+  document.getElementById('btnPrev').addEventListener('click', ()=>{ cur=Math.max(0,cur-1); showCur();});
+  document.getElementById('btnNext').addEventListener('click', ()=>{ cur=Math.min(slides.length-1,cur+1); showCur();});
+  document.getElementById('btnExitDeck').addEventListener('click', ()=>{
+    document.body.classList.remove('deck');
+    btn.textContent = '▶ 演示模式';
+  });
+  document.addEventListener('keydown', e=>{
+    if (!document.body.classList.contains('deck')) return;
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { cur=Math.min(slides.length-1,cur+1); showCur();}
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { cur=Math.max(0,cur-1); showCur();}
+    if (e.key === 'Escape') { document.body.classList.remove('deck'); btn.textContent = '▶ 演示模式'; }
+  });
+})();
+</script>
+</body>
+</html>
