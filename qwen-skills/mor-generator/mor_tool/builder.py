@@ -496,6 +496,66 @@ def _material_values(m, header, cfg):
 
 # ---------------------------------------------------------------- 分析方法
 
+def _tcpr(tc):
+    tcpr = tc.find(q("tcPr"))
+    if tcpr is None:
+        tcpr = etree.Element(q("tcPr"))
+        tc.insert(0, tcpr)
+    return tcpr
+
+
+def _set_tcpr_child(tc, name, val):
+    """按 CT_TcPr 的顺序（cnfStyle, tcW, gridSpan, hMerge, vMerge, tcBorders…）放子元素。"""
+    tcpr = _tcpr(tc)
+    for x in tcpr.findall(q(name)):
+        tcpr.remove(x)
+    el = etree.Element(q(name))
+    if val is not None:
+        el.set(q("val"), val)
+    order = ["cnfStyle", "tcW", "gridSpan", "hMerge", "vMerge"]
+    pos = 0
+    for i, child in enumerate(tcpr):
+        if etree.QName(child).localname in order[:order.index(name)]:
+            pos = i + 1
+    tcpr.insert(pos, el)
+
+
+def _span_tail(tr, n):
+    """行里只有前 n 个值时，第 n 个单元格横跨到行尾（例如「Refer to COA/参见COA」）。"""
+    cells = tr.findall(q("tc"))
+    if n >= len(cells) or n < 1:
+        return
+    last = cells[n - 1]
+    w = 0
+    for c in cells[n - 1:]:
+        tw = c.find("w:tcPr/w:tcW", NS)
+        w += int(tw.get(q("w"), "0")) if tw is not None else 0
+    for c in cells[n:]:
+        tr.remove(c)
+    _set_tcpr_child(last, "gridSpan", str(len(cells) - n + 1))
+    tw = last.find("w:tcPr/w:tcW", NS)
+    if tw is not None and w:
+        tw.set(q("w"), str(w))
+
+
+def _merge_group(trs, cols=(0, 4)):
+    """同一取样点的多行：操作号、样品来源两列纵向合并（与专家定稿一致）。"""
+    if len(trs) < 2:
+        return
+    for col in cols:
+        cells = []
+        for tr in trs:
+            tcs = tr.findall(q("tc"))
+            cells.append(tcs[col] if col < len(tcs) else None)
+        if any(c is None for c in cells) or not clean(text_of(cells[0])):
+            continue
+        if any(clean(text_of(c)) for c in cells[1:]):
+            continue
+        _set_tcpr_child(cells[0], "vMerge", "restart")
+        for c in cells[1:]:
+            _set_tcpr_child(c, "vMerge", None)
+
+
 def fill_sampling(body, plan, cfg, rep):
     tbl = None
     for el in body.iter(q("tbl")):
@@ -513,18 +573,27 @@ def fill_sampling(body, plan, cfg, rep):
         if not any(clean(text_of(c)) for c in tr.findall(q("tc"))) and len(tr.findall(q("tc"))) == width:
             blank = tr
         tbl.remove(tr)
+    for tr in (proto, blank):
+        for vm in (tr.findall("w:tc/w:tcPr/w:vMerge", NS) if tr is not None else []):
+            vm.getparent().remove(vm)
     for s in plan["sampling"]:
         ins = ",".join(("□" if n in s.get("optional_ins", []) else "") + str(n) for n in s["ins"])
         if s.get("rows"):
             last_test_row = None
+            groups = []
             for k, r in enumerate(s["rows"]):
                 tr = deep(proto)
                 cells = tr.findall(q("tc"))
                 vals = list(r) + [""] * (width - len(r))
                 for c, v in zip(cells, vals[:width]):
                     set_cell_text(c, v)
+                if 0 < len(r) < width:
+                    _span_tail(tr, len(r))
                 tbl.append(tr)
                 last_test_row = tr
+                if (r and r[0]) or not groups:
+                    groups.append([])
+                groups[-1].append(tr)
             for t in s.get("added_tests", []):
                 en = (s.get("added_en") or {}).get(t, {})
                 tr = deep(proto)
@@ -536,9 +605,13 @@ def fill_sampling(body, plan, cfg, rep):
                     set_cell_text(c, v, highlight=hl)
                 last_test_row.addnext(tr)
                 last_test_row = tr
+                groups[-1].append(tr)
                 rep.add("分析方法", "操作 %s 新增检测项「%s」，请补合格标准和分析方法编号" % (ins, t))
+            for g in groups:
+                _merge_group(g)
             continue
         tests = [t for t in re.split(r"[，,、；;]\s*|\s+(?=[A-Z]{2,})", s["tests_cn"]) if t.strip()] or [s["tests_cn"]]
+        group = []
         for k, t in enumerate(tests):
             tr = deep(proto)
             cells = tr.findall(q("tc"))
@@ -549,6 +622,8 @@ def fill_sampling(body, plan, cfg, rep):
             for c, (v, hl) in zip(cells, vals):
                 set_cell_text(c, v, highlight=hl)
             tbl.append(tr)
+            group.append(tr)
+        _merge_group(group)
         rep.add("分析方法", "操作 %s 的检测项需补英文、合格标准和分析方法编号（%s）" % (ins, s["source"]))
     for _ in range(2):
         if blank is not None:
